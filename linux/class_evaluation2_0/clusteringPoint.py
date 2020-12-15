@@ -108,71 +108,21 @@ def todo(path, zahyou):
 
         for index, prev in enumerate(prev_points):
             save_layer = np.zeros_like(first_frame)
-            if noise[index]==0:
-                save_layer_list[index] = cv2.circle(
-                                                save_layer,                               # 描く画像
-                                                (int(prev[0][0]), int(prev[0][1])),         # 線を引く始点
-                                                5,         # 線を引く終点
-                                                color = c[noise[index]],    # 描く色
-                                                thickness=3   # 線の太さ
-                                            )
-                selectDirList[index] = '/cat1/'
-                cat1_layer = cv2.circle(
-                                                cat1_layer,                               # 描く画像
-                                                (int(prev[0][0]), int(prev[0][1])),         # 線を引く始点
-                                                5,         # 線を引く終点
-                                                color = c[noise[index]],    # 描く色
-                                                thickness=3   # 線の太さ
-                                            )
-            elif noise[index]==1:
-                save_layer_list[index] =  cv2.circle(
-                                                save_layer,                               # 描く画像
-                                                (int(prev[0][0]), int(prev[0][1])),         # 線を引く始点
-                                                5,         # 線を引く終点
-                                                color = c[noise[index]],    # 描く色
-                                                thickness=3   # 線の太さ
-                                            )
-                selectDirList[index] = '/cat2/'
-                cat2_layer = cv2.circle(
-                                                cat2_layer,                               # 描く画像
-                                                (int(prev[0][0]), int(prev[0][1])),         # 線を引く始点
-                                                5,         # 線を引く終点
-                                                color = c[noise[index]],    # 描く色
-                                                thickness=3   # 線の太さ
-                                            )
-            elif noise[index]==2:
-                save_layer_list[index] =  cv2.circle(
-                                                save_layer,                               # 描く画像
-                                                (int(prev[0][0]), int(prev[0][1])),         # 線を引く始点
-                                                5,         # 線を引く終点
-                                                color = c[noise[index]],    # 描く色
-                                                thickness=3   # 線の太さ
-                                            )
-                selectDirList[index] = '/cat3/'
-                cat3_layer = cv2.circle(
-                                                cat3_layer,                               # 描く画像
-                                                (int(prev[0][0]), int(prev[0][1])),         # 線を引く始点
-                                                5,         # 線を引く終点
-                                                color = c[noise[index]],    # 描く色
-                                                thickness=3   # 線の太さ
-                                            )
-            elif noise[index]==3:
-                save_layer_list[index] =  cv2.circle(
-                                                save_layer,                               # 描く画像
-                                                (int(prev[0][0]), int(prev[0][1])),         # 線を引く始点
-                                                5,         # 線を引く終点
-                                                color = c[noise[index]],    # 描く色
-                                                thickness=3   # 線の太さ
-                                            )
-                selectDirList[index] = '/cat4/'
-                cat4_layer = cv2.circle(
-                                                cat4_layer,                               # 描く画像
-                                                (int(prev[0][0]), int(prev[0][1])),         # 線を引く始点
-                                                5,         # 線を引く終点
-                                                color = c[noise[index]],    # 描く色
-                                                thickness=3   # 線の太さ
-                                            )
-        
+            save_layer_list[index] = cv2.circle(
+                                            save_layer,                               # 描く画像
+                                            (int(prev[0][0]), int(prev[0][1])),         # 線を引く始点
+                                            5,         # 線を引く終点
+                                            color = c[noise[index]],    # 描く色
+                                            thickness=3   # 線の太さ
+                                        )
+            cat1_layer = cv2.circle(
+                                            cat1_layer,                               # 描く画像
+                                            (int(prev[0][0]), int(prev[0][1])),         # 線を引く始点
+                                            5,         # 線を引く終点
+                                            color = c[noise[index]],    # 描く色
+                                            thickness=3   # 線の太さ
+                                        )
+            selectDirList[index] = '/cat' + str(noise[index]+1) + '/'
         # フレームに特徴点layerを追加する
         frame = cv2.add(first_frame, cat1_layer)
         frame = cv2.add(frame, cat2_layer)
@@ -183,9 +133,9 @@ def todo(path, zahyou):
             break
 
     # 結果画像の表示
-    cv2.namedWindow("frame", cv2.WINDOW_NORMAL)
+    #cv2.namedWindow("frame", cv2.WINDOW_NORMAL)
     cv2.imshow("frame", frame)
-    cv2.waitKey(0)
+    #cv2.waitKey(0)
     cv2.destroyAllWindows()
     cv2.imwrite(savePath + '/' + videoName + '.jpg', frame)
 

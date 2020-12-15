@@ -58,9 +58,9 @@ def todo(zahyou, savePath, videoName):
 
         ax1.legend(handler1 + handler2, label1 + label2, loc=2, borderaxespad=0.)
 
-        fig_vec.savefig(savePath + selectDir + '/vec/' + videoName + '_' + str(num+1) + ".jpg")
-        fig_error.savefig(savePath + selectDir + '/error/' + videoName + '_' + str(num+1) + ".jpg")
-        print(savePath + selectDir + '/vec/' + videoName + '_' + str(num+1) + ".jpg")
+        fig_vec.savefig(savePath + selectDir + 'vec/' + videoName + '_' + str(num+1) + ".jpg")
+        fig_error.savefig(savePath + selectDir + 'error/' + videoName + '_' + str(num+1) + ".jpg")
+        print(savePath + selectDir + 'vec/' + videoName + '_' + str(num+1) + ".jpg")
         plt.close()
         plt.close()
 

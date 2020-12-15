@@ -1,5 +1,6 @@
 def doGet(path, videoName, savePath):
     import Make_wavedata, clusteringPoint, make_figure, make_fft
+    from pythonFile import make_dirs
     import os
     import pickle
     import shutil
@@ -7,6 +8,7 @@ def doGet(path, videoName, savePath):
     print(path)
 
     #保存ディレクトリの作成
+    '''
     if not os.path.isdir(savePath + '/cat1/pict'):
         for i in range(4):
             os.makedirs(savePath + '/cat' + str(i+1) + '/pict')
@@ -15,6 +17,8 @@ def doGet(path, videoName, savePath):
     else:
         shutil.rmtree(savePath + '/fft')
         os.makedirs(savePath + '/fft')
+    '''
+    make_dirs.makeDir(savePath)
 
     zahyou = Make_wavedata.todo(path)   #オプティカルフローで各特徴点の移動を推定
     print(zahyou)
@@ -34,7 +38,7 @@ if __name__ == "__main__":
 
     # ファイルダイアログからファイルを選択
     typ = [('','*')] 
-    dir = 'C:\\pg'
+    dir = '/media/koshiba/Data/video'
     path = filedialog.askopenfilename(filetypes = typ, initialdir = dir)
 
     videoDir = path[:path.rfind('/')]
@@ -47,14 +51,14 @@ if __name__ == "__main__":
         for i in videolist:
             dirName = videoDir[videoDir.rfind('/')+1:]
             videoName = i[i.rfind('\\')+1:]
-            savePath = 'D:/opticalflow/point_data/' + dirName + '/' + videoName[:-4]
+            savePath = '/media/koshiba/Data/opticalflow/point_data/' + dirName + '/' + videoName[:-4]
             videoPath = videoDir + '/' + videoName
             
             doGet(videoPath, videoName[:-4], savePath)
     else:
         dirName = videoDir[videoDir.rfind('/')+1:]
         videoName = path[path.rfind('/')+1:-4]
-        savePath = 'D:/opticalflow/point_data/' + dirName + '/' + videoName
+        savePath = '/media/koshiba/Data/opticalflow/point_data/' + dirName + '/' + videoName
         videoPath = videoDir + '/' + videoName
 
         doGet(path, videoName, savePath)
