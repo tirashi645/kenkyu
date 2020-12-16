@@ -4,7 +4,7 @@ import cv2
 from PIL import Image
 import matplotlib.pyplot as plt
 import pandas as pd
-from pythonFile import click_pct, k_means, timestump
+from pythonFile import click_pct, k_means, timestump, getVideoData
 import math
 from tkinter import filedialog
 import scipy.stats
@@ -14,15 +14,18 @@ import pickle
 
 # ファイルダイアログからファイル選択
 typ = [('','*')] 
-dir = 'C:\\pg'
+dir = '/media/koshiba/Data/video'
 path = filedialog.askopenfilename(filetypes = typ, initialdir = dir) 
 time_data = timestump.get_time()
 start = time.time()
 
-f = open('/media/koshiba/Data/opticalflow/point_data/' + dirName + '/' + videoName, rb)
+dirName = getVideoData.getDirName(path)
+videoName = getVideoData.getVideoName(path)
+
+f = open('/media/koshiba/Data/opticalflow/point_data/' + dirName + '/' + videoName, 'rb')
 noise = pickle.load(f)
 
-#oise = clusteringPoint.todo(path)
+#noise = clusteringPoint.todo(path)
 classList = Make_wavedata.todo(path, time_data)
 print(noise)
 
