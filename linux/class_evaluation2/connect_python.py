@@ -1,3 +1,6 @@
+from numpy.lib.npyio import save
+
+
 def doGet(path, videoName, savePath):
     import Make_wavedata, clusteringPoint, make_figure, make_fft
     from pythonFile import make_dirs
@@ -14,7 +17,10 @@ def doGet(path, videoName, savePath):
     zahyou = clusteringPoint.todo(path, zahyou) #手動で分類する
     make_figure.todo(zahyou, savePath)   #取得した特徴点の動きをグラフにする
     
-    make_fft.doGet(path, savePath)   #取得した特徴点の動きをFFT変換する
+    make_fft.doGet(zahyou, savePath)   #取得した特徴点の動きをFFT変換する
+    
+    f = open(savePath + '/pointData_' + videoName + '.txt', 'wb')
+    pickle.dump(zahyou, f)
     
 
     
@@ -38,14 +44,16 @@ if __name__ == "__main__":
         for i in videolist:
             dirName = videoDir[videoDir.rfind('/')+1:]
             videoName = i[i.rfind('/')+1:]
-            savePath = 'D:/opticalflow/point_data/' + dirName + '/' + videoName[:-4]
+            savePath = '/media/koshiba/Data/opticalflow/point_data/' + dirName + '/' + videoName[:-4]
+            print(savePath)
             videoPath = videoDir + '/' + videoName
             
             doGet(videoPath, videoName[:-4], savePath)
     else:
         dirName = videoDir[videoDir.rfind('/')+1:]
         videoName = path[path.rfind('/')+1:-4]
-        savePath = 'D:/opticalflow/point_data/' + dirName + '/' + videoName
+        savePath = '/media/koshiba/Data/opticalflow/point_data/' + dirName + '/' + videoName
+        print(savePath)
         videoPath = videoDir + '/' + videoName
 
         doGet(path, videoName, savePath)

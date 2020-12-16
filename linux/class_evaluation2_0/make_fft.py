@@ -1,4 +1,4 @@
-def doGet(path, savepath, dirName):
+def doGet(path, zahyou, savepath, dirName):
     import pickle
     import numpy as np
     import cv2
@@ -8,8 +8,7 @@ def doGet(path, savepath, dirName):
     import pandas
 
     # ビデオの準備
-    path2 = 'D:\opticalflow\\video\\' + dirName + '.avi'
-    cap = cv2.VideoCapture(path2)
+    cap = cv2.VideoCapture(path)
     skip_frame = 10
 
     # ビデオの情報を取得

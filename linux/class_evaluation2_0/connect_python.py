@@ -26,7 +26,7 @@ def doGet(path, videoName, savePath):
     make_figure.todo(zahyou, savePath, videoName)   #取得した特徴点の動きをグラフにする
 
     fft_savepaht = savePath + '/fft'
-    make_fft.doGet(path, fft_savepaht, videoName)   #取得した特徴点の動きをFFT変換する
+    make_fft.doGet(path, zahyou, fft_savepaht, videoName)   #取得した特徴点の動きをFFT変換する
     
 
     f = open(savePath + '/pointData_' + videoName + '.txt', 'wb')

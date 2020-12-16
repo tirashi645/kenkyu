@@ -7,9 +7,7 @@ def todo(zahyou, savePath):
     c = ['b', 'r', 'g', 'y']
     skip_frame = 0     #最初の数フレームをスキップ
 
-    path = savePath[:savePath.rfind('/')]
-
-    f = open(path[:path.rfind('/')] + '/category.txt', 'rb')
+    f = open(savePath + '/category.txt', 'rb')
     catNum = pickle.load(f)
 
     for num, i in enumerate(zahyou):

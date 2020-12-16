@@ -14,9 +14,7 @@ def doGet(zahyou, savePath):
     height = 1290
     fps = 30
 
-    path =  savePath[:savePath.rfind('/')]
-
-    f = open(path[:path.rfind('/')] + '/category.txt', 'rb')
+    f = open(savePath + '/category.txt', 'rb')
     catNum = pickle.load(f)
 
     for num, i in enumerate(zahyou):

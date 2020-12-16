@@ -15,7 +15,7 @@ def todo(path, zahyou):
     videoDir = path[:path.rfind('/')]
     dirName = getVideoData.getDirName(path)
     videoName = getVideoData.getVideoName(path)
-    savePath = 'D:/opticalflow/point_data/' + dirName + '/' + videoName
+    savePath = '/media/koshiba/Data/opticalflow/point_data/' + dirName + '/' + videoName
     cap = cv2.VideoCapture(path)
     print(path[path.rfind('/')+1:])
 
@@ -162,9 +162,9 @@ def todo(path, zahyou):
             break
 
     # 結果画像の表示
-    cv2.namedWindow("frame", cv2.WINDOW_NORMAL)
-    cv2.imshow("frame", frame)
-    cv2.waitKey(0)
+    # cv2.namedWindow("frame", cv2.WINDOW_NORMAL)
+    # cv2.imshow("frame", frame)
+    # cv2.waitKey(0)
     cv2.destroyAllWindows()
     cv2.imwrite(savePath + '/' + videoName + '.jpg', frame)
 
@@ -178,9 +178,9 @@ def todo(path, zahyou):
         cv2.imwrite(savePath + '/' + selectDirList[index] + '/pict/' + videoName + '_' + str(index+1) + '.jpg', save_frame)
 
     category = np.array(noise)
-    print(path[:path.find('/video')] + "/opticalflow/point_data/" + dirName + '/' + videoName + '/winsize/winsize_' + str(winsize) + '/category.txt')
+    print(path[:path.find('/video')] + "/opticalflow/point_data/" + dirName + '/' + videoName + '/category.txt')
 
-    f = open(path[:path.find('/video')] + "/opticalflow/point_data/" + dirName + '/' + videoName + '/winsize/winsize_' + str(winsize) + '/category.txt', "wb")
+    f = open(path[:path.find('/video')] + "/opticalflow/point_data/" + dirName + '/' + videoName + '/category.txt', "wb")
     pickle.dump(category, f)
 
     return zahyou

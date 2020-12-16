@@ -16,6 +16,9 @@ def doGet(path, videoName, savePath):
     
     make_fft.doGet(path, savePath)   #取得した特徴点の動きをFFT変換する
     
+    f = open(savePath + '/pointData_' + videoName + '.txt', 'wb')
+    pickle.dump(zahyou, f)
+    
 
     
 if __name__ == "__main__":
