@@ -81,11 +81,11 @@ def todo(path, classlist, original):
         frame2 = cv2.add(first_frame, flow_layer)
 
         # 結果画像の表示
-        cv2.namedWindow("frame", cv2.WINDOW_NORMAL)
-        cv2.imshow("frame", frame2)
-        cv2.waitKey(0)
-        cv2.destroyAllWindows()
-        cv2.imwrite('D:/opticalflow/evaluation/result/' + str(videoName[:-4]) + '_' + algorithm + '_class' + str(classNum) + '.jpg', frame2)
+        #cv2.namedWindow("frame", cv2.WINDOW_NORMAL)
+        #cv2.imshow("frame", frame2)
+        #cv2.waitKey(0)
+        #cv2.destroyAllWindows()
+        cv2.imwrite('/media/koshiba/Data/opticalflow/point_data/result/' + str(videoName[:-4]) + '_' + algorithm + '_class' + str(classNum) + '.jpg', frame2)
         classNum += 1
 
 

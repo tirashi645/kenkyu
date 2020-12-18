@@ -69,7 +69,7 @@ def todo(path, classlist, original):
     clist = ['gray', 'blue', 'orange', 'green', 'red', 'purple', 'brown', 'yellow', 'olive', 'lime', 'cyan', 'tan']
     clist = [(80,80,80), (255,0,0), (255,165,0), (0,255,0), (0,0,255), (128,0,128), (165,42,42), (255,255,0), (95,101,30), (144,255,59), (0,160,233), (193,129,63)]
     for label in classlist:
-        print(label)
+        #print(label)
         for index, prev in enumerate(prev_points):
             #if original[index]!=label[index]:
             flow_layer = cv2.circle(
@@ -82,11 +82,11 @@ def todo(path, classlist, original):
         frame2 = cv2.add(first_frame, flow_layer)
 
         # 結果画像の表示
-        cv2.namedWindow("frame", cv2.WINDOW_NORMAL)
-        cv2.imshow("frame", frame2)
-        cv2.waitKey(0)
-        cv2.destroyAllWindows()
-        cv2.imwrite('D:/opticalflow/evaluation/result/' + str(videoName[:-4]) + '_' + algorithm + '_class' + str(classNum) + '.jpg', frame2)
+        #cv2.namedWindow("frame", cv2.WINDOW_NORMAL)
+        #cv2.imshow("frame", frame2)
+        #cv2.waitKey(0)
+        #cv2.destroyAllWindows()
+        cv2.imwrite('/media/koshiba/Data/opticalflow/point_data/result/' + str(videoName[:-4]) + '_MeanShift_class' + str(classNum) + '.jpg', frame2)
         classNum += 1
 
 

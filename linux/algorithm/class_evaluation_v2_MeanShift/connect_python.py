@@ -57,15 +57,15 @@ for index1, pred in enumerate(classList):
     if tn+fp != 0:
         specificity[index1] = str(tn/(fp+tn))
 
-print(classList)
+# print(classList)
 
 elapsed_time = time.time() - start
 print ("elapsed_time:{0}".format(elapsed_time) + "[sec]")
 
-print('accuracy:' + accuracy[0] + ' ' + accuracy[1] + ' '  + accuracy[2])
-print('precision' + precision[0] + ' '  + precision[1] + ' '  + precision[2])
-print('recall' + recall[0] + ' '  + recall[1] + ' '  + recall[2])
-print('specificity' + specificity[0] + ' '  + specificity[1] + ' '  + specificity[2])
+print('accuracy:    ' + accuracy[0] + '\t' + accuracy[1] + '\t'  + accuracy[2])
+print('precision:   ' + precision[0] + '\t'  + precision[1] + '\t'  + precision[2])
+print('recall:      ' + recall[0] + '\t'  + recall[1] + '\t'  + recall[2])
+print('specificity: ' + specificity[0] + '\t'  + specificity[1] + '\t'  + specificity[2])
 
 savePict.todo(path, classList, noise)
 

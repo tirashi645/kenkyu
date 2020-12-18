@@ -35,12 +35,20 @@ precision = ['-1', '-1', '-1']
 recall = ['-1', '-1', '-1']
 specificity = ['-1', '-1', '-1']
 tmp = 0
+
 for index1, pred in enumerate(classList):
     for index2, answer in enumerate(noise):
-        if answer==pred[index2]:
-            predList[index1].append(answer)
+        #print(index1, index2)
+        if (pred[index2]==0 or pred[index2]==-1):
+            if answer==0:
+                predList[index1].append(0)
+            else:
+                predList[index1].append(3)
         else:
-            predList[index1].append(answer+2)
+            if answer==1:
+                predList[index1].append(1)
+            else:
+                predList[index1].append(2)
     
     predAll = len(predList[index1])
     tp = predList[index1].count(1)

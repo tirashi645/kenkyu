@@ -183,78 +183,67 @@ def todo(path, time):
         for i in range(len(x_err)):
             err.append([x_err_normal[i], y_err_normal[i]])
             # リストのx,y座標の和が最大のものを抽出する
+            '''
             if max_err < x_err_normal[i] + y_err_normal[i]:
                 max_index = [x_err_normal[i], y_err_normal[i]]
             # リストのx,y座標の和が最小のものを抽出する
             elif min_err > x_err_normal[i] + y_err_normal[i]:
                 min_index = [x_err_normal[i], y_err_normal[i]]
+            '''
         #分類対象のデータのリスト。各要素はfloatのリスト
         vectors = err
-        #分類対象のデータをクラスタ数3でクラスタリング
-        centers = k_means.clustering_class1(vectors, 3, max_index, min_index)
 
-        # 特徴点ごと実行:フレーム数分k-meansで分類して一番多い分類を採用する
         label = []
         k_err = scipy.stats.zscore(k_err).tolist()
         zahyou_ave = []
 
         # 分類したデータで各特徴点をクラスタリングする
-        for frame in k_err:
-            tmp = []
+        for pointNum, frame in enumerate(k_err):
             sum_x = 0
             sum_y = 0
             # フレームごとにクラスタリングする
-            for i in frame:
-                tmp.append(k_means.near(i, centers))
-                sum_x += i[0]
-                sum_y += i[1]
-            # クラスタリングした結果の最頻値をラベル付けする
-            label_input = mode(tmp)
+            for i, data in enumerate(frame):
+                sum_x += data[0]
+                sum_y += data[1]
             # 絶対誤差の平均を計算する
             zahyou_ave.append([sum_x/len(frame), sum_y/len(frame)])
-            # 0:noise→0   1,2:feature→1
-            #if label_input == 2 or label_input == 1:
-            #    label_input = 1
-            #else:
-            #    label_input = 0
-            label.append(label_input) # 一番多い数字をlabelに追加
 
-        x0 = []
-        y0 = []
-        x1 = []
-        y1 = []
-        x2 = []
-        y2 = []
-        print(label)
-        # 各特徴点の平均値をラベルに従いプロットする
-        for index, zahyou_data in enumerate(zahyou_ave):
-            if label[index]==0:
-                x0.append(zahyou_data[0])
-                y0.append(zahyou_data[1])
-            elif label[index]==1:
-                x1.append(zahyou_data[0])
-                y1.append(zahyou_data[1])
-            else:
-                x2.append(zahyou_data[0])
-                y2.append(zahyou_data[1])
+        #分類対象のデータをクラスタリング
+        #centers = k_means.clustering_class1(vectors, 3, max_index, min_index)
+        clustering = MeanShift().fit(zahyou_ave)
+
+        # 特徴点ごと実行:フレーム数分k-meansで分類して一番多い分類を採用する
+        labels = clustering.labels_.tolist()
+        print(labels)
+        print(max(labels))
+        '''
+        for pointNum, frame in enumerate(k_err):
+            start = pointNum * len(frame)
+            tmp = []
+            # フレームごとにクラスタリングする
+            for i, data in enumerate(frame):
+                tmp.append(labels[start + i])
+            # クラスタリングした結果の最頻値をラベル付けする
+            label.append(mode(tmp)) # 一番多い数字をlabelに追加
+        '''
 
         # figure
         fig = plt.figure(figsize=(14,10))
         ax = fig.add_subplot(1, 1, 1)
 
         # plot
-        ax.scatter(x0, y0, color='r')
-        ax.scatter(x1, y1, color='b')
-        ax.scatter(x2, y2, color='g')
+        for i, data in enumerate(zahyou_ave):
+            #print(type(zahyou_ave),type(clist[labels[i]+1]))
+            ax.scatter(data[0], data[1], color=clist[labels[i]+1], s=36)
 
         #plt.title('Method-1', fontsize=36)
         plt.xlabel('victor in x', fontsize=36)
         plt.ylabel('victor in y', fontsize=36)
-        plt.tick_params(labelsize=36)
+        #plt.tick_params(labelsize=36)
         # プロットした画像を保存する
-        plt.savefig('D:/opticalflow/evaluation/plt/class1/' + videoName[:-4] + 'DBSCAN_figure.png')
+        plt.savefig('/media/koshiba/Data/opticalflow/point_data/plt/' + videoName[:-4] + '_MeanShift_class1_figure.png')
 
-        return label
+        return labels
 
 
     #######################################################
@@ -325,7 +314,7 @@ def todo(path, time):
 
         # 各特徴点をラベルに従いプロットする
         label = clustering.labels_
-        print(label)
+        #print(label)
 
         '''
         for i in range(len(normal_fft)):
@@ -353,7 +342,7 @@ def todo(path, time):
         ax.set_ylabel('vector in y', fontsize=36)
         #plt.tick_params(labelsize=36)
         fig.show()
-        fig.savefig('D:/opticalflow/evaluation/plt/class2/' + videoName[:-4] + '_' + algorithm + '_figure.png')
+        fig.savefig('/media/koshiba/Data/opticalflow/point_data/plt/' + videoName[:-4] + '_MeanShift_class2_figure.png')
 
         return label.tolist()
 
@@ -414,7 +403,7 @@ def todo(path, time):
         #分類対象のデータのリスト。各要素はfloatのリスト
         vectors = np.array(normal_fft)
         #分類対象のデータをクラスタ数3でクラスタリング
-        clustering = MeanShift(bandwidth=pram2).fit(vectors)
+        clustering = MeanShift().fit(vectors)
 
         # 各特徴点をラベルに従いプロットする
         label = clustering.labels_
@@ -447,7 +436,7 @@ def todo(path, time):
         ax.set_ylabel('vector in y', fontsize=36)
         #plt.tick_params(labelsize=36)
         fig.show()
-        fig.savefig('D:/opticalflow/evaluation/plt/class3/' + videoName[:-4] + '_' + algorithm + '_figure.png')
+        fig.savefig('/media/koshiba/Data/opticalflow/point_data/plt/' + videoName[:-4] + '_MeanShift_class3_figure.png')
 
         return label.tolist()
 
