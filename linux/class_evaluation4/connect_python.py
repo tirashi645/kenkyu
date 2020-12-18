@@ -34,7 +34,7 @@ def doGet(path, videoName, savePath):
     specificity = ['-1', '-1', '-1']
     tmp = 0
 
-    for index1, pred in enumerate(classList):
+    for index1, pred in enumerate(zahyou):
         for index2, answer in enumerate(noise):
             #print(index1, index2)
             if (pred[index2]==0 or pred[index2]==-1):
@@ -63,10 +63,10 @@ def doGet(path, videoName, savePath):
         if tn+fp != 0:
             specificity[index1] = str(tn/(fp+tn))
 
-    print(classList)
+    print(zahyou)
 
-    elapsed_time = time.time() - start
-    print ("elapsed_time:{0}".format(elapsed_time) + "[sec]")
+    #elapsed_time = time.time() - start
+    #print ("elapsed_time:{0}".format(elapsed_time) + "[sec]")
 
     print('accuracy:' + accuracy[0] + ' ' + accuracy[1] + ' '  + accuracy[2])
     print('precision' + precision[0] + ' '  + precision[1] + ' '  + precision[2])
