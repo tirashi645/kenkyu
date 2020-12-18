@@ -249,7 +249,7 @@ def todo(path, time):
         plt.ylabel('victor in y', fontsize=36)
         plt.tick_params(labelsize=36)
         # プロットした画像を保存する
-        plt.savefig('D:/opticalflow/evaluation/plt/class1/' + videoName[:-4] + 'DBSCAN_figure.png')
+        #plt.savefig('D:/opticalflow/evaluation/plt/class1/' + videoName[:-4] + 'DBSCAN_figure.png')
 
         return label
 
@@ -352,8 +352,8 @@ def todo(path, time):
         ax.set_xlabel('vector in x', fontsize=36)
         ax.set_ylabel('vector in y', fontsize=36)
         #plt.tick_params(labelsize=36)
-        fig.show()
-        fig.savefig('D:/opticalflow/evaluation/plt/class2/' + videoName[:-4] + '_DBSCAN_figure.png')
+        #fig.show()
+        #fig.savefig('D:/opticalflow/evaluation/plt/class2/' + videoName[:-4] + '_DBSCAN_figure.png')
 
         return label.tolist()
 
@@ -447,8 +447,8 @@ def todo(path, time):
         ax.set_xlabel('vector in x', fontsize=36)
         ax.set_ylabel('vector in y', fontsize=36)
         #plt.tick_params(labelsize=36)
-        fig.show()
-        fig.savefig('D:/opticalflow/evaluation/plt/class3/' + videoName[:-4] + '_DBSCAN_figure.png')
+        #fig.show()
+        #fig.savefig('D:/opticalflow/evaluation/plt/class3/' + videoName[:-4] + '_DBSCAN_figure.png')
 
         return label.tolist()
 

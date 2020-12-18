@@ -22,7 +22,7 @@ start = time.time()
 dirName = getVideoData.getDirName(path)
 videoName = getVideoData.getVideoName(path)
 
-f = open('/media/koshiba/Data/opticalflow/point_data/' + dirName + '/' + videoName, 'rb')
+f = open('/media/koshiba/Data/opticalflow/point_data/' + dirName + '/' + videoName + '/category.txt', 'rb')
 noise = pickle.load(f)
 
 #noise = clusteringPoint.todo(path)
