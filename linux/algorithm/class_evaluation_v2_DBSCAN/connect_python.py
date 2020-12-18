@@ -70,10 +70,10 @@ print(classList)
 elapsed_time = time.time() - start
 print ("elapsed_time:{0}".format(elapsed_time) + "[sec]")
 
-print('acc  : {:.3f} | {:.3f} | {:.3f}'.format(accuracy[0],accuracy[1],accuracy[2]))
-print('pre  : {:.3f} | {:.3f} | {:.3f}'.format(precision[0],precision[1],precision[2]))
-print('rec  : {:.3f} | {:.3f} | {:.3f}'.format(recall[0],recall[1],recall[2]))
-print('spe  : {:.3f} | {:.3f} | {:.3f}'.format(specificity[0],specificity[1],specificity[2]))
+print('acc  : {:.3f} | {:.3f} | {:.3f}'.format(map(str, accuracy[0],accuracy[1],accuracy[2])))
+print('pre  : {:.3f} | {:.3f} | {:.3f}'.format(map(str, precision[0],precision[1],precision[2])))
+print('rec  : {:.3f} | {:.3f} | {:.3f}'.format(map(str, recall[0],recall[1],recall[2])))
+print('spe  : {:.3f} | {:.3f} | {:.3f}'.format(map(str, specificity[0],specificity[1],specificity[2])))
 '''
 print('accuracy:' + accuracy[0] + ' ' + accuracy[1] + ' '  + accuracy[2])
 print('precision' + precision[0] + ' '  + precision[1] + ' '  + precision[2])
