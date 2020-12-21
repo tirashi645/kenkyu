@@ -4,7 +4,7 @@ def todo(zahyou, savePath):
     import pickle
 
     selectDir = ''
-    c = ['b', 'r', 'g', 'y']
+    c = ['b', 'b', 'g', 'y']
     skip_frame = 0     #最初の数フレームをスキップ
 
     f = open(savePath + '/category.txt', 'rb')
@@ -40,7 +40,7 @@ def todo(zahyou, savePath):
             selectDir = '/cat1/'
         elif category==1:
             #print(1)
-            c = "r"
+            c = "b"
             selectDir = '/cat2/'
         elif category==2:
             #print(2)
