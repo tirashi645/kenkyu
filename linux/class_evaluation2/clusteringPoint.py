@@ -54,7 +54,7 @@ def todo(path, zahyou):
 
     # 読み込んだフレームの特徴点を探す
     prev_points = cv2.goodFeaturesToTrack(
-        image=first_gray[p:-p][p:-p],      # 入力画像
+        image=first_gray,      # 入力画像
         mask=None,            # mask=0のコーナーを無視
         **feature_params
     )
