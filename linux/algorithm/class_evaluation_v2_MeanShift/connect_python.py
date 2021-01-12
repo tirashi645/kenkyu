@@ -35,12 +35,20 @@ precision = ['-1', '-1', '-1']
 recall = ['-1', '-1', '-1']
 specificity = ['-1', '-1', '-1']
 tmp = 0
+
 for index1, pred in enumerate(classList):
     for index2, answer in enumerate(noise):
-        if answer==pred[index2]:
-            predList[index1].append(answer)
+        #print(index1, index2)
+        if (pred[index2]==0 or pred[index2]==-1):
+            if answer==0:
+                predList[index1].append(0)
+            else:
+                predList[index1].append(3)
         else:
-            predList[index1].append(answer+2)
+            if answer==1:
+                predList[index1].append(1)
+            else:
+                predList[index1].append(2)
     
     predAll = len(predList[index1])
     tp = predList[index1].count(1)
@@ -49,23 +57,23 @@ for index1, pred in enumerate(classList):
     fn = predList[index1].count(3)
 
     print(predAll, tp, tn)
-    accuracy[index1] = str((tp + tn)/predAll)
+    accuracy[index1] = (tp + tn)/predAll
     if tp+fp != 0:
-        precision[index1] = str(tp/(tp+fp))
+        precision[index1] = tp/(tp+fp)
     if tp+fn != 0:
-        recall[index1] = str(tp/(tp+fn))
+        recall[index1] = tp/(tp+fn)
     if tn+fp != 0:
-        specificity[index1] = str(tn/(fp+tn))
+        specificity[index1] = tn/(fp+tn)
 
-# print(classList)
+print(classList)
 
 elapsed_time = time.time() - start
 print ("elapsed_time:{0}".format(elapsed_time) + "[sec]")
 
-print('accuracy:    ' + accuracy[0] + '\t' + accuracy[1] + '\t'  + accuracy[2])
-print('precision:   ' + precision[0] + '\t'  + precision[1] + '\t'  + precision[2])
-print('recall:      ' + recall[0] + '\t'  + recall[1] + '\t'  + recall[2])
-print('specificity: ' + specificity[0] + '\t'  + specificity[1] + '\t'  + specificity[2])
+print('acc  : {:.3f} | {:.3f} | {:.3f}'.format(accuracy[0],accuracy[1],accuracy[2]))
+print('pre  : {:.3f} | {:.3f} | {:.3f}'.format(precision[0],precision[1],precision[2]))
+print('rec  : {:.3f} | {:.3f} | {:.3f}'.format(recall[0],recall[1],recall[2]))
+print('spe  : {:.3f} | {:.3f} | {:.3f}'.format(specificity[0],specificity[1],specificity[2]))
 
 savePict.todo(path, classList, noise)
 
