@@ -65,7 +65,8 @@ def todo(path, classlist, original):
 
     flow_layer = np.zeros_like(first_frame)
     classNum = 1
-    clist = [(80,80,80), (255,0,0), (255,165,0), (0,255,0), (0,0,255), (128,0,128), (165,42,42), (255,255,0)]
+    #clist = [(80,80,80), (255,0,0), (255,165,0), (0,255,0), (0,0,255), (128,0,128), (165,42,42), (255,255,0)]
+    clist = [(255,0,0), (255,0,0), (0,0,255), (0,0,255), (0,0,255), (0,0,255), (0,0,255), (0,0,255), (0,0,255)]
     for label in classlist:
         print(label)
         for index, prev in enumerate(prev_points):
