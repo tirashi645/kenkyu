@@ -106,7 +106,7 @@ def todo(path):
     cv2.imshow("frame", frame2)
     cv2.waitKey(0)
     cv2.destroyAllWindows()
-    cv2.imwrite('D:/opticalflow/evaluation/result/' + str(videoName[:-4]) + '_Original.jpg', frame2)
+    cv2.imwrite('D:/opticalflow/cmeans/result/' + str(videoName[:-4]) + '_Original.jpg', frame2)
 
     return noise
 

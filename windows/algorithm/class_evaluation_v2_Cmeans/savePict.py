@@ -98,7 +98,7 @@ def todo(path, classlist, original):
         cv2.imshow("frame", frame2)
         cv2.waitKey(0)
         cv2.destroyAllWindows()
-        cv2.imwrite('D:/opticalflow/evaluation/result/' + str(videoName[:-4]) + '_class' + str(classNum) + '.jpg', frame2)
+        cv2.imwrite('D:/opticalflow/cmeans/result/' + str(videoName[:-4]) + '_class' + str(classNum) + '.jpg', frame2)
         classNum += 1
 
 

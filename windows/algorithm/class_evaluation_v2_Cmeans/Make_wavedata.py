@@ -17,6 +17,18 @@ def todo(path, time):
     from pythonFile import click_pct, timestump, k_means, FuzzyCmeans
     from pythonFile import normalization as normal
     from statistics import mode
+    from skfuzzy.cluster import cmeans
+
+    def target_to_color(target):
+        if type(target) == np.ndarray:
+            return (target[0], target[1], target[2])
+        else:
+            return "rgb"[target]
+
+    def plot_data(data, target, filename="fig.png"):
+        plt.figure()
+        plt.scatter(data[:,0], data[:,1], c=[target_to_color(t) for t in target])
+        plt.savefig(filename)
 
     class1_err = []
     hz_fft2 = []
@@ -184,7 +196,22 @@ def todo(path, time):
         #分類対象のデータのリスト。各要素はfloatのリスト
         vectors = err
         #分類対象のデータをクラスタ数3でクラスタリング
-        centers = k_means.clustering_class1(vectors, 3, max_index, min_index, m)
+        centers = cmeans(vectors.T, 3, 2, 0.003, 10000)
+        u = centers[1].T
+
+        label = u
+        plot_label = u
+        '''
+        for i in normal_fft:
+            label_input = (k_means.near(i, centers))
+            plot_label.append(label_input)
+            # 0,1:noise→0   2:feature→1
+            #if label_input==0 or label_input==1:
+            #    label.append(0)
+            #else:
+            #    label.append(1)
+            label.append(label_input)
+        '''
 
         # 特徴点ごと実行:フレーム数分k-meansで分類して一番多い分類を採用する
         label = []
@@ -245,7 +272,7 @@ def todo(path, time):
         plt.ylabel('victor in y', fontsize=36)
         plt.tick_params(labelsize=36)
         # プロットした画像を保存する
-        plt.savefig('D:/opticalflow/evaluation/plt/class1/' + videoName[:-4] + '_figure.png')
+        plt.savefig('D:/opticalflow/cmeans/plt/class1/' + videoName[:-4] + '_figure.png')
 
         return label
 
@@ -312,10 +339,17 @@ def todo(path, time):
         #分類対象のデータのリスト。各要素はfloatのリスト
         vectors = normal_fft
         #分類対象のデータをクラスタ数3でクラスタリング
-        centers = k_means.clustering_class2(vectors, 3, max_index, min_index)
+        centers = cmeans(np.array(vectors).T, 3, 2, 0.003, 10000)
+        u = centers[1].T
 
-        label = []
-        plot_label = []
+        class_list = []
+
+        for i in u:
+            class_list.append(np.argmax(i))
+
+        label = class_list
+        plot_label = class_list
+        '''
         for i in normal_fft:
             label_input = (k_means.near(i, centers))
             plot_label.append(label_input)
@@ -325,7 +359,8 @@ def todo(path, time):
             #else:
             #    label.append(1)
             label.append(label_input)
-
+        '''
+        '''
         # 各特徴点をラベルに従いプロットする
         fft_0x = []
         fft_0y = []
@@ -358,7 +393,10 @@ def todo(path, time):
         plt.xlabel('vector in x', fontsize=36)
         plt.ylabel('vector in y', fontsize=36)
         plt.tick_params(labelsize=36)
-        plt.savefig('D:/opticalflow/evaluation/plt/class2/' + videoName[:-4] + '_figure.png')
+        plt.savefig('D:/opticalflow/cmeans/plt/class2/' + videoName[:-4] + '_figure.png')
+        '''
+        fileName = 'D:/opticalflow/cmeans/plt/class2/' + videoName[:-4] + '_figure.png'
+        plot_data(fft, u, filename = fileName)
 
         return label
 
@@ -419,20 +457,28 @@ def todo(path, time):
         #分類対象のデータのリスト。各要素はfloatのリスト
         vectors = normal_fft
         #分類対象のデータをクラスタ数3でクラスタリング
-        centers = k_means.clustering_class3(vectors, 3, max_index, min_index)
+        centers = cmeans(np.array(vectors).T, 3, 2, 0.003, 10000)
+        u = centers[1].T
 
-        plot_label = []
-        label = []
+        class_list = []
 
+        for i in u:
+            class_list.append(np.argmax(i))
+
+        label = class_list
+        plot_label = class_list
+        '''
         for i in normal_fft:
             label_input = (k_means.near(i, centers))
             plot_label.append(label_input)
-            # ノイズではない2分類をまとめる
-            if label_input==0 or label_input==1:
-                label.append(0)
-            else:
-                label.append(1)
-        
+            # 0,1:noise→0   2:feature→1
+            #if label_input==0 or label_input==1:
+            #    label.append(0)
+            #else:
+            #    label.append(1)
+            label.append(label_input)
+        '''
+        '''
         # 各特徴点の平均値をラベルに従いプロットする
         fft_0x = []
         fft_0y = []
@@ -466,7 +512,10 @@ def todo(path, time):
         plt.xlabel('vector in x', fontsize=36)
         plt.ylabel('vector in y', fontsize=36)
         plt.tick_params(labelsize=36)
-        plt.savefig('D:/opticalflow/evaluation/plt/class3/' + videoName[:-4] + '_figure.png')
+        plt.savefig('D:/opticalflow/cmeans/plt/class3/' + videoName[:-4] + '_figure.png')
+        '''
+        fileName = 'D:/opticalflow/cmeans/plt/class3/' + videoName[:-4] + '_figure.png'
+        plot_data(fft, u, filename = fileName)
 
         return label
 
@@ -526,10 +575,10 @@ def todo(path, time):
         hz_fft3, num_fft3 = class3(np_err_normal, hz_fft3, num_fft3)
 
     # 手法１～３を実行
-    class1Data = class1_output(class1_err, zahyou)
+    #class1Data = class1_output(class1_err, zahyou)
     class2Data = class2_output(hz_fft2, num_fft2)
     class3Data = class3_output(hz_fft3, num_fft3)
-    classList = [class1Data, class2Data, class3Data]
+    classList = [class2Data, class2Data, class3Data]
     return classList
     
 

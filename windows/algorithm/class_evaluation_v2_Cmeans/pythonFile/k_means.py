@@ -9,7 +9,7 @@ def near(vector, center_vectors):
     d = [euclid_dist(vector, center_vector) for center_vector in center_vectors]
     return d.index(min(d))
 
-def clustering_class1( , label_count, max1, min1, learning_count_max=1000):
+def clustering_class1(vector , label_count, max1, min1, learning_count_max=1000):
     """
     K-meansを行い、各ラベルの重心を返す
     :param vectors:
