@@ -1,4 +1,4 @@
-def todo(path, time):
+def todo(path, time, m):
     import numpy as np
     import cv2
     import matplotlib
@@ -19,9 +19,20 @@ def todo(path, time):
     from statistics import mode
     from skfuzzy.cluster import cmeans
 
+    class1_err = []
+    hz_fft2 = []
+    num_fft2 = []
+    hz_fft3 = []
+    num_fft3 = []
+    m = 2.0
+    fuzzyValue = 0.8
+
     def target_to_color(target):
         if type(target) == np.ndarray:
-            return (target[0], target[1], target[2])
+            if np.amax(target)<fuzzyValue:
+                return (0, 0, 0)
+            else:
+                return (target[0], target[1], target[2])
         else:
             return "rgb"[target]
 
@@ -29,13 +40,6 @@ def todo(path, time):
         plt.figure()
         plt.scatter(data[:,0], data[:,1], c=[target_to_color(t) for t in target])
         plt.savefig(filename)
-
-    class1_err = []
-    hz_fft2 = []
-    num_fft2 = []
-    hz_fft3 = []
-    num_fft3 = []
-    m = 2.0
 
     # 読み込む動画の設定
     videoName = path[path.rfind('/')+1:]
@@ -339,16 +343,41 @@ def todo(path, time):
         #分類対象のデータのリスト。各要素はfloatのリスト
         vectors = normal_fft
         #分類対象のデータをクラスタ数3でクラスタリング
-        centers = cmeans(np.array(vectors).T, 3, 2, 0.003, 10000)
+        centers = cmeans(np.array(vectors).T, 3, m, 0.003, 10000)
         u = centers[1].T
 
         class_list = []
+        label = []
 
         for i in u:
-            class_list.append(np.argmax(i))
+            print(i, np.amax(i))
+            if np.amax(i) < fuzzyValue:
+                class_list.append(-1)
+            else:
+                class_list.append(np.argmax(i))
+            label.append(np.argmax(i))
 
-        label = class_list
-        plot_label = class_list
+        class1_label = np.array([])
+        class2_label = np.array([])
+        class3_label = np.array([])
+        zero = np.array([0,0,0])
+
+        for i, plot_label in enumerate(label):
+            if plot_label==0:
+                class1_label = np.append(class1_label, u[i])
+                class2_label = np.append(class2_label, zero)
+                class3_label = np.append(class3_label, zero)
+            elif plot_label==1:
+                class1_label = np.append(class1_label, zero)
+                class2_label = np.append(class2_label, u[i])
+                class3_label = np.append(class3_label, zero)
+            elif plot_label==2:
+                class1_label = np.append(class1_label, zero)
+                class2_label = np.append(class2_label, zero)
+                class3_label = np.append(class3_label, u[i])
+        class1_label = np.reshape(class1_label, (-1, 3))
+        class2_label = np.reshape(class2_label, (-1, 3))
+        class3_label = np.reshape(class3_label, (-1, 3))
         '''
         for i in normal_fft:
             label_input = (k_means.near(i, centers))
@@ -359,8 +388,7 @@ def todo(path, time):
             #else:
             #    label.append(1)
             label.append(label_input)
-        '''
-        '''
+
         # 各特徴点をラベルに従いプロットする
         fft_0x = []
         fft_0y = []
@@ -395,10 +423,17 @@ def todo(path, time):
         plt.tick_params(labelsize=36)
         plt.savefig('D:/opticalflow/cmeans/plt/class2/' + videoName[:-4] + '_figure.png')
         '''
-        fileName = 'D:/opticalflow/cmeans/plt/class2/' + videoName[:-4] + '_figure.png'
+        print(u.shape, class1_label.shape)
+        fileName = 'D:/opticalflow/cmeans/plt/class2/' + videoName[:-4] + '_' + str(m) + '_figure.png'
         plot_data(fft, u, filename = fileName)
+        fileName = 'D:/opticalflow/cmeans/plt/class2/' + videoName[:-4] + '_' + str(m) + '_c1_figure.png'
+        plot_data(fft, class1_label, filename = fileName)
+        fileName = 'D:/opticalflow/cmeans/plt/class2/' + videoName[:-4] + '_' + str(m) + '_c2_figure.png'
+        plot_data(fft, class2_label, filename = fileName)
+        fileName = 'D:/opticalflow/cmeans/plt/class2/' + videoName[:-4] + '_' + str(m) + '_c3_figure.png'
+        plot_data(fft, class3_label, filename = fileName)
 
-        return label
+        return class_list, u
 
     #######################################################
     #Class3: (初期フレーム － 1フレーム前)との誤差　(フーリエ変換)
@@ -457,15 +492,20 @@ def todo(path, time):
         #分類対象のデータのリスト。各要素はfloatのリスト
         vectors = normal_fft
         #分類対象のデータをクラスタ数3でクラスタリング
-        centers = cmeans(np.array(vectors).T, 3, 2, 0.003, 10000)
+        centers = cmeans(np.array(vectors).T, 3, m, 0.003, 10000)
         u = centers[1].T
 
         class_list = []
+        label = []
 
         for i in u:
-            class_list.append(np.argmax(i))
+            #print(i, np.amax(i))
+            if np.amax(i) < fuzzyValue:
+                class_list.append(-1)
+            else:
+                class_list.append(np.argmax(i))
+            label.append(np.argmax(i))
 
-        label = class_list
         plot_label = class_list
         '''
         for i in normal_fft:
@@ -514,10 +554,10 @@ def todo(path, time):
         plt.tick_params(labelsize=36)
         plt.savefig('D:/opticalflow/cmeans/plt/class3/' + videoName[:-4] + '_figure.png')
         '''
-        fileName = 'D:/opticalflow/cmeans/plt/class3/' + videoName[:-4] + '_figure.png'
+        fileName = 'D:/opticalflow/cmeans/plt/class3/' + videoName[:-4] + '_Cmeans_figure.png'
         plot_data(fft, u, filename = fileName)
 
-        return label
+        return class_list, u
 
 
     '''
@@ -576,10 +616,11 @@ def todo(path, time):
 
     # 手法１～３を実行
     #class1Data = class1_output(class1_err, zahyou)
-    class2Data = class2_output(hz_fft2, num_fft2)
-    class3Data = class3_output(hz_fft3, num_fft3)
+    class2Data, u2 = class2_output(hz_fft2, num_fft2)
+    class3Data, u3 = class3_output(hz_fft3, num_fft3)
     classList = [class2Data, class2Data, class3Data]
-    return classList
+    uList = [u2, u2, u3]
+    return classList, uList
     
 
 if __name__=='__main__':

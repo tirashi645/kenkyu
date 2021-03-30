@@ -1,4 +1,4 @@
-def todo(path, classlist, original):
+def todo(path, classlist, original, m, u):
     import numpy as np
     import cv2
     from pythonFile import click_pct
@@ -63,8 +63,15 @@ def todo(path, classlist, original):
     )
 
     flow_layer = np.zeros_like(first_frame)
+    flow_layer0 = np.zeros_like(first_frame)
+    flow_layer1 = np.zeros_like(first_frame)
+    flow_layer2 = np.zeros_like(first_frame)
     classNum = 1
-    for classData in classlist:
+
+    print(type(u))
+    u = (np.array(u) - 0.33) / 0.67 * 255
+
+    for num, classData in enumerate(classlist):
         for index, prev in enumerate(prev_points):
             #if original[index]!=classData[index]:
             if classData[index]==2:
@@ -72,7 +79,14 @@ def todo(path, classlist, original):
                                             flow_layer,                               # 描く画像
                                             (int(prev[0][0]), int(prev[0][1])),         # 線を引く始点
                                             5,         # 線を引く終点
-                                            color = (0, 255, 0),    # 描く色
+                                            color = (u[num][index][2], u[num][index][1], u[num][index][0]),    # 描く色
+                                            thickness=3   # 線の太さ
+                                        )
+                flow_layer0 = cv2.circle(
+                                            flow_layer0,                               # 描く画像
+                                            (int(prev[0][0]), int(prev[0][1])),         # 線を引く始点
+                                            5,         # 線を引く終点
+                                            color = (u[num][index][2], u[num][index][1], u[num][index][0]),    # 描く色
                                             thickness=3   # 線の太さ
                                         )
             elif classData[index]==1:
@@ -80,7 +94,14 @@ def todo(path, classlist, original):
                                             flow_layer,                               # 描く画像
                                             (int(prev[0][0]), int(prev[0][1])),         # 線を引く始点
                                             5,         # 線を引く終点
-                                            color = (0, 0, 255),    # 描く色
+                                            color = (u[num][index][2], u[num][index][1], u[num][index][0]),    # 描く色
+                                            thickness=3   # 線の太さ
+                                        )
+                flow_layer1 = cv2.circle(
+                                            flow_layer1,                               # 描く画像
+                                            (int(prev[0][0]), int(prev[0][1])),         # 線を引く始点
+                                            5,         # 線を引く終点
+                                            color = (u[num][index][2], u[num][index][1], u[num][index][0]),    # 描く色
                                             thickness=3   # 線の太さ
                                         )
             elif classData[index]==0:
@@ -88,18 +109,40 @@ def todo(path, classlist, original):
                                             flow_layer,                               # 描く画像
                                             (int(prev[0][0]), int(prev[0][1])),         # 線を引く始点
                                             5,         # 線を引く終点
-                                            color = (255, 0, 0),    # 描く色
+                                            color = (u[num][index][2], u[num][index][1], u[num][index][0]),    # 描く色
+                                            thickness=3   # 線の太さ
+                                        )
+                flow_layer2 = cv2.circle(
+                                            flow_layer2,                               # 描く画像
+                                            (int(prev[0][0]), int(prev[0][1])),         # 線を引く始点
+                                            5,         # 線を引く終点
+                                            color = (u[num][index][2], u[num][index][1], u[num][index][0]),    # 描く色
+                                            thickness=3   # 線の太さ
+                                        )
+            elif classData[index]==-1:
+                flow_layer = cv2.circle(
+                                            flow_layer,                               # 描く画像
+                                            (int(prev[0][0]), int(prev[0][1])),         # 線を引く始点
+                                            5,         # 線を引く終点
+                                            color = (0, 0, 0),    # 描く色
                                             thickness=3   # 線の太さ
                                         )
         frame2 = cv2.add(first_frame, flow_layer)
+        frame_class0 = cv2.add(first_frame, flow_layer0)
+        frame_class1 = cv2.add(first_frame, flow_layer1)
+        frame_class2 = cv2.add(first_frame, flow_layer2)
 
         # 結果画像の表示
-        cv2.namedWindow("frame", cv2.WINDOW_NORMAL)
-        cv2.imshow("frame", frame2)
-        cv2.waitKey(0)
-        cv2.destroyAllWindows()
-        cv2.imwrite('D:/opticalflow/cmeans/result/' + str(videoName[:-4]) + '_class' + str(classNum) + '.jpg', frame2)
+        #cv2.namedWindow("frame", cv2.WINDOW_NORMAL)
+        #cv2.imshow("frame", frame2)
+        #cv2.waitKey(0)
+        #cv2.destroyAllWindows()
+        cv2.imwrite('D:/opticalflow/cmeans/result/class' + str(classNum) + '/' + str(videoName[:-4]) + '_' + str(m) + '_original.jpg', frame2)
+        cv2.imwrite('D:/opticalflow/cmeans/result/class' + str(classNum) + '/' + str(videoName[:-4]) + '_' + str(m) + '_c1.jpg', frame_class0)
+        cv2.imwrite('D:/opticalflow/cmeans/result/class' + str(classNum) + '/' + str(videoName[:-4]) + '_' + str(m) + '_c2.jpg', frame_class1)
+        cv2.imwrite('D:/opticalflow/cmeans/result/class' + str(classNum) + '/' + str(videoName[:-4]) + '_' + str(m) + '_c3.jpg', frame_class2)
         classNum += 1
+        print('finish')
 
 
 if __name__=='__main__':

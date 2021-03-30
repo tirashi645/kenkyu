@@ -18,10 +18,20 @@ path = filedialog.askopenfilename(filetypes = typ, initialdir = dir)
 time_data = timestump.get_time()
 start = time.time()
 
-noise = clusteringPoint.todo(path)
-classList = Make_wavedata.todo(path, time_data)
-print(noise)
+#noise = clusteringPoint.todo(path)
+noise = ''
+'''
+for i in range(5, 31, 5):
+    m = i / 10
+    classList = Make_wavedata.todo(path, time_data, m)
+    savePict.todo(path, classList, noise, m)
+'''
+m = 2.0
+classList, u = Make_wavedata.todo(path, time_data, m)
+savePict.todo(path, classList, noise, m, u)
+print(classList)
 
+'''
 predList = [[],[],[]]
 accuracy = ['-1', '-1', '-1']
 precision = ['-1', '-1', '-1']
@@ -29,7 +39,9 @@ recall = ['-1', '-1', '-1']
 specificity = ['-1', '-1', '-1']
 tmp = 0
 for index1, pred in enumerate(classList):
+    print(pred)
     for index2, answer in enumerate(noise):
+        print(type(answer))
         if answer==pred[index2]:
             predList[index1].append(answer)
         else:
@@ -60,5 +72,4 @@ print('precision' + precision[0] + ' '  + precision[1] + ' '  + precision[2])
 print('recall' + recall[0] + ' '  + recall[1] + ' '  + recall[2])
 print('specificity' + specificity[0] + ' '  + specificity[1] + ' '  + specificity[2])
 
-savePict.todo(path, classList, noise)
-
+'''
