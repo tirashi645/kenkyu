@@ -9,7 +9,7 @@ def todo(path, classlist, original, m, u):
     # 読み込む動画の設定
     videoName = path[path.rfind('/')+1:]
     cap = cv2.VideoCapture(path)
-    print(videoName)
+    #print(videoName)
 
     width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
     height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
@@ -68,7 +68,7 @@ def todo(path, classlist, original, m, u):
     flow_layer2 = np.zeros_like(first_frame)
     classNum = 1
 
-    print(type(u))
+    #print(type(u))
     u = (np.array(u) - 0.33) / 0.67 * 255
 
     for num, classData in enumerate(classlist):
@@ -137,12 +137,12 @@ def todo(path, classlist, original, m, u):
         #cv2.imshow("frame", frame2)
         #cv2.waitKey(0)
         #cv2.destroyAllWindows()
-        cv2.imwrite('D:/opticalflow/cmeans/result/class' + str(classNum) + '/' + str(videoName[:-4]) + '_' + str(m) + '_original.jpg', frame2)
-        cv2.imwrite('D:/opticalflow/cmeans/result/class' + str(classNum) + '/' + str(videoName[:-4]) + '_' + str(m) + '_c1.jpg', frame_class0)
-        cv2.imwrite('D:/opticalflow/cmeans/result/class' + str(classNum) + '/' + str(videoName[:-4]) + '_' + str(m) + '_c2.jpg', frame_class1)
-        cv2.imwrite('D:/opticalflow/cmeans/result/class' + str(classNum) + '/' + str(videoName[:-4]) + '_' + str(m) + '_c3.jpg', frame_class2)
+        cv2.imwrite('D:/opticalflow/cmeans2/result/class' + str(classNum) + '/' + str(videoName[:-4]) + '_' + str(m) + '_original.jpg', frame2)
+        cv2.imwrite('D:/opticalflow/cmeans2/result/class' + str(classNum) + '/' + str(videoName[:-4]) + '_' + str(m) + '_c1.jpg', frame_class0)
+        cv2.imwrite('D:/opticalflow/cmeans2/result/class' + str(classNum) + '/' + str(videoName[:-4]) + '_' + str(m) + '_c2.jpg', frame_class1)
+        cv2.imwrite('D:/opticalflow/cmeans2/result/class' + str(classNum) + '/' + str(videoName[:-4]) + '_' + str(m) + '_c3.jpg', frame_class2)
         classNum += 1
-        print('finish')
+        #print('finish')
 
 
 if __name__=='__main__':

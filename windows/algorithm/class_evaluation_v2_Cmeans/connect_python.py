@@ -4,12 +4,13 @@ import cv2
 from PIL import Image
 import matplotlib.pyplot as plt
 import pandas as pd
-from pythonFile import click_pct, k_means, timestump
+from pythonFile import click_pct, k_means, timestump, getVideoData
 import math
 from tkinter import filedialog
 import scipy.stats
 import os
 import time
+import pickle
 
 # ファイルダイアログからファイル選択
 typ = [('','*')] 
@@ -18,58 +19,67 @@ path = filedialog.askopenfilename(filetypes = typ, initialdir = dir)
 time_data = timestump.get_time()
 start = time.time()
 
+print('hello')
+
+dirName = getVideoData.getDirName(path)
+videoName = getVideoData.getVideoName(path)
+
 #noise = clusteringPoint.todo(path)
-noise = ''
-'''
-for i in range(5, 31, 5):
+#noise = ''
+print('D:/opticalflow/point_data/' + dirName + '/' + videoName + '/category.txt')
+f = open('D:/opticalflow/point_data/' + dirName + '/' + videoName + '/category.txt', 'rb')
+noise = pickle.load(f)
+for i in range(15, 31, 5):
     m = i / 10
-    classList = Make_wavedata.todo(path, time_data, m)
-    savePict.todo(path, classList, noise, m)
-'''
-m = 2.0
-classList, u = Make_wavedata.todo(path, time_data, m)
-savePict.todo(path, classList, noise, m, u)
-print(classList)
+    #classList = Make_wavedata.todo(path, time_data, m)
+    #savePict.todo(path, classList, noise, m, u)
+#m = 2.0
+    classList, u = Make_wavedata.todo(path, time_data, m)
+    savePict.todo(path, classList, noise, m, u)
+    #print(classList)
 
-'''
-predList = [[],[],[]]
-accuracy = ['-1', '-1', '-1']
-precision = ['-1', '-1', '-1']
-recall = ['-1', '-1', '-1']
-specificity = ['-1', '-1', '-1']
-tmp = 0
-for index1, pred in enumerate(classList):
-    print(pred)
-    for index2, answer in enumerate(noise):
-        print(type(answer))
-        if answer==pred[index2]:
-            predList[index1].append(answer)
-        else:
-            predList[index1].append(answer+2)
-    
-    predAll = len(predList[index1])
-    tp = predList[index1].count(1)
-    tn = predList[index1].count(0)
-    fp = predList[index1].count(2)
-    fn = predList[index1].count(3)
+    predList = [[],[],[]]
+    accuracy = ['-1', '-1', '-1']
+    precision = ['-1', '-1', '-1']
+    recall = ['-1', '-1', '-1']
+    specificity = ['-1', '-1', '-1']
+    tmp = 0
+    for index1, pred in enumerate(classList):
+        #print(pred)
+        for i, data1 in enumerate(pred):
+            if data1 != 2:
+                pred[i] = 0
+            else:
+                pred[i] = 1
+        for index2, answer in enumerate(noise):
+            #print(type(answer))
+            if answer==pred[index2]:
+                predList[index1].append(answer)
+            else:
+                predList[index1].append(answer+2)
+        
+        predAll = len(predList[index1])
+        tp = predList[index1].count(1)
+        tn = predList[index1].count(0)
+        fp = predList[index1].count(2)
+        fn = predList[index1].count(3)
 
-    print(predAll, tp, tn)
-    accuracy[index1] = str((tp + tn)/predAll)
-    if tp+fp != 0:
-        precision[index1] = str(tp/(tp+fp))
-    if tp+fn != 0:
-        recall[index1] = str(tp/(tp+fn))
-    if tn+fp != 0:
-        specificity[index1] = str(tn/(fp+tn))
+        print(predAll, tp, tn)
+        accuracy[index1] = str((tp + tn)/predAll)
+        if tp+fp != 0:
+            precision[index1] = str(tp/(tp+fp))
+        if tp+fn != 0:
+            recall[index1] = str(tp/(tp+fn))
+        if tn+fp != 0:
+            specificity[index1] = str(tn/(fp+tn))
 
-print(classList)
+    print(classList)
 
-elapsed_time = time.time() - start
-print ("elapsed_time:{0}".format(elapsed_time) + "[sec]")
+    elapsed_time = time.time() - start
+    print ("elapsed_time:{0}".format(elapsed_time) + "[sec]")
 
-print('accuracy:' + accuracy[0] + ' ' + accuracy[1] + ' '  + accuracy[2])
-print('precision' + precision[0] + ' '  + precision[1] + ' '  + precision[2])
-print('recall' + recall[0] + ' '  + recall[1] + ' '  + recall[2])
-print('specificity' + specificity[0] + ' '  + specificity[1] + ' '  + specificity[2])
-
-'''
+    print('m=' + str(m))
+    print('accuracy:' + accuracy[0] + ' ' + accuracy[1] + ' '  + accuracy[2])
+    print('precision' + precision[0] + ' '  + precision[1] + ' '  + precision[2])
+    print('recall' + recall[0] + ' '  + recall[1] + ' '  + recall[2])
+    print('specificity' + specificity[0] + ' '  + specificity[1] + ' '  + specificity[2])

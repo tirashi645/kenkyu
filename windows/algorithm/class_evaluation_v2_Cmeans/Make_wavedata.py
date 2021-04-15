@@ -18,13 +18,13 @@ def todo(path, time, m):
     from pythonFile import normalization as normal
     from statistics import mode
     from skfuzzy.cluster import cmeans
+    import copy
 
     class1_err = []
     hz_fft2 = []
     num_fft2 = []
     hz_fft3 = []
     num_fft3 = []
-    m = 2.0
     fuzzyValue = 0.8
 
     def target_to_color(target):
@@ -44,7 +44,7 @@ def todo(path, time, m):
     # 読み込む動画の設定
     videoName = path[path.rfind('/')+1:]
     cap = cv2.VideoCapture(path)
-    print(videoName)
+    #print(videoName)
 
     # 動画の設定を読み込み
     width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
@@ -59,7 +59,7 @@ def todo(path, time, m):
         height = tmp
 
 
-    print(videoName[:-4])
+    #print(videoName[:-4])
 
     # Shi-Tomashiのコーナー検出パラメータ
     feature_params = dict(
@@ -91,7 +91,7 @@ def todo(path, time, m):
     ret, first_frame = cap.read()
     if rot==1:
         first_frame = np.rot90(first_frame, -1)
-    print(first_frame.shape)
+    #print(first_frame.shape)
 
 
     #グレースケール変換
@@ -160,7 +160,7 @@ def todo(path, time, m):
         framelist.append(1)
 
     cap.release()
-    print(np.array(zahyou).shape)
+    #print(np.array(zahyou).shape)
 
     # リストの中身を最小０,最大１に正規化する関数
     def min_max_normalization(x):
@@ -249,7 +249,7 @@ def todo(path, time, m):
         y1 = []
         x2 = []
         y2 = []
-        print(label)
+        #print(label)
         # 各特徴点の平均値をラベルに従いプロットする
         for index, zahyou_data in enumerate(zahyou_ave):
             if label[index]==0:
@@ -276,7 +276,7 @@ def todo(path, time, m):
         plt.ylabel('victor in y', fontsize=36)
         plt.tick_params(labelsize=36)
         # プロットした画像を保存する
-        plt.savefig('D:/opticalflow/cmeans/plt/class1/' + videoName[:-4] + '_figure.png')
+        plt.savefig('D:/opticalflow/cmeans2/plt/class1/' + videoName[:-4] + '_figure.png')
 
         return label
 
@@ -350,8 +350,8 @@ def todo(path, time, m):
         label = []
 
         for i in u:
-            print(i, np.amax(i))
-            if np.amax(i) < fuzzyValue:
+            #print(i, np.amax(i))
+            if np.amax(i) > fuzzyValue:
                 class_list.append(-1)
             else:
                 class_list.append(np.argmax(i))
@@ -421,17 +421,18 @@ def todo(path, time, m):
         plt.xlabel('vector in x', fontsize=36)
         plt.ylabel('vector in y', fontsize=36)
         plt.tick_params(labelsize=36)
-        plt.savefig('D:/opticalflow/cmeans/plt/class2/' + videoName[:-4] + '_figure.png')
+        plt.savefig('D:/opticalflow/cmeans2/plt/class2/' + videoName[:-4] + '_figure.png')
         '''
-        print(u.shape, class1_label.shape)
-        fileName = 'D:/opticalflow/cmeans/plt/class2/' + videoName[:-4] + '_' + str(m) + '_figure.png'
+        #print(u.shape, class1_label.shape)
+        fileName = 'D:/opticalflow/cmeans2/plt/class2/' + videoName[:-4] + '_' + str(m) + '_figure.png'
         plot_data(fft, u, filename = fileName)
-        fileName = 'D:/opticalflow/cmeans/plt/class2/' + videoName[:-4] + '_' + str(m) + '_c1_figure.png'
+        fileName = 'D:/opticalflow/cmeans2/plt/class2/' + videoName[:-4] + '_' + str(m) + '_c1_figure.png'
         plot_data(fft, class1_label, filename = fileName)
-        fileName = 'D:/opticalflow/cmeans/plt/class2/' + videoName[:-4] + '_' + str(m) + '_c2_figure.png'
+        fileName = 'D:/opticalflow/cmeans2/plt/class2/' + videoName[:-4] + '_' + str(m) + '_c2_figure.png'
         plot_data(fft, class2_label, filename = fileName)
-        fileName = 'D:/opticalflow/cmeans/plt/class2/' + videoName[:-4] + '_' + str(m) + '_c3_figure.png'
+        fileName = 'D:/opticalflow/cmeans2/plt/class2/' + videoName[:-4] + '_' + str(m) + '_c3_figure.png'
         plot_data(fft, class3_label, filename = fileName)
+        print('D:/opticalflow/cmeans2/plt/class2/' + videoName[:-4] + '_' + str(m) + '_figure.png')
 
         return class_list, u
 
@@ -552,9 +553,9 @@ def todo(path, time, m):
         plt.xlabel('vector in x', fontsize=36)
         plt.ylabel('vector in y', fontsize=36)
         plt.tick_params(labelsize=36)
-        plt.savefig('D:/opticalflow/cmeans/plt/class3/' + videoName[:-4] + '_figure.png')
+        plt.savefig('D:/opticalflow/cmeans2/plt/class3/' + videoName[:-4] + '_figure.png')
         '''
-        fileName = 'D:/opticalflow/cmeans/plt/class3/' + videoName[:-4] + '_Cmeans_figure.png'
+        fileName = 'D:/opticalflow/cmeans2/plt/class3/' + videoName[:-4] + '_Cmeans_figure.png'
         plot_data(fft, u, filename = fileName)
 
         return class_list, u
@@ -617,9 +618,11 @@ def todo(path, time, m):
     # 手法１～３を実行
     #class1Data = class1_output(class1_err, zahyou)
     class2Data, u2 = class2_output(hz_fft2, num_fft2)
+    class1Data = copy.copy(class2Data)
+    u1 = copy.copy(u2)
     class3Data, u3 = class3_output(hz_fft3, num_fft3)
-    classList = [class2Data, class2Data, class3Data]
-    uList = [u2, u2, u3]
+    classList = [class1Data, class2Data, class3Data]
+    uList = [u1, u2, u3]
     return classList, uList
     
 
