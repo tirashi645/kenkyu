@@ -15,8 +15,11 @@ batch_size = 50
 num_class = 10
 epochs = 100
 saveDir = './model/'
+savePict = '/pict/'
 if not os.path.isdir(saveDir):
     os.makedirs(saveDir)
+if not os.path.isdir(savePict):
+    os.makedirs(savePict)
 
 (x_train, y_train), (x_test, y_test) = cifar10.load_data()
 x_train = x_train.astype('float32')
@@ -60,7 +63,8 @@ def showOrigDec(orig, dec, num=10):
             plt.plot(histr,color = col)
         ax.get_xaxis().set_visible(False)
         ax.get_yaxis().set_visible(False)
-    plt.show()
+    #plt.show()
+    plt.savefig('./savePict/data.png')
 
 def dice_coef(y_true, y_pred):
     y_true_f = K.flatten(y_true)
