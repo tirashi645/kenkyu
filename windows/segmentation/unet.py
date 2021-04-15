@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import keras
 from keras.models import load_model
 from keras.datasets import cifar10
