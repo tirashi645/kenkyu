@@ -34,6 +34,7 @@ def showOrigDec(orig, dec, num=10):
     import matplotlib.pyplot as plt
     n = num
     plt.figure(figsize=(20, 8))
+    print('hello')
 
     for i in range(n):
         # display original
