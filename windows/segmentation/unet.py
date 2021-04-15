@@ -15,7 +15,7 @@ batch_size = 50
 num_class = 10
 epochs = 100
 saveDir = './model/'
-savePict = '/pict/'
+savePict = './pict/'
 if not os.path.isdir(saveDir):
     os.makedirs(saveDir)
 if not os.path.isdir(savePict):
