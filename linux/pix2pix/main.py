@@ -203,7 +203,7 @@ def plot_generated_batch(X_proc, X_raw, generator_model, batch_size, suffix):
     X_proc = inverse_normalization(X_proc)
     X_gen = inverse_normalization(X_gen)
 
-    with h5py.File('/home/koshiba/anaconda3/envs/gitFolder/kenkyu/linux/pix2pix/output/outputData.h5', w) as f:
+    with h5py.File('/home/koshiba/anaconda3/envs/gitFolder/kenkyu/linux/pix2pix/output/outputData.h5', 'w') as f:
         f.create_dataset('raw', data=X_raw)
         f.create_dataset('proc', data=X_proc)
         f.create_dataset('gen', data=X_gen)
