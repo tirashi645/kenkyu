@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import cv2
 from tkinter import filedialog
 import os

@@ -64,7 +64,7 @@ def showOrigDec(orig, dec, num=10):
             plt.plot(histr,color = col)
         ax.get_xaxis().set_visible(False)
         ax.get_yaxis().set_visible(False)
-    #plt.show()
+    plt.show()
     plt.savefig('./savePict/data.png')
 
 def dice_coef(y_true, y_pred):
