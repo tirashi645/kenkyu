@@ -1,6 +1,3 @@
-from cv2 import data
-
-
 def todo(path, time):
     import numpy as np
     import cv2
