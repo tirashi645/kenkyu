@@ -14,7 +14,7 @@ print('original img')
 files = glob.glob(inpath+'/org/*.jpg')
 for imgfile in files:
     print(imgfile)
-    img = load_img(imgfile, target_size=(512,512))
+    img = load_img(imgfile, target_size=(256,256))
     imgarray = img_to_array(img)
     orgs.append(imgarray)
 
@@ -22,7 +22,7 @@ print('mask img')
 files = glob.glob(inpath+'/mask/*.jpg')
 for imgfile in files:
     print(imgfile)
-    img = load_img(imgfile, target_size=(512,512))
+    img = load_img(imgfile, target_size=(256,256))
     imgarray = img_to_array(img)
     masks.append(imgarray)
 
