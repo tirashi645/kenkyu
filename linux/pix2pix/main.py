@@ -21,7 +21,7 @@ import keras.backend as K
 datasetpath = './output/datasetimages.hdf5'
 patch_size = 32
 batch_size = 12
-epoch = 1000
+epoch = 10
 
 def normalization(X):
     return X / 127.5 - 1
@@ -213,7 +213,7 @@ def plot_generated_batch(X_proc, X_raw, generator_model, batch_size, suffix):
 
     plt.imshow(XX)
     plt.axis('off')
-    plt.savefig("current_batch_"+suffix+".png")
+    plt.savefig("./current_batch_"+suffix+".png")
     plt.clf()
     plt.close()
 
