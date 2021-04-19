@@ -213,7 +213,7 @@ def plot_generated_batch(X_proc, X_raw, generator_model, batch_size, suffix):
 
     plt.imshow(XX)
     plt.axis('off')
-    plt.savefig("./output/current_batch_"+suffix+".png")
+    plt.savefig("home/koshiba/anaconda3/envs/gitFolder/kenkyu/linux/pix2pix/output/current_batch_"+suffix+".png")
     plt.clf()
     plt.close()
 
