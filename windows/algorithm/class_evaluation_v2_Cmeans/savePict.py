@@ -154,4 +154,4 @@ if __name__=='__main__':
     typ = [('','*')] 
     dir = 'C:\\pg'
     path = filedialog.askopenfilename(filetypes = typ, initialdir = dir) 
-    noizu = todo(path, [[0],[0],[0]])
+    #noizu = todo(path, [[0],[0],[0]])
