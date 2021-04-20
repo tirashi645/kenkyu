@@ -18,7 +18,10 @@ from keras.layers.normalization import BatchNormalization
 from keras.layers.pooling import MaxPooling2D
 import keras.backend as K
 
+<<<<<<< HEAD
 '''
+=======
+>>>>>>> 299b5024010f8af093899dac83a548a9616f79e8
 import keras.callbacks
 import keras.backend.tensorflow_backend as KTF
 import tensorflow as tf
@@ -28,12 +31,19 @@ old_session = KTF.get_session()
 session = tf.Session('')
 KTF.set_session(session)
 KTF.set_learning_phase(1)
+<<<<<<< HEAD
 '''
+=======
+>>>>>>> 299b5024010f8af093899dac83a548a9616f79e8
 
 datasetpath = './output/datasetimages.hdf5'
 patch_size = 32
 batch_size = 12
+<<<<<<< HEAD
 epoch = 100
+=======
+epoch = 1000
+>>>>>>> 299b5024010f8af093899dac83a548a9616f79e8
 
 def normalization(X):
     return X / 127.5 - 1
@@ -285,8 +295,13 @@ def train():
     discriminator_model.trainable = True
     discriminator_model.compile(loss='binary_crossentropy', optimizer=opt_discriminator)
 
+<<<<<<< HEAD
     #tb_cb = keras.callbacks.TensorBoard(log_dir="~/tflog/", histogram_freq=1)
     #cbks = [tb_cb]
+=======
+    tb_cb = keras.callbacks.TensorBoard(log_dir="~/tflog/", histogram_freq=1)
+    cbks = [tb_cb]
+>>>>>>> 299b5024010f8af093899dac83a548a9616f79e8
 
     # start training
     print('start training')
@@ -338,7 +353,11 @@ def train():
         print("")
         print('Epoch %s/%s, Time: %s' % (e + 1, epoch, time.time() - starttime))
 
+<<<<<<< HEAD
         #KTF.set_session(old_session)
+=======
+        KTF.set_session(old_session)
+>>>>>>> 299b5024010f8af093899dac83a548a9616f79e8
 
 if __name__ == '__main__':
     train()
