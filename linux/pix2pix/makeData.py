@@ -48,9 +48,6 @@ for imgfile in files:
     imgarray = img_to_array(img)
     masks.append(imgarray)
 
-perm = np.random.permutation(len(orgs))
-orgs = np.array(orgs)[perm]
-masks = np.array(masks)[perm]
 
 for img2 in orgs:
     for i, data in enumerate(image_datagen.flow(img2[np.newaxis, :, :, :], y=None, batch_size=1, shuffle=False, seed=seed)):
@@ -69,6 +66,9 @@ for img2 in masks:
 org_augment = org_augment.reshape([-1, 256, 256, 3])
 masks_augment = org_augment.reshape([-1, 256, 256, 3])
 
+perm = np.random.permutation(len(orgs))
+orgs = np.array(orgs)[perm]
+masks = np.array(masks)[perm]
 threshold = len(org_augment)//10*9
 imgs = org_augment[:threshold]
 gimgs = masks_augment[:threshold]
