@@ -18,10 +18,22 @@ from keras.layers.normalization import BatchNormalization
 from keras.layers.pooling import MaxPooling2D
 import keras.backend as K
 
+'''
+import keras.callbacks
+import keras.backend.tensorflow_backend as KTF
+import tensorflow as tf
+
+old_session = KTF.get_session()
+
+session = tf.Session('')
+KTF.set_session(session)
+KTF.set_learning_phase(1)
+'''
+
 datasetpath = './output/datasetimages.hdf5'
 patch_size = 32
 batch_size = 12
-epoch = 10
+epoch = 100
 
 def normalization(X):
     return X / 127.5 - 1
@@ -273,6 +285,9 @@ def train():
     discriminator_model.trainable = True
     discriminator_model.compile(loss='binary_crossentropy', optimizer=opt_discriminator)
 
+    #tb_cb = keras.callbacks.TensorBoard(log_dir="~/tflog/", histogram_freq=1)
+    #cbks = [tb_cb]
+
     # start training
     print('start training')
     for e in range(epoch):
@@ -318,9 +333,12 @@ def train():
                 idx = np.random.choice(procImage_val.shape[0], batch_size)
                 X_gen_target, X_gen = procImage_val[idx], rawImage_val[idx]
                 plot_generated_batch(X_gen_target, X_gen, generator_model, batch_size, "validation")
+                
 
         print("")
         print('Epoch %s/%s, Time: %s' % (e + 1, epoch, time.time() - starttime))
+
+        #KTF.set_session(old_session)
 
 if __name__ == '__main__':
     train()
