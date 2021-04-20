@@ -57,14 +57,14 @@ for img2 in orgs:
 
 
 for img2 in masks:
-    for i, data in enumerate(image_datagen.flow(img2[np.newaxis, :, :, :], y=None, batch_size=1, shuffle=False, seed=seed)):
-        masks_augment = np.append(org_augment, data)
+    for i, data in enumerate(mask_datagen.flow(img2[np.newaxis, :, :, :], y=None, batch_size=1, shuffle=False, seed=seed)):
+        masks_augment = np.append(mask_augment, data)
         if i == 4:
             break
 
 
 org_augment = org_augment.reshape([-1, 256, 256, 3])
-masks_augment = org_augment.reshape([-1, 256, 256, 3])
+masks_augment = mask_augment.reshape([-1, 256, 256, 3])
 
 perm = np.random.permutation(len(orgs))
 orgs = np.array(orgs)[perm]
