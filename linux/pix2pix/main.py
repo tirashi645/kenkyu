@@ -18,32 +18,10 @@ from keras.layers.normalization import BatchNormalization
 from keras.layers.pooling import MaxPooling2D
 import keras.backend as K
 
-<<<<<<< HEAD
-'''
-=======
->>>>>>> 299b5024010f8af093899dac83a548a9616f79e8
-import keras.callbacks
-import keras.backend.tensorflow_backend as KTF
-import tensorflow as tf
-
-old_session = KTF.get_session()
-
-session = tf.Session('')
-KTF.set_session(session)
-KTF.set_learning_phase(1)
-<<<<<<< HEAD
-'''
-=======
->>>>>>> 299b5024010f8af093899dac83a548a9616f79e8
-
-datasetpath = './output/datasetimages.hdf5'
+datasetpath = '/media/koshiba/Data/pix2pix/output/datasetimages.hdf5'
 patch_size = 32
 batch_size = 12
-<<<<<<< HEAD
-epoch = 100
-=======
 epoch = 1000
->>>>>>> 299b5024010f8af093899dac83a548a9616f79e8
 
 def normalization(X):
     return X / 127.5 - 1
@@ -225,7 +203,7 @@ def plot_generated_batch(X_proc, X_raw, generator_model, batch_size, suffix):
     X_proc = inverse_normalization(X_proc)
     X_gen = inverse_normalization(X_gen)
 
-    with h5py.File('/home/koshiba/anaconda3/envs/gitFolder/kenkyu/linux/pix2pix/output/outputData.h5', 'w') as f:
+    with h5py.File('/media/koshiba/Data/pix2pix/output/outputData.h5', 'w') as f:
         f.create_dataset('raw', data=X_raw)
         f.create_dataset('proc', data=X_proc)
         f.create_dataset('gen', data=X_gen)
@@ -240,7 +218,7 @@ def plot_generated_batch(X_proc, X_raw, generator_model, batch_size, suffix):
 
     plt.imshow(XX)
     plt.axis('off')
-    plt.savefig("/home/koshiba/anaconda3/envs/gitFolder/kenkyu/linux/pix2pix/output/current_batch_"+suffix+".png")
+    plt.savefig("/media/koshiba/Data/pix2pix/output/current_batch_"+suffix+".png")
     plt.clf()
     plt.close()
 
@@ -295,14 +273,6 @@ def train():
     discriminator_model.trainable = True
     discriminator_model.compile(loss='binary_crossentropy', optimizer=opt_discriminator)
 
-<<<<<<< HEAD
-    #tb_cb = keras.callbacks.TensorBoard(log_dir="~/tflog/", histogram_freq=1)
-    #cbks = [tb_cb]
-=======
-    tb_cb = keras.callbacks.TensorBoard(log_dir="~/tflog/", histogram_freq=1)
-    cbks = [tb_cb]
->>>>>>> 299b5024010f8af093899dac83a548a9616f79e8
-
     # start training
     print('start training')
     for e in range(epoch):
@@ -353,11 +323,6 @@ def train():
         print("")
         print('Epoch %s/%s, Time: %s' % (e + 1, epoch, time.time() - starttime))
 
-<<<<<<< HEAD
-        #KTF.set_session(old_session)
-=======
-        KTF.set_session(old_session)
->>>>>>> 299b5024010f8af093899dac83a548a9616f79e8
 
 if __name__ == '__main__':
     train()
