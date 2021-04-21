@@ -18,7 +18,7 @@ from keras.layers.normalization import BatchNormalization
 from keras.layers.pooling import MaxPooling2D
 import keras.backend as K
 
-model_dir = '/media/koshiba/Data/pix2pix/output/model'
+model_dir = '/media/koshiba/Data/pix2pix/model'
 datasetpath = '/media/koshiba/Data/pix2pix/output/datasetimages.hdf5'
 patch_size = 32
 batch_size = 12
