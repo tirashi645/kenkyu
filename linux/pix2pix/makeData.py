@@ -16,7 +16,7 @@ data_gen_args1 = dict(featurewise_center=True,
                      height_shift_range=0.1,
                      zoom_range=0.2,
                      horizontal_flip=0.2,
-                     channel_shift_range=10)
+                     channel_shift_range=30)
 data_gen_args2 = dict(featurewise_center=True,
                      featurewise_std_normalization=True,
                      width_shift_range=0.1,
