@@ -9,7 +9,7 @@ import keras.backend as K
 from keras.utils import generic_utils
 from keras.optimizers import Adam, SGD
 
-from keras.models import Model
+from keras.models import Model, load_model
 from keras.layers.core import Flatten, Dense, Dropout, Activation, Lambda, Reshape
 from keras.layers.convolutional import Conv2D, Deconv2D, ZeroPadding2D, UpSampling2D
 from keras.layers import Input, Concatenate
@@ -328,8 +328,8 @@ def train():
     DCGAN_model.save(model_dir + '/image200_solo_DCGAN.h5')
     discriminator_model.save(model_dir + '/image200_solo_discriminator.h5')
 
-    reconstructed_DCGAN_model = keras.models.load_model(model_dir + '/image200_solo_DCGAN.h5')
-    reconstructed_discriminator_model = keras.models.load_model(model_dir + '/image200_solo_discriminator.h5')
+    reconstructed_DCGAN_model = load_model(model_dir + '/image200_solo_DCGAN.h5')
+    reconstructed_discriminator_model = load_model(model_dir + '/image200_solo_discriminator.h5')
 
     # Let's check:
     np.testing.assert_allclose(
