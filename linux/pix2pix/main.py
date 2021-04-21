@@ -18,6 +18,7 @@ from keras.layers.normalization import BatchNormalization
 from keras.layers.pooling import MaxPooling2D
 import keras.backend as K
 
+model_dir = '/media/koshiba/Data/pix2pix/output/model'
 datasetpath = '/media/koshiba/Data/pix2pix/output/datasetimages.hdf5'
 patch_size = 32
 batch_size = 12
@@ -301,7 +302,7 @@ def train():
 
             # Freeze the discriminator
             discriminator_model.trainable = False
-            gen_loss = DCGAN_model.train_on_batch(X_gen, [X_gen_target, y_gen])
+            gen_loss = DCGAN_model.train_on_batch(X_gen, [X_gen_target, y_gen])     # train_on_batchはfitのようなもの　単一のバッチを使用して1回だけトレーニングします。
             # Unfreeze the discriminator
             discriminator_model.trainable = True
 
@@ -322,7 +323,21 @@ def train():
 
         print("")
         print('Epoch %s/%s, Time: %s' % (e + 1, epoch, time.time() - starttime))
+    
+    # save model
+    DCGAN_model.save(model_dir + '/image200_solo_DCGAN')
+    discriminator_model(model_dir + '/image200_solo_discriminator')
 
+    reconstructed_DCGAN_model = keras.models.load_model(model_dir + '/image200_solo_DCGAN')
+    reconstructed_discriminator_model = keras.models.load_model(model_dir + '/image200_solo_discriminator')
+
+    # Let's check:
+    np.testing.assert_allclose(
+        DCGAN_model.predict(X_gen), reconstructed_DCGAN_model.predict(X_gen)
+    )
+    np.testing.assert_allclose(
+        discriminator_model.predict(x_disc), reconstructed_discriminator_model.predict(x_disc)
+    )
 
 if __name__ == '__main__':
     train()
