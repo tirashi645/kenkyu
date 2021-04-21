@@ -282,8 +282,8 @@ def train():
     discriminator_model.trainable = True
     discriminator_model.compile(loss='binary_crossentropy', optimizer=opt_discriminator)
 
-    tb_discriminator = TensorBoard(log_dir=log_dir + '/discriminator', histogram_freq=1)
-    tb_discriminator.set_model(discriminator_model)
+    #tb_discriminator = TensorBoard(log_dir=log_dir + '/discriminator', histogram_freq=1)
+    #tb_discriminator.set_model(discriminator_model)
     
     tb_dcgan = TensorBoard(log_dir=log_dir + '/dcgan', histogram_freq=1)
     tb_dcgan.set_model(DCGAN_model)
@@ -336,12 +336,12 @@ def train():
                 plot_generated_batch(X_gen_target, X_gen, generator_model, batch_size, "validation")
                 
 
-        tb_discriminator.on_epoch_end(e, named_logs(discriminator_model, disc_loss))
-        tb_DCGAN.on_epoch_end(e, named_logs(DCGAN_model, gen_loss))
+        #tb_discriminator.on_epoch_end(e, named_logs(discriminator_model, disc_loss))
+        #tb_DCGAN.on_epoch_end(e, named_logs(DCGAN_model, gen_loss))
         print("")
         print('Epoch %s/%s, Time: %s' % (e + 1, epoch, time.time() - starttime))
-    tb_discriminator.on_epoch_end(None)
-    tb_dcgan.on_epoch_end(None)
+    #tb_discriminator.on_epoch_end(None)
+    #tb_dcgan.on_epoch_end(None)
     '''
     # save model
     DCGAN_model.save(model_dir + '/image200_solo_DCGAN.h5')
