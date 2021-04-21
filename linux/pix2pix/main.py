@@ -339,6 +339,8 @@ def train():
 
         print("")
         print('Epoch %s/%s, Time: %s' % (e + 1, epoch, time.time() - starttime))
+    tb_discriminator.on_epoch_end(None)
+    tb_dcgan.on_epoch_end(None)
     '''
     # save model
     DCGAN_model.save(model_dir + '/image200_solo_DCGAN.h5')
