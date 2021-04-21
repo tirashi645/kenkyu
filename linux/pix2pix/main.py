@@ -17,8 +17,10 @@ from keras.layers.advanced_activations import LeakyReLU
 from keras.layers.normalization import BatchNormalization
 from keras.layers.pooling import MaxPooling2D
 import keras.backend as K
+from keras.callbacks import TensorBoard
 
 model_dir = '/media/koshiba/Data/pix2pix/model'
+log_dir = './tflog'
 datasetpath = '/media/koshiba/Data/pix2pix/output/datasetimages.hdf5'
 patch_size = 32
 batch_size = 12
@@ -245,6 +247,12 @@ def get_disc_batch(procImage, rawImage, generator_model, batch_counter, patch_si
     X_disc = extract_patches(X_disc, patch_size)
     return X_disc, y_disc
 
+def named_logs(model, logs):
+  result = {}
+  for l in zip(model.metrics_names, logs):
+    result[l[0]] = l[1]
+  return result
+
 def train():
     # load data
     rawImage, procImage, rawImage_val, procImage_val = load_data(datasetpath)
@@ -274,6 +282,12 @@ def train():
     discriminator_model.trainable = True
     discriminator_model.compile(loss='binary_crossentropy', optimizer=opt_discriminator)
 
+    tb_discriminator = TensorBoard(log_dir=log_dir + '/discriminator', histogram_freq=1)
+    tb_discriminator.set_model(discriminator_model)
+    
+    tb_dcgan = TensorBoard(log_dir=log_dir + '/dcgan', histogram_freq=1)
+    tb_dcgan.set_model(DCGAN_model)
+
     # start training
     print('start training')
     for e in range(epoch):
@@ -293,6 +307,7 @@ def train():
             x_disc = X_disc + raw_disc
             # update the discriminator
             disc_loss = discriminator_model.train_on_batch(x_disc, y_disc)
+            tb_discriminator.on_epoch_end(e, named_logs(discriminator_model, disc_loss))
 
             # create a batch to feed the generator model
             idx = np.random.choice(procImage.shape[0], batch_size)
@@ -303,6 +318,7 @@ def train():
             # Freeze the discriminator
             discriminator_model.trainable = False
             gen_loss = DCGAN_model.train_on_batch(X_gen, [X_gen_target, y_gen])     # train_on_batchはfitのようなもの　単一のバッチを使用して1回だけトレーニングします。
+            tb_DCGAN.on_epoch_end(e, named_logs(DCGAN_model, gen_loss))
             # Unfreeze the discriminator
             discriminator_model.trainable = True
 
@@ -323,7 +339,7 @@ def train():
 
         print("")
         print('Epoch %s/%s, Time: %s' % (e + 1, epoch, time.time() - starttime))
-    
+    '''
     # save model
     DCGAN_model.save(model_dir + '/image200_solo_DCGAN.h5')
     discriminator_model.save(model_dir + '/image200_solo_discriminator.h5')
@@ -338,6 +354,6 @@ def train():
     np.testing.assert_allclose(
         discriminator_model.predict(x_disc), reconstructed_discriminator_model.predict(x_disc)
     )
-
+    '''
 if __name__ == '__main__':
     train()
