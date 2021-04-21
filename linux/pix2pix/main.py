@@ -325,11 +325,11 @@ def train():
         print('Epoch %s/%s, Time: %s' % (e + 1, epoch, time.time() - starttime))
     
     # save model
-    DCGAN_model.save(model_dir + '/image200_solo_DCGAN')
-    discriminator_model(model_dir + '/image200_solo_discriminator')
+    DCGAN_model.save(model_dir + '/image200_solo_DCGAN.h5')
+    discriminator_model(model_dir + '/image200_solo_discriminator.h5')
 
-    reconstructed_DCGAN_model = keras.models.load_model(model_dir + '/image200_solo_DCGAN')
-    reconstructed_discriminator_model = keras.models.load_model(model_dir + '/image200_solo_discriminator')
+    reconstructed_DCGAN_model = keras.models.load_model(model_dir + '/image200_solo_DCGAN.h5')
+    reconstructed_discriminator_model = keras.models.load_model(model_dir + '/image200_solo_discriminator.h5')
 
     # Let's check:
     np.testing.assert_allclose(
