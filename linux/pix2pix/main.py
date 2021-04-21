@@ -307,7 +307,6 @@ def train():
             x_disc = X_disc + raw_disc
             # update the discriminator
             disc_loss = discriminator_model.train_on_batch(x_disc, y_disc)
-            tb_discriminator.on_epoch_end(e, named_logs(discriminator_model, disc_loss))
 
             # create a batch to feed the generator model
             idx = np.random.choice(procImage.shape[0], batch_size)
@@ -318,7 +317,7 @@ def train():
             # Freeze the discriminator
             discriminator_model.trainable = False
             gen_loss = DCGAN_model.train_on_batch(X_gen, [X_gen_target, y_gen])     # train_on_batchはfitのようなもの　単一のバッチを使用して1回だけトレーニングします。
-            tb_DCGAN.on_epoch_end(e, named_logs(DCGAN_model, gen_loss))
+            
             # Unfreeze the discriminator
             discriminator_model.trainable = True
 
@@ -337,6 +336,8 @@ def train():
                 plot_generated_batch(X_gen_target, X_gen, generator_model, batch_size, "validation")
                 
 
+        tb_discriminator.on_epoch_end(e, named_logs(discriminator_model, disc_loss))
+        tb_DCGAN.on_epoch_end(e, named_logs(DCGAN_model, gen_loss))
         print("")
         print('Epoch %s/%s, Time: %s' % (e + 1, epoch, time.time() - starttime))
     tb_discriminator.on_epoch_end(None)
