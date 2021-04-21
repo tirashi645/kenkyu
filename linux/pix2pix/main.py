@@ -326,7 +326,7 @@ def train():
     
     # save model
     DCGAN_model.save(model_dir + '/image200_solo_DCGAN.h5')
-    discriminator_model(model_dir + '/image200_solo_discriminator.h5')
+    discriminator_model.save(model_dir + '/image200_solo_discriminator.h5')
 
     reconstructed_DCGAN_model = keras.models.load_model(model_dir + '/image200_solo_DCGAN.h5')
     reconstructed_discriminator_model = keras.models.load_model(model_dir + '/image200_solo_discriminator.h5')
