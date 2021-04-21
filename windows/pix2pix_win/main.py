@@ -17,14 +17,15 @@ from keras.layers.advanced_activations import LeakyReLU
 from keras.layers.normalization import BatchNormalization
 from keras.layers.pooling import MaxPooling2D
 import keras.backend as K
-from keras.callbacks import TensorBoard
 
-model_dir = '/media/koshiba/Data/pix2pix/model'
+
+model_dir = 'E:/data/pix2pix/model'
 log_dir = './tflog'
-datasetpath = '/media/koshiba/Data/pix2pix/output/datasetimages.hdf5'
+output_dir = 'E:/data/pix2pix/output'
+datasetpath = 'E:/data/pix2pix/output/datasetimages.hdf5'
 patch_size = 32
 batch_size = 12
-epoch = 1000
+epoch = 10
 
 def normalization(X):
     return X / 127.5 - 1
@@ -206,7 +207,7 @@ def plot_generated_batch(X_proc, X_raw, generator_model, batch_size, suffix):
     X_proc = inverse_normalization(X_proc)
     X_gen = inverse_normalization(X_gen)
 
-    with h5py.File('/media/koshiba/Data/pix2pix/output/outputData.h5', 'w') as f:
+    with h5py.File(output_dir + '/outputData.h5', 'w') as f:
         f.create_dataset('raw', data=X_raw)
         f.create_dataset('proc', data=X_proc)
         f.create_dataset('gen', data=X_gen)
@@ -221,7 +222,7 @@ def plot_generated_batch(X_proc, X_raw, generator_model, batch_size, suffix):
 
     plt.imshow(XX)
     plt.axis('off')
-    plt.savefig("/media/koshiba/Data/pix2pix/output/current_batch_"+suffix+".png")
+    plt.savefig(output_dir + "/current_batch_"+suffix+".png")
     plt.clf()
     plt.close()
 
@@ -285,8 +286,8 @@ def train():
     #tb_discriminator = TensorBoard(log_dir=log_dir + '/discriminator', histogram_freq=1)
     #tb_discriminator.set_model(discriminator_model)
     
-    tb_dcgan = TensorBoard(log_dir=log_dir + '/dcgan', histogram_freq=1)
-    tb_dcgan.set_model(DCGAN_model)
+    #tb_dcgan = TensorBoard(log_dir=log_dir + '/dcgan', histogram_freq=1)
+    #tb_dcgan.set_model(DCGAN_model)
 
     # start training
     print('start training')
@@ -342,17 +343,14 @@ def train():
         print('Epoch %s/%s, Time: %s' % (e + 1, epoch, time.time() - starttime))
     #tb_discriminator.on_epoch_end(None)
     #tb_dcgan.on_epoch_end(None)
-    # save model
-    DCGAN_model.save(model_dir + '/DCGAN.h5')
-    DCGAN_model.save_weights(model_dir + '/DCGAN_weights.h5')
-
-    discriminator_model.save(model_dir + '/discriminator.h5')
-    discriminator_model.save_weights(model_dir + '/discriminator_weights.h5')
-
-    #reconstructed_DCGAN_model = load_model(model_dir + '/image200_solo_DCGAN.h5')
-    #reconstructed_discriminator_model = load_model(model_dir + '/image200_solo_discriminator.h5')
-
     '''
+    # save model
+    DCGAN_model.save(model_dir + '/image200_solo_DCGAN.h5')
+    discriminator_model.save(model_dir + '/image200_solo_discriminator.h5')
+
+    reconstructed_DCGAN_model = load_model(model_dir + '/image200_solo_DCGAN.h5')
+    reconstructed_discriminator_model = load_model(model_dir + '/image200_solo_discriminator.h5')
+
     # Let's check:
     np.testing.assert_allclose(
         DCGAN_model.predict(X_gen), reconstructed_DCGAN_model.predict(X_gen)
@@ -361,6 +359,5 @@ def train():
         discriminator_model.predict(x_disc), reconstructed_discriminator_model.predict(x_disc)
     )
     '''
-
 if __name__ == '__main__':
     train()
