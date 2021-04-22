@@ -79,4 +79,4 @@ procImage_val = mask_datagen.flow(procImage_val, y=None, batch_size=1, shuffle=F
 
 '''
 
-pritn(rawImage.shape, procImage.Shape)
+print(rawImage.shape, procImage.Shape)
