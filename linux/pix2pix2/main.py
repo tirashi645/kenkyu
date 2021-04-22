@@ -19,18 +19,11 @@ from keras.layers.pooling import MaxPooling2D
 import keras.backend as K
 from keras.callbacks import TensorBoard
 
-'''
 model_dir = '/media/koshiba/Data/pix2pix/model'
 log_dir = './tflog'
 datasetpath = '/media/koshiba/Data/pix2pix/output/datasetimages.hdf5'
 procinputpath = '/media/koshiba/Data/pix2pix/proc/input'
 procoutputpath = '/media/koshiba/Data/pix2pix/proc/output'
-'''
-model_dir = './model'
-log_dir = './tflog'
-datasetpath = './output/datasetimages.hdf5'
-outputpath = './output'
-
 patch_size = 32
 batch_size = 12
 epoch = 10
@@ -215,7 +208,7 @@ def plot_generated_batch(X_proc, X_raw, generator_model, batch_size, suffix):
     X_proc = inverse_normalization(X_proc)
     X_gen = inverse_normalization(X_gen)
 
-    with h5py.File(outputpath + '/outputData.h5', 'w') as f:
+    with h5py.File('/media/koshiba/Data/pix2pix/output/outputData.h5', 'w') as f:
         f.create_dataset('raw', data=X_raw)
         f.create_dataset('proc', data=X_proc)
         f.create_dataset('gen', data=X_gen)
@@ -230,7 +223,7 @@ def plot_generated_batch(X_proc, X_raw, generator_model, batch_size, suffix):
 
     plt.imshow(XX)
     plt.axis('off')
-    plt.savefig(outputpath + "/current_batch_"+suffix+".png")
+    plt.savefig("/media/koshiba/Data/pix2pix/output/current_batch_"+suffix+".png")
     plt.clf()
     plt.close()
 
@@ -355,10 +348,10 @@ def train():
     discriminator_model.trainable = False
     DCGAN_model.trainable = False
     DCGAN_model.save(model_dir + '/DCGAN')
-    DCGAN_model.save_weights(model_dir + '/DCGAN_weights')
+    #DCGAN_model.save_weights(model_dir + '/DCGAN_weights.h5')
 
     discriminator_model.save(model_dir + '/discriminator')
-    discriminator_model.save_weights(model_dir + '/discriminator_weights')
+    #discriminator_model.save_weights(model_dir + '/discriminator_weights.h5')
 
     #reconstructed_DCGAN_model = load_model(model_dir + '/image200_solo_DCGAN.h5')
     #reconstructed_discriminator_model = load_model(model_dir + '/image200_solo_discriminator.h5')
@@ -405,12 +398,11 @@ def predict():
     #tb_discriminator = TensorBoard(log_dir=log_dir + '/discriminator', histogram_freq=1)
     #tb_discriminator.set_model(discriminator_model)
     
-    #tb_dcgan = TensorBoard(log_dir=log_dir + '/dcgan', histogram_freq=1)
-    #tb_dcgan.set_model(DCGAN_model)
+    tb_dcgan = TensorBoard(log_dir=log_dir + '/dcgan', histogram_freq=1)
+    tb_dcgan.set_model(DCGAN_model)
 
     # start training
     print('start training')
-    '''
     for e in range(epoch):
 
         starttime = time.time()
@@ -461,23 +453,6 @@ def predict():
         #tb_DCGAN.on_epoch_end(e, named_logs(DCGAN_model, gen_loss))
         print("")
         print('Epoch %s/%s, Time: %s' % (e + 1, epoch, time.time() - starttime))
-        '''
-    '''
-    # save model
-    DCGAN_model.save(model_dir + '/DCGAN.h5')
-    discriminator_model.save(model_dir + '/discriminator.h5')
-
-    reconstructed_DCGAN_model = load_model(model_dir + '/DCGAN.h5')
-    reconstructed_discriminator_model = load_model(model_dir + '/discriminator.h5')
-
-    # Let's check:
-    np.testing.assert_allclose(
-        DCGAN_model.predict(X_gen), reconstructed_DCGAN_model.predict(X_gen)
-    )
-    np.testing.assert_allclose(
-        discriminator_model.predict(x_disc), reconstructed_discriminator_model.predict(x_disc)
-    )
-    '''
 
 
 if __name__ == '__main__':
