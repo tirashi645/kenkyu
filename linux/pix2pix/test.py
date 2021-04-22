@@ -62,7 +62,6 @@ validation_generator = mask_datagen.flow_from_directory(
     batch_size=1,
     seed=seed)
 
-'''
 for img in rawImage:
     img = img[np.newaxis, :, :, :]
     for i, data in enumerate(image_datagen.flow(img, y=None, batch_size=1, shuffle=False, seed=seed)):
@@ -78,3 +77,6 @@ rawImage_val = image_datagen.flow(rawImage_val, y=None, batch_size=1, shuffle=Fa
 
 procImage_val = mask_datagen.flow(procImage_val, y=None, batch_size=1, shuffle=False, seed=seed)
 
+'''
+
+pritn(rawImage.shape, procImage.Shape)
