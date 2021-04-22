@@ -5,24 +5,24 @@ import time
 
 import matplotlib.pylab as plt
 
-import keras.backend as K
-from keras.utils import generic_utils
-from keras.optimizers import Adam, SGD
+import tensorflow.keras.backend as K
+from tensorflow.keras.utils import generic_utils
+from tensorflow.keras.optimizers import Adam, SGD
 
-from keras.models import Model, load_model
-from keras.layers.core import Flatten, Dense, Dropout, Activation, Lambda, Reshape
-from keras.layers.convolutional import Conv2D, Deconv2D, ZeroPadding2D, UpSampling2D
-from keras.layers import Input, Concatenate
-from keras.layers.advanced_activations import LeakyReLU
-from keras.layers.normalization import BatchNormalization
-from keras.layers.pooling import MaxPooling2D
-import keras.backend as K
+from tensorflow.keras.models import Model, load_model
+from tensorflow.keras.layers.core import Flatten, Dense, Dropout, Activation, Lambda, Reshape
+from tensorflow.keras.layers.convolutional import Conv2D, Deconv2D, ZeroPadding2D, UpSampling2D
+from tensorflow.keras.layers import Input, Concatenate
+from tensorflow.keras.layers.advanced_activations import LeakyReLU
+from tensorflow.keras.layers.normalization import BatchNormalization
+from tensorflow.keras.layers.pooling import MaxPooling2D
+import tensorflow.keras.backend as K
 
 
-model_dir = 'E:/data/pix2pix/model'
+model_dir = 'D:/pix2pix/model'
 log_dir = './tflog'
-output_dir = 'E:/data/pix2pix/output'
-datasetpath = 'E:/data/pix2pix/output/datasetimages.hdf5'
+output_dir = 'D:/pix2pix/output'
+datasetpath = 'D:/pix2pix/output/datasetimages.hdf5'
 patch_size = 32
 batch_size = 12
 epoch = 10

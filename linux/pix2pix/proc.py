@@ -1,7 +1,7 @@
 from keras.models import load_model
 import glob
 
-model_dir = '/media/koshiba/Data/pix2pix/model'
+model_dir = 'D:/modelData'
 save_dir = '/media/koshiba/Data/pix2pix/proc/output'
 input_dir = '/media/koshiba/Data/pix2pix/proc/input'
 
