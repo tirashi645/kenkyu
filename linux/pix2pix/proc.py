@@ -19,11 +19,6 @@ from keras.layers.pooling import MaxPooling2D
 import keras.backend as K
 from keras.callbacks import TensorBoard
 
-<<<<<<< HEAD
-model_dir = 'D:/modelData'
-save_dir = '/media/koshiba/Data/pix2pix/proc/output'
-input_dir = '/media/koshiba/Data/pix2pix/proc/input'
-=======
 model_dir = '/media/koshiba/Data/pix2pix/model'
 log_dir = './tflog'
 datasetpath = '/media/koshiba/Data/pix2pix/output/datasetimages.hdf5'
@@ -371,7 +366,6 @@ def predict():
 
     reconstructed_DCGAN_model = load_model(model_dir + '/DCGAN.h5')
     reconstructed_discriminator_model = load_model(model_dir + '/discriminator.h5')
->>>>>>> eb59490873412cad4fd824b2255993354b9de541
 
     # Let's check:
     np.testing.assert_allclose(
