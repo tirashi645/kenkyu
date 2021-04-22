@@ -20,7 +20,7 @@ def load_data(datasetpath):
         X_sketch_val = normalization(X_sketch_val)
         return X_full_train, X_sketch_train, X_full_val, X_sketch_val
 
-datasetpath = './output/datasetimages.hdf5'
+datasetpath = '/media/koshiba/Data/pix2pix/output/datasetimages.hdf5'
 rawImage, procImage, rawImage_val, procImage_val = load_data(datasetpath)
 
 inpath = './input'
