@@ -343,6 +343,8 @@ def train():
     #tb_discriminator.on_epoch_end(None)
     #tb_dcgan.on_epoch_end(None)
     # save model
+    discriminator_model.trainable = False
+    DCGAN_model.trainable = False
     DCGAN_model.save(model_dir + '/DCGAN')
     #DCGAN_model.save_weights(model_dir + '/DCGAN_weights.h5')
 
