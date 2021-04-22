@@ -22,9 +22,19 @@ from keras.callbacks import TensorBoard
 model_dir = '/media/koshiba/Data/pix2pix/model'
 log_dir = './tflog'
 datasetpath = '/media/koshiba/Data/pix2pix/output/datasetimages.hdf5'
+outputpath = '/media/koshiba/Data/pix2pix/output'
+procinputpath = '/media/koshiba/Data/pix2pix/proc/input'
+procoutputpath = '/media/koshiba/Data/pix2pix/proc/output'
+'''
+model_dir = './model'
+log_dir = './tflog'
+datasetpath = './output/datasetimages.hdf5'
+outputpath = './output'
+'''
+
 patch_size = 32
 batch_size = 12
-epoch = 1000
+epoch = 10
 
 def normalization(X):
     return X / 127.5 - 1
@@ -59,13 +69,13 @@ def up_conv_block_unet(x, x2, f, name, bn_axis, bn=True, dropout=False):
 def generator_unet_upsampling(img_shape, disc_img_shape, model_name="generator_unet_upsampling"):
     filters_num = 64
     axis_num = -1
-    channels_num = img_shape[-1]
-    min_s = min(img_shape[:-1])
+    channels_num = img_shape[-1]    # (256, 256, 3) -> 3
+    min_s = min(img_shape[:-1])     # min(256, 256) -> 256
 
     unet_input = Input(shape=img_shape, name="unet_input")
 
-    conv_num = int(np.floor(np.log(min_s)/np.log(2)))
-    list_filters_num = [filters_num*min(8, (2**i)) for i in range(conv_num)]
+    conv_num = int(np.floor(np.log(min_s)/np.log(2)))   # conv_num -> 8
+    list_filters_num = [filters_num*min(8, (2**i)) for i in range(conv_num)]    # list_filters_num -> [64, 128, 256, 512, 512, 512, 512, 512]
 
     # Encoder
     first_conv = Conv2D(list_filters_num[0], (3,3), strides=(2,2), name='unet_conv2D_1', padding='same')(unet_input)
@@ -206,7 +216,7 @@ def plot_generated_batch(X_proc, X_raw, generator_model, batch_size, suffix):
     X_proc = inverse_normalization(X_proc)
     X_gen = inverse_normalization(X_gen)
 
-    with h5py.File('/media/koshiba/Data/pix2pix/output/outputData.h5', 'w') as f:
+    with h5py.File(outputpath + '/outputData.h5', 'w') as f:
         f.create_dataset('raw', data=X_raw)
         f.create_dataset('proc', data=X_proc)
         f.create_dataset('gen', data=X_gen)
@@ -221,7 +231,7 @@ def plot_generated_batch(X_proc, X_raw, generator_model, batch_size, suffix):
 
     plt.imshow(XX)
     plt.axis('off')
-    plt.savefig("/media/koshiba/Data/pix2pix/output/current_batch_"+suffix+".png")
+    plt.savefig(outputpath + "/current_batch_"+suffix+".png")
     plt.clf()
     plt.close()
 
@@ -343,10 +353,15 @@ def train():
     #tb_discriminator.on_epoch_end(None)
     #tb_dcgan.on_epoch_end(None)
     # save model
-    DCGAN_model.save(model_dir + '/DCGAN.h5')
-    DCGAN_model.save_weights(model_dir + '/DCGAN_weights.h5')
+    discriminator_model.trainable = False
+    DCGAN_model.trainable = False
+    genenrator_model.trainable = False
 
-    discriminator_model.save(model_dir + '/discriminator.h5')
+    genenrator_model.save(model_dir + '/genenrator')
+    genenrator_model.save_weights(model_dir + '/genenrator_weights.h5')
+    DCGAN_model.save(model_dir + '/DCGAN')
+    DCGAN_model.save_weights(model_dir + '/DCGAN_weights.h5')
+    discriminator_model.save(model_dir + '/discriminator')
     discriminator_model.save_weights(model_dir + '/discriminator_weights.h5')
 
     #reconstructed_DCGAN_model = load_model(model_dir + '/image200_solo_DCGAN.h5')
@@ -361,6 +376,113 @@ def train():
         discriminator_model.predict(x_disc), reconstructed_discriminator_model.predict(x_disc)
     )
     '''
+
+def predict():
+    # load data
+    rawImage, procImage, rawImage_val, procImage_val = load_data(datasetpath)
+
+    img_shape = rawImage.shape[-3:]
+    patch_num = (img_shape[0] // patch_size) * (img_shape[1] // patch_size)
+    disc_img_shape = (patch_size, patch_size, procImage.shape[-1])
+
+    # train
+    opt_dcgan = Adam(lr=1E-3, beta_1=0.9, beta_2=0.999, epsilon=1e-08)
+    opt_discriminator = Adam(lr=1E-3, beta_1=0.9, beta_2=0.999, epsilon=1e-08)
+
+    # load generator model
+    generator_model = load_generator(img_shape, disc_img_shape)
+    # load discriminator model
+    discriminator_model = load_DCGAN_discriminator(img_shape, disc_img_shape, patch_num)
+
+    generator_model.compile(loss='mae', optimizer=opt_discriminator)
+    discriminator_model.trainable = False
+
+    DCGAN_model = load_DCGAN(generator_model, discriminator_model, img_shape, patch_size)
+
+    loss = [l1_loss, 'binary_crossentropy']
+    loss_weights = [1E1, 1]
+    DCGAN_model.compile(loss=loss, loss_weights=loss_weights, optimizer=opt_dcgan)
+
+    discriminator_model.trainable = True
+    discriminator_model.compile(loss='binary_crossentropy', optimizer=opt_discriminator)
+
+    #tb_discriminator = TensorBoard(log_dir=log_dir + '/discriminator', histogram_freq=1)
+    #tb_discriminator.set_model(discriminator_model)
+    
+    #tb_dcgan = TensorBoard(log_dir=log_dir + '/dcgan', histogram_freq=1)
+    #tb_dcgan.set_model(DCGAN_model)
+
+    # start training
+    print('start training')
+    '''
+    for e in range(epoch):
+
+        starttime = time.time()
+        perm = np.random.permutation(rawImage.shape[0])
+        X_procImage = procImage[perm]
+        X_rawImage  = rawImage[perm]
+        X_procImageIter = [X_procImage[i:i+batch_size] for i in range(0, rawImage.shape[0], batch_size)]
+        X_rawImageIter  = [X_rawImage[i:i+batch_size] for i in range(0, rawImage.shape[0], batch_size)]
+        b_it = 0
+        progbar = generic_utils.Progbar(len(X_procImageIter)*batch_size)
+        for (X_proc_batch, X_raw_batch) in zip(X_procImageIter, X_rawImageIter):
+            b_it += 1
+            X_disc, y_disc = get_disc_batch(X_proc_batch, X_raw_batch, generator_model, b_it, patch_size)
+            raw_disc, _ = get_disc_batch(X_raw_batch, X_raw_batch, generator_model, 1, patch_size)
+            x_disc = X_disc + raw_disc
+            # update the discriminator
+            disc_loss = discriminator_model.train_on_batch(x_disc, y_disc)
+
+            # create a batch to feed the generator model
+            idx = np.random.choice(procImage.shape[0], batch_size)
+            X_gen_target, X_gen = procImage[idx], rawImage[idx]
+            y_gen = np.zeros((X_gen.shape[0], 2), dtype=np.uint8)
+            y_gen[:, 1] = 1
+
+            # Freeze the discriminator
+            discriminator_model.trainable = False
+            gen_loss = DCGAN_model.train_on_batch(X_gen, [X_gen_target, y_gen])     # train_on_batchはfitのようなもの　単一のバッチを使用して1回だけトレーニングします。
+            
+            # Unfreeze the discriminator
+            discriminator_model.trainable = True
+
+            progbar.add(batch_size, values=[
+                ("D logloss", disc_loss),
+                ("G tot", gen_loss[0]),
+                ("G L1", gen_loss[1]),
+                ("G logloss", gen_loss[2])
+            ])
+
+            # save images for visualization
+            if b_it % (procImage.shape[0]//batch_size//2) == 0:
+                plot_generated_batch(X_proc_batch, X_raw_batch, generator_model, batch_size, "training")
+                idx = np.random.choice(procImage_val.shape[0], batch_size)
+                X_gen_target, X_gen = procImage_val[idx], rawImage_val[idx]
+                plot_generated_batch(X_gen_target, X_gen, generator_model, batch_size, "validation")
+                
+
+        #tb_discriminator.on_epoch_end(e, named_logs(discriminator_model, disc_loss))
+        #tb_DCGAN.on_epoch_end(e, named_logs(DCGAN_model, gen_loss))
+        print("")
+        print('Epoch %s/%s, Time: %s' % (e + 1, epoch, time.time() - starttime))
+        '''
+    '''
+    # save model
+    DCGAN_model.save(model_dir + '/DCGAN.h5')
+    discriminator_model.save(model_dir + '/discriminator.h5')
+
+    reconstructed_DCGAN_model = load_model(model_dir + '/DCGAN.h5')
+    reconstructed_discriminator_model = load_model(model_dir + '/discriminator.h5')
+
+    # Let's check:
+    np.testing.assert_allclose(
+        DCGAN_model.predict(X_gen), reconstructed_DCGAN_model.predict(X_gen)
+    )
+    np.testing.assert_allclose(
+        discriminator_model.predict(x_disc), reconstructed_discriminator_model.predict(x_disc)
+    )
+    '''
+
 
 if __name__ == '__main__':
     train()

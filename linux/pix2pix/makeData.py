@@ -5,9 +5,13 @@ import h5py
 from keras.preprocessing.image import load_img, img_to_array
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 
-
+'''
 inpath = '/media/koshiba/Data/pix2pix/input'
 outpath = '/media/koshiba/Data/pix2pix/output'
+'''
+inpath = './input'
+outpath = './output'
+
 
 # we create two instances with the same arguments
 data_gen_args1 = dict(featurewise_center=True,
@@ -52,14 +56,14 @@ for imgfile in files:
 for img2 in orgs:
     for i, data in enumerate(image_datagen.flow(img2[np.newaxis, :, :, :], y=None, batch_size=1, shuffle=False, seed=seed)):
         org_augment = np.append(org_augment, data)
-        if i == 4:
+        if i == 8:
             break
 
 
 for img2 in masks:
     for i, data in enumerate(mask_datagen.flow(img2[np.newaxis, :, :, :], y=None, batch_size=1, shuffle=False, seed=seed)):
         masks_augment = np.append(masks_augment, data)
-        if i == 4:
+        if i == 8:
             break
 
 

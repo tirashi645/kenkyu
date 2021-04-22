@@ -20,7 +20,7 @@ def load_data(datasetpath):
         X_sketch_val = normalization(X_sketch_val)
         return X_full_train, X_sketch_train, X_full_val, X_sketch_val
 
-datasetpath = './output/datasetimages.hdf5'
+datasetpath = '/media/koshiba/Data/pix2pix/output/datasetimages.hdf5'
 rawImage, procImage, rawImage_val, procImage_val = load_data(datasetpath)
 
 inpath = './input'
@@ -62,7 +62,6 @@ validation_generator = mask_datagen.flow_from_directory(
     batch_size=1,
     seed=seed)
 
-'''
 for img in rawImage:
     img = img[np.newaxis, :, :, :]
     for i, data in enumerate(image_datagen.flow(img, y=None, batch_size=1, shuffle=False, seed=seed)):
@@ -78,3 +77,6 @@ rawImage_val = image_datagen.flow(rawImage_val, y=None, batch_size=1, shuffle=Fa
 
 procImage_val = mask_datagen.flow(procImage_val, y=None, batch_size=1, shuffle=False, seed=seed)
 
+'''
+
+print(rawImage.shape, procImage.shape, rawImage_val.shape, procImage_val.shape)
