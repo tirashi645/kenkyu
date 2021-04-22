@@ -7,8 +7,8 @@ input_dir = '/media/koshiba/Data/pix2pix/proc/input'
 
 file_list = glob.glob(input_dir + '/*')
 
-DCGAN_model = load_model(model_dir + '/DCGAN.h5')
-discriminator_model = load_model(model_dir + '/discriminator.h5')
+DCGAN_model = load_model(model_dir + '/DCGAN')
+discriminator_model = load_model(model_dir + '/discriminator')
 
 print(DCGAN_model.summary())
 print(discriminator_model.summary())
