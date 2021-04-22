@@ -19,10 +19,10 @@ from keras.layers.pooling import MaxPooling2D
 import keras.backend as K
 from keras.callbacks import TensorBoard
 
-'''
 model_dir = '/media/koshiba/Data/pix2pix/model'
 log_dir = './tflog'
 datasetpath = '/media/koshiba/Data/pix2pix/output/datasetimages.hdf5'
+outputpath = '/media/koshiba/Data/pix2pix/output'
 procinputpath = '/media/koshiba/Data/pix2pix/proc/input'
 procoutputpath = '/media/koshiba/Data/pix2pix/proc/output'
 '''
@@ -30,6 +30,7 @@ model_dir = './model'
 log_dir = './tflog'
 datasetpath = './output/datasetimages.hdf5'
 outputpath = './output'
+'''
 
 patch_size = 32
 batch_size = 12
