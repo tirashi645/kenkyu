@@ -293,6 +293,7 @@ def predict():
     discriminator_model.trainable = True
     discriminator_model.compile(loss='binary_crossentropy', optimizer=opt_discriminator)
 
+    generator_model.load_weights(model_dir + '/generator_weights.h5')
     discriminator_model.load_weights(model_dir + '/discriminator_weights.h5')
     DCGAN_model.load_weights(model_dir + '/DCGAN_weights.h5')
 
