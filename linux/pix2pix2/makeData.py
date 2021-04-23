@@ -15,6 +15,7 @@ outpath = './output'
 '''
 
 def expand2square(pil_img, background_color):
+    print(pil_img.shape)
     width, height = pil_img.size
     if width == height:
         return pil_img
