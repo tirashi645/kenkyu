@@ -34,7 +34,7 @@ outputpath = './output'
 
 patch_size = 32
 batch_size = 12
-epoch = 10
+epoch = 3
 
 def normalization(X):
     return X / 127.5 - 1
@@ -353,6 +353,7 @@ def train():
     #tb_discriminator.on_epoch_end(None)
     #tb_dcgan.on_epoch_end(None)
     # save model
+    '''
     discriminator_model.trainable = False
     DCGAN_model.trainable = False
     genenrator_model.trainable = False
@@ -366,6 +367,7 @@ def train():
 
     #reconstructed_DCGAN_model = load_model(model_dir + '/image200_solo_DCGAN.h5')
     #reconstructed_discriminator_model = load_model(model_dir + '/image200_solo_discriminator.h5')
+    '''
 
     '''
     # Let's check:
