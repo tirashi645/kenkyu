@@ -1,31 +1,17 @@
 import numpy as np
 import glob
 import h5py
-from PIL import Image
 
 from keras.preprocessing.image import load_img, img_to_array
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 
-
+'''
 inpath = '/media/koshiba/Data/pix2pix/input'
 outpath = '/media/koshiba/Data/pix2pix/output'
 '''
 inpath = './input'
 outpath = './output'
-'''
 
-def expand2square(pil_img, background_color):
-    width, height = pil_img.size
-    if width == height:
-        return pil_img
-    elif width > height:
-        result = Image.new(pil_img.mode, (width, width), background_color)
-        result.paste(pil_img, (0, (width - height) // 2))
-        return result
-    else:
-        result = Image.new(pil_img.mode, (height, height), background_color)
-        result.paste(pil_img, ((height - width) // 2, 0))
-        return result
 
 # we create two instances with the same arguments
 data_gen_args1 = dict(featurewise_center=True,
@@ -49,13 +35,14 @@ masks = []
 seed = 123
 masks_augment = np.array([])
 org_augment = np.array([])
+zero_layer = np.
 
 print('original img')
 files = glob.glob(inpath+'/org/*.jpg')
 for imgfile in files:
     print(imgfile)
-    img = expand2square(Image.open(imgfile), (0, 0, 0))
-    #img = load_img(imgfile, target_size=(256,256))
+
+    img = load_img(imgfile, target_size=(256,256))
     imgarray = img_to_array(img)
     orgs.append(imgarray)
 
@@ -63,8 +50,7 @@ print('mask img')
 files = glob.glob(inpath+'/mask/*.jpg')
 for imgfile in files:
     print(imgfile)
-    img = expand2square(Image.open(imgfile), (0, 0, 0))
-    #img = load_img(imgfile, target_size=(256,256))
+    img = load_img(imgfile, target_size=(256,256))
     imgarray = img_to_array(img)
     masks.append(imgarray)
 
@@ -72,14 +58,14 @@ for imgfile in files:
 for img2 in orgs:
     for i, data in enumerate(image_datagen.flow(img2[np.newaxis, :, :, :], y=None, batch_size=1, shuffle=False, seed=seed)):
         org_augment = np.append(org_augment, data)
-        if i == 4:
+        if i == 8:
             break
 
 
 for img2 in masks:
     for i, data in enumerate(mask_datagen.flow(img2[np.newaxis, :, :, :], y=None, batch_size=1, shuffle=False, seed=seed)):
         masks_augment = np.append(masks_augment, data)
-        if i == 4:
+        if i == 8:
             break
 
 
