@@ -15,7 +15,6 @@ outpath = './output'
 '''
 
 def expand2square(pil_img, background_color):
-    print(pil_img.shape)
     width, height = pil_img.size
     if width == height:
         return pil_img
@@ -55,7 +54,8 @@ print('original img')
 files = glob.glob(inpath+'/org/*.jpg')
 for imgfile in files:
     print(imgfile)
-    img = expand2square(Image.open(imgfile), (0, 0, 0))
+    img = Image.open(imgfile)
+    img = expand2square(img, (0, 0, 0))
     #img = load_img(imgfile, target_size=(256,256))
     imgarray = img_to_array(img)
     orgs.append(imgarray)
@@ -64,7 +64,8 @@ print('mask img')
 files = glob.glob(inpath+'/mask/*.jpg')
 for imgfile in files:
     print(imgfile)
-    img = expand2square(Image.open(imgfile), (0, 0, 0))
+    img = Image.open(imgfile)
+    img = expand2square(img, (0, 0, 0))
     #img = load_img(imgfile, target_size=(256,256))
     imgarray = img_to_array(img)
     masks.append(imgarray)
