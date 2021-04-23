@@ -69,13 +69,13 @@ def up_conv_block_unet(x, x2, f, name, bn_axis, bn=True, dropout=False):
 def generator_unet_upsampling(img_shape, disc_img_shape, model_name="generator_unet_upsampling"):
     filters_num = 64
     axis_num = -1
-    channels_num = img_shape[-1]
-    min_s = min(img_shape[:-1])
+    channels_num = img_shape[-1]    # (256, 256, 3) -> 3
+    min_s = min(img_shape[:-1])     # min(256, 256) -> 256
 
     unet_input = Input(shape=img_shape, name="unet_input")
 
-    conv_num = int(np.floor(np.log(min_s)/np.log(2)))
-    list_filters_num = [filters_num*min(8, (2**i)) for i in range(conv_num)]
+    conv_num = int(np.floor(np.log(min_s)/np.log(2)))   # conv_num -> 8
+    list_filters_num = [filters_num*min(8, (2**i)) for i in range(conv_num)]    # list_filters_num -> [64, 128, 256, 512, 512, 512, 512, 512]
 
     # Encoder
     first_conv = Conv2D(list_filters_num[0], (3,3), strides=(2,2), name='unet_conv2D_1', padding='same')(unet_input)
@@ -355,11 +355,14 @@ def train():
     # save model
     discriminator_model.trainable = False
     DCGAN_model.trainable = False
-    DCGAN_model.save(model_dir + '/DCGAN')
-    DCGAN_model.save_weights(model_dir + '/DCGAN_weights')
+    genenrator_model.trainable = False
 
+    genenrator_model.save(model_dir + '/genenrator')
+    genenrator_model.save_weights(model_dir + '/genenrator_weights.h5')
+    DCGAN_model.save(model_dir + '/DCGAN')
+    DCGAN_model.save_weights(model_dir + '/DCGAN_weights.h5')
     discriminator_model.save(model_dir + '/discriminator')
-    discriminator_model.save_weights(model_dir + '/discriminator_weights')
+    discriminator_model.save_weights(model_dir + '/discriminator_weights.h5')
 
     #reconstructed_DCGAN_model = load_model(model_dir + '/image200_solo_DCGAN.h5')
     #reconstructed_discriminator_model = load_model(model_dir + '/image200_solo_discriminator.h5')
