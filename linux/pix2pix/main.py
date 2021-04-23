@@ -34,7 +34,7 @@ outputpath = './output'
 
 patch_size = 32
 batch_size = 12
-epoch = 3
+epoch = 1000
 
 def normalization(X):
     return X / 127.5 - 1
