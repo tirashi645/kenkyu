@@ -5,24 +5,34 @@ import time
 
 import matplotlib.pylab as plt
 
-import tensorflow.keras.backend as K
-from tensorflow.keras.utils import generic_utils
-from tensorflow.keras.optimizers import Adam, SGD
+import keras.backend as K
+from keras.utils import generic_utils
+from keras.optimizers import Adam, SGD
 
-from tensorflow.keras.models import Model, load_model
-from tensorflow.keras.layers.core import Flatten, Dense, Dropout, Activation, Lambda, Reshape
-from tensorflow.keras.layers.convolutional import Conv2D, Deconv2D, ZeroPadding2D, UpSampling2D
-from tensorflow.keras.layers import Input, Concatenate
-from tensorflow.keras.layers.advanced_activations import LeakyReLU
-from tensorflow.keras.layers.normalization import BatchNormalization
-from tensorflow.keras.layers.pooling import MaxPooling2D
-import tensorflow.keras.backend as K
+from keras.models import Model, load_model
+from keras.layers.core import Flatten, Dense, Dropout, Activation, Lambda, Reshape
+from keras.layers.convolutional import Conv2D, Deconv2D, ZeroPadding2D, UpSampling2D
+from keras.layers import Input, Concatenate
+from keras.layers.advanced_activations import LeakyReLU
+from keras.layers.normalization import BatchNormalization
+from keras.layers.pooling import MaxPooling2D
+import keras.backend as K
+from keras.callbacks import TensorBoard
 
-
-model_dir = 'D:/pix2pix/model'
+model_dir = '/media/koshiba/Data/pix2pix/model'
 log_dir = './tflog'
-output_dir = 'D:/pix2pix/output'
-datasetpath = 'D:/pix2pix/output/datasetimages.hdf5'
+datasetpath = '/media/koshiba/Data/pix2pix/output/datasetimages.hdf5'
+outputpath = '/media/koshiba/Data/pix2pix/output'
+'''
+procinputpath = '/media/koshiba/Data/pix2pix/proc/input'
+procoutputpath = '/media/koshiba/Data/pix2pix/proc/output'
+
+model_dir = './model'
+log_dir = './tflog'
+datasetpath = './output/datasetimages.hdf5'
+outputpath = './output'
+'''
+
 patch_size = 32
 batch_size = 12
 epoch = 10
@@ -77,7 +87,7 @@ def generator_unet_upsampling(img_shape, disc_img_shape, model_name="generator_u
         list_encoder.append(conv)
 
     # prepare decoder filters
-    list_filters_num = list_filters_num[:-2][::-1]      # list_filters_num -> [512, 512, 512, 256, 128, 64]
+    list_filters_num = list_filters_num[:-2][::-1]
     if len(list_filters_num) < conv_num-1:
         list_filters_num.append(filters_num)
 
@@ -207,7 +217,7 @@ def plot_generated_batch(X_proc, X_raw, generator_model, batch_size, suffix):
     X_proc = inverse_normalization(X_proc)
     X_gen = inverse_normalization(X_gen)
 
-    with h5py.File(output_dir + '/outputData.h5', 'w') as f:
+    with h5py.File(outputpath + '/outputData.h5', 'w') as f:
         f.create_dataset('raw', data=X_raw)
         f.create_dataset('proc', data=X_proc)
         f.create_dataset('gen', data=X_gen)
@@ -222,7 +232,7 @@ def plot_generated_batch(X_proc, X_raw, generator_model, batch_size, suffix):
 
     plt.imshow(XX)
     plt.axis('off')
-    plt.savefig(output_dir + "/current_batch_"+suffix+".png")
+    plt.savefig(outputpath + "/current_batch_"+suffix+".png")
     plt.clf()
     plt.close()
 
@@ -254,7 +264,7 @@ def named_logs(model, logs):
     result[l[0]] = l[1]
   return result
 
-def train():
+def predict():
     # load data
     rawImage, procImage, rawImage_val, procImage_val = load_data(datasetpath)
 
@@ -283,6 +293,12 @@ def train():
     discriminator_model.trainable = True
     discriminator_model.compile(loss='binary_crossentropy', optimizer=opt_discriminator)
 
+    generator_model.load_weights(model_dir + '/generator_weights.h5')
+    discriminator_model.load_weights(model_dir + '/discriminator_weights.h5')
+    DCGAN_model.load_weights(model_dir + '/DCGAN_weights.h5')
+
+    print('finish')
+
     #tb_discriminator = TensorBoard(log_dir=log_dir + '/discriminator', histogram_freq=1)
     #tb_discriminator.set_model(discriminator_model)
     
@@ -291,6 +307,7 @@ def train():
 
     # start training
     print('start training')
+    '''
     for e in range(epoch):
 
         starttime = time.time()
@@ -341,15 +358,14 @@ def train():
         #tb_DCGAN.on_epoch_end(e, named_logs(DCGAN_model, gen_loss))
         print("")
         print('Epoch %s/%s, Time: %s' % (e + 1, epoch, time.time() - starttime))
-    #tb_discriminator.on_epoch_end(None)
-    #tb_dcgan.on_epoch_end(None)
+        '''
     '''
     # save model
-    DCGAN_model.save(model_dir + '/image200_solo_DCGAN.h5')
-    discriminator_model.save(model_dir + '/image200_solo_discriminator.h5')
+    DCGAN_model.save(model_dir + '/DCGAN.h5')
+    discriminator_model.save(model_dir + '/discriminator.h5')
 
-    reconstructed_DCGAN_model = load_model(model_dir + '/image200_solo_DCGAN.h5')
-    reconstructed_discriminator_model = load_model(model_dir + '/image200_solo_discriminator.h5')
+    reconstructed_DCGAN_model = load_model(model_dir + '/DCGAN.h5')
+    reconstructed_discriminator_model = load_model(model_dir + '/discriminator.h5')
 
     # Let's check:
     np.testing.assert_allclose(
@@ -359,5 +375,8 @@ def train():
         discriminator_model.predict(x_disc), reconstructed_discriminator_model.predict(x_disc)
     )
     '''
+
+
 if __name__ == '__main__':
-    train()
+    #train()
+    predict()
