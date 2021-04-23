@@ -64,7 +64,7 @@ print('mask img')
 files = glob.glob(inpath+'/mask/*.jpg')
 for imgfile in files:
     print(imgfile)
-    img = Image.open(imgfile) 
+    img = load_img(imgfile)
     print(np.array(img).shape)
     img = expand2square(img, (0, 0, 0))
     #img = load_img(imgfile, target_size=(256,256))
