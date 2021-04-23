@@ -1,6 +1,6 @@
-    
-    reconstructed_DCGAN_model = load_model(model_dir + '/DCGAN.h5')
-    reconstructed_discriminator_model = load_model(model_dir + '/discriminator.h5')
-    generator_model.load_weights(model_dir + '/generator_weights.h5')
-    discriminator_model.load_weights(model_dir + '/discriminator_weights.h5')
-    DCGAN_model.load_weights(model_dir + '/DCGAN_weights.h5')
+import numpy as np
+
+li = np.array([[[[0, 0, 0] for i in range(720)] for j in range(1280)]])
+print(li.shape)
+li2 = li.reshape([-1, 256, 256, 3])
+print(li2.shape)
