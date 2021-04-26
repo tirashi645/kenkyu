@@ -1,6 +1,7 @@
 import numpy as np
 import glob
 import h5py
+import cv2
 from PIL import Image
 
 from keras.preprocessing.image import load_img, img_to_array
