@@ -54,17 +54,29 @@ for imgfile in files:
     img = load_img(imgfile, target_size=(256,256))
     imgarray = img_to_array(img)
     masks.append(imgarray)
-
+'''
 for img2 in orgs:
     for i, data in enumerate(image_datagen.flow(img2[np.newaxis, :, :, :], y=None, batch_size=1, shuffle=False, seed=seed)):
         org_augment = np.append(org_augment, data)
         if i == 4:
             break
 
-
 for img2 in masks:
     for i, data in enumerate(mask_datagen.flow(img2[np.newaxis, :, :, :], y=None, batch_size=1, shuffle=False, seed=seed)):
         masks_augment = np.append(masks_augment, data)
+        if i == 4:
+            break
+'''
+for index in range(len(masks)):
+    seed = np.random.randint(1, 1000)
+    img1 = masks[index]
+    img2 = orgs[index]
+    for i, data in enumerate(mask_datagen.flow(img1[np.newaxis, :, :, :], y=None, batch_size=1, shuffle=False, seed=seed)):
+        masks_augment = np.append(masks_augment, data)
+        if i == 4:
+            break
+    for i, data in enumerate(image_datagen.flow(img2[np.newaxis, :, :, :], y=None, batch_size=1, shuffle=False, seed=seed)):
+        org_augment = np.append(org_augment, data)
         if i == 4:
             break
 
