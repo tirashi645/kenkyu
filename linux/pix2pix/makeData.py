@@ -36,7 +36,6 @@ masks = []
 seed = 123
 masks_augment = np.array([])
 org_augment = np.array([])
-zero_layer = np.
 
 print('original img')
 files = glob.glob(inpath+'/org/*.jpg')
