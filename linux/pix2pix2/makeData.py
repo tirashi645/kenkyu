@@ -88,7 +88,7 @@ for img2 in masks:
         if i == 4:
             break
 '''
-for index in len(masks):
+for index in range(len(masks)):
     seed = np.random.randint(1, 1000)
     img1 = masks[index]
     img2 = orgs[index]
