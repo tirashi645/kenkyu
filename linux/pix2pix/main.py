@@ -2,6 +2,7 @@ import numpy as np
 
 import h5py
 import time
+import sys
 
 import matplotlib.pylab as plt
 
@@ -34,7 +35,6 @@ outputpath = './output'
 
 patch_size = 32
 batch_size = 12
-epoch = 3
 
 def normalization(X):
     return X / 127.5 - 1
@@ -263,7 +263,7 @@ def named_logs(model, logs):
     result[l[0]] = l[1]
   return result
 
-def train():
+def train(epoch = 1000):
     # load data
     rawImage, procImage, rawImage_val, procImage_val = load_data(datasetpath)
 
@@ -377,7 +377,7 @@ def train():
     )
     '''
 
-def predict():
+def predict(epoch = 1000):
     # load data
     rawImage, procImage, rawImage_val, procImage_val = load_data(datasetpath)
 
@@ -485,4 +485,6 @@ def predict():
 
 
 if __name__ == '__main__':
-    train()
+    args = sys.argv
+    epoch = args[0]
+    train(epoch)
