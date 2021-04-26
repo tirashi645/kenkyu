@@ -68,9 +68,6 @@ for img2 in masks:
         if i == 4:
             break
 
-for i in range(len(masks_augment)):
-    img = cv2.hconcat(org_augment, masks_augment)
-    cv2.imwrite('/media/koshiba/Data/pix2pix/output/check.' + str(i) + '.jpg', img)
 
 org_augment = org_augment.reshape([-1, 256, 256, 3])
 masks_augment = masks_augment.reshape([-1, 256, 256, 3])
@@ -89,7 +86,6 @@ print('mask imgs : ', gimgs.shape)
 print('test org  : ', vimgs.shape)
 print('test tset : ', vgimgs.shape)
 
-'''
 outh5 = h5py.File(outpath+'/datasetimages.hdf5', 'w')
 outh5.create_dataset('train_data_raw', data=imgs)
 outh5.create_dataset('train_data_gen', data=gimgs)
@@ -97,4 +93,3 @@ outh5.create_dataset('val_data_raw', data=vimgs)
 outh5.create_dataset('val_data_gen', data=vgimgs)
 outh5.flush()
 outh5.close()
-'''
