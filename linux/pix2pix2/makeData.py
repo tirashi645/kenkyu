@@ -47,7 +47,7 @@ mask_datagen = ImageDataGenerator(**data_gen_args2)
 
 orgs = []
 masks = []
-seed = 123
+#seed = 123
 masks_augment = np.array([])
 org_augment = np.array([])
 
@@ -74,7 +74,7 @@ for imgfile in files:
     imgarray = img_to_array(img)
     masks.append(imgarray)
 print(np.array(img).shape)
-
+'''
 for img2 in orgs:
     for i, data in enumerate(image_datagen.flow(img2[np.newaxis, :, :, :], y=None, batch_size=1, shuffle=False, seed=seed)):
         org_augment = np.append(org_augment, data)
@@ -85,6 +85,19 @@ for img2 in orgs:
 for img2 in masks:
     for i, data in enumerate(mask_datagen.flow(img2[np.newaxis, :, :, :], y=None, batch_size=1, shuffle=False, seed=seed)):
         masks_augment = np.append(masks_augment, data)
+        if i == 4:
+            break
+'''
+for index in len(masks):
+    seed = np.random.randint(1, 1000)
+    img1 = masks[index]
+    img2 = orgs[index]
+    for i, data in enumerate(mask_datagen.flow(img1[np.newaxis, :, :, :], y=None, batch_size=1, shuffle=False, seed=seed)):
+        masks_augment = np.append(masks_augment, data)
+        if i == 4:
+            break
+    for i, data in enumerate(image_datagen.flow(img2[np.newaxis, :, :, :], y=None, batch_size=1, shuffle=False, seed=seed)):
+        org_augment = np.append(org_augment, data)
         if i == 4:
             break
 
