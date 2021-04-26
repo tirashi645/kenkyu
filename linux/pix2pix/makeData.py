@@ -1,6 +1,7 @@
 import numpy as np
 import glob
 import h5py
+import cv2
 
 from keras.preprocessing.image import load_img, img_to_array
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
@@ -54,21 +55,22 @@ for imgfile in files:
     imgarray = img_to_array(img)
     masks.append(imgarray)
 
-'''
 for img2 in orgs:
     for i, data in enumerate(image_datagen.flow(img2[np.newaxis, :, :, :], y=None, batch_size=1, shuffle=False, seed=seed)):
         org_augment = np.append(org_augment, data)
-        if i == 8:
+        if i == 4:
             break
 
 
 for img2 in masks:
     for i, data in enumerate(mask_datagen.flow(img2[np.newaxis, :, :, :], y=None, batch_size=1, shuffle=False, seed=seed)):
         masks_augment = np.append(masks_augment, data)
-        if i == 8:
+        if i == 4:
             break
-'''
 
+for i in range(len(masks_augment)):
+    img = cv2.hconcat(org_augment, masks_augment)
+    cv2.imwrite('/media/koshiba/Data/pix2pix/output/check.' + str(i) + '.jpg', img)
 
 org_augment = org_augment.reshape([-1, 256, 256, 3])
 masks_augment = masks_augment.reshape([-1, 256, 256, 3])
@@ -87,6 +89,7 @@ print('mask imgs : ', gimgs.shape)
 print('test org  : ', vimgs.shape)
 print('test tset : ', vgimgs.shape)
 
+'''
 outh5 = h5py.File(outpath+'/datasetimages.hdf5', 'w')
 outh5.create_dataset('train_data_raw', data=imgs)
 outh5.create_dataset('train_data_gen', data=gimgs)
@@ -94,3 +97,4 @@ outh5.create_dataset('val_data_raw', data=vimgs)
 outh5.create_dataset('val_data_gen', data=vgimgs)
 outh5.flush()
 outh5.close()
+'''
