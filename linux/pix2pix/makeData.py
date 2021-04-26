@@ -54,7 +54,7 @@ for imgfile in files:
     imgarray = img_to_array(img)
     masks.append(imgarray)
 
-
+'''
 for img2 in orgs:
     for i, data in enumerate(image_datagen.flow(img2[np.newaxis, :, :, :], y=None, batch_size=1, shuffle=False, seed=seed)):
         org_augment = np.append(org_augment, data)
@@ -67,6 +67,7 @@ for img2 in masks:
         masks_augment = np.append(masks_augment, data)
         if i == 8:
             break
+'''
 
 
 org_augment = org_augment.reshape([-1, 256, 256, 3])
