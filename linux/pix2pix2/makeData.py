@@ -66,14 +66,14 @@ files = glob.glob(inpath+'/mask/*.jpg')
 for imgfile in files:
     print(imgfile)
     img = load_img(imgfile)
-    print(np.array(img).shape)
+    #print(np.array(img).shape)
     img = expand2square(img, (0, 0, 0))
     img = img.resize((256, 256))
     #img = load_img(imgfile, target_size=(256,256))
     imgarray = img_to_array(img)
     masks.append(imgarray)
+print(np.array(img).shape)
 
-'''
 for img2 in orgs:
     for i, data in enumerate(image_datagen.flow(img2[np.newaxis, :, :, :], y=None, batch_size=1, shuffle=False, seed=seed)):
         org_augment = np.append(org_augment, data)
@@ -86,7 +86,6 @@ for img2 in masks:
         masks_augment = np.append(masks_augment, data)
         if i == 4:
             break
-'''
 
 org_augment = org_augment.reshape([-1, 256, 256, 3])
 masks_augment = masks_augment.reshape([-1, 256, 256, 3])
