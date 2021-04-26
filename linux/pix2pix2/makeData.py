@@ -34,14 +34,14 @@ data_gen_args1 = dict(featurewise_center=True,
                      width_shift_range=0.1,
                      height_shift_range=0.1,
                      zoom_range=0.2,
-                     horizontal_flip=0.2,
+                     horizontal_flip=True,
                      channel_shift_range=30)
 data_gen_args2 = dict(featurewise_center=True,
                      featurewise_std_normalization=True,
                      width_shift_range=0.1,
                      height_shift_range=0.1,
                      zoom_range=0.2,
-                     horizontal_flip=0.2)
+                     horizontal_flip=True)
 image_datagen = ImageDataGenerator(**data_gen_args1)
 mask_datagen = ImageDataGenerator(**data_gen_args2)
 
@@ -80,7 +80,6 @@ for img2 in orgs:
         org_augment = np.append(org_augment, data)
         if i == 4:
             break
-
 
 for img2 in masks:
     for i, data in enumerate(mask_datagen.flow(img2[np.newaxis, :, :, :], y=None, batch_size=1, shuffle=False, seed=seed)):
