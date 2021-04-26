@@ -73,9 +73,6 @@ for imgfile in files:
     imgarray = img_to_array(img)
     masks.append(imgarray)
 
-for i in range(max(len(orgs), len(masks))):
-    print(orgs[i], masks[i])
-
 '''
 for img2 in orgs:
     for i, data in enumerate(image_datagen.flow(img2[np.newaxis, :, :, :], y=None, batch_size=1, shuffle=False, seed=seed)):
