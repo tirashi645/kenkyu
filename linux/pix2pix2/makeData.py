@@ -93,8 +93,8 @@ masks_augment = masks_augment.reshape([-1, 256, 256, 3])
 
 
 for i in range(len(masks_augment)):
-    img = cv2.hconcat(org_augment[i], masks_augment[i])
-    cv2.imwrite('/media/koshiba/Data/pix2pix/output/check.' + str(i) + '.jpg', img)
+    img = cv2.hconcat([org_augment[i], masks_augment[i]])
+    cv2.imwrite('/media/koshiba/Data/pix2pix/output/check/' + str(i) + '.jpg', img)
 
 perm = np.random.permutation(len(orgs))
 orgs = np.array(orgs)[perm]
