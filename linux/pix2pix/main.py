@@ -355,10 +355,10 @@ def train(epoch = 1000):
     # save model
     discriminator_model.trainable = False
     DCGAN_model.trainable = False
-    genenrator_model.trainable = False
+    generator_model.trainable = False
 
-    genenrator_model.save(model_dir + '/genenrator')
-    genenrator_model.save_weights(model_dir + '/genenrator_weights.h5')
+    generator_model.save(model_dir + '/genenrator')
+    generator_model.save_weights(model_dir + '/genenrator_weights.h5')
     DCGAN_model.save(model_dir + '/DCGAN')
     DCGAN_model.save_weights(model_dir + '/DCGAN_weights.h5')
     discriminator_model.save(model_dir + '/discriminator')
