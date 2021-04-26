@@ -486,5 +486,5 @@ def predict(epoch = 1000):
 
 if __name__ == '__main__':
     args = sys.argv
-    epoch = args[0]
+    epoch = int(args[0])
     train(epoch)
