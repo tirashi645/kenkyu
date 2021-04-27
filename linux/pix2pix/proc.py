@@ -74,27 +74,27 @@ def proc():
     img_list = np.array([])
     i = 0
     for img_file in proc_file:
-    i += 1
-    img_name = img_file.split('/')[-1]
-    img = Image.open(img_file)
-    img = expand2square(img, (0, 0, 0))
-    img = img.resize((256, 256))
-    img = pil2cv(img)
-    img_list = np.append(img_list, img)
-    if i<batch_size:
-    for _ in range(batch_size - i):
+        i += 1
+        img_name = img_file.split('/')[-1]
+        img = Image.open(img_file)
+        img = expand2square(img, (0, 0, 0))
+        img = img.resize((256, 256))
+        img = pil2cv(img)
         img_list = np.append(img_list, img)
+    if i<batch_size:
+        for _ in range(batch_size - i):
+            img_list = np.append(img_list, img)
 
     img_list = img_list.reshape([-1, 256, 256, 3])
     img_procImageIter = np.array([img_list[i:i+batch_size] for i in range(0, img_list.shape[0], batch_size)])
     print(img_procImageIter.shape)
     for proc_batch in img_procImageIter:
-    print(proc_batch.shape)
-    proc_img = generator_model.predict(proc_batch)
-    proc_img = inverse_normalization(proc_img)
-    for img in proc_img:
-        print(img.shape)
-        cv2.imwrite(output_path + '/proc/' + img_name, img*255)
+        print(proc_batch.shape)
+        proc_img = generator_model.predict(proc_batch)
+        proc_img = inverse_normalization(proc_img)
+        for img in proc_img:
+            print(img.shape)
+            cv2.imwrite(output_path + '/proc/' + img_name, img*255)
 
 
 if __name__ == '__main__':
