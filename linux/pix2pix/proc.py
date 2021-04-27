@@ -92,7 +92,7 @@ def pil2cv(image):
 
 def proc():
     b_id = 0
-    generator_model = load_model(model_dir + '/generator.h5')
+    generator_model = load_model(model_dir + '/genenrator.h5')
 
     proc_file = glob.glob(input_path + '/proc/*.jpg')
     img_list = np.array([])
