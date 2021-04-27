@@ -43,6 +43,29 @@ epoch = 10
 def inverse_normalization(X):
     return (X + 1.) / 2.
 
+def plot_generated_batch(X_raw, generator_model, batch_size):
+    X_gen = generator_model.predict(X_raw)
+    X_raw = inverse_normalization(X_raw)
+    X_gen = inverse_normalization(X_gen)
+
+    '''
+    with h5py.File(outputpath + '/outputData.h5', 'w') as f:
+        f.create_dataset('raw', data=X_raw)
+        f.create_dataset('gen', data=X_gen)
+    '''
+    for i in range(len(X_gen)):
+    Xs = to3d(X_raw[i])
+    Xg = to3d(X_gen[i])
+    Xs = np.concatenate(Xs, axis=1)
+    Xg = np.concatenate(Xg, axis=1)
+    XX = np.concatenate((Xs,Xg), axis=0)
+
+    plt.imshow(XX)
+    plt.axis('off')
+    plt.savefig(outputpath + "/proc/"+str(i)+".png")
+    plt.clf()
+    plt.close()
+
 def expand2square(pil_img, background_color):
     width, height = pil_img.size
     if width == height:
@@ -90,11 +113,7 @@ def proc():
     print(img_procImageIter.shape)
     for proc_batch in img_procImageIter:
         print(proc_batch.shape)
-        proc_img = generator_model.predict(proc_batch)
-        proc_img = inverse_normalization(proc_img)
-        for img in proc_img:
-            print(img.shape)
-            cv2.imwrite(output_path + '/proc/' + img_name, img*255)
+        plot_generated_batch(proc_batch, generator_model, batch_size)
 
 
 if __name__ == '__main__':
