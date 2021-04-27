@@ -95,7 +95,7 @@ def proc():
     b_id = 0
     generator_model = load_model(model_dir + '/genenrator.h5')
 
-    proc_file = glob.glob(input_path + '/proc/*.jpg')
+    proc_file = glob.glob(inputpath + '/proc/*.jpg')
     img_list = np.array([])
     i = 0
     for img_file in proc_file:
