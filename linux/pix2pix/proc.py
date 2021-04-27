@@ -61,6 +61,7 @@ def plot_generated_batch(X_raw, generator_model, batch_size, b_id):
         f.create_dataset('gen', data=X_gen)
     '''
     for i in range(len(X_gen)):
+        print(X_gen[i].shape)
         '''
         Xs = X_raw[i]
         Xg = X_gen[i]
