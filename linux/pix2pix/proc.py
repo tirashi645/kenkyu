@@ -120,7 +120,7 @@ def proc():
         img = Image.open(img_file)
         img = expand2square(img, (0, 0, 0))
         img = img.resize((256, 256))
-        img = pil2cv(img)
+        img = pil2cv(img).astype(np.float32)
         img_list = np.append(img_list, img)
     img_list = normalization(img_list)
     if i<batch_size:
