@@ -61,6 +61,7 @@ def plot_generated_batch(X_raw, generator_model, batch_size, b_id):
         f.create_dataset('gen', data=X_gen)
     '''
     for i in range(len(X_gen)):
+        '''
         Xs = X_raw[i]
         Xg = X_gen[i]
         Xs = np.concatenate(Xs, axis=1)
@@ -72,6 +73,9 @@ def plot_generated_batch(X_raw, generator_model, batch_size, b_id):
         plt.savefig(outputpath + "/proc/batch" + str(b_id) + '_' +str(i)+".png")
         plt.clf()
         plt.close()
+        '''
+        cv2.imwrite(outputpath + "/proc/gen" + str(b_id) + '_' +str(i)+".jpg", X_gen)
+        cv2.imwrite(outputpath + "/proc/raw" + str(b_id) + '_' +str(i)+".jpg", X_raw)
 
 def expand2square(pil_img, background_color):
     width, height = pil_img.size
