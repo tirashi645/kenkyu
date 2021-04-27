@@ -44,6 +44,12 @@ epoch = 10
 def inverse_normalization(X):
     return (X + 1.) / 2.
 
+def to3d(X):
+    if X.shape[-1]==3: return X
+    b = X.transpose(3,1,2,0)
+    c = np.array([b[0],b[0],b[0]])
+    return c.transpose(3,1,2,0)
+
 def plot_generated_batch(X_raw, generator_model, batch_size, b_id):
     X_gen = generator_model.predict(X_raw)
     X_raw = inverse_normalization(X_raw)
