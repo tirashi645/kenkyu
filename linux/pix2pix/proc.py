@@ -41,6 +41,9 @@ patch_size = 32
 batch_size = 12
 epoch = 10
 
+def normalization(X):
+    return X / 127.5 - 1
+
 def inverse_normalization(X):
     return (X + 1.) / 2.
 
