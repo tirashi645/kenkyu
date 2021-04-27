@@ -80,8 +80,8 @@ def plot_generated_batch(X_raw, generator_model, batch_size, b_id):
         plt.close()
         '''
         Xg = pil2cv(X_gen[i])
-        cv2.imwrite(outputpath + "/proc/gen" + str(b_id) + '_' +str(i)+".jpg", np.array(Xg))
-        cv2.imwrite(outputpath + "/proc/raw" + str(b_id) + '_' +str(i)+".jpg", np.array(X_raw[i]))
+        cv2.imwrite(outputpath + "/proc/gen" + str(b_id) + '_' +str(i)+".jpg", np.array(Xg) * 255)
+        cv2.imwrite(outputpath + "/proc/raw" + str(b_id) + '_' +str(i)+".jpg", np.array(X_raw[i]) * 255)
 
 def expand2square(pil_img, background_color):
     width, height = pil_img.size
