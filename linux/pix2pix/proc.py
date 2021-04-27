@@ -80,7 +80,7 @@ def plot_generated_batch(X_raw, generator_model, batch_size, b_id):
         plt.close()
         '''
         Xg = X_gen[i]
-        X_raw[i][:][0], X_raw[i][:][2] = X_raw[i][:][2], X_raw[i][:][0]
+        X_raw[i, :, 0], X_raw[i, :, 2] = X_raw[i, :, 2], X_raw[i, :, 0]
         cv2.imwrite(outputpath + "/proc/gen" + str(b_id) + '_' +str(i)+".jpg", np.array(Xg) * 255)
         cv2.imwrite(outputpath + "/proc/raw" + str(b_id) + '_' +str(i)+".jpg", np.array(X_raw[i]) * 255)
 
