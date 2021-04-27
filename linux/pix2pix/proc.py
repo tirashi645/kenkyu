@@ -43,7 +43,7 @@ epoch = 10
 def inverse_normalization(X):
     return (X + 1.) / 2.
 
-def plot_generated_batch(X_raw, generator_model, batch_size):
+def plot_generated_batch(X_raw, generator_model, batch_size, b_id):
     X_gen = generator_model.predict(X_raw)
     X_raw = inverse_normalization(X_raw)
     X_gen = inverse_normalization(X_gen)
@@ -54,17 +54,17 @@ def plot_generated_batch(X_raw, generator_model, batch_size):
         f.create_dataset('gen', data=X_gen)
     '''
     for i in range(len(X_gen)):
-    Xs = to3d(X_raw[i])
-    Xg = to3d(X_gen[i])
-    Xs = np.concatenate(Xs, axis=1)
-    Xg = np.concatenate(Xg, axis=1)
-    XX = np.concatenate((Xs,Xg), axis=0)
+        Xs = to3d(X_raw[i])
+        Xg = to3d(X_gen[i])
+        Xs = np.concatenate(Xs, axis=1)
+        Xg = np.concatenate(Xg, axis=1)
+        XX = np.concatenate((Xs,Xg), axis=0)
 
-    plt.imshow(XX)
-    plt.axis('off')
-    plt.savefig(outputpath + "/proc/"+str(i)+".png")
-    plt.clf()
-    plt.close()
+        plt.imshow(XX)
+        plt.axis('off')
+        plt.savefig(outputpath + "/proc/batch" + b_id + '_' +str(i)+".png")
+        plt.clf()
+        plt.close()
 
 def expand2square(pil_img, background_color):
     width, height = pil_img.size
@@ -91,6 +91,7 @@ def pil2cv(image):
   return new_image
 
 def proc():
+    b_id = 0
     generator_model = load_model(model_dir + '/generator.h5')
 
     proc_file = glob.glob(input_path + '/proc/*.jpg')
@@ -113,7 +114,8 @@ def proc():
     print(img_procImageIter.shape)
     for proc_batch in img_procImageIter:
         print(proc_batch.shape)
-        plot_generated_batch(proc_batch, generator_model, batch_size)
+        plot_generated_batch(proc_batch, generator_model, batch_size, b_id)
+        b_id += 1
 
 
 if __name__ == '__main__':
