@@ -119,6 +119,7 @@ def proc():
         img = img.resize((256, 256))
         img = pil2cv(img)
         img_list = np.append(img_list, img)
+    img_list = normalization(img_list)
     if i<batch_size:
         for _ in range(batch_size - i):
             img_list = np.append(img_list, img)
