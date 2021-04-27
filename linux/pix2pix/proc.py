@@ -69,7 +69,7 @@ def plot_generated_batch(X_raw, generator_model, batch_size, b_id):
 
         plt.imshow(XX)
         plt.axis('off')
-        plt.savefig(outputpath + "/proc/batch" + b_id + '_' +str(i)+".png")
+        plt.savefig(outputpath + "/proc/batch" + str(b_id) + '_' +str(i)+".png")
         plt.clf()
         plt.close()
 
