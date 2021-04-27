@@ -20,6 +20,7 @@ from keras.layers.advanced_activations import LeakyReLU
 from keras.layers.normalization import BatchNormalization
 from keras.layers.pooling import MaxPooling2D
 import keras.backend as K
+from keras.preprocessing.image import load_img, img_to_array
 from keras.callbacks import TensorBoard
 
 model_dir = '/media/koshiba/Data/pix2pix/model'
