@@ -146,6 +146,7 @@ def proc():
             img_list = np.append(img_list, img)
             org_list = np.append(org_list, org_img)
 
+
     img_list = img_list.reshape([-1, 256, 256, 3])
     org_list = org_list.reshape([-1, height, width, 3])
     img_procImageIter = np.array([img_list[i:i+batch_size] for i in range(0, img_list.shape[0], batch_size)])
@@ -157,7 +158,7 @@ def proc():
         b_id += 1
     #gen_list = np.reshape([-1, height, width, 3])
     print(org_list.shape)
-    for index in range(len(gen_list)):
+    for index in range(len(min(num, gen_list))):
         print(index)
         cv2.imwrite(outputpath + "/proc_tmp/raw_" + name_list[index] +".jpg", np.array(org_list[index]) * 255)
         cv2.imwrite(outputpath + "/proc_tmp/gen_" + name_list[index] +".jpg", np.array(gen_list[index]) * 255)
