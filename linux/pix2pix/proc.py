@@ -131,7 +131,7 @@ def proc():
         num += 1
         img_name = img_file.split('/')[-1]
         org_img = Image.open(img_file)
-        org_list = np.append(org_img, org_img)
+        org_list = np.append(org_list, org_img)
         if flag:
             width, height = org_img.size
             img_size = [height, width]
