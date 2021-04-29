@@ -132,6 +132,7 @@ def proc():
         img_name = img_file.split('/')[-1]
         #org_img = Image.open(img_file)
         org_img = cv2.imread(img_file)
+        print(org_img.shape)
         if flag:
             width, height = org_img.size
             img_size = [height, width]
