@@ -69,27 +69,33 @@ def plot_generated_batch(X_raw, generator_model, batch_size, b_id, num):
         cv2.imwrite(outputpath + "/proc_tmp/raw" + str(b_id) + '_' +str(i)+".jpg", np.array(X_raw[i]) * 255)
 
 def proc_generator_batch(X_raw, generator_model, batch_size, b_id, num, img_size):
-    X_gen = generator_model.predict(X_raw)
-    X_gen = inverse_normalization(X_gen)
-    X_gen = gen_resize(X_gen, img_size)
+    X_gen_mini = generator_model.predict(X_raw)
+    X_gen_mini = inverse_normalization(X_gen_mini)
+    X_gen = cv2.resize(X_gen, (max(img_size[0], img_size[1]), max(img_size[0], img_size[1])))
     print(X_gen.shape)
 
-    return X_gen[:min(batch_size, num)]
+    if img_size[0]==img_size[1]:
+        return X_gen[:min(batch_size, num)]
+    if img_size[0]<img_size[1]:
+        padding_num = (img_size[1] - img_size[0]) // 2
+        return X_gen[:min(batch_size, num), padding_num:padding_num+1, :, :]
+    else:
+        padding_num = (img_size[0] - img_size[1]) // 2 
+        return X_gen[:min(batch_size, num), :, padding_num:padding_num+1, :]
 
 def gen_resize(x, img_size):
     X_gen = np.array([])
     for data in x:
+        if img_size[0]==img_size[1]:
+            X_gen =  X_gen[:min(batch_size, num)]
+        if img_size[0]<img_size[1]:
+            padding_num = (img_size[1] - img_size[0]) // 2
+            return X_gen[:min(batch_size, num), padding_num:padding_num+1, :, :]
+        else:
+            padding_num = (img_size[0] - img_size[1]) // 2 
+            return X_gen[:min(batch_size, num), :, padding_num:padding_num+1, :]
         X_gen = np.append(X_gen, np.resize(data, (img_size[0], img_size[1])))
-    X_gen = X_gen.reshape([-1, img_size[0], img_size[1], 3])
-
-    if img_size[0]==img_size[1]:
-        return X_gen
-    if img_size[0]<img_size[1]:
-        padding_num = (img_size[1] - img_size[0]) // 2
-        return X_gen[:, padding_num:padding_num+1, :, :]
-    else:
-        padding_num = (img_size[0] - img_size[1]) // 2 
-        return X_gen[:, :, padding_num:padding_num+1, :]
+    return X_gen.reshape([-1, img_size[0]])
 
 def expand2square(pil_img, background_color):
     width, height = pil_img.size
