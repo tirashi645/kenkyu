@@ -71,6 +71,7 @@ def plot_generated_batch(X_raw, generator_model, batch_size, b_id, num):
 def proc_generator_batch(X_raw, generator_model, batch_size, b_id, num, img_size):
     X_gen = generator_model.predict(X_raw)
     X_gen = inverse_normalization(X_gen)
+    print(X_gen.shape)
 
     if img_size[0]==img_size[1]:
         return X_gen[:min(batch_size, num)]
