@@ -157,7 +157,7 @@ def proc():
     #gen_list = np.reshape([-1, height, width, 3])
     print(org_list.shape)
     for index in range(min(num, len(gen_list))):
-        print(org_list[index,0].shape)
+        print(org_list[index].shape)
         cv2.imwrite(outputpath + "/proc_tmp/raw_" + name_list[index] +".jpg", np.array(org_list[index]) * 255)
         cv2.imwrite(outputpath + "/proc_tmp/gen_" + name_list[index] +".jpg", np.array(gen_list[index]) * 255)
 
