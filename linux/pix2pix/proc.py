@@ -82,9 +82,9 @@ def proc_generator_batch(X_raw, generator_model, batch_size, b_id, num, img_size
         padding_num = (img_size[1] - img_size[0]) // 2
         return X_gen[:min(batch_size, num), padding_num:m-padding_num+1, :, :]
     else:
-        padding_num = (img_size[0] - img_size[1]) // 2 
+        padding_num = (img_size[0] - img_size[1]) // 2
         print(padding_num)
-        return X_gen[:min(batch_size, num), :, padding_num:m-padding_num+1, :]
+        return X_gen[:min(batch_size, num), :, padding_num:m-padding_num, :]
 
 def gen_resize(x, img_size):
     X_gen = np.array([])
