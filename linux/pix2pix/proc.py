@@ -72,7 +72,7 @@ def proc_generator_batch(X_raw, generator_model, batch_size, b_id, num, img_size
     X_gen = generator_model.predict(X_raw)
     X_gen = inverse_normalization(X_gen)
     X_gen = gen_resize(X_gen, img_size)
-    print(X_gen.shape)
+    #print(X_gen.shape)
 
     if img_size[0]==img_size[1]:
         return X_gen[:min(batch_size, num)]
@@ -155,7 +155,7 @@ def proc():
         #plot_generated_batch(proc_batch, generator_model, batch_size, b_id, num)
         gen_list = np.append(gen_list, proc_generator_batch(proc_batch, generator_model, batch_size, b_id, num, img_size))
         b_id += 1
-    gen_list = np.reshape([-1, height, width, 3])
+    #gen_list = np.reshape([-1, height, width, 3])
     #gen_list = gen_list.reshape([-1, 256, 256, 3])
     print(gen_list.shape)
     for index in range(min(num, len(gen_list))):
