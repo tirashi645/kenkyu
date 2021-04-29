@@ -119,14 +119,14 @@ def proc():
     name_list = []
     flag = True
     for img_file in proc_file:
-        if flag:
-            width, height = pil_img.size
-            img_size = [height, width]
-            flag = False
         name_list.append(img_file[img_file.rfind('/')+1:img_file.rfind('.')])
         num += 1
         img_name = img_file.split('/')[-1]
         org_img = Image.open(img_file)
+        if flag:
+            width, height = org_img.size
+            img_size = [height, width]
+            flag = False
         img = expand2square(org_img, (0, 0, 0))
         img = img.resize((256, 256))
         img = img_to_array(img)
