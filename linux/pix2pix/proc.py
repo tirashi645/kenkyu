@@ -90,8 +90,8 @@ def gen_resize(x, img_size):
         X_gen = np.append(X_gen, cv2.resize(data, (max(img_size[0], img_size[1]), max(img_size[0], img_size[1]))))
     return X_gen.reshape([-1, max(img_size[0], img_size[1]), max(img_size[0], img_size[1]), 3])
 
-def expand2square(pil_img, background_color):
-    width, height = pil_img.size
+def expand2square(pil_img, background_color, width, height):
+    #width, height = pil_img.size
     if width == height:
         return pil_img
     elif width > height:
@@ -138,7 +138,7 @@ def proc():
             height = len(org_img)
             img_size = [height, width]
             flag = False
-        img = expand2square(org_img, (0, 0, 0))
+        img = expand2square(org_img, (0, 0, 0), width, height)
         img = img.resize((256, 256))
         img = img_to_array(img)
         img_list = np.append(img_list, img)
