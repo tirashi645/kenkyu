@@ -130,7 +130,8 @@ def proc():
         name_list.append(img_file[img_file.rfind('/')+1:img_file.rfind('.')])
         num += 1
         img_name = img_file.split('/')[-1]
-        org_img = Image.open(img_file)
+        #org_img = Image.open(img_file)
+        org_img = cv2.imread(img_file)
         if flag:
             width, height = org_img.size
             img_size = [height, width]
