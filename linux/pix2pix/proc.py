@@ -90,8 +90,8 @@ def gen_resize(x, img_size):
         X_gen = np.append(X_gen, cv2.resize(data, (max(img_size[0], img_size[1]), max(img_size[0], img_size[1]))))
     return X_gen.reshape([-1, max(img_size[0], img_size[1]), max(img_size[0], img_size[1]), 3])
 
-def expand2square(pil_img, background_color, width, height):
-    #width, height = pil_img.size
+def expand2square(pil_img, background_color):
+    width, height = pil_img.size
     if width == height:
         return pil_img
     elif width > height:
@@ -130,15 +130,12 @@ def proc():
         name_list.append(img_file[img_file.rfind('/')+1:img_file.rfind('.')])
         num += 1
         img_name = img_file.split('/')[-1]
-        #org_img = Image.open(img_file)
-        org_img = cv2.imread(img_file)
-        print(org_img.shape)
+        org_img = Image.open(img_file)
         if flag:
-            width = len(org_img[0])
-            height = len(org_img)
+            width, height = org_img.size
             img_size = [height, width]
             flag = False
-        img = expand2square(org_img, (0, 0, 0), width, height)
+        img = expand2square(org_img, (0, 0, 0))
         img = img.resize((256, 256))
         img = img_to_array(img)
         img_list = np.append(img_list, img)
@@ -156,7 +153,6 @@ def proc():
         gen_list = np.append(gen_list, proc_generator_batch(proc_batch, generator_model, batch_size, b_id, num, img_size))
         b_id += 1
     #gen_list = np.reshape([-1, height, width, 3])
-    gen_list = np.array(gen_list)
     for index in range(len(gen_list)):
         cv2.imwrite(outputpath + "/proc_tmp/raw_" + name_list[index] +".jpg", np.array(org_img[index]) * 255)
         cv2.imwrite(outputpath + "/proc_tmp/gen_" + name_list[index] +".jpg", np.array(gen_list[index]) * 255)
