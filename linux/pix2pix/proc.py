@@ -73,6 +73,7 @@ def proc_generator_batch(X_raw, generator_model, batch_size, b_id, num, img_size
     X_gen = inverse_normalization(X_gen)
     X_gen = gen_resize(X_gen, img_size)
     #print(X_gen.shape)
+    m = max(img_size)
 
     if img_size[0]==img_size[1]:
         return X_gen[:min(batch_size, num)]
@@ -82,7 +83,7 @@ def proc_generator_batch(X_raw, generator_model, batch_size, b_id, num, img_size
     else:
         padding_num = (img_size[0] - img_size[1]) // 2 
         print(padding_num)
-        return X_gen[:min(batch_size, num), :, padding_num:padding_num+1, :]
+        return X_gen[:min(batch_size, num), :, padding_num:m-padding_num+1, :]
 
 def gen_resize(x, img_size):
     X_gen = np.array([])
