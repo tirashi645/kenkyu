@@ -59,28 +59,10 @@ def plot_generated_batch(X_raw, generator_model, batch_size, b_id):
     X_raw = inverse_normalization(X_raw)
     X_gen = inverse_normalization(X_gen)
 
-    '''
-    with h5py.File(outputpath + '/outputData.h5', 'w') as f:
-        f.create_dataset('raw', data=X_raw)
-        f.create_dataset('gen', data=X_gen)
-    '''
     for i in range(len(X_gen)):
         print(X_gen[i].shape)
-        '''
-        Xs = X_raw[i]
         Xg = X_gen[i]
-        Xs = np.concatenate(Xs, axis=1)
-        Xg = np.concatenate(Xg, axis=1)
-        XX = np.concatenate((Xs,Xg), axis=0)
-
-        plt.imshow(XX)
-        plt.axis('off')
-        plt.savefig(outputpath + "/proc/batch" + str(b_id) + '_' +str(i)+".png")
-        plt.clf()
-        plt.close()
-        '''
-        Xg = X_gen[i]
-        X_raw[i, :, 0], X_raw[i, :, 2] = X_raw[i, :, 2], X_raw[i, :, 0]
+        X_raw[i, :, 0], X_raw[i, :, 2] = X_raw[i, :, 2], X_raw[i, :, 0].copy()
         cv2.imwrite(outputpath + "/proc/gen" + str(b_id) + '_' +str(i)+".jpg", np.array(Xg) * 255)
         cv2.imwrite(outputpath + "/proc/raw" + str(b_id) + '_' +str(i)+".jpg", np.array(X_raw[i]) * 255)
 
