@@ -54,12 +54,14 @@ def to3d(X):
     c = np.array([b[0],b[0],b[0]])
     return c.transpose(3,1,2,0)
 
-def plot_generated_batch(X_raw, generator_model, batch_size, b_id):
+def plot_generated_batch(X_raw, generator_model, batch_size, b_id, num):
     X_gen = generator_model.predict(X_raw)
     X_raw = inverse_normalization(X_raw)
     X_gen = inverse_normalization(X_gen)
 
     for i in range(len(X_gen)):
+        if i>=num:
+            break
         print(X_gen[i].shape)
         Xg = X_gen[i]
         X_raw[i, :, 0], X_raw[i, :, 2] = X_raw[i, :, 2], X_raw[i, :, 0].copy()
@@ -97,9 +99,9 @@ def proc():
 
     proc_file = glob.glob(inputpath + '/proc_tmp/*.jpg')
     img_list = np.array([])
-    i = 0
+    num = 0
     for img_file in proc_file:
-        i += 1
+        num += 1
         img_name = img_file.split('/')[-1]
         img = Image.open(img_file)
         img = expand2square(img, (0, 0, 0))
@@ -107,8 +109,8 @@ def proc():
         img = img_to_array(img)
         img_list = np.append(img_list, img)
     img_list = normalization(img_list)
-    if i<batch_size:
-        for _ in range(batch_size - i):
+    if num<batch_size:
+        for _ in range(batch_size - num):
             img_list = np.append(img_list, img)
 
     img_list = img_list.reshape([-1, 256, 256, 3])
@@ -116,7 +118,7 @@ def proc():
     print(img_procImageIter.shape)
     for proc_batch in img_procImageIter:
         print(proc_batch.shape)
-        plot_generated_batch(proc_batch, generator_model, batch_size, b_id)
+        plot_generated_batch(proc_batch, generator_model, batch_size, b_id, num)
         b_id += 1
 
 
