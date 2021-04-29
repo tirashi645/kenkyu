@@ -71,18 +71,16 @@ def plot_generated_batch(X_raw, generator_model, batch_size, b_id, num):
 def proc_generator_batch(X_raw, generator_model, batch_size, b_id, num, img_size):
     X_gen = generator_model.predict(X_raw)
     X_gen = inverse_normalization(X_gen)
-    #X_gen = cv2.resize(X_gen, (max(img_size[0], img_size[1]), max(img_size[0], img_size[1])))
     X_gen = gen_resize(X_gen, img_size)
-    #print('X_gen size >> ', X_gen.shape)
 
     if img_size[0]==img_size[1]:
         return X_gen[:min(batch_size, num)]
     if img_size[0]<img_size[1]:
         padding_num = (img_size[1] - img_size[0]) // 2
-        return X_gen[:min(batch_size, num), padding_num:padding_num+1, :, :]
+        return X_gen[:min(batch_size, num), padding_num:padding_num+1, :]
     else:
         padding_num = (img_size[0] - img_size[1]) // 2 
-        return X_gen[:min(batch_size, num), :, padding_num:padding_num+1, :]
+        return X_gen[:min(batch_size, num), :, padding_num:padding_num+1]
 
 def gen_resize(x, img_size):
     X_gen = np.array([])
@@ -159,7 +157,7 @@ def proc():
     #gen_list = np.reshape([-1, height, width, 3])
     print(org_list.shape)
     for index in range(min(num, len(gen_list))):
-        print(org_list[index].shape)
+        print(min(num, len(gen_list)))
         cv2.imwrite(outputpath + "/proc_tmp/raw_" + name_list[index] +".jpg", np.array(org_list[index]) * 255)
         cv2.imwrite(outputpath + "/proc_tmp/gen_" + name_list[index] +".jpg", np.array(gen_list[index]) * 255)
 
