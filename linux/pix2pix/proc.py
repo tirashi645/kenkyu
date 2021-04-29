@@ -95,7 +95,7 @@ def proc():
     generator_model = load_model(model_dir + '/genenrator.h5')
     generator_model.load_weights(model_dir + '/genenrator_weights.h5')
 
-    proc_file = glob.glob(inputpath + '/proc/*.jpg')
+    proc_file = glob.glob(inputpath + '/proc_tmp/*.jpg')
     img_list = np.array([])
     i = 0
     for img_file in proc_file:
