@@ -158,7 +158,7 @@ def proc():
     print(org_list.shape)
     for index in range(min(num, len(gen_list))):
         print(org_list[index].shape)
-        cv2.imwrite(outputpath + "/proc_tmp/raw_" + name_list[index] +".jpg", org_list[index] * 255)
+        cv2.imwrite(outputpath + "/proc_tmp/raw_" + name_list[index] +".jpg", org_list[index])
         cv2.imwrite(outputpath + "/proc_tmp/gen_" + name_list[index] +".jpg", gen_list[index] * 255)
 
 if __name__ == '__main__':
