@@ -134,7 +134,8 @@ def proc():
         org_img = cv2.imread(img_file)
         print(org_img.shape)
         if flag:
-            width, height = org_img.size
+            width = len(org_img[0])
+            height = len(org_img)
             img_size = [height, width]
             flag = False
         img = expand2square(org_img, (0, 0, 0))
