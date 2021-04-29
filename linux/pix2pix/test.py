@@ -11,4 +11,4 @@ inputpath = '/media/koshiba/Data/pix2pix/input'
 proc_file = glob.glob(inputpath + '/proc_tmp/*.jpg')
 for img in proc_file:
     img = Image.open(img)
-    print(img.shape)
+    print(np.array(img).shape)
