@@ -121,7 +121,7 @@ def proc():
 
     proc_file = glob.glob(inputpath + '/proc_tmp/*.jpg')
     img_list = np.array([])
-    org_img = np.array([])
+    org_list = np.array([])
     gen_list = np.array([])
     num = 0
     name_list = []
@@ -131,6 +131,7 @@ def proc():
         num += 1
         img_name = img_file.split('/')[-1]
         org_img = Image.open(img_file)
+        org_list = np.append(org_img, org_img)
         if flag:
             width, height = org_img.size
             img_size = [height, width]
@@ -145,6 +146,7 @@ def proc():
             img_list = np.append(img_list, img)
 
     img_list = img_list.reshape([-1, 256, 256, 3])
+    org_img = org_img.reshape([-1, height, width, 3])
     img_procImageIter = np.array([img_list[i:i+batch_size] for i in range(0, img_list.shape[0], batch_size)])
     print(img_procImageIter.shape)
     for index, proc_batch in enumerate(img_procImageIter):
@@ -154,7 +156,7 @@ def proc():
         b_id += 1
     #gen_list = np.reshape([-1, height, width, 3])
     for index in range(len(gen_list)):
-        cv2.imwrite(outputpath + "/proc_tmp/raw_" + name_list[index] +".jpg", np.array(org_img[index]) * 255)
+        cv2.imwrite(outputpath + "/proc_tmp/raw_" + name_list[index] +".jpg", np.array(org_list[index]) * 255)
         cv2.imwrite(outputpath + "/proc_tmp/gen_" + name_list[index] +".jpg", np.array(gen_list[index]) * 255)
 
 if __name__ == '__main__':
