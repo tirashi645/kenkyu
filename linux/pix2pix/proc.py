@@ -73,7 +73,7 @@ def proc_generator_batch(X_raw, generator_model, batch_size, b_id, num, img_size
     X_gen = inverse_normalization(X_gen)
     #X_gen = cv2.resize(X_gen, (max(img_size[0], img_size[1]), max(img_size[0], img_size[1])))
     X_gen = gen_resize(X_gen, img_size)
-    print(X_gen.shape)
+    print('X_gen size >> ', X_gen.shape)
 
     if img_size[0]==img_size[1]:
         return X_gen[:min(batch_size, num)]
