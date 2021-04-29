@@ -144,7 +144,7 @@ def proc():
         for _ in range(batch_size - num):
             img_list = np.append(img_list, img)
 
-    img_list = img_list.reshape([-1, 256, 256, 3])
+    #img_list = img_list.reshape([-1, 256, 256, 3])
     img_procImageIter = np.array([img_list[i:i+batch_size] for i in range(0, img_list.shape[0], batch_size)])
     print(img_procImageIter.shape)
     for index, proc_batch in enumerate(img_procImageIter):
