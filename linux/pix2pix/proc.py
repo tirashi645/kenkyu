@@ -75,7 +75,7 @@ def proc_generator_batch(X_raw, generator_model, batch_size, b_id, num, img_size
     if img_size[0]==img_size[1]:
         return X_gen[:min(batch_size, num)]
     if img_size[0]<img_size[1]:
-        padding_num = (img_size[1] - img_size[0]) // 2 
+        padding_num = (img_size[1] - img_size[0]) // 2
         return X_gen[:min(batch_size, num), padding_num:padding_num+1, :]
     else:
         padding_num = (img_size[0] - img_size[1]) // 2 
@@ -116,14 +116,14 @@ def proc():
     org_img = np.array([])
     gen_list = np.array([])
     num = 0
-    nameList = []
+    name_list = []
     flag = True
     for img_file in proc_file:
         if flag:
             width, height = pil_img.size
             img_size = [height, width]
             flag = False
-        nameList.append(img_file[img_file.rfind('/')+1:img_file.rfind('.')])
+        name_list.append(img_file[img_file.rfind('/')+1:img_file.rfind('.')])
         num += 1
         img_name = img_file.split('/')[-1]
         org_img = Image.open(img_file)
@@ -145,8 +145,9 @@ def proc():
         gen_list = np.append(gen_list, proc_generator_batch(proc_batch, generator_model, batch_size, b_id, num, img_size))
         b_id += 1
     gen_list = np.reshape([-1, height, width, 3])
-
-
+    for index in range(len(gen_list)):
+        cv2.imwrite(outputpath + "/proc_tmp/raw_" + name_list[index] +".jpg", np.array(org_img[i]) * 255)
+        cv2.imwrite(outputpath + "/proc_tmp/gen_" + name_list[index] +".jpg", np.array(gen_list[i]) * 255)
 
 if __name__ == '__main__':
     #train()
