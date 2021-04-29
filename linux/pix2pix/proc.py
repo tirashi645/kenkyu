@@ -120,18 +120,19 @@ def proc():
     generator_model.load_weights(model_dir + '/genenrator_weights.h5')
 
     proc_file = glob.glob(inputpath + '/proc_tmp/*.jpg')
-    img_list = np.array([])
-    org_list = np.array([])
-    gen_list = np.array([])
-    num = 0
+    img_list = np.array([])     # generatorの入力画像
+    org_list = np.array([])     # オリジナルの画像
+    gen_list = np.array([])     # generatorの出力画像
+    num = 0                     # 入力画像の枚数
     name_list = []
     flag = True
     for img_file in proc_file:
-        name_list.append(img_file[img_file.rfind('/')+1:img_file.rfind('.')])
+        name_list.append(img_file[img_file.rfind('/')+1:img_file.rfind('.')])   # 画像の名前を取得
         num += 1
         img_name = img_file.split('/')[-1]
-        org_img = Image.open(img_file)
-        org_list = np.append(org_list, org_img)
+        org_img = Image.open(img_file)            # PILで画像読み込み
+        cv2_img = pil2cv(org_img)
+        org_list = np.append(org_list, cv2_img)
         if flag:
             width, height = org_img.size
             img_size = [height, width]
