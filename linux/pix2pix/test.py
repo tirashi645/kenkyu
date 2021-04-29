@@ -1,10 +1,12 @@
 import numpy as np
+import glob
 
-X_raw = np.array([[[1,2,3], [2,3,4],[3,4,5]], 
-                [[9,8,7],[8,7,6],[7,6,5]],
-                [[1,2,3], [2,3,4],[3,4,5]], 
-                [[9,8,7],[8,7,6],[7,6,5]]])
-print(X_raw,'\n---------------------')
-for i in range(len(X_raw)):
-    X_raw[i, :, 0], X_raw[i, :, 2] = X_raw[i, :, 2], X_raw[i, :, 0].copy()
-print(X_raw)
+model_dir = '/media/koshiba/Data/pix2pix/model'
+log_dir = './tflog'
+datasetpath = '/media/koshiba/Data/pix2pix/output/datasetimages.hdf5'
+outputpath = '/media/koshiba/Data/pix2pix/output'
+inputpath = '/media/koshiba/Data/pix2pix/input'
+
+proc_file = glob.glob(inputpath + '/proc_tmp/*.jpg')
+for img in proc_file:
+    print(img.shape)

@@ -68,6 +68,20 @@ def plot_generated_batch(X_raw, generator_model, batch_size, b_id, num):
         cv2.imwrite(outputpath + "/proc_tmp/gen" + str(b_id) + '_' +str(i)+".jpg", np.array(Xg) * 255)
         cv2.imwrite(outputpath + "/proc_tmp/raw" + str(b_id) + '_' +str(i)+".jpg", np.array(X_raw[i]) * 255)
 
+def proc_generator_batch(X_raw, generator_model, batch_size, b_id, num, img_size):
+    X_gen = generator_model.predict(X_raw)
+    X_gen = inverse_normalization(X_gen)
+
+    if img_size[0]==img_size[1]:
+        return X_gen[:min(batch_size, num)]
+    if img_size[0]<img_size[1]:
+        padding_num = (img_size[1] - img_size[0]) // 2 
+        return X_gen[:min(batch_size, num), padding_num:padding_num+1, :]
+    else:
+        padding_num = (img_size[0] - img_size[1]) // 2 
+        return X_gen[:min(batch_size, num), :, padding_num:padding_num+1]
+
+
 def expand2square(pil_img, background_color):
     width, height = pil_img.size
     if width == height:
@@ -99,12 +113,21 @@ def proc():
 
     proc_file = glob.glob(inputpath + '/proc_tmp/*.jpg')
     img_list = np.array([])
+    org_img = np.array([])
+    gen_list = np.array([])
     num = 0
+    nameList = []
+    flag = True
     for img_file in proc_file:
+        if flag:
+            width, height = pil_img.size
+            img_size = [height, width]
+            flag = False
+        nameList.append(img_file[img_file.rfind('/')+1:img_file.rfind('.')])
         num += 1
         img_name = img_file.split('/')[-1]
-        img = Image.open(img_file)
-        img = expand2square(img, (0, 0, 0))
+        org_img = Image.open(img_file)
+        img = expand2square(org_img, (0, 0, 0))
         img = img.resize((256, 256))
         img = img_to_array(img)
         img_list = np.append(img_list, img)
@@ -116,10 +139,13 @@ def proc():
     img_list = img_list.reshape([-1, 256, 256, 3])
     img_procImageIter = np.array([img_list[i:i+batch_size] for i in range(0, img_list.shape[0], batch_size)])
     print(img_procImageIter.shape)
-    for proc_batch in img_procImageIter:
+    for index, proc_batch in enumerate(img_procImageIter):
         print(proc_batch.shape)
-        plot_generated_batch(proc_batch, generator_model, batch_size, b_id, num)
+        #plot_generated_batch(proc_batch, generator_model, batch_size, b_id, num)
+        gen_list = np.append(gen_list, proc_generator_batch(proc_batch, generator_model, batch_size, b_id, num, img_size))
         b_id += 1
+    gen_list = np.reshape([-1, height, width, 3])
+
 
 
 if __name__ == '__main__':
