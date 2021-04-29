@@ -154,8 +154,8 @@ def proc():
         #plot_generated_batch(proc_batch, generator_model, batch_size, b_id, num)
         gen_list = np.append(gen_list, proc_generator_batch(proc_batch, generator_model, batch_size, b_id, num, img_size))
         b_id += 1
-    #gen_list = np.reshape([-1, height, width, 3])
-    gen_list = gen_list.reshape([-1, 256, 256, 3])
+    gen_list = np.reshape([-1, height, width, 3])
+    #gen_list = gen_list.reshape([-1, 256, 256, 3])
     print(gen_list.shape)
     for index in range(min(num, len(gen_list))):
         print(org_list[index].shape)
