@@ -153,6 +153,7 @@ def proc():
         gen_list = np.append(gen_list, proc_generator_batch(proc_batch, generator_model, batch_size, b_id, num, img_size))
         b_id += 1
     #gen_list = np.reshape([-1, height, width, 3])
+    gen_list = np.array(gen_list)
     for index in range(len(gen_list)):
         cv2.imwrite(outputpath + "/proc_tmp/raw_" + name_list[index] +".jpg", np.array(org_img[index]) * 255)
         cv2.imwrite(outputpath + "/proc_tmp/gen_" + name_list[index] +".jpg", np.array(gen_list[index]) * 255)
