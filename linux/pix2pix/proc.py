@@ -146,8 +146,8 @@ def proc():
         b_id += 1
     gen_list = np.reshape([-1, height, width, 3])
     for index in range(len(gen_list)):
-        cv2.imwrite(outputpath + "/proc_tmp/raw_" + name_list[index] +".jpg", np.array(org_img[i]) * 255)
-        cv2.imwrite(outputpath + "/proc_tmp/gen_" + name_list[index] +".jpg", np.array(gen_list[i]) * 255)
+        cv2.imwrite(outputpath + "/proc_tmp/raw_" + name_list[index] +".jpg", np.array(org_img[index]) * 255)
+        cv2.imwrite(outputpath + "/proc_tmp/gen_" + name_list[index] +".jpg", np.array(gen_list[index]) * 255)
 
 if __name__ == '__main__':
     #train()
