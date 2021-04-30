@@ -193,7 +193,7 @@ def video_proc(org_img):
     #print(img_procImageIter.shape)
     #for index, proc_batch in enumerate(img_procImageIter):
     #print(proc_batch.shape)
-    gen_list = np.append(gen_list, proc_generator_batch(img_list, generator_model, batch_size, b_id, num, img_size))
+    gen_list = np.append(gen_list, proc_generator_batch(img_list, generator_model, batch_size, 1, num, img_size))
     gen_list = gen_list.reshape([-1, height, width, 3])
     return gen_list[0] * 255
 
