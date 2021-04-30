@@ -21,6 +21,7 @@ def todo(image):
     # アパーチャーサイズ 3, 5, or 7 など 1 より大きい奇数。数値が大きいほどぼかしが出る。
     ksize=3
     #中央値フィルタ
+    print(type(image), image.shape)
     img_mask = cv2.medianBlur(image, ksize)
     #img_mask = np.where(img_mask.sum(axis=2) > 0, 255, 0)
 
