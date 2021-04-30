@@ -53,7 +53,7 @@ def todo(path):
     first_gray = cv2.cvtColor(first_frame, cv2.COLOR_BGR2GRAY)
 
     mask_img = proc.video_proc(pil_img)
-    gen_img = removeNoise(mask_img)
+    gen_img = removeNoise.todo(mask_img)
 
     # 読み込んだフレームの特徴点を探す
     prev_points = cv2.goodFeaturesToTrack(
