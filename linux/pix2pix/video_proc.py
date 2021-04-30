@@ -13,8 +13,8 @@ def todo(path):
     selectDir = ['cat1', 'cat2', 'cat3', 'cat4']
 
     # 読み込む動画の設定
-    videoName = path.split('/')[-1]
-    savePath = '/media/koshiba/Data/pix2pix/output/' + videoName[:-4]
+    videoName = path.split('/')[-1][:-4]
+    savePath = '/media/koshiba/Data/pix2pix/output/proc_point'
     cap = cv2.VideoCapture(path)
     print(path[path.rfind('/')+1:])
 
