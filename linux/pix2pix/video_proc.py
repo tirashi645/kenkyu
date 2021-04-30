@@ -4,6 +4,7 @@ def todo(path):
     import os
     import pickle
     import proc
+    from PIL import Image
 
     padding = 10    # 特徴点検出領域の半径
     p = 10
