@@ -22,7 +22,8 @@ def todo(image):
     ksize=3
     #中央値フィルタ
     print(type(image), image.shape)
-    image = np.where(image.sum(axis=2) > 0, 255, 0).astype(np.uint8)
+    #image = np.where(image.sum(axis=2) > 0, 255, 0).astype(np.uint8)
+    image = image.astype(np.uint8)
     img_mask = cv2.medianBlur(image, ksize)
     #img_mask = np.where(img_mask.sum(axis=2) > 0, 255, 0)
 
