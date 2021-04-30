@@ -16,7 +16,7 @@ def todo(path, zahyou):
     videoDir = path[:path.rfind('/')]
     dirName = getVideoData.getDirName(path)
     videoName = getVideoData.getVideoName(path)
-    savePath = '/media/koshiba/Data/pix2pix/output/proc_point' + dirName + '/' + videoName
+    savePath = '/media/koshiba/Data/pix2pix/output/' + videoName[:videoName.rfind('.')]
     cap = cv2.VideoCapture(path)
     print(path[path.rfind('/')+1:])
 

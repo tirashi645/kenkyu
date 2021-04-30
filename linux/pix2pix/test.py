@@ -10,4 +10,4 @@ inputpath = '/media/koshiba/Data/pix2pix/input'
 
 proc_file = glob.glob(inputpath + '/proc_tmp/*.jpg')
 for img in proc_file:
-    print(img.split('/')[-2], img.split('/')[-1])
+    print(img.split('/')[-2], img.split('/')[-1][:img.rfind('.')])
