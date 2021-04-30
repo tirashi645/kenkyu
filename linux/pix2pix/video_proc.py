@@ -3,7 +3,7 @@ def todo(path):
     import cv2
     import os
     import pickle
-    import proc
+    import proc, removeNoise
     from PIL import Image
 
     padding = 10    # 特徴点検出領域の半径
@@ -53,6 +53,7 @@ def todo(path):
     first_gray = cv2.cvtColor(first_frame, cv2.COLOR_BGR2GRAY)
 
     gen_img = proc.video_proc(pil_img)
+    gen_img = removeNoise(gen_img)
 
     # 読み込んだフレームの特徴点を探す
     prev_points = cv2.goodFeaturesToTrack(
