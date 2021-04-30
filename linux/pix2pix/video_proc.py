@@ -67,7 +67,7 @@ def todo(path, zahyou):
     for i in prev_points:
         x = int(i[0][0])
         y = int(i[0][1])
-        if max(gen_img[y][x]) > 255/2
+        if max(gen_img[y][x]) > 255/2:
             flow_layer = cv2.circle(
                                             flow_layer,                           # 描く画像
                                             (x, y),         # 線を引く始点
