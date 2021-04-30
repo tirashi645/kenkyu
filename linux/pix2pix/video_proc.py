@@ -211,7 +211,8 @@ if __name__=='__main__':
     path = filedialog.askopenfilename(filetypes = typ, initialdir = dir) 
     '''
     video_path = '/media/koshiba/Data/pix2pix/input/video'
-    video_file = glob.glob(video_path + '/video/*.mp4')
+    video_file = glob.glob(video_path + '/*')
 
     for path in video_file:
-        todo(path, zahyou)
+
+        todo(path)
