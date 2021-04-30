@@ -118,8 +118,8 @@ def pil2cv(image):
 
 def proc():
     b_id = 0
-    generator_model = load_model(model_dir + '/genenrator.h5')
-    generator_model.load_weights(model_dir + '/genenrator_weights.h5')
+    generator_model = load_model(model_dir + '/generator.h5')
+    generator_model.load_weights(model_dir + '/generator_weights.h5')
 
     proc_file = glob.glob(inputpath + '/proc_tmp/*.jpg')
     img_list = np.array([])     # generatorの入力画像
@@ -168,8 +168,8 @@ def proc():
     return gen_list[0] * 255
 
 def video_proc(org_img):
-    generator_model = load_model(model_dir + '/genenrator.h5')
-    generator_model.load_weights(model_dir + '/genenrator_weights.h5')
+    generator_model = load_model(model_dir + '/generator.h5')
+    generator_model.load_weights(model_dir + '/generator_weights.h5')
 
     img_list = np.array([])     # generatorの入力画像
     org_list = np.array([])     # オリジナルの画像
