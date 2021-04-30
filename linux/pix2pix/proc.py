@@ -165,6 +165,37 @@ def proc():
         print(org_list[index].shape)
         cv2.imwrite(outputpath + "/proc_tmp/raw_" + name_list[index] +".jpg", org_list[index])
         cv2.imwrite(outputpath + "/proc_tmp/gen_" + name_list[index] +".jpg", gen_list[index] * 255)
+    return gen_list[0] * 255
+
+def video_proc(org_img):
+    generator_model = load_model(model_dir + '/genenrator.h5')
+    generator_model.load_weights(model_dir + '/genenrator_weights.h5')
+
+    img_list = np.array([])     # generatorの入力画像
+    org_list = np.array([])     # オリジナルの画像
+    gen_list = np.array([])     # generatorの出力画像
+
+    width, height = org_img.size
+    img_size = [height, width]
+    flag = False
+
+    img = expand2square(org_img, (0, 0, 0))
+    img = img.resize((256, 256))
+    img = img_to_array(img)
+    img_list = np.append(img_list, img)
+    for _ in range(batch_size - 1):
+        img_list = np.append(img_list, img)
+    img_list = normalization(img_list)
+
+
+    img_list = img_list.reshape([-1, 256, 256, 3])
+    #img_procImageIter = np.array([img_list[i:i+batch_size] for i in range(0, img_list.shape[0], batch_size)])
+    #print(img_procImageIter.shape)
+    #for index, proc_batch in enumerate(img_procImageIter):
+    #print(proc_batch.shape)
+    gen_list = np.append(gen_list, proc_generator_batch(img_list, generator_model, batch_size, b_id, num, img_size))
+    gen_list = gen_list.reshape([-1, height, width, 3])
+    return gen_list[0] * 255
 
 if __name__ == '__main__':
     #train()
