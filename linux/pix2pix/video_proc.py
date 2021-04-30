@@ -177,7 +177,7 @@ def todo(path):
     # cv2.namedWindow("frame", cv2.WINDOW_NORMAL)
     # cv2.imshow("frame", frame)
     # cv2.waitKey(0)
-    cv2.destroyAllWindows()
+    #cv2.destroyAllWindows()
     cv2.imwrite(savePath + '/' + videoName + '.jpg', frame)
 
     '''
