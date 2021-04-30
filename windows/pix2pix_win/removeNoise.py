@@ -25,7 +25,7 @@ ksize=3
 #中央値フィルタ
 img_mask = cv2.resize(img, (720, 1280))
 img_mask = img_mask * 255
-print(type(img_mask))
+print(type(img_mask), img_mask.shape)
 img_mask = cv2.medianBlur(img_mask, ksize)
 #img_mask = np.where(img_mask.sum(axis=2) > 0, 255, 0)
 
