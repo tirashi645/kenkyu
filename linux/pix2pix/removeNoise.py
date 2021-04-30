@@ -4,7 +4,7 @@ import h5py
 import numpy as np
 from PIL import Image
 
-f = h5py.File('E:/data/pix2pix/output/outputData.h5', 'r')
+#f = h5py.File('E:/data/pix2pix/output/outputData.h5', 'r')
 
 def pil2cv(image):
     ''' PIL型 -> OpenCV型 '''
@@ -36,7 +36,7 @@ def todo(image):
     #cv2.imwrite('E:/data/pix2pix/output/saveEdge.jpg', img_sobel)
     kernel = np.ones((20,20),np.uint8)
     img_dilation =  cv2.dilate(img_mask, kernel, iterations=1)
-    cv2.imwrite('E:/data/pix2pix/output/saveDilation.jpg', img_dilation)
+    #cv2.imwrite('/media/koshiba/Data/pix2pix/output/proc_point', img_dilation)
 
     return img_dilation
 

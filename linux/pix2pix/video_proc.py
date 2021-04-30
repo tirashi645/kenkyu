@@ -52,8 +52,8 @@ def todo(path):
     pil_img = Image.fromarray(first_frame)
     first_gray = cv2.cvtColor(first_frame, cv2.COLOR_BGR2GRAY)
 
-    gen_img = proc.video_proc(pil_img)
-    gen_img = removeNoise(gen_img)
+    mask_img = proc.video_proc(pil_img)
+    gen_img = removeNoise(mask_img)
 
     # 読み込んだフレームの特徴点を探す
     prev_points = cv2.goodFeaturesToTrack(
@@ -86,6 +86,7 @@ def todo(path):
                                         )
     frame = cv2.add(first_frame, flow_layer)
     cv2.imwrite(savePath + '/gen_' + videoName + '.jpg', gen_img)
+    cv2.imwrite(savePath + '/mask_' + videoName + '.jpg', mask_img)
     cv2.imwrite(savePath + '/' + videoName + '.jpg', frame)
 
 if __name__=='__main__':
