@@ -13,10 +13,8 @@ def todo(path, zahyou):
     selectDir = ['cat1', 'cat2', 'cat3', 'cat4']
 
     # 読み込む動画の設定
-    videoDir = path[:path.rfind('/')]
-    dirName = getVideoData.getDirName(path)
-    videoName = getVideoData.getVideoName(path)
-    savePath = '/media/koshiba/Data/pix2pix/output/' + videoName[:videoName.rfind('.')]
+    videoName = path.split('/')[-1]
+    savePath = '/media/koshiba/Data/pix2pix/output/' + videoName[:-4]
     cap = cv2.VideoCapture(path)
     print(path[path.rfind('/')+1:])
 
