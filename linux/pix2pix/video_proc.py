@@ -1,7 +1,6 @@
 def todo(path):
     import numpy as np
     import cv2
-    from pythonFile import click_pct, getVideoData
     import os
     import pickle
     import proc
