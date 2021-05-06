@@ -11,8 +11,8 @@ if __name__ == '__main__':
     dir = 'C:\\pg'
     path = filedialog.askopenfilename(filetypes = typ, initialdir = dir) 
 
-    dirName = getVideoData.getDirName(path)
-    videoName = getVideoData.getVideoName(path)
+    dirName = path.split('/')[-2]
+    videoName = path.split('/')[-1][:-4]
     savePath = 'D:/opticalflow/pict/' + dirName + '/' + videoName
 
     if not os.path.exists(savePath):
