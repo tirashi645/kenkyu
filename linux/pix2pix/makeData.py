@@ -6,13 +6,12 @@ import cv2
 from keras.preprocessing.image import load_img, img_to_array
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 
-'''
 inpath = '/media/koshiba/Data/pix2pix/input'
 outpath = '/media/koshiba/Data/pix2pix/output'
 '''
 inpath = './input'
 outpath = './output'
-
+'''
 
 # we create two instances with the same arguments
 data_gen_args1 = dict(featurewise_center=True,
