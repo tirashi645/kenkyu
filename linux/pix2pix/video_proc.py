@@ -8,9 +8,7 @@ def todo(path):
 
     padding = 10    # 特徴点検出領域の半径
     p = 10
-    winsize = 25
     c = [[255, 0, 0], [0, 0, 255], [0, 255, 0], [0, 255, 255]]    # 特徴点の色
-    selectDir = ['cat1', 'cat2', 'cat3', 'cat4']
 
     # 読み込む動画の設定
     videoName = path.split('/')[-1][:-4]
@@ -52,7 +50,9 @@ def todo(path):
     pil_img = Image.fromarray(first_frame)
     first_gray = cv2.cvtColor(first_frame, cv2.COLOR_BGR2GRAY)
 
+    # マスク画像の生成
     mask_img = proc.video_proc(pil_img)
+    # ノイズを除去してセグメントを膨張する
     gen_img = removeNoise.todo(mask_img)
 
     # 読み込んだフレームの特徴点を探す
@@ -70,18 +70,18 @@ def todo(path):
         y = int(i[0][1])
         if max(gen_img[y][x]) > 255/2:
             flow_layer = cv2.circle(
-                                            flow_layer,                           # 描く画像
+                                            flow_layer,     # 描く画像
                                             (x, y),         # 線を引く始点
                                             2,              # 線を引く終点
-                                            color = c[0],   # 描く色
+                                            color = c[1],   # 描く色 赤
                                             thickness=3     # 線の太さ
                                         )
         else:
             flow_layer = cv2.circle(
-                                            flow_layer,                           # 描く画像
+                                            flow_layer,     # 描く画像
                                             (x, y),         # 線を引く始点
                                             2,              # 線を引く終点
-                                            color = c[1],   # 描く色
+                                            color = c[0],   # 描く色 青
                                             thickness=3     # 線の太さ
                                         )
     frame = cv2.add(first_frame, flow_layer)
