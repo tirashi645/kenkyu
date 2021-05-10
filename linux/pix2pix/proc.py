@@ -199,4 +199,4 @@ def video_proc(org_img):
 
 if __name__ == '__main__':
     #train()
-    proc()
+    video_proc()
