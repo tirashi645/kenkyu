@@ -264,6 +264,10 @@ def named_logs(model, logs):
   return result
 
 def train(epoch = 1000):
+    best_D_loss = 100000
+    best_step = 0
+    step = 0
+
     # load data
     rawImage, procImage, rawImage_val, procImage_val = load_data(datasetpath)
 
@@ -350,6 +354,15 @@ def train(epoch = 1000):
         #tb_DCGAN.on_epoch_end(e, named_logs(DCGAN_model, gen_loss))
         print("")
         print('Epoch %s/%s, Time: %s' % (e + 1, epoch, time.time() - starttime))
+
+        if best_D_loss < disc_loss:
+            step += 1
+            if best_step < step:
+                print('early stopping')
+                break
+            else:
+                step = 0
+                best_D_loss = disc_loss
     #tb_discriminator.on_epoch_end(None)
     #tb_dcgan.on_epoch_end(None)
     # save model
