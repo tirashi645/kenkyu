@@ -167,7 +167,11 @@ def proc():
         cv2.imwrite(outputpath + "/proc_tmp/gen_" + name_list[index] +".jpg", gen_list[index] * 255)
     return gen_list[0] * 255
 
+############################################################
+#   video_procから呼び出される関数
+############################################################
 def video_proc(org_img):
+    # generatorモデルの読み込み
     generator_model = load_model(model_dir + '/generator.h5')
     generator_model.load_weights(model_dir + '/generator_weights.h5')
 
@@ -175,27 +179,23 @@ def video_proc(org_img):
     org_list = np.array([])     # オリジナルの画像
     gen_list = np.array([])     # generatorの出力画像
 
+    # 画像サイズの取得
     width, height = org_img.size
     img_size = [height, width]
-    flag = False
 
-    img = expand2square(org_img, (0, 0, 0))
-    img = img.resize((256, 256))
-    img = img_to_array(img)
-    img_list = np.append(img_list, img)
+    img = expand2square(org_img, (0, 0, 0))     # 画像を正方形にする
+    img = img.resize((256, 256))                # リサイズ
+    img = img_to_array(img)                     # pillowからcv2へ変換（numpy）
+    img_list = np.append(img_list, img)         # generatorの入力にはbatch_sizeの枚数必要なので足りない分をコピーしてimg_listへ追加する
     for _ in range(batch_size - 1):
         img_list = np.append(img_list, img)
-    img_list = normalization(img_list)
+    img_list = normalization(img_list)          # 正規化
 
 
-    img_list = img_list.reshape([-1, 256, 256, 3])
-    #img_procImageIter = np.array([img_list[i:i+batch_size] for i in range(0, img_list.shape[0], batch_size)])
-    #print(img_procImageIter.shape)
-    #for index, proc_batch in enumerate(img_procImageIter):
-    #print(proc_batch.shape)
-    gen_list = np.append(gen_list, proc_generator_batch(img_list, generator_model, batch_size, 1, 1, img_size))
+    img_list = img_list.reshape([-1, 256, 256, 3])  # 一応整える
+    gen_list = np.append(gen_list, proc_generator_batch(img_list, generator_model, batch_size, 1, 1, img_size))     # マスク画像を生成　(255, 255, 3) → (height, width, 3)
     gen_list = gen_list.reshape([-1, height, width, 3])
-    return gen_list[0] * 255
+    return gen_list[0] * 255    # 最初の画像だけリターンする
 
 if __name__ == '__main__':
     #train()
