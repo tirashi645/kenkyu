@@ -19,7 +19,7 @@ def pil2cv(image):
 
 def todo(image):
     # アパーチャーサイズ 3, 5, or 7 など 1 より大きい奇数。数値が大きいほどぼかしが出る。
-    ksize=5
+    ksize=9
     kernel = np.ones((ksize,ksize),np.uint8)
     #中央値フィルタ
     print(type(image), image.shape)
@@ -46,7 +46,7 @@ def todo(image):
     img_dilation =  cv2.dilate(img_mask, kernel, iterations=1)
     #cv2.imwrite('/media/koshiba/Data/pix2pix/output/proc_point', img_dilation)
 
-    return img_dilation
+    return img_dilation, img_mask
 
 if __name__ == '__main__':
     pass

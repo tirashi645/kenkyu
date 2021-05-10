@@ -53,7 +53,7 @@ def todo(path):
     # マスク画像の生成
     mask_img = proc.video_proc(pil_img)
     # ノイズを除去してセグメントを膨張する
-    gen_img = removeNoise.todo(mask_img)
+    gen_img, img_mask = removeNoise.todo(mask_img)
 
     # 読み込んだフレームの特徴点を探す
     prev_points = cv2.goodFeaturesToTrack(
@@ -87,6 +87,7 @@ def todo(path):
     frame = cv2.add(first_frame, flow_layer)
     cv2.imwrite(savePath + '/gen_' + videoName + '.jpg', gen_img)
     cv2.imwrite(savePath + '/mask_' + videoName + '.jpg', mask_img)
+    cv2.imwrite(savePath + '/filter_' + videoName + '.jpg', img_mask)
     cv2.imwrite(savePath + '/' + videoName + '.jpg', frame)
 
 if __name__=='__main__':
