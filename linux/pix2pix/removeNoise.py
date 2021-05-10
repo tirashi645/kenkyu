@@ -19,7 +19,7 @@ def pil2cv(image):
 
 def todo(image):
     # アパーチャーサイズ 3, 5, or 7 など 1 より大きい奇数。数値が大きいほどぼかしが出る。
-    ksize=3
+    ksize=5
     kernel = np.ones((ksize,ksize),np.uint8)
     #中央値フィルタ
     print(type(image), image.shape)
@@ -28,7 +28,7 @@ def todo(image):
     #img_gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
     #print(img_gray.shape)
     img_mask = cv2.morphologyEx(image, cv2.MORPH_OPEN, kernel)
-    img_mask = cv2.morphologyEx(img_mask, cv2.MORPH_CLOSE, kernel)
+    #img_mask = cv2.morphologyEx(img_mask, cv2.MORPH_CLOSE, kernel)
     #img_mask = cv2.medianBlur(image, ksize)
     #img_mask = np.where(img_mask.sum(axis=2) > 0, 255, 0)
 
