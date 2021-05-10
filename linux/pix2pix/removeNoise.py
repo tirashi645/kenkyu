@@ -19,7 +19,7 @@ def pil2cv(image):
 
 def todo(image):
     # アパーチャーサイズ 3, 5, or 7 など 1 より大きい奇数。数値が大きいほどぼかしが出る。
-    ksize=9
+    ksize=15
     kernel = np.ones((ksize,ksize),np.uint8)
     #中央値フィルタ
     print(type(image), image.shape)
