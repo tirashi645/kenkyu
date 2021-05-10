@@ -1,11 +1,7 @@
 import os
 import shutil
 import glob
-from tkinter import filedialog
 
-typ = [('','*')] 
-dir = 'C:\\pg'
-image_path = filedialog.askopenfilename(filetypes = typ, initialdir = dir)
 data = glob.glob('D:/opticalflow/mask/**/*.png')
 for i in data:
     i = i.replace(os.sep, '/')
