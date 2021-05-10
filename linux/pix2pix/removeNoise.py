@@ -28,9 +28,9 @@ def todo(image):
     image = image.astype(np.uint8)
     #img_gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
     #print(img_gray.shape)
-    img_mask = cv2.dilate(img_mask, kernel, iterations=1)
+    img_mask = cv2.dilate(img_mask, kernel2, iterations=1)
     #img_mask = cv2.morphologyEx(image, cv2.MORPH_CLOSE, kernel)
-    img_mask = cv2.morphologyEx(img_mask, cv2.MORPH_OPEN, kernel)
+    img_mask = cv2.morphologyEx(img_mask, cv2.MORPH_OPEN, kernel1)
     
     #img_mask = cv2.medianBlur(image, ksize)
     #img_mask = np.where(img_mask.sum(axis=2) > 0, 255, 0)
