@@ -359,13 +359,12 @@ def train(epoch = 1000):
 
     generator_model.save(model_dir + '/generator.h5', include_optimizer=False)
     generator_model.save_weights(model_dir + '/generator_weights.h5')
+    '''
     #DCGAN_model.save(model_dir + '/DCGAN.h5')
     #DCGAN_model.save_weights(model_dir + '/DCGAN_weights.h5')
     #discriminator_model.save(model_dir + '/discriminator.h5')
     #discriminator_model.save_weights(model_dir + '/discriminator_weights.h5')
-
-    #reconstructed_DCGAN_model = load_model(model_dir + '/image200_solo_DCGAN.h5')
-    #reconstructed_discriminator_model = load_model(model_dir + '/image200_solo_discriminator.h5')
+    ''''
 
     '''
     # Let's check:
