@@ -377,7 +377,7 @@ def train(epoch = 1000):
     #DCGAN_model.save_weights(model_dir + '/DCGAN_weights.h5')
     #discriminator_model.save(model_dir + '/discriminator.h5')
     #discriminator_model.save_weights(model_dir + '/discriminator_weights.h5')
-    ''''
+    '''
 
     '''
     # Let's check:
