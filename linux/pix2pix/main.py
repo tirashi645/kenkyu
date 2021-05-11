@@ -36,6 +36,9 @@ outputpath = './output'
 patch_size = 32
 batch_size = 12
 
+D_loss_list = []
+G_Loss_list = []
+
 def normalization(X):
     return X / 127.5 - 1
 
@@ -354,6 +357,9 @@ def train(epoch = 1000):
         #tb_DCGAN.on_epoch_end(e, named_logs(DCGAN_model, gen_loss))
         print("")
         print('Epoch %s/%s, Time: %s' % (e + 1, epoch, time.time() - starttime))
+
+        G_Loss_list.append([gen_loss[0], gen_loss[1], gen_loss[2]])
+        D_loss_list.append(disc_loss)
 
         if best_D_loss < disc_loss:
             step += 1
