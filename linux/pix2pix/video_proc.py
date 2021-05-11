@@ -55,7 +55,7 @@ def todo(path):
     gen_img = proc.video_proc_gray(pil_img)
     # ノイズを除去してセグメントを膨張する
     mask_img, img_mask = removeNoise.todo(gen_img)
-    mask_img = labeling.remove(mask_img)
+    mask_img = labeling.remove_noise(mask_img)
 
     # 読み込んだフレームの特徴点を探す
     prev_points = cv2.goodFeaturesToTrack(
