@@ -32,13 +32,14 @@ def expand2square(pil_img, background_color):
 data_gen_args1 = dict(featurewise_center=True,
                      featurewise_std_normalization=True,
                      width_shift_range=0.1,
-                     height_shift_range=0.1,
+                     height_shift_range=0.05,
                      zoom_range=0.1,
-                     horizontal_flip=False)
+                     horizontal_flip=False,
+                     channel_shift_range=30)
 data_gen_args2 = dict(featurewise_center=True,
                      featurewise_std_normalization=True,
                      width_shift_range=0.1,
-                     height_shift_range=0.1,
+                     height_shift_range=0.05
                      zoom_range=0.1,
                      horizontal_flip=False)
 image_datagen = ImageDataGenerator(**data_gen_args1)
@@ -57,6 +58,7 @@ for imgfile in files:
     img = Image.open(imgfile)
     img = expand2square(img, (0, 0, 0))
     img = img.resize((256, 256))
+
     #img = load_img(imgfile, target_size=(256,256))
     imgarray = img_to_array(img)
     orgs.append(imgarray)
@@ -91,19 +93,16 @@ for index in range(len(masks)):
     img1 = masks[index]
     img2 = orgs[index]
     for i, data in enumerate(mask_datagen.flow(img1[np.newaxis, :, :, :], y=None, batch_size=1, shuffle=False, seed=seed)):
-        print(type(data), data.shape)
-        data = cv2.cvtColor(data[0], cv2.COLOR_BGR2GRAY)
         masks_augment = np.append(masks_augment, data)
         if i == 4:
             break
     for i, data in enumerate(image_datagen.flow(img2[np.newaxis, :, :, :], y=None, batch_size=1, shuffle=False, seed=seed)):
-        data = cv2.cvtColor(data[0], cv2.COLOR_BGR2GRAY)
         org_augment = np.append(org_augment, data)
         if i == 4:
             break
 
-org_augment = org_augment.reshape([-1, 256, 256, 1])
-masks_augment = masks_augment.reshape([-1, 256, 256, 1])
+org_augment = org_augment.reshape([-1, 256, 256, 3])
+masks_augment = masks_augment.reshape([-1, 256, 256, 3])
 
 
 perm = np.random.permutation(len(orgs))
