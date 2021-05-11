@@ -48,11 +48,12 @@ def todo(path):
 
     #グレースケール変換
     pil_img = Image.fromarray(first_frame)
+    org_img = img_to_array(pil_img)
     first_gray = cv2.cvtColor(first_frame, cv2.COLOR_BGR2GRAY)
 
     # マスク画像の生成
     #mask_img = proc.video_proc(pil_img)
-    gen_img = proc.video_proc_gray(pil_img)
+    gen_img = proc.video_proc_gray(pil_img)     # この中でグレースケール化してる
     # ノイズを除去してセグメントを膨張する
     mask_img, img_mask = removeNoise.todo(gen_img)
     mask_img = labeling.remove_noise(mask_img)
@@ -94,6 +95,8 @@ def todo(path):
     cv2.imwrite(savePath + '/' + videoName + '/mask_' + videoName + '.jpg', mask_img)
     cv2.imwrite(savePath + '/' + videoName + '/filter_' + videoName + '.jpg', img_mask)
     cv2.imwrite(savePath + '/' + videoName + '/' + videoName + '.jpg', frame)
+    cv2.imwrite(savePath + '/' + videoName + '/org_' + videoName + '.jpg', frame)
+
 
 if __name__=='__main__':
     import glob
