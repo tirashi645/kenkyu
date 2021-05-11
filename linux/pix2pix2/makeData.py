@@ -92,12 +92,12 @@ for index in range(len(masks)):
     img2 = orgs[index]
     for i, data in enumerate(mask_datagen.flow(img1[np.newaxis, :, :, :], y=None, batch_size=1, shuffle=False, seed=seed)):
         print(type(data), data.shape)
-        data = cv2.cvtColor(data, cv2.COLOR_BGR2GRAY)
+        data = cv2.cvtColor(data[0], cv2.COLOR_BGR2GRAY)
         masks_augment = np.append(masks_augment, data)
         if i == 12:
             break
     for i, data in enumerate(image_datagen.flow(img2[np.newaxis, :, :, :], y=None, batch_size=1, shuffle=False, seed=seed)):
-        data = cv2.cvtColor(data, cv2.COLOR_BGR2GRAY)
+        data = cv2.cvtColor(data[0], cv2.COLOR_BGR2GRAY)
         org_augment = np.append(org_augment, data)
         if i == 12:
             break
