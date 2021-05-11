@@ -3,7 +3,7 @@ def todo(path):
     import cv2
     import os
     import pickle
-    import proc, removeNoise
+    import proc, removeNoise, labeling
     from PIL import Image
 
     padding = 10    # 特徴点検出領域の半径
@@ -52,9 +52,10 @@ def todo(path):
 
     # マスク画像の生成
     #mask_img = proc.video_proc(pil_img)
-    mask_img = proc.video_proc_gray(pil_img)
+    gen_img = proc.video_proc_gray(pil_img)
     # ノイズを除去してセグメントを膨張する
-    gen_img, img_mask = removeNoise.todo(mask_img)
+    mask_img, img_mask = removeNoise.todo(gen_img)
+    mask_img = labeling.remove(mask_img)
 
     # 読み込んだフレームの特徴点を探す
     prev_points = cv2.goodFeaturesToTrack(
@@ -70,7 +71,7 @@ def todo(path):
         x = int(i[0][0])
         y = int(i[0][1])
         #if max(gen_img[y][x]) > 255/2:
-        if gen_img[y][x] > 255 / 2:
+        if mask_img[y][x] == 255:
             flow_layer = cv2.circle(
                                             flow_layer,     # 描く画像
                                             (x, y),         # 線を引く始点

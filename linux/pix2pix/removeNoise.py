@@ -49,7 +49,7 @@ def todo(image):
     img_dilation =  cv2.dilate(img_mask, kernel, iterations=1)
     #cv2.imwrite('/media/koshiba/Data/pix2pix/output/proc_point', img_dilation)
 
-    return img_dilation, img_mask
+    return img_dilation, img_dilation
 
 if __name__ == '__main__':
     pass
