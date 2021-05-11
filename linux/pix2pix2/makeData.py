@@ -94,16 +94,16 @@ for index in range(len(masks)):
         print(type(data), data.shape)
         data = cv2.cvtColor(data[0], cv2.COLOR_BGR2GRAY)
         masks_augment = np.append(masks_augment, data)
-        if i == 12:
+        if i == 4:
             break
     for i, data in enumerate(image_datagen.flow(img2[np.newaxis, :, :, :], y=None, batch_size=1, shuffle=False, seed=seed)):
         data = cv2.cvtColor(data[0], cv2.COLOR_BGR2GRAY)
         org_augment = np.append(org_augment, data)
-        if i == 12:
+        if i == 4:
             break
 
-org_augment = org_augment.reshape([-1, 256, 256, 3])
-masks_augment = masks_augment.reshape([-1, 256, 256, 3])
+org_augment = org_augment.reshape([-1, 256, 256, 1])
+masks_augment = masks_augment.reshape([-1, 256, 256, 1])
 
 
 perm = np.random.permutation(len(orgs))
