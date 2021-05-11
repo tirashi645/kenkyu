@@ -88,10 +88,12 @@ def todo(path):
                                             thickness=3     # 線の太さ
                                         )
     frame = cv2.add(first_frame, flow_layer)
-    cv2.imwrite(savePath + '/gen_' + videoName + '.jpg', gen_img)
-    cv2.imwrite(savePath + '/mask_' + videoName + '.jpg', mask_img)
-    cv2.imwrite(savePath + '/filter_' + videoName + '.jpg', img_mask)
-    cv2.imwrite(savePath + '/' + videoName + '.jpg', frame)
+    if not os.path.exists(savePath + '/' + videoName):
+        os.makedirs(savePath + '/' + videoName)
+    cv2.imwrite(savePath + '/' + videoName + '/gen_' + videoName + '.jpg', gen_img)
+    cv2.imwrite(savePath + '/' + videoName + '/mask_' + videoName + '.jpg', mask_img)
+    cv2.imwrite(savePath + '/' + videoName + '/filter_' + videoName + '.jpg', img_mask)
+    cv2.imwrite(savePath + '/' + videoName + '/' + videoName + '.jpg', frame)
 
 if __name__=='__main__':
     import glob
