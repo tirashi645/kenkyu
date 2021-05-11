@@ -101,8 +101,8 @@ for index in range(len(masks)):
         if i == 12:
             break
 
-org_augment = org_augment.reshape([-1, 256, 256, 3])
-masks_augment = masks_augment.reshape([-1, 256, 256, 3])
+org_augment = org_augment.reshape([-1, 256, 256])
+masks_augment = masks_augment.reshape([-1, 256, 256])
 
 
 perm = np.random.permutation(len(orgs))
