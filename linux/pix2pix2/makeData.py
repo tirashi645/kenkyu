@@ -74,7 +74,7 @@ for imgfile in files:
     imgarray = img_to_array(img)
     imgarray_gray = cv2.cvtColor(imgarray, cv2.COLOR_BGR2GRAY)
     masks.append(imgarray_gray)
-print(np.array(img).shape)
+print(imgarray_gray.shape)
 '''
 for img2 in orgs:
     for i, data in enumerate(image_datagen.flow(img2[np.newaxis, :, :, :], y=None, batch_size=1, shuffle=False, seed=seed)):
