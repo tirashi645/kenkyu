@@ -45,7 +45,7 @@ def todo(image):
     #img_gray = cv2.cvtColor(img_mask, cv2.COLOR_RGB2GRAY)
     #img_sobel = cv2.Canny(img_gray, 100, 200)
     #cv2.imwrite('E:/data/pix2pix/output/saveEdge.jpg', img_sobel)
-    kernel = np.ones((9,9),np.uint8)
+    kernel = np.ones((3,3),np.uint8)
     img_dilation =  cv2.dilate(img_mask, kernel, iterations=1)
     #cv2.imwrite('/media/koshiba/Data/pix2pix/output/proc_point', img_dilation)
 
