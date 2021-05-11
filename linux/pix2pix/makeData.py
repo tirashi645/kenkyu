@@ -32,15 +32,15 @@ def expand2square(pil_img, background_color):
 data_gen_args1 = dict(featurewise_center=True,
                      featurewise_std_normalization=True,
                      width_shift_range=0.1,
-                     height_shift_range=0.1,
-                     zoom_range=0.2,
+                     height_shift_range=0.05,
+                     zoom_range=0.1,
                      horizontal_flip=False,
                      channel_shift_range=30)
 data_gen_args2 = dict(featurewise_center=True,
                      featurewise_std_normalization=True,
                      width_shift_range=0.1,
-                     height_shift_range=0.1,
-                     zoom_range=0.2,
+                     height_shift_range=0.05
+                     zoom_range=0.1,
                      horizontal_flip=False)
 image_datagen = ImageDataGenerator(**data_gen_args1)
 mask_datagen = ImageDataGenerator(**data_gen_args2)
@@ -58,6 +58,7 @@ for imgfile in files:
     img = Image.open(imgfile)
     img = expand2square(img, (0, 0, 0))
     img = img.resize((256, 256))
+
     #img = load_img(imgfile, target_size=(256,256))
     imgarray = img_to_array(img)
     orgs.append(imgarray)

@@ -33,14 +33,13 @@ data_gen_args1 = dict(featurewise_center=True,
                      featurewise_std_normalization=True,
                      width_shift_range=0.1,
                      height_shift_range=0.1,
-                     zoom_range=0.2,
-                     horizontal_flip=False,
-                     channel_shift_range=30)
+                     zoom_range=0.1,
+                     horizontal_flip=False)
 data_gen_args2 = dict(featurewise_center=True,
                      featurewise_std_normalization=True,
                      width_shift_range=0.1,
                      height_shift_range=0.1,
-                     zoom_range=0.2,
+                     zoom_range=0.1,
                      horizontal_flip=False)
 image_datagen = ImageDataGenerator(**data_gen_args1)
 mask_datagen = ImageDataGenerator(**data_gen_args2)
@@ -60,7 +59,8 @@ for imgfile in files:
     img = img.resize((256, 256))
     #img = load_img(imgfile, target_size=(256,256))
     imgarray = img_to_array(img)
-    orgs.append(imgarray)
+    imgarray_gray = cv2.cvtColor(imgarray, cv2.COLOR_BGR2GRAY)
+    orgs.append(imgarray_gray)
 print(np.array(img).shape)
 print('mask img')
 files = glob.glob(inpath+'/mask/*.jpg')
@@ -72,7 +72,8 @@ for imgfile in files:
     img = img.resize((256, 256))
     #img = load_img(imgfile, target_size=(256,256))
     imgarray = img_to_array(img)
-    masks.append(imgarray)
+    imgarray_gray = cv2.cvtColor(imgarray, cv2.COLOR_BGR2GRAY)
+    masks.append(imgarray_gray)
 print(np.array(img).shape)
 '''
 for img2 in orgs:
