@@ -47,9 +47,8 @@ def todo(path):
         first_frame = np.rot90(first_frame, -1)
 
     #グレースケール変換
-    #pil_img = Image.fromarray(first_frame)
+    pil_img = Image.fromarray(first_frame)
     first_gray = cv2.cvtColor(first_frame, cv2.COLOR_BGR2GRAY)
-    pil_img = Image.fromarray(first_gray)
 
     # マスク画像の生成
     mask_img = proc.video_proc(pil_img)
