@@ -185,7 +185,7 @@ def video_proc(org_img):
     img = expand2square(org_img, (0, 0, 0))     # 画像を正方形にする
     img = img.resize((256, 256))                # リサイズ
     img = img_to_array(img)                     # pillowからcv2へ変換（numpy）
-    img = cv2.cvtColor(img), cv2.COLOR_BGR2GRAY)
+    img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     img_list = np.append(img_list, img)         # generatorの入力にはbatch_sizeの枚数必要なので足りない分をコピーしてimg_listへ追加する
     for _ in range(batch_size - 1):
         img_list = np.append(img_list, img)
