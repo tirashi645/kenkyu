@@ -51,7 +51,8 @@ def todo(path):
     first_gray = cv2.cvtColor(first_frame, cv2.COLOR_BGR2GRAY)
 
     # マスク画像の生成
-    mask_img = proc.video_proc(pil_img)
+    #mask_img = proc.video_proc(pil_img)
+    mask_img = proc.video_proc_gray(pil_img)
     # ノイズを除去してセグメントを膨張する
     gen_img, img_mask = removeNoise.todo(mask_img)
 

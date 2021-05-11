@@ -185,6 +185,36 @@ def video_proc(org_img):
     img = expand2square(org_img, (0, 0, 0))     # 画像を正方形にする
     img = img.resize((256, 256))                # リサイズ
     img = img_to_array(img)                     # pillowからcv2へ変換（numpy）
+    img_list = np.append(img_list, img)         # generatorの入力にはbatch_sizeの枚数必要なので足りない分をコピーしてimg_listへ追加する
+    for _ in range(batch_size - 1):
+        img_list = np.append(img_list, img)
+    img_list = normalization(img_list)          # 正規化
+
+
+    img_list = img_list.reshape([-1, 256, 256, 3])  # 一応整える
+    gen_list = np.append(gen_list, proc_generator_batch(img_list, generator_model, batch_size, 1, 1, img_size))     # マスク画像を生成　(255, 255, 3) → (height, width, 3)
+    gen_list = gen_list.reshape([-1, height, width, 3])
+    return gen_list[0] * 255    # 最初の画像だけリターンする
+
+
+############################################################
+#   video_procから呼び出される関数(gray)
+############################################################
+def video_proc_gray(org_img):
+    # generatorモデルの読み込み
+    generator_model = load_model(model_dir + '/generator.h5')
+    generator_model.load_weights(model_dir + '/generator_weights.h5')
+
+    img_list = np.array([])     # generatorの入力画像
+    org_list = np.array([])     # オリジナルの画像
+    gen_list = np.array([])     # generatorの出力画像
+
+    # 画像サイズの取得
+    width, height = org_img.size
+    img_size = [height, width]
+    img = expand2square(org_img, (0, 0, 0))     # 画像を正方形にする
+    img = img.resize((256, 256))                # リサイズ
+    img = img_to_array(img)                     # pillowからcv2へ変換（numpy）
     img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     img_list = np.append(img_list, img)         # generatorの入力にはbatch_sizeの枚数必要なので足りない分をコピーしてimg_listへ追加する
     for _ in range(batch_size - 1):
@@ -194,7 +224,7 @@ def video_proc(org_img):
 
     img_list = img_list.reshape([-1, 256, 256, 1])  # 一応整える
     gen_list = np.append(gen_list, proc_generator_batch(img_list, generator_model, batch_size, 1, 1, img_size))     # マスク画像を生成　(255, 255, 3) → (height, width, 3)
-    gen_list = gen_list.reshape([-1, height, width, 3])
+    gen_list = gen_list.reshape([-1, height, width, 1])
     return gen_list[0] * 255    # 最初の画像だけリターンする
 
 if __name__ == '__main__':
