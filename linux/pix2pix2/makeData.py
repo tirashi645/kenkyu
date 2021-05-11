@@ -59,8 +59,7 @@ for imgfile in files:
     img = img.resize((256, 256))
     #img = load_img(imgfile, target_size=(256,256))
     imgarray = img_to_array(img)
-    imgarray_gray = cv2.cvtColor(imgarray, cv2.COLOR_BGR2GRAY)
-    orgs.append(imgarray_gray)
+    orgs.append(imgarray)
 print(np.array(img).shape)
 print('mask img')
 files = glob.glob(inpath+'/mask/*.jpg')
@@ -72,9 +71,8 @@ for imgfile in files:
     img = img.resize((256, 256))
     #img = load_img(imgfile, target_size=(256,256))
     imgarray = img_to_array(img)
-    imgarray_gray = cv2.cvtColor(imgarray, cv2.COLOR_BGR2GRAY)
-    masks.append(imgarray_gray)
-print(imgarray_gray.shape)
+    masks.append(imgarray)
+print(np.array(img).shape)
 '''
 for img2 in orgs:
     for i, data in enumerate(image_datagen.flow(img2[np.newaxis, :, :, :], y=None, batch_size=1, shuffle=False, seed=seed)):
@@ -92,17 +90,17 @@ for index in range(len(masks)):
     seed = np.random.randint(1, 1000)
     img1 = masks[index]
     img2 = orgs[index]
-    for i, data in enumerate(mask_datagen.flow(img1[np.newaxis, :, :], y=None, batch_size=1, shuffle=False, seed=seed)):
-        masks_augment = np.append(masks_augment, data)
+    for i, data in enumerate(mask_datagen.flow(img1[np.newaxis, :, :, :], y=None, batch_size=1, shuffle=False, seed=seed)):
+        masks_augment = np.append(masks_augment, cv2.cvtColor(data, cv2.COLOR_BGR2GRAY))
         if i == 12:
             break
-    for i, data in enumerate(image_datagen.flow(img2[np.newaxis, :, :], y=None, batch_size=1, shuffle=False, seed=seed)):
-        org_augment = np.append(org_augment, data)
+    for i, data in enumerate(image_datagen.flow(img2[np.newaxis, :, :, :], y=None, batch_size=1, shuffle=False, seed=seed)):
+        org_augment = np.append(org_augment, cv2.cvtColor(data, cv2.COLOR_BGR2GRAY))
         if i == 12:
             break
 
-org_augment = org_augment.reshape([-1, 256, 256])
-masks_augment = masks_augment.reshape([-1, 256, 256])
+org_augment = org_augment.reshape([-1, 256, 256, 3])
+masks_augment = masks_augment.reshape([-1, 256, 256, 3])
 
 
 perm = np.random.permutation(len(orgs))
