@@ -5,6 +5,7 @@ def todo(path):
     import pickle
     import proc, removeNoise, labeling
     from PIL import Image
+    from keras.preprocessing.image import img_to_array
 
     padding = 10    # 特徴点検出領域の半径
     p = 10
