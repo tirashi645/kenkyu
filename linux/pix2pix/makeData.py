@@ -34,7 +34,8 @@ data_gen_args1 = dict(featurewise_center=True,
                      width_shift_range=0.1,
                      height_shift_range=0.1,
                      zoom_range=0.1,
-                     horizontal_flip=False)
+                     horizontal_flip=False,
+                     channel_shift_range=30)
 data_gen_args2 = dict(featurewise_center=True,
                      featurewise_std_normalization=True,
                      width_shift_range=0.1,
