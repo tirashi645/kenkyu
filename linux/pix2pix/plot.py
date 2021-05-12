@@ -8,7 +8,6 @@ with open(outputpath + '/gloss.pkl', 'rb') as f:
 with open(outputpath + '/dloss.pkl', 'rb') as f:
     D_loss = pickle.load(f)
 
-epochs = len(G_loss)
+epochs = [i for i in range(len(D_loss) + 1)]
 
-print(G_loss)
-print(epochs)
+print(D_loss)
