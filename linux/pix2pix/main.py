@@ -235,7 +235,7 @@ def plot_generated_batch(X_proc, X_raw, generator_model, batch_size, suffix, epo
 
     plt.imshow(XX)
     plt.axis('off')
-    plt.savefig(outputpath + "/current_batch_"+suffix+'_'+epoch+".png")
+    plt.savefig(outputpath + "/current_batch_"+suffix+'_'+str(epoch)+".png")
     plt.clf()
     plt.close()
 
