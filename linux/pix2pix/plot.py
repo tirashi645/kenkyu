@@ -11,3 +11,4 @@ with open(outputpath + '/dloss.pkl', 'rb') as f:
 epochs = len(G_loss)
 
 print(G_loss)
+print(epochs)
