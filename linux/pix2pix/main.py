@@ -3,6 +3,7 @@ import numpy as np
 import h5py
 import time
 import sys
+import pickle
 
 import matplotlib.pylab as plt
 
@@ -378,6 +379,12 @@ def train(epoch = 1000):
 
     generator_model.save(model_dir + '/generator.h5', include_optimizer=False)
     generator_model.save_weights(model_dir + '/generator_weights.h5')
+
+    # save_loss
+    with open(outputpath + '/gloss.pkl', 'wb') as f:
+        pickle.dump(G_Loss_list, f)
+    with open(outputpath + '/dloss.pkl', 'wb') as f:
+        pickle.dump(D_loss_list, f)
     '''
     #DCGAN_model.save(model_dir + '/DCGAN.h5')
     #DCGAN_model.save_weights(model_dir + '/DCGAN_weights.h5')
