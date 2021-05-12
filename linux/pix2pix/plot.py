@@ -14,6 +14,7 @@ l1 = [i[1] for i in G_loss]
 G_logloss = [i[2] for i in G_loss]
 
 plt.figure()
+plt.set_ylim([G_tot[-1]-1, G_tot[-1]+1])
 plt.plot(epochs, G_tot, color='blue')
 plt.savefig(outputpath + '/G_tot.jpg')
 
