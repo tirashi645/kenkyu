@@ -18,4 +18,4 @@ plt.plot(epochs, l1, color='green')
 plt.plot(epochs, G_logloss, color='orange')
 plt.plot(epochs, D_logloss, color='red')
 
-plt.savefig('loss')
+plt.savefig(outputpath + '/loss.jpg')
