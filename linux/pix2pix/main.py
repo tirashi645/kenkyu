@@ -214,7 +214,7 @@ def to3d(X):
     c = np.array([b[0],b[0],b[0]])
     return c.transpose(3,1,2,0)
 
-def plot_generated_batch(X_proc, X_raw, generator_model, batch_size, suffix):
+def plot_generated_batch(X_proc, X_raw, generator_model, batch_size, suffix, epoch):
     X_gen = generator_model.predict(X_raw)
     X_raw = inverse_normalization(X_raw)
     X_proc = inverse_normalization(X_proc)
@@ -235,7 +235,7 @@ def plot_generated_batch(X_proc, X_raw, generator_model, batch_size, suffix):
 
     plt.imshow(XX)
     plt.axis('off')
-    plt.savefig(outputpath + "/current_batch_"+suffix+".png")
+    plt.savefig(outputpath + "/current_batch_"+suffix+'_'+epoch+".png")
     plt.clf()
     plt.close()
 
@@ -348,20 +348,18 @@ def train(epoch = 1000):
 
             # save images for visualization
             if b_it % (procImage.shape[0]//batch_size//2) == 0:
-                plot_generated_batch(X_proc_batch, X_raw_batch, generator_model, batch_size, "training")
-                idx = np.random.choice(procImage_val.shape[0], batch_size)
-                X_gen_target, X_gen = procImage_val[idx], rawImage_val[idx]
-                plot_generated_batch(X_gen_target, X_gen, generator_model, batch_size, "validation")
+                if (e+1) % 5 == 0:
+                    plot_generated_batch(X_proc_batch, X_raw_batch, generator_model, batch_size, "training", e+1)
+                    idx = np.random.choice(procImage_val.shape[0], batch_size)
+                    X_gen_target, X_gen = procImage_val[idx], rawImage_val[idx]
+                    plot_generated_batch(X_gen_target, X_gen, generator_model, batch_size, "validation", e+1)
                 
 
         #tb_discriminator.on_epoch_end(e, named_logs(discriminator_model, disc_loss))
         #tb_DCGAN.on_epoch_end(e, named_logs(DCGAN_model, gen_loss))
         print("")
         print('Epoch %s/%s, Time: %s' % (e + 1, epoch, time.time() - starttime))
-
-        G_Loss_list.append([gen_loss[0], gen_loss[1], gen_loss[2]])
-        D_loss_list.append(disc_loss)
-
+        '''
         if best_D_loss < disc_loss:
             step += 1
             if best_step < step:
@@ -370,6 +368,21 @@ def train(epoch = 1000):
             else:
                 step = 0
                 best_D_loss = disc_loss
+        '''
+
+        G_Loss_list.append([gen_loss[0], gen_loss[1], gen_loss[2]])
+        D_loss_list.append(disc_loss)
+        if (e+1)%100==0:
+            discriminator_model.trainable = False
+            DCGAN_model.trainable = False
+            generator_model.trainable = False
+
+            generator_model.save(model_dir + '/generator_'+(e+1)+'.h5')
+            generator_model.save_weights(model_dir + '/generator_weights_'+(e+1)+'.h5')
+
+            discriminator_model.trainable = True
+            DCGAN_model.trainable = True
+            generator_model.trainable = True
     #tb_discriminator.on_epoch_end(None)
     #tb_dcgan.on_epoch_end(None)
     # save model
