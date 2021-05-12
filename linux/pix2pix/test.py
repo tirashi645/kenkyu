@@ -1,8 +1,11 @@
-pnumlist = [1,3,5,7,9]
-mojilist = [3,4,5]
+from tkinter import filedialog
+import cv2
+import glob
 
-for i in range(15):
-    if not (i in pnumlist or i in mojilist):
-        print(i)
-    else:
-        pass
+file1 = glob.glob('D:/opticalflow/mask/**/*')
+
+for path in file1:
+    print(path)
+    data = cv2.imread(path)
+    data = cv2.resize(data, (720, 1280))
+    cv2.imwrite(path, data)
