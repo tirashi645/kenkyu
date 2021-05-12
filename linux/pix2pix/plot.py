@@ -9,6 +9,7 @@ with open(outputpath + '/dloss.pkl', 'rb') as f:
     D_loss = pickle.load(f)
 
 epochs = [i+1 for i in range(len(D_loss))]
+print(G_loss[:][0])
 
 plt.plot(epochs, G_loss[:][0], color='blue')
 plt.plot(epochs, G_loss[:][1], color='green')
