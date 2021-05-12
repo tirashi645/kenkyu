@@ -14,7 +14,6 @@ l1 = [i[1] for i in G_loss]
 G_logloss = [i[2] for i in G_loss]
 
 plt.figure()
-plt.set_ylim([G_tot[-1]-1, G_tot[-1]+1])
 plt.plot(epochs, G_tot, color='blue')
 plt.savefig(outputpath + '/G_tot.jpg')
 
@@ -23,9 +22,11 @@ plt.plot(epochs, l1, color='green')
 plt.savefig(outputpath + '/l1.jpg')
 
 plt.figure()
+plt.axis([0, len(G_logloss), G_logloss[-1]-1, G_logloss[-1]+1])
 plt.plot(epochs, G_logloss, color='orange')
 plt.savefig(outputpath + '/G_loglossloss.jpg')
 
 plt.figure()
+plt.axis([0, len(D_logloss), D_logloss[-1]-1, D_logloss[-1]+1])
 plt.plot(epochs, D_logloss, color='red')
 plt.savefig(outputpath + '/D_logloss.jpg')
