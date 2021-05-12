@@ -97,6 +97,7 @@ def todo(path):
     cv2.imwrite(savePath + '/' + videoName + '/filter_' + videoName + '.jpg', img_mask)
     cv2.imwrite(savePath + '/' + videoName + '/' + videoName + '.jpg', frame)
     cv2.imwrite(savePath + '/' + videoName + '/org_' + videoName + '.jpg', org_img)
+    cv2.imwrite(savePath + '/' + videoName + '/gray_' + videoName + '.jpg', first_gray)
 
 
 if __name__=='__main__':
