@@ -201,7 +201,7 @@ def to3d(X):
     c = np.array([b[0],b[0],b[0]])
     return c.transpose(3,1,2,0)
 
-def plot_generated_batch(X_proc, X_raw, generator_model, batch_size, suffix):
+def plot_generated_batch(X_proc, X_raw, generator_model, batch_size, suffix, epoch):
     X_gen = generator_model.predict(X_raw)
     X_raw = inverse_normalization(X_raw)
     X_proc = inverse_normalization(X_proc)
@@ -222,7 +222,7 @@ def plot_generated_batch(X_proc, X_raw, generator_model, batch_size, suffix):
 
     plt.imshow(XX)
     plt.axis('off')
-    plt.savefig(output_dir + "/current_batch_"+suffix+".png")
+    plt.savefig(output_dir + "/current_batch_"+suffix+'_'+epoch".png")
     plt.clf()
     plt.close()
 
@@ -331,10 +331,11 @@ def train():
 
             # save images for visualization
             if b_it % (procImage.shape[0]//batch_size//2) == 0:
-                plot_generated_batch(X_proc_batch, X_raw_batch, generator_model, batch_size, "training")
-                idx = np.random.choice(procImage_val.shape[0], batch_size)
-                X_gen_target, X_gen = procImage_val[idx], rawImage_val[idx]
-                plot_generated_batch(X_gen_target, X_gen, generator_model, batch_size, "validation")
+                if e % 5 == 0:
+                    plot_generated_batch(X_proc_batch, X_raw_batch, generator_model, batch_size, "training", e)
+                    idx = np.random.choice(procImage_val.shape[0], batch_size)
+                    X_gen_target, X_gen = procImage_val[idx], rawImage_val[idx]
+                    plot_generated_batch(X_gen_target, X_gen, generator_model, batch_size, "validation", e)
                 
 
         #tb_discriminator.on_epoch_end(e, named_logs(discriminator_model, disc_loss))
