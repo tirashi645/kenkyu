@@ -348,7 +348,7 @@ def train(epoch = 1000):
 
             # save images for visualization
             if b_it % (procImage.shape[0]//batch_size//2) == 0:
-                if (e+1) % 100 == 0:
+                if (e+1) % 5 == 0:
                     plot_generated_batch(X_proc_batch, X_raw_batch, generator_model, batch_size, "training", e+1)
                     idx = np.random.choice(procImage_val.shape[0], batch_size)
                     X_gen_target, X_gen = procImage_val[idx], rawImage_val[idx]
@@ -372,7 +372,7 @@ def train(epoch = 1000):
 
         G_Loss_list.append([gen_loss[0], gen_loss[1], gen_loss[2]])
         D_loss_list.append(disc_loss)
-        if (e+1)%100==0:
+        if (e+1)%5==0:
             discriminator_model.trainable = False
             DCGAN_model.trainable = False
             generator_model.trainable = False
