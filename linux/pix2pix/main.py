@@ -386,12 +386,14 @@ def train(epoch = 1000):
     #tb_discriminator.on_epoch_end(None)
     #tb_dcgan.on_epoch_end(None)
     # save model
+    '''
     discriminator_model.trainable = False
     DCGAN_model.trainable = False
     generator_model.trainable = False
 
     generator_model.save(model_dir + '/generator.h5', include_optimizer=False)
     generator_model.save_weights(model_dir + '/generator_weights.h5')
+    '''
 
     # save_loss
     with open(outputpath + '/gloss.pkl', 'wb') as f:
