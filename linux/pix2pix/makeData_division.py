@@ -67,21 +67,17 @@ for imgfile in files:
     print(imgfile)
     img = Image.open(imgfile)
     width, height = img.size
-    print(type(height), height, type(width), width)
     upper = img.crop((0, 0, width, height/2))
     lower = img.crop((0, height/2, width, height))
     upper_orgs.append(process(upper))
     lower_orgs.append(process(lower))
-print(np.array(img).shape)
-print(height, width)
-print(upper.size)
 print('mask img')
 files = glob.glob(inpath+'/mask/*.jpg')
 for imgfile in files:
     print(imgfile)
     img = load_img(imgfile)
-    upper = img[:height/2]
-    lower = img[height/2:]
+    upper = img.crop((0, 0, width, height/2))
+    lower = img.crop((0, height/2, width, height))
     upper_masks.append(process(upper))
     lower_masks.append(process(lower))
 print(np.array(img).shape)
