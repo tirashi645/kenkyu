@@ -72,6 +72,7 @@ for imgfile in files:
     upper_orgs.append(process(upper))
     lower_orgs.append(process(lower))
 print(np.array(img).shape)
+print(height, width)
 print('mask img')
 files = glob.glob(inpath+'/mask/*.jpg')
 for imgfile in files:
