@@ -63,6 +63,7 @@ org_augment = np.array([])
 print('original img')
 files_org = glob.glob(inpath+'/org/*.jpg')
 files_mask = glob.glob(inpath+'/mask/*.jpg')
+print(files_org)
 for file_num, data in enumerate(files_org):
     num_list = rand_ints(0, 17, 4)
     img_name = files_org[file_num].split('/')[-1][:-4]
