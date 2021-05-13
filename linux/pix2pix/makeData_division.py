@@ -66,7 +66,7 @@ files = glob.glob(inpath+'/org/*.jpg')
 for imgfile in files:
     print(imgfile)
     img = Image.open(imgfile)
-    height, width = img.shape
+    width, height = img.size
     upper = img[:height/2]
     lower = img[height/2:]
     upper_orgs.append(process(upper))
@@ -77,7 +77,6 @@ files = glob.glob(inpath+'/mask/*.jpg')
 for imgfile in files:
     print(imgfile)
     img = load_img(imgfile)
-    height, width = img.shape
     upper = img[:height/2]
     lower = img[height/2:]
     upper_masks.append(process(upper))
