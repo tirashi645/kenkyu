@@ -15,3 +15,4 @@ for image in image_file:
     image = image.replace(os.sep, '/')
     image_name = image.split('/')[-1][:image.split('/')[-1].rfind('.')]
     print(image_name)
+    print(image.split('/')[-2])
