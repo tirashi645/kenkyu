@@ -67,6 +67,7 @@ for imgfile in files:
     print(imgfile)
     img = Image.open(imgfile)
     width, height = img.size
+    print(type(height), height, type(width), width)
     upper = img[:height/2]
     lower = img[height/2:]
     upper_orgs.append(process(upper))
