@@ -63,11 +63,9 @@ org_augment = np.array([])
 print('original img')
 files_org = glob.glob(inpath+'/org/*.jpg')
 files_mask = glob.glob(inpath+'/mask/*.jpg')
-print(files_org)
 for file_num, data in enumerate(files_org):
     num_list = rand_ints(0, 17, 4)
     img_name = files_org[file_num].split('/')[-1][:-4]
-    img_dir = files_org[file_num].split('/')[-2]
 
     print(files_org[file_num])
     img = Image.open(files_org[file_num])
@@ -101,7 +99,7 @@ for file_num, data in enumerate(files_org):
             break
 
     for i in num_list:
-        org_img = '/media/koshiba/Data/pix2pix/input/synthentic/' + img_dir + '/' + img_name + '_' + str(i) + '.jpg'
+        org_img = '/media/koshiba/Data/pix2pix/input/synthentic/' + img_name + '_' + str(i) + '.jpg'
         print(org_img)
         img = Image.open(org_img)
         img = expand2square(img, (0, 0, 0))

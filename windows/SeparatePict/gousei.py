@@ -27,6 +27,5 @@ for image_path in image_list:
         # 合成!
         frame[y1:y2, x1:x2] = frame[y1:y2, x1:x2] * (1 - png_image[:, :, 3:] / 255) + \
                             png_image[:, :, :3] * (png_image[:, :, 3:] / 255)
-        if not os.path.exists('E:/data/synthetic/' + image_dir):
-            os.makedirs('E:/data/synthetic/' + image_dir)
-        cv2.imwrite('E:/data/synthetic/' + image_dir + '/' + image_name + '_' + str(i) + '.jpg', frame)
+        if not os.path.exists('E:/data/synthetic/' + image_dir + '_' + image_name + '_' + str(i) + '.jpg'):
+            cv2.imwrite('E:/data/synthetic/' + image_dir + '_' + image_name + '_' + str(i) + '.jpg', frame)
