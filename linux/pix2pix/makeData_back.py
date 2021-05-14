@@ -110,7 +110,7 @@ for file_num, data in enumerate(files_org):
         img1 = masks[-1]
         img2 = orgs[-1]
         for i, data in enumerate(mask_datagen.flow(img1[np.newaxis, :, :, :], y=None, batch_size=1, shuffle=False, seed=seed)):
-            print(type(data), data.shape)
+            print(type[(data), data.shape)
             data = cv2.cvtColor(data[0], cv2.COLOR_BGR2GRAY)
             masks_augment = np.append(masks_augment, data)
             if i == 4:
