@@ -23,7 +23,6 @@ from keras.callbacks import TensorBoard
 
 model_dir = '/media/koshiba/Data/pix2pix/model'
 log_dir = './tflog'
-datasetpath = '/media/koshiba/Data/pix2pix/output/datasetimages_' + harf + '.hdf5'
 outputpath = '/media/koshiba/Data/pix2pix/output'
 '''
 model_dir = './model'
@@ -276,6 +275,8 @@ def train(epoch = 1000):
         harf = 'lower'
     else:
         harf = 'upper'
+
+    datasetpath = '/media/koshiba/Data/pix2pix/output/datasetimages_' + harf + '.hdf5'
 
     # load data
     rawImage, procImage, rawImage_val, procImage_val = load_data(datasetpath)
