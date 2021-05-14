@@ -391,36 +391,12 @@ def train(epoch = 1000):
     #tb_discriminator.on_epoch_end(None)
     #tb_dcgan.on_epoch_end(None)
     # save model
-    '''
-    discriminator_model.trainable = False
-    DCGAN_model.trainable = False
-    generator_model.trainable = False
-
-    generator_model.save(model_dir + '/generator.h5', include_optimizer=False)
-    generator_model.save_weights(model_dir + '/generator_weights.h5')
-    '''
 
     # save_loss
     with open(outputpath + '/gloss.pkl', 'wb') as f:
         pickle.dump(G_Loss_list, f)
     with open(outputpath + '/dloss.pkl', 'wb') as f:
         pickle.dump(D_loss_list, f)
-    '''
-    #DCGAN_model.save(model_dir + '/DCGAN.h5')
-    #DCGAN_model.save_weights(model_dir + '/DCGAN_weights.h5')
-    #discriminator_model.save(model_dir + '/discriminator.h5')
-    #discriminator_model.save_weights(model_dir + '/discriminator_weights.h5')
-    '''
-
-    '''
-    # Let's check:
-    np.testing.assert_allclose(
-        DCGAN_model.predict(X_gen), reconstructed_DCGAN_model.predict(X_gen)
-    )
-    np.testing.assert_allclose(
-        discriminator_model.predict(x_disc), reconstructed_discriminator_model.predict(x_disc)
-    )
-    '''
 
 
 if __name__ == '__main__':
