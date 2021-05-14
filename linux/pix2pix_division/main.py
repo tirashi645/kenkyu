@@ -21,8 +21,6 @@ from keras.layers.pooling import MaxPooling2D
 import keras.backend as K
 from keras.callbacks import TensorBoard
 
-harf = 'upper'
-
 model_dir = '/media/koshiba/Data/pix2pix/model'
 log_dir = './tflog'
 datasetpath = '/media/koshiba/Data/pix2pix/output/datasetimages_' + harf + '.hdf5'
@@ -271,6 +269,13 @@ def train(epoch = 1000):
     best_D_loss = 100000
     best_step = 0
     step = 0
+
+    print('0:upper 1:lower   >>>   ',end='')
+    harf = int(input())
+    if harf:
+        harf = 'lower'
+    else:
+        harf = 'upper'
 
     # load data
     rawImage, procImage, rawImage_val, procImage_val = load_data(datasetpath)
