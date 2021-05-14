@@ -37,6 +37,8 @@ batch_size = 12
 D_loss_list = []
 G_Loss_list = []
 
+harf = ''
+
 def normalization(X):
     return X / 127.5 - 1
 
