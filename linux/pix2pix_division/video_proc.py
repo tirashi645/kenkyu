@@ -4,7 +4,7 @@ def todo(path):
     import os
     import pickle
     import proc, removeNoise, labeling
-    import PIL
+    import PIL as pil
     from PIL import Image
     from keras.preprocessing.image import img_to_array
 
