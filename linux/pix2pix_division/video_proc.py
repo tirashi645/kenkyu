@@ -61,7 +61,7 @@ def todo(path):
     gen_lower = proc.video_proc_lower(lower_img)
     print(type(gen_upper))
 
-    gen_image = cv2.vconcat([gen_upper, lower_img])
+    gen_image = cv2.vconcat([gen_upper, gen_lower])
 
     # ノイズを除去してセグメントを膨張する
     mask_img, img_mask = removeNoise.todo(gen_image)
