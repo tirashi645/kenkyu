@@ -59,7 +59,7 @@ def todo(path):
     #mask_img = proc.video_proc(pil_img)
     gen_upper = proc.video_proc_upper(upper_img)     # この中でグレースケール化してる
     gen_lower = proc.video_proc_lower(lower_img)
-    print(type(gen_upper))
+    #print(type(gen_upper))
 
     gen_image = cv2.vconcat([gen_upper, gen_lower])
 
@@ -98,7 +98,7 @@ def todo(path):
                                             thickness=3     # 線の太さ
                                         )
     frame = cv2.add(first_frame, flow_layer)
-    if not os.path.exists(savePath + '/' + videoName):
+    if not os.path.exists(savePath + '/' + videoName + '/division'):
         os.makedirs(savePath + '/' + videoName + '/division')
     cv2.imwrite(savePath + '/' + videoName + '/division' + '/gen_' + videoName + '.jpg', gen_image)
     cv2.imwrite(savePath + '/' + videoName + '/division' + '/mask_' + videoName + '.jpg', mask_img)
