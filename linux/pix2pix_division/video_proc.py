@@ -59,6 +59,7 @@ def todo(path):
     #mask_img = proc.video_proc(pil_img)
     gen_upper = proc.video_proc_upper(upper_img)     # この中でグレースケール化してる
     gen_lower = proc.video_proc_lower(lower_img)
+    print(type(gen_upper))
 
     gen_image = cv2.vconcat([gen_upper, lower_img])
 
