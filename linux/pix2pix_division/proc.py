@@ -240,6 +240,7 @@ def video_proc_upper(org_img):
     # 画像サイズの取得
     width, height = org_img.size
     img_size = [height, width]
+    print("size : ", img_size)
     img = expand2square(org_img, (0, 0, 0))     # 画像を正方形にする
     img = img.resize((256, 256))                # リサイズ
     img = img_to_array(img)                     # pillowからcv2へ変換（numpy）
@@ -252,7 +253,7 @@ def video_proc_upper(org_img):
 
     img_list = img_list.reshape([-1, 256, 256, 1])  # 一応整える
     gen_list = np.append(gen_list, proc_generator_batch(img_list, generator_model, batch_size, 1, 1, img_size))     # マスク画像を生成　(255, 255, 3) → (height, width, 3)
-    gen_list = gen_list.reshape([-1, height/2, width/2, 1])
+    gen_list = gen_list.reshape([-1, height, width, 1])
     return gen_list[0] * 255    # 最初の画像だけリターンする
 
 
