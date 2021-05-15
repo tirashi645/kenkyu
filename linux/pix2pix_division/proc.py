@@ -212,7 +212,7 @@ def video_proc_lower(org_img):
     # 画像サイズの取得
     width, height = org_img.size
     img_size = [height, width]
-    print(img_size)
+    print("size : ", img_size)
     img = expand2square(org_img, (0, 0, 0))     # 画像を正方形にする
     img = img.resize((256, 256))                # リサイズ
     img = img_to_array(img)                     # pillowからcv2へ変換（numpy）
