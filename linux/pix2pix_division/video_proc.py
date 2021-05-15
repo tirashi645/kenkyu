@@ -52,11 +52,18 @@ def todo(path):
     org_img = img_to_array(pil_img)
     first_gray = cv2.cvtColor(first_frame, cv2.COLOR_BGR2GRAY)
 
+    upper_img = pil.crop((0, 0, width, height/2))
+    lower_img = pil.crop((0, height/2, width, height))
+
     # マスク画像の生成
     #mask_img = proc.video_proc(pil_img)
-    gen_img = proc.video_proc_gray(pil_img)     # この中でグレースケール化してる
+    gen_upper = proc.video_proc_gray(upper_img)     # この中でグレースケール化してる
+    gen_lower = proc.video_proc_gray(lower_img)
+
+    gen_image = cv2.vconcat([gen_upper, lower_img])
+
     # ノイズを除去してセグメントを膨張する
-    mask_img, img_mask = removeNoise.todo(gen_img)
+    mask_img, img_mask = removeNoise.todo(gen_image)
     mask_img = labeling.remove_noise(mask_img)
 
     # 読み込んだフレームの特徴点を探す
@@ -91,13 +98,13 @@ def todo(path):
                                         )
     frame = cv2.add(first_frame, flow_layer)
     if not os.path.exists(savePath + '/' + videoName):
-        os.makedirs(savePath + '/' + videoName)
-    cv2.imwrite(savePath + '/' + videoName + '/gen_' + videoName + '.jpg', gen_img)
-    cv2.imwrite(savePath + '/' + videoName + '/mask_' + videoName + '.jpg', mask_img)
-    cv2.imwrite(savePath + '/' + videoName + '/filter_' + videoName + '.jpg', img_mask)
-    cv2.imwrite(savePath + '/' + videoName + '/' + videoName + '.jpg', frame)
-    cv2.imwrite(savePath + '/' + videoName + '/org_' + videoName + '.jpg', org_img)
-    cv2.imwrite(savePath + '/' + videoName + '/gray_' + videoName + '.jpg', first_gray)
+        os.makedirs(savePath + '/' + videoName + '/division')
+    cv2.imwrite(savePath + '/' + videoName + '/division' + '/gen_' + videoName + '.jpg', gen_image)
+    cv2.imwrite(savePath + '/' + videoName + '/division' + '/mask_' + videoName + '.jpg', mask_img)
+    cv2.imwrite(savePath + '/' + videoName + '/division' + '/filter_' + videoName + '.jpg', img_mask)
+    cv2.imwrite(savePath + '/' + videoName + '/division' + '/' + videoName + '.jpg', frame)
+    cv2.imwrite(savePath + '/' + videoName + '/division' + '/org_' + videoName + '.jpg', org_img)
+    cv2.imwrite(savePath + '/' + videoName + '/division' + '/gray_' + videoName + '.jpg', first_gray)
 
 
 if __name__=='__main__':
