@@ -202,7 +202,7 @@ def video_proc(org_img):
 ############################################################
 def video_proc_lower(org_img):
     # generatorモデルの読み込み
-    generator_model = load_model(model_dir + '/generator_1000_lower.h5')
+    generator_model = load_model(model_dir + '/generator_1000_lower_.h5')
     generator_model.load_weights(model_dir + '/generator_weights_1000_lower.h5')
 
     img_list = np.array([])     # generatorの入力画像
@@ -230,7 +230,7 @@ def video_proc_lower(org_img):
 def video_proc_upper(org_img):
     # generatorモデルの読み込み
     generator_model = load_model(model_dir + '/generator_1000_upper_.h5')
-    generator_model.load_weights(model_dir + '/generator_weights_1000_upper_.h5')
+    generator_model.load_weights(model_dir + '/generator_weights_1000_upper.h5')
 
     img_list = np.array([])     # generatorの入力画像
     org_list = np.array([])     # オリジナルの画像
