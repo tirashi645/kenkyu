@@ -75,7 +75,7 @@ def proc_generator_batch(X_raw, generator_model, batch_size, b_id, num, img_size
     X_gen = gen_resize(X_gen, img_size)
     #print(X_gen.shape)
     m = max(img_size)
-    print(m)
+    print(X_gen.shape)
 
     if img_size[0]==img_size[1]:
         return X_gen[:min(batch_size, num)]
@@ -92,7 +92,7 @@ def gen_resize(x, img_size):
     for data in x:
         X_gen = np.append(X_gen, cv2.resize(data, (max(img_size[0], img_size[1]), max(img_size[0], img_size[1]))))
         print(X_gen.shape)
-    return X_gen.reshape([-1, max(img_size[0], img_size[1]), max(img_size[0], img_size[1]), 3])
+    return X_gen.reshape([-1, max(img_size[0], img_size[1]), max(img_size[0], img_size[1]), 1])
 
 def expand2square(pil_img, background_color):
     width, height = pil_img.size
