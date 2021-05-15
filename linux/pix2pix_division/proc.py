@@ -91,6 +91,7 @@ def gen_resize(x, img_size):
     X_gen = np.array([])
     for data in x:
         X_gen = np.append(X_gen, cv2.resize(data, (max(img_size[0], img_size[1]), max(img_size[0], img_size[1]))))
+        print(X_gen.shape)
     return X_gen.reshape([-1, max(img_size[0], img_size[1]), max(img_size[0], img_size[1]), 3])
 
 def expand2square(pil_img, background_color):
