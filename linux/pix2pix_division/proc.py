@@ -248,6 +248,7 @@ def video_proc_upper(org_img):
     img_list = np.append(img_list, img)         # generatorの入力にはbatch_sizeの枚数必要なので足りない分をコピーしてimg_listへ追加する
     for _ in range(batch_size - 1):
         img_list = np.append(img_list, img)
+    print(img_list.shape)
     img_list = normalization(img_list)          # 正規化
 
 
