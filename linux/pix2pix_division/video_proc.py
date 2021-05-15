@@ -52,8 +52,8 @@ def todo(path):
     org_img = img_to_array(pil_img)
     first_gray = cv2.cvtColor(first_frame, cv2.COLOR_BGR2GRAY)
 
-    upper_img = pil.crop((0, 0, width, height/2))
-    lower_img = pil.crop((0, height/2, width, height))
+    upper_img = pil_img.crop((0, 0, width, height/2))
+    lower_img = pil_img.crop((0, height/2, width, height))
 
     # マスク画像の生成
     #mask_img = proc.video_proc(pil_img)
