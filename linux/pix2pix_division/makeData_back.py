@@ -128,14 +128,14 @@ for file_num, data in enumerate(files_org):
         org_img = '/media/koshiba/Data/pix2pix/input/synthetic/' + img_name + '_' + str(i) + '.jpg'
         print(org_img)
         img = Image.open(org_img)
-        img = expand2square(img, (0, 0, 0))
-        img = img.resize((256, 256))
-        #img = load_img(imgfile, target_size=(256,256))
-        imgarray = img_to_array(img)
+        upper = img.crop((0, 0, width, height/2))
+        lower = img.crop((0, height/2, width, height))
+        upper_imgarray_org = process(upper)
+        lower_imgarray_org = process(lower)
         upper_orgs.append(upper_imgarray_org)
         upper_masks.append(upper_imgarray_mask)
         lower_orgs.append(lower_imgarray_org)
-        lower_masks.append(upper_imgarray_mask)
+        lower_masks.append(lower_imgarray_mask)
         img1 = upper_masks[-1]
         img2 = lower_masks[-1]
         img3 = upper_orgs[-1]
