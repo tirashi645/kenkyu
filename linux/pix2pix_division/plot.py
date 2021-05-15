@@ -22,11 +22,11 @@ plt.plot(epochs, l1, color='green')
 plt.savefig(outputpath + '/l1.jpg')
 
 plt.figure()
-plt.axis([0, len(G_logloss), G_logloss[-1]-0.0001, G_logloss[-1]+0.0001])
+#plt.axis([0, len(G_logloss), G_logloss[-1]-0.0001, G_logloss[-1]+0.0001])
 plt.plot(epochs, G_logloss, color='orange')
 plt.savefig(outputpath + '/G_loglossloss.jpg')
 
 plt.figure()
-plt.axis([0, len(D_logloss), D_logloss[-1]-0.0001, D_logloss[-1]+0.0001])
+#plt.axis([0, len(D_logloss), D_logloss[-1]-0.0001, D_logloss[-1]+0.0001])
 plt.plot(epochs, D_logloss, color='red')
 plt.savefig(outputpath + '/D_logloss.jpg')
