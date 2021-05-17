@@ -54,7 +54,7 @@ def todo(path, epoch):
 
     # マスク画像の生成
     #mask_img = proc.video_proc(pil_img)
-    gen_img = proc.video_proc_num(pil_img)     # この中でグレースケール化してる
+    gen_img = proc.video_proc_num(pil_img, epoch)     # この中でグレースケール化してる
     # ノイズを除去してセグメントを膨張する
     mask_img, img_mask = removeNoise.todo(gen_img)
     mask_img = labeling.remove_noise(mask_img)
