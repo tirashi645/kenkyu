@@ -116,4 +116,4 @@ if __name__=='__main__':
 
     for path in video_file:
         for i in range(10):
-            todo(path, i+1)
+            todo(path, (i+1)*100)
