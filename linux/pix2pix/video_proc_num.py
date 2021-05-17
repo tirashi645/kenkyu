@@ -90,14 +90,14 @@ def todo(path, epoch):
                                             thickness=3     # 線の太さ
                                         )
     frame = cv2.add(first_frame, flow_layer)
-    if not os.path.exists(savePath + '/' + str(epoch) + '/' + '/' + videoName):
-        os.makedirs(savePath + '/' + str(epoch) + '/' + videoName)
-    cv2.imwrite(savePath + '/' + str(epoch) + '/' + videoName + '/gen_' + videoName + '.jpg', gen_img)
-    cv2.imwrite(savePath + '/' + str(epoch) + '/' + videoName + '/mask_' + videoName + '.jpg', mask_img)
-    cv2.imwrite(savePath + '/' + str(epoch) + '/' + videoName + '/filter_' + videoName + '.jpg', img_mask)
-    cv2.imwrite(savePath + '/' + str(epoch) + '/' + videoName + '/' + videoName + '.jpg', frame)
-    cv2.imwrite(savePath + '/' + str(epoch) + '/' + videoName + '/org_' + videoName + '.jpg', org_img)
-    cv2.imwrite(savePath + '/' + str(epoch) + '/' + videoName + '/gray_' + videoName + '.jpg', first_gray)
+    if not os.path.exists(savePath + '/' + videoName + '/' + str(epoch)):
+        os.makedirs(savePath + '/' + videoName + '/' + str(epoch))
+    cv2.imwrite(savePath + '/' + videoName + '/' + str(epoch) + '/gen_' + videoName + '.jpg', gen_img)
+    cv2.imwrite(savePath + '/' + videoName + '/' + str(epoch) + '/mask_' + videoName + '.jpg', mask_img)
+    cv2.imwrite(savePath + '/' + videoName + '/' + str(epoch) + '/filter_' + videoName + '.jpg', img_mask)
+    cv2.imwrite(savePath + '/' + videoName + '/' + str(epoch) + '/' + videoName + '.jpg', frame)
+    cv2.imwrite(savePath + '/' + videoName + '/' + str(epoch) + '/org_' + videoName + '.jpg', org_img)
+    cv2.imwrite(savePath + '/' + videoName + '/' + str(epoch) + '/gray_' + videoName + '.jpg', first_gray)
 
 
 if __name__=='__main__':
