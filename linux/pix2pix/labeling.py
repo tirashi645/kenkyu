@@ -59,6 +59,8 @@ def todo(input_image_path):
     cv2.imshow("color_src01", color_src01)
     cv2.imshow("color_src02", color_src02)
     cv2.imshow("img_mask", img_mask)
+    cv2.imwrite('E:/data/pix2pix/output/labeling.jpg', color_src01)
+    cv2.imwrite('E:/data/pix2pix/output/labeling_mask.jpg', img_mask)
 
     cv2.waitKey(0)
     cv2.destroyAllWindows()
@@ -93,4 +95,5 @@ if __name__ == '__main__':
     typ = [('','*')] 
     dir = 'C:\\pg'
     input_image_path = filedialog.askopenfilename(filetypes = typ, initialdir = dir)
+    todo(input_image_path)
 
