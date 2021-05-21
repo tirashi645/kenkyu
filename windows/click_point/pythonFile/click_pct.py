@@ -73,7 +73,7 @@ def give_coorList(f):
     window_name = "input window"
     
     #画像の表示
-    cv2.namedWindow("input window", cv2.WINDOW_NORMAL)
+    cv2.namedWindow("input window", cv2.WINDOW_AUTOSIZE)
     cv2.imshow(window_name, f)
     
     #コールバックの設定
@@ -88,13 +88,16 @@ def give_coorList(f):
             if clickList.count(m_point)==0:
                 clickList.append(m_point)
             print(mouseData.getPos())
+            ret = 0
+            break
         #右クリックがあったら終了
         elif mouseData.getEvent() == cv2.EVENT_RBUTTONDOWN:
+            ret = 1
             break
             
     cv2.destroyAllWindows()
     # 座標のリストを返す        
-    return clickList
+    return ret, clickList
 
 if __name__ == "__main__":
     from tkinter import filedialog

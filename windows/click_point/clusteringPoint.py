@@ -2,6 +2,7 @@ def todo(path):
     import numpy as np
     import cv2
     from pythonFile import click_pct
+    import pickle
     import os
 
     padding = 10    # 特徴点検出領域の半径
@@ -68,17 +69,20 @@ def todo(path):
     #######################################
     # クリックした特徴点を正常な特徴点とする
     #######################################
+
     while True:
         # クリックした座標を保存
-        points = np.array(click_pct.give_coorList(frame), dtype='int')
+        ret, points = click_pct.give_coorList(frame)
+        points = np.array(points, dtype='int')
         # クリックした座標の周囲の点を正常な特徴点とする
         for p in points:
             area = [p[0]-padding, p[0]+padding, p[1]-padding, p[1]+padding]
             for index, prev in enumerate(prev_points):
-                if (noise[index]==0)and(area[0]<=int(prev[0][0]))and(area[1]>=int(prev[0][0]))and(area[2]<=int(prev[0][1]))and(area[3]>=int(prev[0][1])):
-                    noise[index] = 1
-                    print(10)
-                    break
+                if (area[0]<=int(prev[0][0]))and(area[1]>=int(prev[0][0]))and(area[2]<=int(prev[0][1]))and(area[3]>=int(prev[0][1])):
+                    if noise[index]==0:
+                        noise[index] = 1
+                    elif noise[index]==1:
+                        noise[index] = 0
 
         flow_layer2 = np.zeros_like(first_frame)
         for index, prev in enumerate(prev_points):
@@ -98,17 +102,22 @@ def todo(path):
                                                 color = (0, 0, 255),    # 描く色
                                                 thickness=3   # 線の太さ
                                             )
-        frame2 = cv2.add(first_frame, flow_layer2)
-        if noise==hozon:
+        frame = cv2.add(first_frame, flow_layer2)
+        if ret==1:
             break
-        hozon = noise
 
     # 結果画像の表示
     cv2.namedWindow("frame", cv2.WINDOW_NORMAL)
-    cv2.imshow("frame", frame2)
+    cv2.imshow("frame", frame)
     cv2.waitKey(0)
     cv2.destroyAllWindows()
-    cv2.imwrite('./input/point/' + videoDir + '/' + str(videoName) + '_Original.jpg', frame2)
+    category = np.array(noise)
+    if not os.path.exists('./output/pict/' + videoDir):
+        os.makedirs('./output/pict/' + videoDir)
+        os.makedirs('./output/point/' + videoDir)
+    cv2.imwrite('./output/pict/' + videoDir + '/' + str(videoName) + '_Original.jpg', frame)
+    with open('./output/point/' + videoDir + '_' + str(videoName) + '.pickle', 'wb') as f:
+        pickle.dump(category, f)
 
     return noise
 
