@@ -5,7 +5,8 @@ def todo(path):
     import pickle
     import os
 
-    padding = 10    # 特徴点検出領域の半径
+    padding = 5    # 特徴点検出領域の半径
+    save_path = 'E:/data/click_point/output/point'
 
     # 読み込む動画の設定
     path = path.replace(os.sep, '/')
@@ -91,7 +92,7 @@ def todo(path):
                                                 flow_layer2,                               # 描く画像
                                                 (int(prev[0][0]), int(prev[0][1])),         # 線を引く始点
                                                 5,         # 線を引く終点
-                                                color = (255, 0, 0),    # 描く色
+                                                color = (0, 0, 255),    # 描く色
                                                 thickness=3   # 線の太さ
                                             )
             elif noise[index]==1:
@@ -99,7 +100,7 @@ def todo(path):
                                                 flow_layer2,                               # 描く画像
                                                 (int(prev[0][0]), int(prev[0][1])),         # 線を引く始点
                                                 5,         # 線を引く終点
-                                                color = (0, 0, 255),    # 描く色
+                                                color = (255, 0, 0),    # 描く色
                                                 thickness=3   # 線の太さ
                                             )
         frame = cv2.add(first_frame, flow_layer2)
@@ -107,16 +108,15 @@ def todo(path):
             break
 
     # 結果画像の表示
-    cv2.namedWindow("frame", cv2.WINDOW_NORMAL)
-    cv2.imshow("frame", frame)
-    cv2.waitKey(0)
+    #cv2.namedWindow("frame", cv2.WINDOW_NORMAL)
+    #cv2.imshow("frame", frame)
+    #cv2.waitKey(0)
     cv2.destroyAllWindows()
     category = np.array(noise)
-    if not os.path.exists('./output/pict/' + videoDir):
-        os.makedirs('./output/pict/' + videoDir)
-        os.makedirs('./output/point/' + videoDir)
-    cv2.imwrite('./output/pict/' + videoDir + '/' + str(videoName) + '_Original.jpg', frame)
-    with open('./output/point/' + videoDir + '_' + str(videoName) + '.pickle', 'wb') as f:
+    if not os.path.exists(save_path + '/' + videoDir):
+        os.makedirs(save_path + '/' + videoDir)
+    cv2.imwrite(save_path + '/' + videoDir + '/' + str(videoName) + '_Original.jpg', frame)
+    with open(save_path + '/' + videoDir + '_' + str(videoName) + '.pickle', 'wb') as f:
         pickle.dump(category, f)
 
     return noise
@@ -127,8 +127,7 @@ if __name__=='__main__':
     import glob
     import os
     # ファイルダイアログからファイル選択
-    video_folder = glob.glob('./input')
-    video_file = glob.glob('./input/**/*')
+    video_file = glob.glob('E:/data/click_point/input/**/*')
 
     for path in video_file:
         noizu = todo(path)
