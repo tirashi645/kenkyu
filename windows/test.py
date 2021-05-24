@@ -3,16 +3,15 @@ from tkinter import filedialog
 import glob
 import cv2
 import os
+import pickle
 
 
 # ファイルダイアログからファイル選択
 typ = [('','*')] 
 dir = 'C:\\pg'
 image_path = filedialog.askopenfilename(filetypes = typ, initialdir = dir)
-image_file = glob.glob(image_path[:image_path.rfind('/')] + '/*')
 
-for image in image_file:
-    image = image.replace(os.sep, '/')
-    image_name = image.split('/')[-1][:image.split('/')[-1].rfind('.')]
-    print(image_name)
-    print(image.split('/')[-2])
+with open(image_path, 'rb') as f:
+    data = pickle.load(f)
+
+print(data)

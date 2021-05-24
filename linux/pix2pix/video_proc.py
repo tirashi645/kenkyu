@@ -67,9 +67,9 @@ def todo(path):
     )
     flow_layer = np.zeros_like(first_frame)
     # 一度すべての点をノイズとする
-    noise = [0] * len(prev_points)
+    noise = [0 for i in range(len(prev_points))]
 
-    for i in prev_points:
+    for num, i in enumerate(prev_points):
         x = int(i[0][0])
         y = int(i[0][1])
         #if max(gen_img[y][x]) > 255/2:
@@ -81,6 +81,7 @@ def todo(path):
                                             color = c[1],   # 描く色 赤
                                             thickness=3     # 線の太さ
                                         )
+            noise[num] = 1
         else:
             flow_layer = cv2.circle(
                                             flow_layer,     # 描く画像
@@ -90,6 +91,32 @@ def todo(path):
                                             thickness=3     # 線の太さ
                                         )
     frame = cv2.add(first_frame, flow_layer)
+
+    tp = 0
+    fp = 0
+    tn = 0
+    fn = 0
+    if os.path.exists('/media/koshiba/Data/pix2pix/input/point/' + videoName + '.pickle'):
+        with open('/media/koshiba/Data/pix2pix/input/point/' + videoName, 'rb') as f:
+            point_data = pickle.loads(f)
+            for i in range(len(point_data)):
+                if point_data[i]==1 and noise[i]==1:
+                    tp+=1
+                elif point_data[i]==1 and noise[i]==0:
+                    fn+=1
+                elif point_data[i]==0 and noise[i]==0:
+                    tn+=1
+                elif point_data[i]==0 and noise[i]==1:
+                    fp+=1
+
+        accuracy = (tp + tn) / (tp + tn + fp + fn)
+        precision = tp/(tp+fp)
+        recall = tp/(tp+fn)
+        specificity = tn/(fp+tn)
+
+        print('acc:{:.3f}, pre:{:.3f}, rec:{:.3f}, spe:{:.3f}'.format(accuracy, precision, recall, specificity))
+    
+
     if not os.path.exists(savePath + '/' + videoName):
         os.makedirs(savePath + '/' + videoName)
     cv2.imwrite(savePath + '/' + videoName + '/gen_' + videoName + '.jpg', gen_img)
