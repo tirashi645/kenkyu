@@ -66,6 +66,7 @@ def todo(path):
         **feature_params
     )
     flow_layer = np.zeros_like(first_frame)
+    flow_layer2 = np.zeros_like(first_frame)
     # 一度すべての点をノイズとする
     noise = [0 for i in range(len(prev_points))]
 
@@ -96,18 +97,23 @@ def todo(path):
     fp = 0
     tn = 0
     fn = 0
+    point_evalute = []
     if os.path.exists('/media/koshiba/Data/pix2pix/input/point/' + videoName + '.pickle'):
         with open('/media/koshiba/Data/pix2pix/input/point/' + videoName + '.pickle', 'rb') as f:
             point_data = pickle.load(f)
             for i in range(len(point_data)):
                 if point_data[i]==1 and noise[i]==1:
                     tp+=1
+                    point_evalute.append('tp')
                 elif point_data[i]==1 and noise[i]==0:
                     fn+=1
+                    point_evalute.append('fn')
                 elif point_data[i]==0 and noise[i]==0:
                     tn+=1
+                    point_evalute.append('tn')
                 elif point_data[i]==0 and noise[i]==1:
                     fp+=1
+                    point_evalute.append('fp')
 
         accuracy = (tp + tn) / (tp + tn + fp + fn)
         precision = tp/(tp+fp)
@@ -117,12 +123,52 @@ def todo(path):
         print('acc:{:.3f}, pre:{:.3f}, rec:{:.3f}, spe:{:.3f}'.format(accuracy, precision, recall, specificity))
     
 
+    for num, i in enumerate(prev_points):
+        x = int(i[0][0])
+        y = int(i[0][1])
+        #if max(gen_img[y][x]) > 255/2:
+        if point_evalute[num]=='tp':
+            flow_layer2 = cv2.circle(
+                                            flow_layer,     # 描く画像
+                                            (x, y),         # 線を引く始点
+                                            2,              # 線を引く終点
+                                            color = c[1],   # 描く色 赤
+                                            thickness=3     # 線の太さ
+                                        )
+            noise[num] = 1
+        elif point_evalute[num]=='tn':
+            flow_layer2 = cv2.circle(
+                                            flow_layer,     # 描く画像
+                                            (x, y),         # 線を引く始点
+                                            2,              # 線を引く終点
+                                            color = c[0],   # 描く色 青
+                                            thickness=3     # 線の太さ
+                                        )
+        elif point_evalute[num]=='fp':
+            flow_layer2 = cv2.circle(
+                                            flow_layer,     # 描く画像
+                                            (x, y),         # 線を引く始点
+                                            2,              # 線を引く終点
+                                            color = c[2],   # 描く色 青
+                                            thickness=3     # 線の太さ
+                                        )
+        elif point_evalute[num]=='fn':
+            flow_layer2 = cv2.circle(
+                                            flow_layer,     # 描く画像
+                                            (x, y),         # 線を引く始点
+                                            2,              # 線を引く終点
+                                            color = c[3],   # 描く色 青
+                                            thickness=3     # 線の太さ
+                                        )
+    frame2 = cv2.add(first_frame, flow_layer2)
+
     if not os.path.exists(savePath + '/' + videoName):
         os.makedirs(savePath + '/' + videoName)
     cv2.imwrite(savePath + '/' + videoName + '/gen_' + videoName + '.jpg', gen_img)
     cv2.imwrite(savePath + '/' + videoName + '/mask_' + videoName + '.jpg', mask_img)
     cv2.imwrite(savePath + '/' + videoName + '/filter_' + videoName + '.jpg', img_mask)
     cv2.imwrite(savePath + '/' + videoName + '/' + videoName + '.jpg', frame)
+    cv2.imwrite(savePath + '/' + videoName + '/' + videoName + '_evalute.jpg', frame2)
     cv2.imwrite(savePath + '/' + videoName + '/org_' + videoName + '.jpg', org_img)
     cv2.imwrite(savePath + '/' + videoName + '/gray_' + videoName + '.jpg', first_gray)
 
