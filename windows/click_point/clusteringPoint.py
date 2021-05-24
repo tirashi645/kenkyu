@@ -116,7 +116,9 @@ def todo(path):
     if not os.path.exists(save_path + '/' + videoDir):
         os.makedirs(save_path + '/' + videoDir)
     cv2.imwrite(save_path + '/' + videoDir + '/' + str(videoName) + '_Original.jpg', frame)
-    with open(save_path + '/' + videoDir + '_' + str(videoName) + '.pickle', 'wb') as f:
+    #with open(save_path + '/' + videoDir + '_' + str(videoName) + '.pickle', 'wb') as f:
+    #    pickle.dump(category, f)
+    with open(save_path + '/' + str(videoName) + '.pickle', 'wb') as f:
         pickle.dump(category, f)
 
     return noise
@@ -127,7 +129,7 @@ if __name__=='__main__':
     import glob
     import os
     # ファイルダイアログからファイル選択
-    video_file = glob.glob('E:/data/click_point/input/**/*')
+    video_file = glob.glob('E:/data/click_point/input/*')
 
     for path in video_file:
         noizu = todo(path)

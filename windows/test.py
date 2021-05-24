@@ -5,7 +5,7 @@ import cv2
 import os
 import pickle
 
-
+'''
 # ファイルダイアログからファイル選択
 typ = [('','*')] 
 dir = 'C:\\pg'
@@ -15,3 +15,8 @@ with open(image_path, 'rb') as f:
     data = pickle.load(f)
 
 print(data)
+'''
+
+n = 1000
+n /= 10
+print(n)

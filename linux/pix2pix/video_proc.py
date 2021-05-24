@@ -121,8 +121,9 @@ def todo(path):
         specificity = tn/(fp+tn)
 
         print('acc:{:.3f}, pre:{:.3f}, rec:{:.3f}, spe:{:.3f}'.format(accuracy, precision, recall, specificity))
+    value_list = [accuracy, precision, recall, specificity]
     
-    evalute_list = [[accuracy, precision, recall, specificity], point_evalute]
+    evalute_list = [value_list, point_evalute]
 
     for num, i in enumerate(prev_points):
         x = int(i[0][0])
@@ -174,6 +175,7 @@ def todo(path):
     cv2.imwrite(savePath + '/' + videoName + '/gray_' + videoName + '.jpg', first_gray)
     with open(savePath + '/' + videoName + '/data_' + videoName + '.pickle', 'wb') as f:
         pickle.dump(evalute_list, f)
+    return value_list
 
 
 if __name__=='__main__':
@@ -190,6 +192,29 @@ if __name__=='__main__':
     video_path = '/media/koshiba/Data/pix2pix/input/video'
     video_file = glob.glob(video_path + '/*')
 
+    accuracy = 0
+    precision = 0
+    recall = 0
+    specificity = 0
+
     for path in video_file:
 
-        todo(path)
+        value_list = todo(path)
+        accuracy += value_list[0]
+        precision += value_list[1]
+        recall += value_list[2]
+        specificity += value_list[3]
+
+    
+    accuracy /= len(video_file)
+    precision /= len(video_file)
+    recall /= len(video_file)
+    specificity /= len(video_file)
+
+    value_list = [accuracy, precision, recall, specificity]
+
+    with open('/media/koshiba/Data/pix2pix/output/proc_point/evalute.pickle', 'wb') as f:
+        pickle.dump(video_file, f)
+
+    print('------------------------------')
+    print('acc:{:.3f}, pre:{:.3f}, rec:{:.3f}, spe:{:.3f}'.format(accuracy, precision, recall, specificity))
