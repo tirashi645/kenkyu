@@ -216,13 +216,14 @@ if __name__=='__main__':
         if max_list[0] < value_list[0]:
             max_acc = [accuracy, precision, recall, specificity, videoName]
             max_list[0] = value_list[0]
-        elif min_list[0] > value_list[0]:
+        if min_list[0] > value_list[0]:
             min_acc = [accuracy, precision, recall, specificity, videoName]
             min_list[0] = value_list[0]
+
         if max_list[1] < f_tmp:
             max_fValue = [accuracy, precision, recall, specificity, videoName]
             max_list[1] = f_tmp
-        elif min_list[1] > f_tmp:
+        if min_list[1] > f_tmp:
             min_fValue = [accuracy, precision, recall, specificity, videoName]
             min_list[1] = f_tmp
 
@@ -230,8 +231,9 @@ if __name__=='__main__':
     precision /= len(video_file)
     recall /= len(video_file)
     specificity /= len(video_file)
+    f_value /= len(video_file)
 
-    value_list = [accuracy, precision, recall, specificity]
+    value_list = [accuracy, precision, recall, specificity, f_value]
 
     with open('/media/koshiba/Data/pix2pix/output/proc_point/evalute.pickle', 'wb') as f:
         pickle.dump(video_file, f)
@@ -245,7 +247,7 @@ if __name__=='__main__':
         pickle.dump(min_fValue, f)
 
     print('------------------------------')
-    print('acc:{:.3f}, pre:{:.3f}, rec:{:.3f}, spe:{:.3f}'.format(accuracy, precision, recall, specificity))
+    print('acc:{:.3f}, pre:{:.3f}, rec:{:.3f}, spe:{:.3f}, f_value:{:.3f}'.format(accuracy, precision, recall, specificity, f_value))
     print('max_acc-----------------------')
     print('acc:{:.3f}, pre:{:.3f}, rec:{:.3f}, spe:{:.3f}'.format(max_acc[:4]))
     print('min_acc-----------------------')
