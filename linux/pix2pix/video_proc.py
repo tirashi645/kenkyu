@@ -196,14 +196,35 @@ if __name__=='__main__':
     precision = 0
     recall = 0
     specificity = 0
+    f_value = 0
+
+    max_list = [0, 0]
+    min_list = [100, 100]
 
     for path in video_file:
 
         value_list = todo(path)
+        videoName = path.split('/')[-1][:-4]
+
         accuracy += value_list[0]
         precision += value_list[1]
         recall += value_list[2]
         specificity += value_list[3]
+        f_tmp = (2 * recall * precision) / (recall + precision)
+        f_value += (2 * recall * precision) / (recall + precision)
+
+        if max_list[0] < value_list[0]:
+            max_acc = [accuracy, precision, recall, specificity, videoName]
+            max_list[0] = value_list[0]
+        elif min_list[0] > value_list[0]:
+            min_acc = [accuracy, precision, recall, specificity, videoName]
+            max_list[0] = value_list[0]
+        if max_list[1] < f_tmp:
+            max_fValue = [accuracy, precision, recall, specificity, videoName]
+            max_list[1] = f_tmp
+        elif min_list[1] > f_tmp:
+            min_fValue = [accuracy, precision, recall, specificity, videoName]
+            max_list[1] = f_tmp
 
     
     accuracy /= len(video_file)
@@ -215,6 +236,22 @@ if __name__=='__main__':
 
     with open('/media/koshiba/Data/pix2pix/output/proc_point/evalute.pickle', 'wb') as f:
         pickle.dump(video_file, f)
+    with open('/media/koshiba/Data/pix2pix/output/proc_point/max_acc.pickle', 'wb') as f:
+        pickle.dump(max_acc, f)
+    with open('/media/koshiba/Data/pix2pix/output/proc_point/mmin_acc.pickle', 'wb') as f:
+        pickle.dump(min_acc, f)
+    with open('/media/koshiba/Data/pix2pix/output/proc_point/max_fValue.pickle', 'wb') as f:
+        pickle.dump(max_fValue, f)
+    with open('/media/koshiba/Data/pix2pix/output/proc_point/min_fValue.pickle', 'wb') as f:
+        pickle.dump(min_fValue, f)
 
     print('------------------------------')
     print('acc:{:.3f}, pre:{:.3f}, rec:{:.3f}, spe:{:.3f}'.format(accuracy, precision, recall, specificity))
+    print('max_acc-----------------------')
+    print('acc:{:.3f}, pre:{:.3f}, rec:{:.3f}, spe:{:.3f}'.format(max_acc[:4]))
+    print('min_acc-----------------------')
+    print('acc:{:.3f}, pre:{:.3f}, rec:{:.3f}, spe:{:.3f}'.format(min_acc[:4]))
+    print('max_fValue--------------------')
+    print('acc:{:.3f}, pre:{:.3f}, rec:{:.3f}, spe:{:.3f}'.format(max_fValue[:4]))
+    print('min_fValue--------------------')
+    print('acc:{:.3f}, pre:{:.3f}, rec:{:.3f}, spe:{:.3f}'.format(min_fValue[:4]))
