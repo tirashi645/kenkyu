@@ -199,7 +199,7 @@ if __name__=='__main__':
     f_value = 0
 
     max_list = [0, 0]
-    min_list = [100, 100]
+    min_list = [100000, 100000]
 
     for path in video_file:
 
