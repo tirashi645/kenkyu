@@ -97,7 +97,7 @@ def todo(path):
     tn = 0
     fn = 0
     if os.path.exists('/media/koshiba/Data/pix2pix/input/point/' + videoName + '.pickle'):
-        with open('/media/koshiba/Data/pix2pix/input/point/' + videoName, 'rb') as f:
+        with open('/media/koshiba/Data/pix2pix/input/point/' + videoName + '.pickle', 'rb') as f:
             point_data = pickle.loads(f)
             for i in range(len(point_data)):
                 if point_data[i]==1 and noise[i]==1:
