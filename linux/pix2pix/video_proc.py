@@ -120,7 +120,7 @@ def todo(path):
         recall = tp/(tp+fn)
         specificity = tn/(fp+tn)
 
-        print('acc:{:.3f}, pre:{:.3f}, rec:{:.3f}, spe:{:.3f}'.format(accuracy, precision, recall, specificity))
+        print('acc:{:.3f}, pre:{:.3f}, rec:{:.3f}, spe:{:.3f}, f_value:{:.3f}'.format(accuracy, precision, recall, specificity, (2 * recall * precision) / (recall + precision)))
     value_list = [accuracy, precision, recall, specificity]
     
     evalute_list = [value_list, point_evalute]
@@ -218,15 +218,14 @@ if __name__=='__main__':
             max_list[0] = value_list[0]
         elif min_list[0] > value_list[0]:
             min_acc = [accuracy, precision, recall, specificity, videoName]
-            max_list[0] = value_list[0]
+            min_list[0] = value_list[0]
         if max_list[1] < f_tmp:
             max_fValue = [accuracy, precision, recall, specificity, videoName]
             max_list[1] = f_tmp
         elif min_list[1] > f_tmp:
             min_fValue = [accuracy, precision, recall, specificity, videoName]
-            max_list[1] = f_tmp
+            min_list[1] = f_tmp
 
-    
     accuracy /= len(video_file)
     precision /= len(video_file)
     recall /= len(video_file)
