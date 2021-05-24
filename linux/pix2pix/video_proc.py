@@ -122,6 +122,7 @@ def todo(path):
 
         print('acc:{:.3f}, pre:{:.3f}, rec:{:.3f}, spe:{:.3f}'.format(accuracy, precision, recall, specificity))
     
+    evalute_list = [[accuracy, precision, recall, specificity], point_evalute]
 
     for num, i in enumerate(prev_points):
         x = int(i[0][0])
@@ -171,6 +172,8 @@ def todo(path):
     cv2.imwrite(savePath + '/' + videoName + '/' + videoName + '_evalute.jpg', frame2)
     cv2.imwrite(savePath + '/' + videoName + '/org_' + videoName + '.jpg', org_img)
     cv2.imwrite(savePath + '/' + videoName + '/gray_' + videoName + '.jpg', first_gray)
+    with open(savePath + '/' + videoName + '/data_' + videoName + '.pickle', 'wb') as f:
+        pickle.dump(evalute_list, f)
 
 
 if __name__=='__main__':
