@@ -213,7 +213,7 @@ if __name__=='__main__':
         f_tmp = (2 * recall * precision) / (recall + precision)
 
         if max_list[0] < value_list[0]:
-            max_acc = list(map(str, [accuracy, precision, recall, specificity, videoName]
+            max_acc = [accuracy, precision, recall, specificity, videoName]
             max_list[0] = value_list[0]
         if min_list[0] > value_list[0]:
             min_acc = [accuracy, precision, recall, specificity, videoName]
@@ -247,6 +247,7 @@ if __name__=='__main__':
 
     print('------------------------------')
     print('acc:{:.3f}, pre:{:.3f}, rec:{:.3f}, spe:{:.3f}, f_value:{:.3f}'.format(accuracy, precision, recall, specificity, f_value))
+    '''
     print('max_acc-----------------------')
     print('acc:{:.3f}, spe:{:.3f}, f_value:{:.3f}'.format(map(str, max_acc[0], max_acc[3], max_acc[4])))
     print('min_acc-----------------------')
@@ -255,3 +256,4 @@ if __name__=='__main__':
     print('acc:{:.3f}, spe:{:.3f}, f_value:{:.3f}'.format(map(str, max_fValue[0], max_fValue[3], max_fValue[4])))
     print('min_fValue--------------------')
     print('acc:{:.3f}, spe:{:.3f}, f_value:{:.3f}'.format(map(str, min_fValue[0], min_fValue[3], min_fValue[4])))
+    '''
