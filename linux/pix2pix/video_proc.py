@@ -213,7 +213,7 @@ if __name__=='__main__':
         f_tmp = (2 * recall * precision) / (recall + precision)
 
         if max_list[0] < value_list[0]:
-            max_acc = [accuracy, precision, recall, specificity, videoName]
+            max_acc = list(map(str, [accuracy, precision, recall, specificity, videoName]
             max_list[0] = value_list[0]
         if min_list[0] > value_list[0]:
             min_acc = [accuracy, precision, recall, specificity, videoName]
