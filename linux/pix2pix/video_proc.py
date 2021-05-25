@@ -211,7 +211,6 @@ if __name__=='__main__':
         recall += value_list[2]
         specificity += value_list[3]
         f_tmp = (2 * recall * precision) / (recall + precision)
-        f_value += (2 * recall * precision) / (recall + precision)
 
         if max_list[0] < value_list[0]:
             max_acc = [accuracy, precision, recall, specificity, videoName]
@@ -231,7 +230,7 @@ if __name__=='__main__':
     precision /= len(video_file)
     recall /= len(video_file)
     specificity /= len(video_file)
-    f_value /= len(video_file)
+    f_value = (2 * recall * precision) / (recall + precision)
 
     value_list = [accuracy, precision, recall, specificity, f_value]
 
@@ -249,10 +248,10 @@ if __name__=='__main__':
     print('------------------------------')
     print('acc:{:.3f}, pre:{:.3f}, rec:{:.3f}, spe:{:.3f}, f_value:{:.3f}'.format(accuracy, precision, recall, specificity, f_value))
     print('max_acc-----------------------')
-    print('acc:{:.3f}, pre:{:.3f}, rec:{:.3f}, spe:{:.3f}'.format(max_acc[:4]))
+    print('acc:{:.3f}, spe:{:.3f}, f_value:{:.3f}'.format(max_acc[0], max_acc[3], max_acc[4]))
     print('min_acc-----------------------')
-    print('acc:{:.3f}, pre:{:.3f}, rec:{:.3f}, spe:{:.3f}'.format(min_acc[:4]))
+    print('acc:{:.3f}, spe:{:.3f}, f_value:{:.3f}'.format(min_acc[0], min_acc[3], min_acc[4]))
     print('max_fValue--------------------')
-    print('acc:{:.3f}, pre:{:.3f}, rec:{:.3f}, spe:{:.3f}'.format(max_fValue[:4]))
+    print('acc:{:.3f}, spe:{:.3f}, f_value:{:.3f}'.format(max_fValue[0], max_fValue[3], max_fValue[4]))
     print('min_fValue--------------------')
-    print('acc:{:.3f}, pre:{:.3f}, rec:{:.3f}, spe:{:.3f}'.format(min_fValue[:4]))
+    print('acc:{:.3f}, spe:{:.3f}, f_value:{:.3f}'.format(min_fValue[0], min_fValue[3], min_fValue[4]))
