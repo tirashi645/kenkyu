@@ -210,7 +210,7 @@ if __name__=='__main__':
         precision += value_list[1]
         recall += value_list[2]
         specificity += value_list[3]
-        f_tmp = (2 * recall * precision) / (recall + precision)
+        f_tmp = (2 * value_list[2] * value_list[3]) / (value_list[2] + value_list[3])
 
         if acc_list[0] < value_list[0]:
             max_acc = [accuracy, precision, recall, specificity, videoName]
