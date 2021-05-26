@@ -213,17 +213,17 @@ if __name__=='__main__':
         specificity += value_list[3]
         f_value += value_list[4]
         if acc_list[0] < value_list[0]:
-            max_acc = [accuracy, precision, recall, specificity, videoName]
+            max_acc = [accuracy, precision, recall, specificity, f_value, videoName]
             acc_list[0] = value_list[0]
         if acc_list[1] > value_list[0]:
-            min_acc = [accuracy, precision, recall, specificity, videoName]
+            min_acc = [accuracy, precision, recall, specificity, f_value, videoName]
             acc_list[1] = value_list[0]
 
         if f_list[0] < value_list[4]:
-            max_fValue = [accuracy, precision, recall, specificity, videoName]
+            max_fValue = [accuracy, precision, recall, specificity, f_value, videoName]
             f_list[0] = value_list[4]
         if f_list[1] > value_list[4]:
-            min_fValue = [accuracy, precision, recall, specificity, videoName]
+            min_fValue = [accuracy, precision, recall, specificity, f_value, videoName]
             f_list[1] = value_list[4]
 
     accuracy /= len(video_file)
