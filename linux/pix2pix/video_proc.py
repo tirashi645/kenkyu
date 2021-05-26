@@ -198,8 +198,8 @@ if __name__=='__main__':
     specificity = 0
     f_value = 0
 
-    acc_list = [-1.0, -1.0]
-    f_list = [10000.0, 10000.0]
+    acc_list = [-1.0, 10000.0]
+    f_list = [-1.0, 10000.0]
 
     for path in video_file:
 
