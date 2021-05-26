@@ -213,17 +213,17 @@ if __name__=='__main__':
         specificity += value_list[3]
         f_value += value_list[4]
         if acc_list[0] < value_list[0]:
-            max_acc = [accuracy, precision, recall, specificity, f_value, videoName]
+            max_acc = [videoName, value_list]
             acc_list[0] = value_list[0]
         if acc_list[1] > value_list[0]:
-            min_acc = [accuracy, precision, recall, specificity, f_value, videoName]
+            min_acc = [videoName, value_list]
             acc_list[1] = value_list[0]
 
         if f_list[0] < value_list[4]:
-            max_fValue = [accuracy, precision, recall, specificity, f_value, videoName]
+            max_fValue = [videoName, value_list]
             f_list[0] = value_list[4]
         if f_list[1] > value_list[4]:
-            min_fValue = [accuracy, precision, recall, specificity, f_value, videoName]
+            min_fValue = [videoName, value_list]
             f_list[1] = value_list[4]
 
     accuracy /= len(video_file)
@@ -233,17 +233,12 @@ if __name__=='__main__':
     f_value /= len(video_file)
 
     value_list = [accuracy, precision, recall, specificity, f_value]
+    minmax = [max_acc, min_acc, max_fValue, min_fValue]
 
     with open('/media/koshiba/Data/pix2pix/output/proc_point/evalute.pickle', 'wb') as f:
         pickle.dump(video_file, f)
-    with open('/media/koshiba/Data/pix2pix/output/proc_point/max_acc.pickle', 'wb') as f:
-        pickle.dump(max_acc, f)
-    with open('/media/koshiba/Data/pix2pix/output/proc_point/mmin_acc.pickle', 'wb') as f:
-        pickle.dump(min_acc, f)
-    with open('/media/koshiba/Data/pix2pix/output/proc_point/max_fValue.pickle', 'wb') as f:
-        pickle.dump(max_fValue, f)
-    with open('/media/koshiba/Data/pix2pix/output/proc_point/min_fValue.pickle', 'wb') as f:
-        pickle.dump(min_fValue, f)
+    with open('/media/koshiba/Data/pix2pix/output/proc_point/minmax.pickle', 'wb') as f:
+        pickle.dump(minmax, f)
 
     print('------------------------------')
     print('acc:{:.3f}, pre:{:.3f}, rec:{:.3f}, spe:{:.3f}, f_value:{:.3f}'.format(accuracy, precision, recall, specificity, f_value))
