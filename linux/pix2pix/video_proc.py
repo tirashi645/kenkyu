@@ -119,9 +119,10 @@ def todo(path):
         precision = tp/(tp+fp)
         recall = tp/(tp+fn)
         specificity = tn/(fp+tn)
+        f_value = (2 * recall * precision) / (recall + precision)
 
-        print('acc:{:.3f}, pre:{:.3f}, rec:{:.3f}, spe:{:.3f}, f_value:{:.3f}'.format(accuracy, precision, recall, specificity, (2 * recall * precision) / (recall + precision)))
-    value_list = [accuracy, precision, recall, specificity]
+        print('acc:{:.3f}, pre:{:.3f}, rec:{:.3f}, spe:{:.3f}, f_value:{:.3f}'.format(accuracy, precision, recall, specificity, f_value))
+    value_list = [accuracy, precision, recall, specificity, f_value]
     
     evalute_list = [value_list, point_evalute]
 
@@ -210,8 +211,7 @@ if __name__=='__main__':
         precision += value_list[1]
         recall += value_list[2]
         specificity += value_list[3]
-        f_tmp = (2 * value_list[2] * value_list[3]) / (value_list[2] + value_list[3])
-
+        f_value += value_list[4]
         if acc_list[0] < value_list[0]:
             max_acc = [accuracy, precision, recall, specificity, videoName]
             acc_list[0] = value_list[0]
@@ -219,18 +219,18 @@ if __name__=='__main__':
             min_acc = [accuracy, precision, recall, specificity, videoName]
             acc_list[1] = value_list[0]
 
-        if f_list[0] < f_tmp:
+        if f_list[0] < value_list[4]:
             max_fValue = [accuracy, precision, recall, specificity, videoName]
-            f_list[0] = f_tmp
-        if f_list[1] > f_tmp:
+            f_list[0] = value_list[4]
+        if f_list[1] > value_list[4]:
             min_fValue = [accuracy, precision, recall, specificity, videoName]
-            f_list[1] = f_tmp
+            f_list[1] = value_list[4]
 
     accuracy /= len(video_file)
     precision /= len(video_file)
     recall /= len(video_file)
     specificity /= len(video_file)
-    f_value = (2 * recall * precision) / (recall + precision)
+    f_value /= len(video_file)
 
     value_list = [accuracy, precision, recall, specificity, f_value]
 
