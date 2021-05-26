@@ -248,13 +248,11 @@ if __name__=='__main__':
     print('------------------------------')
     print('acc:{:.3f}, pre:{:.3f}, rec:{:.3f}, spe:{:.3f}, f_value:{:.3f}'.format(accuracy, precision, recall, specificity, f_value))
     print(acc_list,f_list)
-    '''
     print('max_acc-----------------------')
-    print('acc:{:.3f}, spe:{:.3f}, f_value:{:.3f}'.format(map(str, max_acc[0], max_acc[3], max_acc[4])))
+    print(max_acc[-1] + ' : ' + max_acc[:-1])
     print('min_acc-----------------------')
-    print('acc:{:.3f}, spe:{:.3f}, f_value:{:.3f}'.format(map(str, min_acc[0], min_acc[3], min_acc[4])))
+    print(min_acc[-1] + ' : ' + min_acc[:-1])
     print('max_fValue--------------------')
-    print('acc:{:.3f}, spe:{:.3f}, f_value:{:.3f}'.format(map(str, max_fValue[0], max_fValue[3], max_fValue[4])))
+    print(max_fValue[-1] + ' : ' + max_fValue[:-1])
     print('min_fValue--------------------')
-    print('acc:{:.3f}, spe:{:.3f}, f_value:{:.3f}'.format(map(str, min_fValue[0], min_fValue[3], min_fValue[4])))
-    '''
+    print(min_fValue[-1] + ' : ' + min_fValue[:-1])
