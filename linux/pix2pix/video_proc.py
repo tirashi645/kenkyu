@@ -247,7 +247,7 @@ if __name__=='__main__':
 
     print('------------------------------')
     print('acc:{:.3f}, pre:{:.3f}, rec:{:.3f}, spe:{:.3f}, f_value:{:.3f}'.format(accuracy, precision, recall, specificity, f_value))
-    print(min_list,max_list)
+    print(acc_list,f_list)
     '''
     print('max_acc-----------------------')
     print('acc:{:.3f}, spe:{:.3f}, f_value:{:.3f}'.format(map(str, max_acc[0], max_acc[3], max_acc[4])))
