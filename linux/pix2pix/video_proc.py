@@ -198,8 +198,8 @@ if __name__=='__main__':
     specificity = 0
     f_value = 0
 
-    max_list = [-1.0, -1.0]
-    min_list = [10000.0, 10000.0]
+    acc_list = [-1.0, -1.0]
+    f_list = [10000.0, 10000.0]
 
     for path in video_file:
 
@@ -212,19 +212,19 @@ if __name__=='__main__':
         specificity += value_list[3]
         f_tmp = (2 * recall * precision) / (recall + precision)
 
-        if max_list[0] < value_list[0]:
+        if acc_list[0] < value_list[0]:
             max_acc = [accuracy, precision, recall, specificity, videoName]
-            max_list[0] = value_list[0]
-        if min_list[0] > value_list[0]:
+            acc_list[0] = value_list[0]
+        if acc_list[1] > value_list[0]:
             min_acc = [accuracy, precision, recall, specificity, videoName]
-            min_list[0] = value_list[0]
+            acc_list[1] = value_list[0]
 
-        if max_list[1] < f_tmp:
+        if f_list[0] < f_tmp:
             max_fValue = [accuracy, precision, recall, specificity, videoName]
-            max_list[1] = f_tmp
-        if min_list[1] > f_tmp:
+            f_list[0] = f_tmp
+        if f_list[1] > f_tmp:
             min_fValue = [accuracy, precision, recall, specificity, videoName]
-            min_list[1] = f_tmp
+            f_list[1] = f_tmp
 
     accuracy /= len(video_file)
     precision /= len(video_file)
