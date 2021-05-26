@@ -198,8 +198,8 @@ if __name__=='__main__':
     specificity = 0
     f_value = 0
 
-    max_list = [0, 0]
-    min_list = [100000, 100000]
+    max_list = [-1.0, -1.0]
+    min_list = [10000.0, 10000.0]
 
     for path in video_file:
 
@@ -247,6 +247,7 @@ if __name__=='__main__':
 
     print('------------------------------')
     print('acc:{:.3f}, pre:{:.3f}, rec:{:.3f}, spe:{:.3f}, f_value:{:.3f}'.format(accuracy, precision, recall, specificity, f_value))
+    print(min_list,max_list)
     '''
     print('max_acc-----------------------')
     print('acc:{:.3f}, spe:{:.3f}, f_value:{:.3f}'.format(map(str, max_acc[0], max_acc[3], max_acc[4])))
