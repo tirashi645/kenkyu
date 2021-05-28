@@ -230,6 +230,8 @@ if __name__=='__main__':
             min_fValue = [videoName, value_list]
             f_list[1] = value_list[4]
 
+        
+
     accuracy /= len(video_file)
     precision /= len(video_file)
     recall /= len(video_file)
