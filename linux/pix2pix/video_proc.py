@@ -3,7 +3,7 @@ def todo(path):
     import cv2
     import os
     import pickle
-    import proc, removeNoise, labeling
+    from pythonFile import proc, removeNoise, labeling
     from PIL import Image
     from keras.preprocessing.image import img_to_array
 
