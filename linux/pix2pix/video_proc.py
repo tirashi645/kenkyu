@@ -164,6 +164,9 @@ def todo(path):
                                             thickness=3     # 線の太さ
                                         )
     frame2 = cv2.add(first_frame, flow_layer2)
+    frame3 = frame2
+    txt = str(value_list[0]) + ',' + str(value_list[-2]) + ',' + str(value_list[-1])
+    cv2.putText(frame3, txt, (10, 30), cv2.FONT_HERSHEY_PLAIN, 1.5, (0, 0, 0), 1, cv2.LINE_AA)
 
     if not os.path.exists(savePath + '/' + videoName):
         os.makedirs(savePath + '/' + videoName)
@@ -174,6 +177,7 @@ def todo(path):
     cv2.imwrite(savePath + '/' + videoName + '/' + videoName + '_evalute.jpg', frame2)
     cv2.imwrite(savePath + '/' + videoName + '/org_' + videoName + '.jpg', org_img)
     cv2.imwrite(savePath + '/' + videoName + '/gray_' + videoName + '.jpg', first_gray)
+    cv2.imwrite('/media/koshiba/Data/pix2pix/output/proc_pict/' + videoName + '.jpg', frame3)
     with open(savePath + '/' + videoName + '/data_' + videoName + '.pickle', 'wb') as f:
         pickle.dump(evalute_list, f)
     return value_list
