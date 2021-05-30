@@ -10,8 +10,8 @@ def todo(path, savePath, mask):
     import scipy.stats
     from PIL import Image
     from scipy import signal
-    import k_means
-    import normalization as normal
+    from pythonFile import k_means
+    from pythonFile import normalization as normal
     from statistics import mode
 
     class1_err = []
