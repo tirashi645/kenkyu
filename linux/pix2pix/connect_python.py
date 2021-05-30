@@ -46,6 +46,7 @@ def todo(path):
         fp = 0
         tn = 0
         fn = 0
+        print(mask_point)
 
         for i, data in enumerate(mask_point):
             if data:
