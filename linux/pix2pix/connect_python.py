@@ -9,13 +9,13 @@ def todo(path):
     import shutil
     import cv2
 
-    videoName = path.split('.')[-1][:-4]
+    videoName = path.split('/')[-1][:-4]
 
     savePath = '/media/koshiba/Data/pix2pix/output/proc_point/' + videoName
     print(path, videoName, savePath)
 
     #保存ディレクトリの作成
-    make_dirs.makeDir(savePath)
+    #make_dirs.makeDir(savePath)
 
     # 動画の設定
     cap = cv2.VideoCapture(path)
