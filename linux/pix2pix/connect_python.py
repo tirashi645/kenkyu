@@ -112,7 +112,7 @@ if __name__ == "__main__":
     for path in video_file:
 
         class_list = todo(path)
-        videoName, noise = path.split('/')[-1][:-4]
+        videoName = path.split('/')[-1][:-4]
 
 
         #######################################################
