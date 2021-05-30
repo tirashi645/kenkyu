@@ -1,6 +1,6 @@
 ﻿def makeDir(path):
     import os
-    dirList = ['cat1', 'cat2', 'cat3', 'cat4', 'fft', 'seasonal', 'video']   # 第一階層のディレクトリ名
+    dirList = ['cat1', 'cat2', 'fft', 'seasonal', 'video']   # 第一階層のディレクトリ名
     inCatDir = ['vec', 'pict', 'error', 'toFirst', 'toFirstFFT', 'toFirstErrorFFT']    # cat1~4内のディレクトリ名
     #ディレクトリを作成
     for index, dir_oya in enumerate(dirList):
@@ -8,7 +8,7 @@
         if not os.path.isdir(path + '/' + dir_oya):
             print(path + '/' + dir_oya)
             os.makedirs(path + '/' + dir_oya)
-        if index < 4:
+        if index < 2:
             for dir_kodomo in inCatDir:
                 if not os.path.isdir(path + '/' + dir_oya + '/' + dir_kodomo):
                     print(path + '/' + dir_oya + '/' + dir_kodomo)

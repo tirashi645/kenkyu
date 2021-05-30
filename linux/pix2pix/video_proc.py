@@ -10,6 +10,10 @@ def todo(path):
     padding = 10    # 特徴点検出領域の半径
     p = 10
     c = [[255, 0, 0], [0, 0, 255], [0, 255, 0], [0, 255, 255]]    # 特徴点の色
+    tp = 0
+    fp = 0
+    tn = 0
+    fn = 0
 
     # 読み込む動画の設定
     videoName = path.split('/')[-1][:-4]
@@ -70,6 +74,7 @@ def todo(path):
     # 一度すべての点をノイズとする
     noise = [0 for i in range(len(prev_points))]
 
+    # マスク画像内の特徴点を探す
     for num, i in enumerate(prev_points):
         x = int(i[0][0])
         y = int(i[0][1])
@@ -93,10 +98,9 @@ def todo(path):
                                         )
     frame = cv2.add(first_frame, flow_layer)
 
-    tp = 0
-    fp = 0
-    tn = 0
-    fn = 0
+
+
+    # 評価計算
     point_evalute = []
     if os.path.exists('/media/koshiba/Data/pix2pix/input/point/' + videoName + '.pickle'):
         with open('/media/koshiba/Data/pix2pix/input/point/' + videoName + '.pickle', 'rb') as f:
@@ -124,7 +128,7 @@ def todo(path):
         print('acc:{:.3f}, pre:{:.3f}, rec:{:.3f}, spe:{:.3f}, f_value:{:.3f}'.format(accuracy, precision, recall, specificity, f_value))
     value_list = [accuracy, precision, recall, specificity, f_value]
     
-    evalute_list = [value_list, point_evalute]
+    evalute_list = [value_list, point_data]
 
     for num, i in enumerate(prev_points):
         x = int(i[0][0])
