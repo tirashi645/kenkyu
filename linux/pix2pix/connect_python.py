@@ -67,6 +67,7 @@ def todo(path):
                 fp+=1
                 point_evalute.append('fp')
 
+        print('[tp, tn, fp, fn]' + [tp, tn, fp, fn])
         accuracy = (tp + tn) / (tp + tn + fp + fn)
         precision = tp/(tp+fp)
         recall = tp/(tp+fn)
@@ -147,19 +148,21 @@ if __name__ == "__main__":
             value_list[i] = [accuracy[i], precision[i], recall[i], specificity[i], f_value[i]]
             minmax[i] = [max_acc[i], min_acc[i], max_fValue[i], min_fValue[i]]
             
-            print('class' + str(i) + '------------------------')
-            print('acc:{:.3f}, pre:{:.3f}, rec:{:.3f}, spe:{:.3f}, f_value:{:.3f}'.format(accuracy[i], precision[i], recall[i], specificity[i], f_value[i]))
-            print(acc_list[i],f_list[i])
-            print('max_acc-----------------------')
-            print(max_acc[i])
-            print('min_acc-----------------------')
-            print(min_acc[i])
-            print('max_fValue--------------------')
-            print(max_fValue[i])
-            print('min_fValue--------------------')
-            print(min_fValue[i])
-
+           
     with open('/media/koshiba/Data/pix2pix/output/proc_point/evalute.pickle', 'wb') as f:
         pickle.dump(video_file, f)
     with open('/media/koshiba/Data/pix2pix/output/proc_point/minmax.pickle', 'wb') as f:
         pickle.dump(minmax, f)
+
+    for i in range(3):
+        print('class' + str(i) + '------------------------')
+        print('acc:{:.3f}, pre:{:.3f}, rec:{:.3f}, spe:{:.3f}, f_value:{:.3f}'.format(accuracy[i], precision[i], recall[i], specificity[i], f_value[i]))
+        print(acc_list[i],f_list[i])
+        print('max_acc-----------------------')
+        print(max_acc[i])
+        print('min_acc-----------------------')
+        print(min_acc[i])
+        print('max_fValue--------------------')
+        print(max_fValue[i])
+        print('min_fValue--------------------')
+        print(min_fValue[i])
