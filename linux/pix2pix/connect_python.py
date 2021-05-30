@@ -67,7 +67,8 @@ def todo(path):
                 fp+=1
                 point_evalute.append('fp')
 
-        print('[tp, tn, fp, fn]' + [tp, tn, fp, fn])
+        print('[tp, tn, fp, fn]')
+        print(tp, tn, fp, fn)
         accuracy = (tp + tn) / (tp + tn + fp + fn)
         precision = tp/(tp+fp)
         recall = tp/(tp+fn)
