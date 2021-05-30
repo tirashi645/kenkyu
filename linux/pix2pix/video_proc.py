@@ -184,7 +184,7 @@ def todo(path):
     cv2.imwrite('/media/koshiba/Data/pix2pix/output/proc_pict/' + videoName + '.jpg', frame3)
     with open(savePath + '/' + videoName + '/data_' + videoName + '.pickle', 'wb') as f:
         pickle.dump(evalute_list, f)
-    return value_list
+    return evalute_list
 
 
 if __name__=='__main__':
