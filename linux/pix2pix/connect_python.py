@@ -37,7 +37,7 @@ def todo(path):
     #make_fft.doGet(zahyou, savePath, mask_point)   #取得した特徴点の動きをFFT変換する
 
     class_evalute = []
-
+    '''
     for num, class_point in enumerate(classList):
         point_data = mask_point
         point_evalute = []
@@ -79,7 +79,7 @@ def todo(path):
         class_evalute.append([accuracy, precision, recall, specificity, f_value])
 
     return class_evalute
-    
+    '''
 
     
 if __name__ == "__main__":
@@ -115,8 +115,8 @@ if __name__ == "__main__":
 
         class_list = todo(path)
         videoName = path.split('/')[-1][:-4]
-
-
+    print('finish')
+    '''
         #######################################################
         # ここから評価計算
         #######################################################
@@ -167,3 +167,4 @@ if __name__ == "__main__":
         print(max_fValue[i])
         print('min_fValue--------------------')
         print(min_fValue[i])
+    '''
