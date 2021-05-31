@@ -214,7 +214,8 @@ if __name__=='__main__':
 
     for path in video_file:
 
-        value_list = todo(path)
+        evalute_list = todo(path)
+        value_list = evalute_list[0]
         videoName = path.split('/')[-1][:-4]
 
         accuracy += value_list[0]
