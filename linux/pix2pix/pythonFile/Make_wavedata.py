@@ -42,7 +42,7 @@ def todo(path, savePath, mask):
 
     # Shi-Tomashiのコーナー検出パラメータ
     feature_params = dict(
-        maxCorners=255,            # 保持するコーナー数,int
+        maxCorners=511,            # 保持するコーナー数,int
         qualityLevel=0.2,          # 最良値(最大個数値の割合),double
         minDistance=7,             # この距離内のコーナーを棄却,double
         blockSize=7,               # 使用する近傍領域のサイズ,int
@@ -204,6 +204,7 @@ def todo(path, savePath, mask):
                 sum_x += i[0]
                 sum_y += i[1]
             # クラスタリングした結果の最頻値をラベル付けする
+            print(tmp)
             label_input = mode(tmp)
             # 絶対誤差の平均を計算する
             zahyou_ave.append([sum_x/len(frame), sum_y/len(frame)])
