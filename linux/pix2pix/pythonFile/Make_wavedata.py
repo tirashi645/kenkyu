@@ -529,10 +529,10 @@ def todo(path, savePath, mask):
         hz_fft3, num_fft3 = class3(np_err_normal, hz_fft3, num_fft3)
 
     # 手法１～３を実行
-    class1Data = class1_output(class1_err, zahyou)
+    #class1Data = class1_output(class1_err, zahyou)
     class2Data = class2_output(hz_fft2, num_fft2)
     class3Data = class3_output(hz_fft3, num_fft3)
-    classList = [class1Data, class2Data, class3Data]
+    classList = [class2Data, class2Data, class3Data]
     return classList
     
 
