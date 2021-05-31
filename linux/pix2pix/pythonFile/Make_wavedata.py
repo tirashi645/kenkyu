@@ -141,9 +141,11 @@ def todo(path, savePath, mask):
 
     cap.release()
 
+    # マスク内の特徴点のみをzahyouに入れる
     for i, data in enumerate(all_zahyou):
         zahyou.append(data)
     print(np.array(zahyou).shape)
+    print(np.array(all_zahyou).shape)
 
     # リストの中身を最小０,最大１に正規化する関数
     def min_max_normalization(x):
