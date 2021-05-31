@@ -273,7 +273,8 @@ def todo(path, savePath, mask):
         tmp_fz = []
         
         # ピーク検出感度調整
-        peak_cut = 0.0075 # ピーク閾値
+        #peak_cut = 0.0075 # ピーク閾値
+        peak_cut = 0
         # 後半側（ナイキスト超）と閾値より小さい振幅ピークを除外
         maximal_idx = maximal_idx[(F_abs[maximal_idx] > peak_cut) & (maximal_idx <= N/2)]
 
