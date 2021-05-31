@@ -42,7 +42,7 @@ def todo(path, savePath, mask):
 
     # Shi-Tomashiのコーナー検出パラメータ
     feature_params = dict(
-        maxCorners=511,            # 保持するコーナー数,int
+        maxCorners=255,            # 保持するコーナー数,int
         qualityLevel=0.2,          # 最良値(最大個数値の割合),double
         minDistance=7,             # この距離内のコーナーを棄却,double
         blockSize=7,               # 使用する近傍領域のサイズ,int
