@@ -143,7 +143,8 @@ def todo(path, savePath, mask):
 
     # マスク内の特徴点のみをzahyouに入れる
     for i, data in enumerate(all_zahyou):
-        zahyou.append(data)
+        if mask[i]==1:
+            zahyou.append(data)
     print(np.array(zahyou).shape)
     print(np.array(all_zahyou).shape)
 
