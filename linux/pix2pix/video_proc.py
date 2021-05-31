@@ -14,6 +14,7 @@ def todo(path):
     fp = 0
     tn = 0
     fn = 0
+    kernel = np.ones((5,5),np.uint8)
 
     # 読み込む動画の設定
     videoName = path.split('/')[-1][:-4]
@@ -62,6 +63,7 @@ def todo(path):
     # ノイズを除去してセグメントを膨張する
     mask_img, img_mask = removeNoise.todo(gen_img)
     mask_img = labeling.remove_noise(mask_img)
+    mask_img = cv2.erode(mask_img,kernel,iterations = 1)
 
     # 読み込んだフレームの特徴点を探す
     prev_points = cv2.goodFeaturesToTrack(
