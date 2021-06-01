@@ -14,7 +14,7 @@ def todo(path):
     fp = 0
     tn = 0
     fn = 0
-    kernel = np.ones((7,7),np.uint8)
+    kernel = np.ones((15,15),np.uint8)
 
     # 読み込む動画の設定
     videoName = path.split('/')[-1][:-4]
