@@ -4,8 +4,6 @@ from os.path import join
 import cv2
 import glob
 import time
-from detectors.detector_factory import detector_factory
-from opts import opts
 centerNetPath = '/media/koshiba/Data/CenterNet'
 
 sys.path.insert(0, join(centerNetPath, 'src/lib'))
@@ -13,6 +11,8 @@ sys.path.append(join(centerNetPath, 'src'))
 sys.path.append(join(centerNetPath, 'src/lib/models/networks/DCNv2'))
 
 
+from detectors.detector_factory import detector_factory
+from opts import opts
 
 MODEL_PATH = centerNetPath + '/models/multi_pose_dla_3x.pth' #モデルのパス
 TASK = 'multi_pose' #骨格点検出
