@@ -3,7 +3,7 @@ def todo(path):
     import cv2
     import os
     import pickle
-    from pythonFile import proc, removeNoise, labeling
+    from pythonFile import proc, removeNoise, labeling, get_keypoint
     from PIL import Image
     from keras.preprocessing.image import img_to_array
 
@@ -63,7 +63,9 @@ def todo(path):
     # ノイズを除去してセグメントを膨張する
     mask_img, img_mask = removeNoise.todo(gen_img)
     mask_img = labeling.remove_noise(mask_img)
-    mask_img = cv2.erode(mask_img,kernel,iterations = 1)
+    mask_img = cv2.erode(mask_img,kernel,iterations = 1)    # 縮小処理
+    pts = get_keypoint.image_keypoint(first_frame)
+    print(pts)
 
     # 読み込んだフレームの特徴点を探す
     prev_points = cv2.goodFeaturesToTrack(

@@ -258,6 +258,7 @@ def image_keypoint(frame, camera_id=0, filename=None, hrnet_m='HRNet', hrnet_c=4
     video_writer.release()
     print(person_ids)
     '''
+    print(pts)
     return pts
 
 
