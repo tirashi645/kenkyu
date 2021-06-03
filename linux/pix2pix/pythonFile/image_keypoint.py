@@ -6,7 +6,7 @@ import sys
 import cv2
 import numpy as np
 
-sys.path.insert(1, os.getcwd())
+sys.path.insert(1, '/media/koshiba/Data/simple-HRNet')
 from SimpleHRNet import SimpleHRNet
 from misc.visualization import draw_points, draw_skeleton, draw_points_and_skeleton, joints_dict, check_video_rotation
 from misc.utils import find_person_id_associations
