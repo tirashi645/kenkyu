@@ -11,7 +11,7 @@ from SimpleHRNet import SimpleHRNet
 from misc.visualization import draw_points, draw_skeleton, draw_points_and_skeleton, joints_dict, check_video_rotation
 from misc.utils import find_person_id_associations
 
-def get_kyepoint(image):
+def get_keypoint(image):
     # Model parameters
     nchannels=48
     njoints=17
