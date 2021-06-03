@@ -1,6 +1,5 @@
 import cv2
 import argparse
-from SimpleHRNet import SimpleHRNet
 import os
 import sys
 import cv2
