@@ -220,7 +220,7 @@ def image_keypoint(frame, camera_id=0, filename=None, hrnet_m='HRNet', hrnet_c=4
 
     if not disable_tracking:
         boxes, pts = pts
-    '''
+
     if not disable_tracking:
         if len(pts) > 0:
             if prev_pts is None and prev_person_ids is None:
@@ -247,9 +247,8 @@ def image_keypoint(frame, camera_id=0, filename=None, hrnet_m='HRNet', hrnet_c=4
                                         points_color_palette='gist_rainbow', skeleton_color_palette='jet',
                                         points_palette_samples=10)
 
-    fps = 1. / (time.time() - t)
-    print('\rframerate: %f fps' % fps, end='')
     
+    '''
     if video_writer is None:
         fourcc = cv2.VideoWriter_fourcc(*video_format)  # video format
         video_writer = cv2.VideoWriter('/media/koshiba/Data/simple-HRNet/outputData/' + videoName + '_output.avi', fourcc, video_framerate, (frame.shape[1], frame.shape[0]))
@@ -259,7 +258,7 @@ def image_keypoint(frame, camera_id=0, filename=None, hrnet_m='HRNet', hrnet_c=4
     print(person_ids)
     '''
     #print(pts)
-    return pts
+    return pts, frame
 
 
 if __name__ == '__main__':

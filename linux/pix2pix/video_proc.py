@@ -64,7 +64,7 @@ def todo(path):
     mask_img, img_mask = removeNoise.todo(gen_img)
     mask_img = labeling.remove_noise(mask_img)
     mask_img = cv2.erode(mask_img,kernel,iterations = 1)    # 縮小処理
-    pts = get_keypoint.image_keypoint(first_frame)
+    pts, keypoint_img = get_keypoint.image_keypoint(first_frame)
     print(pts)
 
     # 読み込んだフレームの特徴点を探す
@@ -185,6 +185,7 @@ def todo(path):
     cv2.imwrite(savePath + '/' + videoName + '/' + videoName + '_evalute.jpg', frame2)
     cv2.imwrite(savePath + '/' + videoName + '/org_' + videoName + '.jpg', org_img)
     cv2.imwrite(savePath + '/' + videoName + '/gray_' + videoName + '.jpg', first_gray)
+    cv2.imwrite(savePath + '/' + videoName + '/keypoint_' + videoName + '.jpg', keypoint_img)
     cv2.imwrite('/media/koshiba/Data/pix2pix/output/proc_pict/' + videoName + '.jpg', frame3)
     with open(savePath + '/' + videoName + '/data_' + videoName + '.pickle', 'wb') as f:
         pickle.dump(evalute_list, f)
