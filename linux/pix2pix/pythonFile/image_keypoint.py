@@ -17,7 +17,7 @@ def get_keypoint(image):
     njoints=17
 
     # Creat the HRNet model
-    model = SimpleHRNet(nchannels, njoints, "./weights/pose_hrnet_w48_384x288.pth")
+    model = SimpleHRNet(nchannels, njoints, "/media/koshiba/Data/simple-HRNet/weights/pose_hrnet_w48_384x288.pth")
 
     # Load the input image
     #image = cv2.imread(args.input, cv2.IMREAD_COLOR)
