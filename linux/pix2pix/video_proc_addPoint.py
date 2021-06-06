@@ -18,7 +18,7 @@ def todo(path):
 
     # 読み込む動画の設定
     videoName = path.split('/')[-1][:-4]
-    savePath = '/media/koshiba/Data/pix2pix/output/proc_point_point512'
+    savePath = '/media/koshiba/Data/pix2pix/output/3_3'
     cap = cv2.VideoCapture(path)
     print(path[path.rfind('/')+1:])
 
@@ -42,7 +42,7 @@ def todo(path):
         maxCorners=511,            # 保持するコーナー数,int
         qualityLevel=0.2,          # 最良値(最大個数値の割合),double
         minDistance=3,             # この距離内のコーナーを棄却,double
-        blockSize=7,               # 使用する近傍領域のサイズ,int
+        blockSize=3,               # 使用する近傍領域のサイズ,int
         useHarrisDetector=False,   # FalseならShi-Tomashi法
         # k=0.04,　　　　　　　　　# Harris法の測度に使用
     )
