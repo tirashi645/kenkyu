@@ -18,7 +18,7 @@ def todo(path):
 
     # 読み込む動画の設定
     videoName = path.split('/')[-1][:-4]
-    savePath = '/media/koshiba/Data/pix2pix/output/proc_point3'
+    savePath = '/media/koshiba/Data/pix2pix/output/proc_point_point512'
     cap = cv2.VideoCapture(path)
     print(path[path.rfind('/')+1:])
 
@@ -39,7 +39,7 @@ def todo(path):
 
     # Shi-Tomashiのコーナー検出パラメータ
     feature_params = dict(
-        maxCorners=512,            # 保持するコーナー数,int
+        maxCorners=511,            # 保持するコーナー数,int
         qualityLevel=0.2,          # 最良値(最大個数値の割合),double
         minDistance=7,             # この距離内のコーナーを棄却,double
         blockSize=7,               # 使用する近傍領域のサイズ,int
@@ -193,7 +193,7 @@ def todo(path):
     with open(savePath + '/' + videoName + '/data_' + videoName + '.pickle', 'wb') as f:
         pickle.dump(evalute_list, f)
     '''
-    return evalute_list
+    #return evalute_list
 
 
 if __name__=='__main__':
@@ -220,7 +220,8 @@ if __name__=='__main__':
     f_list = [-1.0, 10000.0]
 
     for path in video_file:
-
+        todo(path)
+        '''
         evalute_list = todo(path)
         value_list = evalute_list[0]
         videoName = path.split('/')[-1][:-4]
@@ -271,3 +272,4 @@ if __name__=='__main__':
     print(max_fValue)
     print('min_fValue--------------------')
     print(min_fValue)
+    '''
