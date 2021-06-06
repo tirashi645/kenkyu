@@ -105,6 +105,7 @@ def todo(path):
 
 
     # 評価計算
+    
     point_evalute = []
     if os.path.exists('/media/koshiba/Data/pix2pix/input/point/' + videoName + '.pickle'):
         with open('/media/koshiba/Data/pix2pix/input/point/' + videoName + '.pickle', 'rb') as f:
