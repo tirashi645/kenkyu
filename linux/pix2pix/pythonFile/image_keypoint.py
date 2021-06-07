@@ -44,7 +44,7 @@ def draw(image, pt):
     nchannels=48
     njoints=17
     line = [[1,2],[1,3],[1,6],[1,7],[6,7],[3,5],[2,4],[6,8],[6,12],[7,9],[7,13],[8,10],[9,11],[12,13],[12,14],[13,15],[14,16],[15,17]]
-    cp = ['p' if i[3]>0.5 else 'f' for i in pt]
+    cp = ['p' if i[2]>0.5 else 'f' for i in pt]
     #person_ids = np.arange(len(pts), dtype=np.int32)
     
     #frame = draw_points_and_skeleton(image, pt, joints_dict()['coco']['skeleton'], person_index=0, points_color_palette='gist_rainbow', skeleton_color_palette='jet',points_palette_samples=10)
