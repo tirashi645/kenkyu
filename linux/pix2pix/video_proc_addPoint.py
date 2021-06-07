@@ -10,10 +10,7 @@ def todo(path):
     padding = 10    # 特徴点検出領域の半径
     p = 10
     c = [[255, 0, 0], [0, 0, 255], [0, 255, 0], [0, 255, 255]]    # 特徴点の色
-    tp = 0
-    fp = 0
-    tn = 0
-    fn = 0
+
     kernel = np.ones((3,3),np.uint8)
 
     # 読み込む動画の設定
@@ -92,6 +89,7 @@ def todo(path):
                                             thickness=3     # 線の太さ
                                         )
             noise[num] = 1
+
         else:
             flow_layer = cv2.circle(
                                             flow_layer,     # 描く画像
@@ -100,6 +98,17 @@ def todo(path):
                                             color = c[0],   # 描く色 青
                                             thickness=3     # 線の太さ
                                         )
+    for pt in pts:
+        cnt = 0
+        for core in pt:
+            x = int(core[1])
+            y = int(core[0])    
+            if mask_img[y][x] == 255:
+                cnt += 1
+            if cnt == 10:
+                image_keypoint.draw(first_frame, pt)
+                break
+
     frame = cv2.add(first_frame, flow_layer)
 
     if not os.path.exists(savePath + '/' + videoName):

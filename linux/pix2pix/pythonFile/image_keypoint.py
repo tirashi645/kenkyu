@@ -40,6 +40,18 @@ def get_keypoint(image):
     # cv2.imwrite(args.output, frame)
     return pts, frame
 
+def draw(image, pt):
+    # Model parameters
+    nchannels=48
+    njoints=17
+    
+    frame = draw_points_and_skeleton(image, pt, joints_dict()['coco']['skeleton'], person_index=pid, points_color_palette='gist_rainbow', skeleton_color_palette='jet',points_palette_samples=10)
+    for i,data in enumerate(pt):
+        h = int(data[0])
+        w = int(data[1]-10)
+        print(w, h)
+        cv2.putText(frame, str(i+1), (w, h), cv2.FONT_HERSHEY_PLAIN, 1, (0, 255, 0), 2, cv2.LINE_AA)
+
 if __name__=='__main__':
     parse = argparse.ArgumentParser()
     parse.add_argument("--input", "-i", help="target image", type=str, default="input.jpg")
