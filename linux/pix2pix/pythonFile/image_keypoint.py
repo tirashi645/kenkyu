@@ -24,36 +24,26 @@ def get_keypoint(image, mask):
     # Perform the prediction for pose estimation
     pts = model.predict(image)
     person_ids = np.arange(len(pts), dtype=np.int32)
-    frame2 = image
+    frame1 = image
 
     # Draw the joints and bones
     print(pts)
     for i, (pt, pid) in enumerate(zip(pts, person_ids)):
         cnt = 0
         #print(pid)
-        frame1 = draw_points_and_skeleton(image, pt, joints_dict()['coco']['skeleton'], person_index=pid, points_color_palette='gist_rainbow', skeleton_color_palette='jet',points_palette_samples=10)
-        
-        for i,data in enumerate(pt):
-            h = int(data[0])
-            w = int(data[1]-10)
-            #print(w, h)
-            cv2.putText(frame1, str(i+1), (w, h), cv2.FONT_HERSHEY_PLAIN, 1, (0, 255, 0), 2, cv2.LINE_AA)
-            if mask[h][w+10]==255:
-                cnt += 1
-            if cnt == 10:
-                #print(pt)
-                frame2 = draw_points_and_skeleton(frame2, pt, joints_dict()['coco']['skeleton'], person_index=pid, points_color_palette='gist_rainbow', skeleton_color_palette='jet',points_palette_samples=10)
+        #frame1 = draw_points_and_skeleton(image, pt, joints_dict()['coco']['skeleton'], person_index=pid, points_color_palette='gist_rainbow', skeleton_color_palette='jet',points_palette_samples=10)
+        frame1 = draw(frame1, pt)
 
 
     # Ouput the results
     # cv2.imwrite(args.output, frame)
-    return pts, frame1, frame2
+    return pts, frame1
 
 def draw(image, pt):
     # Model parameters
     nchannels=48
     njoints=17
-    line = [[1,2],[1,3],[6,7],[3,5],[2,4],[6,8],[6,12],[7,9],[7,13],[8,10],[9,11],[12,13],[12,14],[13,15],[14,16],[15,17]]
+    line = [[1,2],[1,3],[1,6],[1,7],[6,7],[3,5],[2,4],[6,8],[6,12],[7,9],[7,13],[8,10],[9,11],[12,13],[12,14],[13,15],[14,16],[15,17]]
     #person_ids = np.arange(len(pts), dtype=np.int32)
     
     #frame = draw_points_and_skeleton(image, pt, joints_dict()['coco']['skeleton'], person_index=0, points_color_palette='gist_rainbow', skeleton_color_palette='jet',points_palette_samples=10)
