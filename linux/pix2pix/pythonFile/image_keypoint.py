@@ -34,7 +34,7 @@ def get_keypoint(image):
             h = data[0]
             w = data[1]-5
             print(w, h)
-            cv2.putText(frame, str(i+1), (float(data[1]), float(data[0])-5), cv2.FONT_HERSHEY_PLAIN, 1, (255, 0, 0), 2, cv2.LINE_AA)
+            cv2.putText(frame, str(i+1), (w, h), cv2.FONT_HERSHEY_PLAIN, 1, (255, 0, 0), 2, cv2.LINE_AA)
 
     # Ouput the results
     # cv2.imwrite(args.output, frame)
