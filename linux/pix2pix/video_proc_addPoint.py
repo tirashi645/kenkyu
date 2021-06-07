@@ -100,7 +100,7 @@ def todo(path):
             if mask_img[h][w] == 255:
                 cnt+=1
             if cnt==13:
-                first_frame = draw(first_frame, pt)
+                skelton_frame = draw(first_frame, pt)
                 shooter_pt = pt
                 break
     print(shooter_pt)
@@ -138,7 +138,7 @@ def todo(path):
                                             thickness=3     # 線の太さ
                                         )
 
-    frame = cv2.add(first_frame, flow_layer)
+    frame = cv2.add(skelton_frame, flow_layer)
     for num, i in enumerate(feature_point):
         x = int(prev_points[i][0][0])
         y = int(prev_points[i][0][1])
