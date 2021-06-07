@@ -61,7 +61,7 @@ def todo(path):
     mask_img, img_mask = removeNoise.todo(gen_img)
     mask_img = labeling.remove_noise(mask_img)
     mask_img = cv2.erode(mask_img,kernel,iterations = 1)    # 縮小処理
-    pts, keypoint_img = image_keypoint.get_keypoint(first_frame)
+    pts, keypoint_img, mask_key_img = image_keypoint.get_keypoint(first_frame)
     print(pts)
 
     # 読み込んだフレームの特徴点を探す
@@ -98,19 +98,8 @@ def todo(path):
                                             color = c[0],   # 描く色 青
                                             thickness=3     # 線の太さ
                                         )
-    for pt in pts:
-        cnt = 0
-        for core in pt:
-            x = int(core[1])
-            y = int(core[0])    
-            if mask_img[y][x] == 255:
-                cnt += 1
-                print(cnt)
-            if cnt == 10:
-                first_frame = image_keypoint.draw(first_frame, pt)
-                break
-
-    frame = cv2.add(first_frame, flow_layer)
+    #frame = cv2.add(first_frame, flow_layer)
+    frame = cv2.add(mask_key_img, flow_layer)
 
     if not os.path.exists(savePath + '/' + videoName):
         os.makedirs(savePath + '/' + videoName)
@@ -118,6 +107,7 @@ def todo(path):
     cv2.imwrite(savePath + '/' + videoName + '/mask_' + videoName + '.jpg', mask_img)
     cv2.imwrite(savePath + '/' + videoName + '/filter_' + videoName + '.jpg', img_mask)
     cv2.imwrite(savePath + '/' + videoName + '/main_' + videoName + '.jpg', frame)
+    cv2.imwrite(savePath + '/' + videoName + '/mask_key_' + videoName + '.jpg', mask_key_img)
     cv2.imwrite(savePath + '/' + videoName + '/org_' + videoName + '.jpg', org_img)
     cv2.imwrite(savePath + '/' + videoName + '/gray_' + videoName + '.jpg', first_gray)
     cv2.imwrite(savePath + '/' + videoName + '/keypoint_' + videoName + '.jpg', keypoint_img)
