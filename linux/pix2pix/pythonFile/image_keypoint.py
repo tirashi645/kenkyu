@@ -44,6 +44,7 @@ def draw(image, pt):
     # Model parameters
     nchannels=48
     njoints=17
+    person_ids = np.arange(len(pt), dtype=np.int32)
     
     frame = draw_points_and_skeleton(image, pt, joints_dict()['coco']['skeleton'], person_index=pid, points_color_palette='gist_rainbow', skeleton_color_palette='jet',points_palette_samples=10)
     for i,data in enumerate(pt):
