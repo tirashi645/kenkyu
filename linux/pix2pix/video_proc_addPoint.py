@@ -86,6 +86,24 @@ def todo(path):
     # 一度すべての点をノイズとする
     noise = [0 for i in range(len(prev_points))]
 
+    feature_num = [6, 11, 12, 15, 16]
+    feature_value = [100000, 100000, 100000, 100000, 100000, 0]
+    feature_point = [-1,-1,-1,-1,-1,-1]     #右肩，左腰，右腰，左足，右足, 銃
+    shooter_pt = []
+
+    
+    for pt in pts:
+        cnt = 0
+        for i,data in enumerate(pt):
+            h = int(data[0])
+            w = int(data[1])
+            if mask_img[h][w] == 255:
+                cnt+=1
+            if cnt==13:
+                first_frame = draw(first_frame, pt)
+                shooter_pt = pt
+                break
+
     # マスク画像内の特徴点を探す
     for num, i in enumerate(prev_points):
         x = int(i[0][0])
@@ -100,6 +118,16 @@ def todo(path):
                                             thickness=3     # 線の太さ
                                         )
             noise[num] = 1
+            for p, num in enumerate(feature_num):
+                a = np.array([shooter_pt[num][1], shooter_pt[num][0]])
+                b = np.array([i[0][0], i[0][1]])
+                u = np.linalg.norm(b - a)
+                if shooter_pt[num]<feature_value[p]:
+                    feature_point[p] = num
+                    feature_value[p] = u
+            if feature_value[-1]<b[0]:
+                feature_point[p] = num
+                feature_value[p] = b[0]
 
         else:
             flow_layer = cv2.circle(
@@ -109,19 +137,10 @@ def todo(path):
                                             color = c[0],   # 描く色 青
                                             thickness=3     # 線の太さ
                                         )
-    for pt in pts:
-        cnt = 0
-        for i,data in enumerate(pt):
-            h = int(data[0])
-            w = int(data[1])
-            if mask_img[h][w] == 255:
-                cnt+=1
-            if cnt==10:
-                first_frame = draw(first_frame, pt)
-                break
 
     frame = cv2.add(first_frame, flow_layer)
     #frame3 = cv2.add(mask_key_img, flow_layer)
+    print(feature_point, feature_value)
 
     if not os.path.exists(savePath + '/' + videoName):
         os.makedirs(savePath + '/' + videoName)
