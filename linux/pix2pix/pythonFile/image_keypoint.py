@@ -66,7 +66,7 @@ def draw(image, pt):
     for point in line:
               s = point[0]
               t = point[1]
-              cv2.line(image, (int(pt[2*(s-1)+5]), int(pt[2*(s-1)+6])), (int(pt[2*(t-1)+5]), int(pt[2*(t-1)+6])), (255, 255, 0), thickness=2, lineType=cv2.LINE_AA)
+              cv2.line(image, (int(pt[s][1]), int(pt[s][0])), (int(pt[t][1]), int(pt[t][0])), (255, 255, 0), thickness=2, lineType=cv2.LINE_AA)
 
     return image
 
