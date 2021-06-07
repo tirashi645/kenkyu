@@ -107,7 +107,7 @@ def todo(path):
                 cnt += 1
                 print(cnt)
             if cnt == 10:
-                image_keypoint.draw(first_frame, pt)
+                first_frame = image_keypoint.draw(first_frame, pt)
                 break
 
     frame = cv2.add(first_frame, flow_layer)

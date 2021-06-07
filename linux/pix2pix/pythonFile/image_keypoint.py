@@ -52,6 +52,8 @@ def draw(image, pt):
         w = int(data[1]-10)
         print(w, h)
         cv2.putText(frame, str(i+1), (w, h), cv2.FONT_HERSHEY_PLAIN, 1, (0, 255, 0), 2, cv2.LINE_AA)
+    
+    return frame
 
 if __name__=='__main__':
     parse = argparse.ArgumentParser()
