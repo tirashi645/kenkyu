@@ -32,9 +32,9 @@ def get_keypoint(image):
         
         for i,data in enumerate(pt):
             h = int(data[0])
-            w = int(data[1]-5)
+            w = int(data[1]-10)
             print(w, h)
-            cv2.putText(frame, str(i+1), (w, h), cv2.FONT_HERSHEY_PLAIN, 1, (255, 0, 0), 2, cv2.LINE_AA)
+            cv2.putText(frame, str(i+1), (w, h), cv2.FONT_HERSHEY_PLAIN, 1, (0, 255, 0), 2, cv2.LINE_AA)
 
     # Ouput the results
     # cv2.imwrite(args.output, frame)
