@@ -139,7 +139,28 @@ def todo(path):
                                         )
 
     frame = cv2.add(first_frame, flow_layer)
-    #frame3 = cv2.add(mask_key_img, flow_layer)
+    for num, i in enumerate(feature_point):
+        x = int(i[0][0])
+        y = int(i[0][1])
+        #if max(gen_img[y][x]) > 255/2:
+        if mask_img[y][x] == 255:
+            flow_layer2 = cv2.circle(
+                                            flow_layer2,     # 描く画像
+                                            (x, y),         # 線を引く始点
+                                            2,              # 線を引く終点
+                                            color = c[1],   # 描く色 赤
+                                            thickness=3     # 線の太さ
+                                        )
+        else:
+            flow_layer2 = cv2.circle(
+                                            flow_layer2,     # 描く画像
+                                            (x, y),         # 線を引く始点
+                                            2,              # 線を引く終点
+                                            color = c[0],   # 描く色 青
+                                            thickness=3     # 線の太さ
+                                        )
+
+    frame2 = cv2.add(first_frame, flow_layer2)
     print(feature_point, feature_value)
 
     if not os.path.exists(savePath + '/' + videoName):
@@ -148,7 +169,7 @@ def todo(path):
     cv2.imwrite(savePath + '/' + videoName + '/mask_' + videoName + '.jpg', mask_img)
     cv2.imwrite(savePath + '/' + videoName + '/filter_' + videoName + '.jpg', img_mask)
     cv2.imwrite(savePath + '/' + videoName + '/main_' + videoName + '.jpg', frame)
-    #cv2.imwrite(savePath + '/' + videoName + '/mask_key_' + videoName + '.jpg', mask_key_img)
+    cv2.imwrite(savePath + '/' + videoName + '/track_' + videoName + '.jpg', frame2)
     cv2.imwrite(savePath + '/' + videoName + '/org_' + videoName + '.jpg', org_img)
     cv2.imwrite(savePath + '/' + videoName + '/gray_' + videoName + '.jpg', first_gray)
     #cv2.imwrite(savePath + '/' + videoName + '/keypoint_' + videoName + '.jpg', keypoint_img)
