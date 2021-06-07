@@ -105,6 +105,7 @@ def todo(path):
             y = int(core[0])    
             if mask_img[y][x] == 255:
                 cnt += 1
+                print(cnt)
             if cnt == 10:
                 image_keypoint.draw(first_frame, pt)
                 break
