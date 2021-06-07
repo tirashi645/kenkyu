@@ -39,6 +39,7 @@ def get_keypoint(image, mask):
             if mask[h][w+10]==255:
                 cnt += 1
             if cnt == 10:
+                print(pt)
                 frame2 = draw_points_and_skeleton(image, pt, joints_dict()['coco']['skeleton'], person_index=pid, points_color_palette='gist_rainbow', skeleton_color_palette='jet',points_palette_samples=10)
 
 
