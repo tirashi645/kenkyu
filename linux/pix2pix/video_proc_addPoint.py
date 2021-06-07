@@ -83,6 +83,7 @@ def todo(path):
     )
     flow_layer = np.zeros_like(first_frame)
     flow_layer2 = np.zeros_like(first_frame)
+    skelton_frame = first_frame
     # 一度すべての点をノイズとする
     noise = [0 for i in range(len(prev_points))]
 
@@ -100,7 +101,7 @@ def todo(path):
             if mask_img[h][w] == 255:
                 cnt+=1
             if cnt==13:
-                skelton_frame = draw(first_frame, pt)
+                skelton_frame = draw(skelton_frame, pt)
                 shooter_pt = pt
                 break
     print(shooter_pt)
