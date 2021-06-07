@@ -126,8 +126,8 @@ def todo(path):
                     feature_point[p] = num
                     feature_value[p] = u
             if feature_value[-1]<i[0][0]:
-                feature_point[p] = num
-                feature_value[p] = i[0][0]
+                feature_point[-1] = num
+                feature_value[-1] = i[0][0]
 
         else:
             flow_layer = cv2.circle(
