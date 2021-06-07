@@ -103,7 +103,7 @@ def todo(path):
                 first_frame = draw(first_frame, pt)
                 shooter_pt = pt
                 break
-
+    print(shooter_pt)
     # マスク画像内の特徴点を探す
     for num, i in enumerate(prev_points):
         x = int(i[0][0])
@@ -122,7 +122,7 @@ def todo(path):
                 a = np.array([shooter_pt[num][1], shooter_pt[num][0]])
                 b = np.array([i[0][0], i[0][1]])
                 u = np.linalg.norm(b - a)
-                if shooter_pt[num]<feature_value[p]:
+                if u<feature_value[p]:
                     feature_point[p] = num
                     feature_value[p] = u
             if feature_value[-1]<b[0]:
