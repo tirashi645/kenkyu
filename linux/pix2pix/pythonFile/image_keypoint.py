@@ -28,7 +28,7 @@ def get_keypoint(image):
     # Draw the joints and bones
     for i, (pt, pid) in enumerate(zip(pts, person_ids)):
         frame = draw_points_and_skeleton(image, pt, joints_dict()['coco']['skeleton'], person_index=pid, points_color_palette='gist_rainbow', skeleton_color_palette='jet',points_palette_samples=10)
-        cv2.putText(frame, str(i+1), pt[0], pt[1]-5, cv2.FONT_HERSHEY_PLAIN, 1, (255, 0, 0), 2, cv2.LINE_AA)
+        cv2.putText(frame, str(i+1), (pt[0], pt[1]-5), cv2.FONT_HERSHEY_PLAIN, 1, (255, 0, 0), 2, cv2.LINE_AA)
 
     # Ouput the results
     # cv2.imwrite(args.output, frame)
