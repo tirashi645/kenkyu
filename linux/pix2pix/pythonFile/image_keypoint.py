@@ -24,6 +24,7 @@ def get_keypoint(image, mask):
     # Perform the prediction for pose estimation
     pts = model.predict(image)
     person_ids = np.arange(len(pts), dtype=np.int32)
+    frame2 = image
 
     # Draw the joints and bones
     for i, (pt, pid) in enumerate(zip(pts, person_ids)):
@@ -40,7 +41,7 @@ def get_keypoint(image, mask):
                 cnt += 1
             if cnt == 10:
                 print(pt)
-                frame2 = draw_points_and_skeleton(image, pt, joints_dict()['coco']['skeleton'], person_index=pid, points_color_palette='gist_rainbow', skeleton_color_palette='jet',points_palette_samples=10)
+                frame2 = draw_points_and_skeleton(frame2, pt, joints_dict()['coco']['skeleton'], person_index=pid, points_color_palette='gist_rainbow', skeleton_color_palette='jet',points_palette_samples=10)
 
 
     # Ouput the results
