@@ -27,13 +27,13 @@ def get_keypoint(image):
 
     # Draw the joints and bones
     for i, (pt, pid) in enumerate(zip(pts, person_ids)):
-        print(pid)
+        #print(pid)
         frame = draw_points_and_skeleton(image, pt, joints_dict()['coco']['skeleton'], person_index=pid, points_color_palette='gist_rainbow', skeleton_color_palette='jet',points_palette_samples=10)
         
         for i,data in enumerate(pt):
             h = int(data[0])
             w = int(data[1]-10)
-            print(w, h)
+            #print(w, h)
             cv2.putText(frame, str(i+1), (w, h), cv2.FONT_HERSHEY_PLAIN, 1, (0, 255, 0), 2, cv2.LINE_AA)
 
     # Ouput the results
@@ -46,7 +46,7 @@ def draw(image, pt):
     njoints=17
     person_ids = np.arange(len(pts), dtype=np.int32)
     
-    frame = draw_points_and_skeleton(image, pt, joints_dict()['coco']['skeleton'], person_index=pid, points_color_palette='gist_rainbow', skeleton_color_palette='jet',points_palette_samples=10)
+    frame = draw_points_and_skeleton(image, pt, joints_dict()['coco']['skeleton'], person_index=0, points_color_palette='gist_rainbow', skeleton_color_palette='jet',points_palette_samples=10)
     for i,data in enumerate(pt):
         h = int(data[0])
         w = int(data[1]-10)
