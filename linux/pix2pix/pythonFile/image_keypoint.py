@@ -31,8 +31,8 @@ def get_keypoint(image):
         frame = draw_points_and_skeleton(image, pt, joints_dict()['coco']['skeleton'], person_index=pid, points_color_palette='gist_rainbow', skeleton_color_palette='jet',points_palette_samples=10)
         
         for i,data in enumerate(pt):
-            h = data[0]
-            w = data[1]-5
+            h = int(data[0])
+            w = int(data[1]-5)
             print(w, h)
             cv2.putText(frame, str(i+1), (w, h), cv2.FONT_HERSHEY_PLAIN, 1, (255, 0, 0), 2, cv2.LINE_AA)
 
