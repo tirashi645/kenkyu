@@ -53,16 +53,22 @@ def draw(image, pt):
     # Model parameters
     nchannels=48
     njoints=17
+    line = [[1,2],[1,3],[6,7],[3,5],[2,4],[6,8],[6,12],[7,9],[7,13],[8,10],[9,11],[12,13],[12,14],[13,15],[14,16],[15,17]]
     #person_ids = np.arange(len(pts), dtype=np.int32)
     
-    frame = draw_points_and_skeleton(image, pt, joints_dict()['coco']['skeleton'], person_index=0, points_color_palette='gist_rainbow', skeleton_color_palette='jet',points_palette_samples=10)
+    #frame = draw_points_and_skeleton(image, pt, joints_dict()['coco']['skeleton'], person_index=0, points_color_palette='gist_rainbow', skeleton_color_palette='jet',points_palette_samples=10)
     for i,data in enumerate(pt):
         h = int(data[0])
         w = int(data[1]-10)
-        print(w, h)
-        cv2.putText(frame, str(i+1), (w, h), cv2.FONT_HERSHEY_PLAIN, 1, (0, 255, 0), 2, cv2.LINE_AA)
-    
-    return frame
+        #print(w, h)
+        cv2.circle(image, (w, h), 5, (255, 255, 255), thickness=-1)
+        cv2.putText(image, str(i+1), (w, h), cv2.FONT_HERSHEY_PLAIN, 1, (0, 255, 0), 2, cv2.LINE_AA)
+    for point in line:
+              s = point[0]
+              t = point[1]
+              cv2.line(image, (int(pt[2*(s-1)+5]), int(pt[2*(s-1)+6])), (int(pt[2*(t-1)+5]), int(pt[2*(t-1)+6])), (255, 255, 0), thickness=2, lineType=cv2.LINE_AA)
+
+    return image
 
 if __name__=='__main__':
     parse = argparse.ArgumentParser()
