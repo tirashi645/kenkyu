@@ -84,6 +84,7 @@ def todo(path):
     flow_layer = np.zeros_like(first_frame)
     flow_layer2 = np.zeros_like(first_frame)
     skelton_frame = first_frame.copy()
+    point_frame = first_frame.copy()
     # 一度すべての点をノイズとする
     noise = [0 for i in range(len(prev_points))]
 
@@ -140,6 +141,7 @@ def todo(path):
                                         )
 
     frame = cv2.add(skelton_frame, flow_layer)
+    point_frame = cv2.add(point_frame, flow_layer)
     for num, i in enumerate(feature_point):
         x = int(prev_points[i][0][0])
         y = int(prev_points[i][0][1])
@@ -169,6 +171,7 @@ def todo(path):
     cv2.imwrite(savePath + '/' + videoName + '/gen_' + videoName + '.jpg', gen_img)
     cv2.imwrite(savePath + '/' + videoName + '/mask_' + videoName + '.jpg', mask_img)
     cv2.imwrite(savePath + '/' + videoName + '/filter_' + videoName + '.jpg', img_mask)
+    cv2.imwrite(savePath + '/' + videoName + '/point_' + videoName + '.jpg', point_frame)
     cv2.imwrite(savePath + '/' + videoName + '/main_' + videoName + '.jpg', frame)
     cv2.imwrite(savePath + '/' + videoName + '/track_' + videoName + '.jpg', frame2)
     cv2.imwrite(savePath + '/' + videoName + '/org_' + videoName + '.jpg', org_img)
