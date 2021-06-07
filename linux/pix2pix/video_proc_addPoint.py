@@ -73,7 +73,7 @@ def todo(path):
     mask_img = labeling.remove_noise(mask_img)              # ラベリング処理
     mask_img = cv2.erode(mask_img,kernel,iterations = 1)    # 縮小処理
     #pts, keypoint_img = image_keypoint.get_keypoint(first_frame, mask_img)
-    print(pts)
+    #print(pts)
 
     # 読み込んだフレームの特徴点を探す
     prev_points = cv2.goodFeaturesToTrack(
