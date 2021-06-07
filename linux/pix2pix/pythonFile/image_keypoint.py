@@ -58,7 +58,7 @@ def draw(image, pt):
     for point in line:
         s = point[0]-1
         t = point[1]-1
-        if cp[s]=='p' and cp[t]=='f':
+        if cp[s]=='p' and cp[t]=='p':
             cv2.line(image, (int(pt[s][1]), int(pt[s][0])), (int(pt[t][1]), int(pt[t][0])), (255, 255, 0), thickness=2, lineType=cv2.LINE_AA)
 
     return image

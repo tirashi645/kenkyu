@@ -106,7 +106,7 @@ def todo(path):
             if mask_img[h][w] == 255:
                 cnt+=1
             if cnt==10:
-                image_keypoint.draw(first_frame, pt)
+                first_frame = image_keypoint.draw(first_frame, pt)
                 break
 
     frame = cv2.add(first_frame, flow_layer)
