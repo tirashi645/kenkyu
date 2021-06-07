@@ -83,7 +83,7 @@ def todo(path):
     )
     flow_layer = np.zeros_like(first_frame)
     flow_layer2 = np.zeros_like(first_frame)
-    skelton_frame = first_frame
+    skelton_frame = first_frame.copy()
     # 一度すべての点をノイズとする
     noise = [0 for i in range(len(prev_points))]
 
