@@ -49,7 +49,7 @@ def todo(path):
         maxCorners=511,            # 保持するコーナー数,int
         qualityLevel=0.2,          # 最良値(最大個数値の割合),double
         minDistance=1,             # この距離内のコーナーを棄却,double
-        blockSize=3,               # 使用する近傍領域のサイズ,int
+        blockSize=7,               # 使用する近傍領域のサイズ,int
         useHarrisDetector=False,   # FalseならShi-Tomashi法
         # k=0.04,　　　　　　　　　# Harris法の測度に使用
     )
