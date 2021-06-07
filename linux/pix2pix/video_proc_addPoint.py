@@ -118,8 +118,8 @@ def todo(path):
                                             thickness=3     # 線の太さ
                                         )
             noise[num] = 1
-            for p, num in enumerate(feature_num):
-                a = np.array([shooter_pt[num][1], shooter_pt[num][0]])
+            for p, num1 in enumerate(feature_num):
+                a = np.array([shooter_pt[num1][1], shooter_pt[num1][0]])
                 b = np.array([i[0][0], i[0][1]])
                 u = np.linalg.norm(b - a)
                 if u<feature_value[p]:
