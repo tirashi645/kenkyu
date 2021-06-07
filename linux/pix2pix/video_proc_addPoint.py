@@ -1,17 +1,27 @@
+import numpy as np
+import cv2
+import os
+import glob
+import pickle
+import sys
+from pythonFile import proc, removeNoise, labeling, get_keypoint, image_keypoint
+from PIL import Image
+from keras.preprocessing.image import img_to_array
+sys.path.insert(1, '/media/koshiba/Data/simple-HRNet')
+from SimpleHRNet import SimpleHRNet
+
 def todo(path):
-    import numpy as np
-    import cv2
-    import os
-    import pickle
-    from pythonFile import proc, removeNoise, labeling, get_keypoint, image_keypoint
-    from PIL import Image
-    from keras.preprocessing.image import img_to_array
 
     padding = 10    # 特徴点検出領域の半径
     p = 10
+    nchannels=48
+    njoints=17
     c = [[255, 0, 0], [0, 0, 255], [0, 255, 0], [0, 255, 255]]    # 特徴点の色
 
     kernel = np.ones((3,3),np.uint8)
+
+    # Creat the HRNet model
+    model = SimpleHRNet(nchannels, njoints, "/media/koshiba/Data/simple-HRNet/weights/pose_hrnet_w48_384x288.pth")
 
     # 読み込む動画の設定
     videoName = path.split('/')[-1][:-4]
@@ -48,7 +58,8 @@ def todo(path):
     ret, first_frame = cap.read()
     if rot==1:
         first_frame = np.rot90(first_frame, -1)
-
+    #HRNetで骨格点を推測
+    pts = model.predict(first_frame)
     #グレースケール変換
     pil_img = Image.fromarray(first_frame)
     org_img = img_to_array(pil_img)
@@ -59,9 +70,9 @@ def todo(path):
     gen_img = proc.video_proc_gray(pil_img)     # この中でグレースケール化してる
     # ノイズを除去してセグメントを膨張する
     mask_img, img_mask = removeNoise.todo(gen_img)
-    mask_img = labeling.remove_noise(mask_img)
+    mask_img = labeling.remove_noise(mask_img)              # ラベリング処理
     mask_img = cv2.erode(mask_img,kernel,iterations = 1)    # 縮小処理
-    pts, keypoint_img = image_keypoint.get_keypoint(first_frame, mask_img)
+    #pts, keypoint_img = image_keypoint.get_keypoint(first_frame, mask_img)
     print(pts)
 
     # 読み込んだフレームの特徴点を探す
@@ -106,7 +117,7 @@ def todo(path):
             if mask_img[h][w] == 255:
                 cnt+=1
             if cnt==10:
-                first_frame = image_keypoint.draw(first_frame, pt)
+                first_frame = draw(first_frame, pt)
                 break
 
     frame = cv2.add(first_frame, flow_layer)
@@ -121,18 +132,38 @@ def todo(path):
     #cv2.imwrite(savePath + '/' + videoName + '/mask_key_' + videoName + '.jpg', mask_key_img)
     cv2.imwrite(savePath + '/' + videoName + '/org_' + videoName + '.jpg', org_img)
     cv2.imwrite(savePath + '/' + videoName + '/gray_' + videoName + '.jpg', first_gray)
-    cv2.imwrite(savePath + '/' + videoName + '/keypoint_' + videoName + '.jpg', keypoint_img)
+    #cv2.imwrite(savePath + '/' + videoName + '/keypoint_' + videoName + '.jpg', keypoint_img)
     '''
     with open(savePath + '/' + videoName + '/data_' + videoName + '.pickle', 'wb') as f:
         pickle.dump(evalute_list, f)
     '''
     #return evalute_list
 
+def draw(image, pt):
+    # Model parameters
+    nchannels=48
+    njoints=17
+    line = [[1,2],[1,3],[1,6],[1,7],[6,7],[3,5],[2,4],[6,8],[6,12],[7,9],[7,13],[8,10],[9,11],[12,13],[12,14],[13,15],[14,16],[15,17]]
+    cp = ['p' if i[2]>0.5 else 'f' for i in pt]
+    #person_ids = np.arange(len(pts), dtype=np.int32)
+    
+    #frame = draw_points_and_skeleton(image, pt, joints_dict()['coco']['skeleton'], person_index=0, points_color_palette='gist_rainbow', skeleton_color_palette='jet',points_palette_samples=10)
+    for i,data in enumerate(pt):
+        h = int(data[0])
+        w = int(data[1])
+        #print(w, h)
+        if cp[i]=='p':
+            cv2.circle(image, (w, h), 5, (255, 255, 255), thickness=-1)
+            cv2.putText(image, str(i+1), (w, h), cv2.FONT_HERSHEY_PLAIN, 1, (0, 255, 0), 2, cv2.LINE_AA)
+    for point in line:
+        s = point[0]-1
+        t = point[1]-1
+        if cp[s]=='p' and cp[t]=='p':
+            cv2.line(image, (int(pt[s][1]), int(pt[s][0])), (int(pt[t][1]), int(pt[t][0])), (255, 255, 0), thickness=2, lineType=cv2.LINE_AA)
+
+    return image
 
 if __name__=='__main__':
-    import glob
-    import os
-    import pickle
 
     # ファイルダイアログからファイル選択
     '''

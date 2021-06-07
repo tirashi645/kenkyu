@@ -50,7 +50,7 @@ def draw(image, pt):
     #frame = draw_points_and_skeleton(image, pt, joints_dict()['coco']['skeleton'], person_index=0, points_color_palette='gist_rainbow', skeleton_color_palette='jet',points_palette_samples=10)
     for i,data in enumerate(pt):
         h = int(data[0])
-        w = int(data[1]-10)
+        w = int(data[1])
         #print(w, h)
         if cp[i]=='p':
             cv2.circle(image, (w, h), 5, (255, 255, 255), thickness=-1)
