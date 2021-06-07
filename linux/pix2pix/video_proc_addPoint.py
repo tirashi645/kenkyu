@@ -99,14 +99,14 @@ def todo(path):
                                             thickness=3     # 線の太さ
                                         )
     #frame = cv2.add(first_frame, flow_layer)
-    frame = cv2.add(mask_key_img, flow_layer)
+    frame3 = cv2.add(mask_key_img, flow_layer)
 
     if not os.path.exists(savePath + '/' + videoName):
         os.makedirs(savePath + '/' + videoName)
     cv2.imwrite(savePath + '/' + videoName + '/gen_' + videoName + '.jpg', gen_img)
     cv2.imwrite(savePath + '/' + videoName + '/mask_' + videoName + '.jpg', mask_img)
     cv2.imwrite(savePath + '/' + videoName + '/filter_' + videoName + '.jpg', img_mask)
-    cv2.imwrite(savePath + '/' + videoName + '/main_' + videoName + '.jpg', frame)
+    cv2.imwrite(savePath + '/' + videoName + '/main_' + videoName + '.jpg', frame3)
     cv2.imwrite(savePath + '/' + videoName + '/mask_key_' + videoName + '.jpg', mask_key_img)
     cv2.imwrite(savePath + '/' + videoName + '/org_' + videoName + '.jpg', org_img)
     cv2.imwrite(savePath + '/' + videoName + '/gray_' + videoName + '.jpg', first_gray)
