@@ -140,8 +140,8 @@ def todo(path):
 
     frame = cv2.add(first_frame, flow_layer)
     for num, i in enumerate(feature_point):
-        x = int(i[0][0])
-        y = int(i[0][1])
+        x = int(prev_points[i][0][0])
+        y = int(prev_points[i][0][1])
         #if max(gen_img[y][x]) > 255/2:
         if mask_img[y][x] == 255:
             flow_layer2 = cv2.circle(
@@ -149,7 +149,7 @@ def todo(path):
                                             (x, y),         # 線を引く始点
                                             2,              # 線を引く終点
                                             color = c[1],   # 描く色 赤
-                                            thickness=3     # 線の太さ
+                                            thickness=5     # 線の太さ
                                         )
         else:
             flow_layer2 = cv2.circle(
@@ -157,7 +157,7 @@ def todo(path):
                                             (x, y),         # 線を引く始点
                                             2,              # 線を引く終点
                                             color = c[0],   # 描く色 青
-                                            thickness=3     # 線の太さ
+                                            thickness=5     # 線の太さ
                                         )
 
     frame2 = cv2.add(first_frame, flow_layer2)
