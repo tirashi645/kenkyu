@@ -64,8 +64,8 @@ def draw(image, pt):
         cv2.circle(image, (w, h), 5, (255, 255, 255), thickness=-1)
         cv2.putText(image, str(i+1), (w, h), cv2.FONT_HERSHEY_PLAIN, 1, (0, 255, 0), 2, cv2.LINE_AA)
     for point in line:
-              s = point[0]
-              t = point[1]
+              s = point[0]-1
+              t = point[1]-1
               cv2.line(image, (int(pt[s][1]), int(pt[s][0])), (int(pt[t][1]), int(pt[t][0])), (255, 255, 0), thickness=2, lineType=cv2.LINE_AA)
 
     return image
