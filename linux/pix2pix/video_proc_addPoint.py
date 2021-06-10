@@ -4,6 +4,7 @@ import os
 import glob
 import pickle
 import sys
+import matplotlib.pyplot as plt
 from pythonFile import proc, removeNoise, labeling, get_keypoint, image_keypoint
 from PIL import Image
 from keras.preprocessing.image import img_to_array
@@ -17,6 +18,7 @@ def todo(path):
     nchannels=48
     njoints=17
     c = [[255, 0, 0], [0, 0, 255], [0, 255, 0], [0, 255, 255]]    # 特徴点の色
+    point_cnt = 0
 
     kernel = np.ones((3,3),np.uint8)
 
@@ -120,6 +122,7 @@ def todo(path):
                                             thickness=3     # 線の太さ
                                         )
             noise[num] = 1
+            point_cnt += 1
             for p, num1 in enumerate(feature_num):
                 a = np.array([shooter_pt[num1][1], shooter_pt[num1][0]])
                 b = np.array([i[0][0], i[0][1]])
@@ -182,6 +185,7 @@ def todo(path):
         pickle.dump(evalute_list, f)
     '''
     #return evalute_list
+    return point_cnt
 
 def draw(image, pt):
     # Model parameters
@@ -227,8 +231,17 @@ if __name__=='__main__':
     acc_list = [-1.0, 10000.0]
     f_list = [-1.0, 10000.0]
 
+    point_cnt = [0 for i in range(512)]
+    minmax = [1000, 0]
+
     for path in video_file:
-        todo(path)
+        cnt = todo(path)
+        if cnt<minmax[0]:
+            minmax[0] = cnt
+        if cnt>minmax[1]:
+            minmax[1] = cnt
+        point_cnt[cnt] += 1
+
         '''
         evalute_list = todo(path)
         value_list = evalute_list[0]
@@ -253,7 +266,6 @@ if __name__=='__main__':
             min_fValue = [videoName, value_list]
             f_list[1] = value_list[4]
 
-        
 
     accuracy /= len(video_file)
     precision /= len(video_file)
@@ -281,3 +293,9 @@ if __name__=='__main__':
     print('min_fValue--------------------')
     print(min_fValue)
     '''
+
+    x = point_cnt[minmax[0]:minmax[1]+1]
+    fig = plt.figure()
+    plt.hist(x, ec='black')
+    plt.xlim(minmax[0]-1, minmax[1]+1)
+    fig.savefig('/media/koshiba/Data/pix2pix/output/proc_feature/number_point')
