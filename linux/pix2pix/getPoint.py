@@ -71,6 +71,7 @@ def todo(path):
         mask=None,            # mask=0のコーナーを無視
         **feature_params
     )
+    print(prev_points)
     flow_layer = np.zeros_like(first_frame)
     # 一度すべての点をノイズとする
     #noise = [0 for i in range(len(prev_points))]
