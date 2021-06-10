@@ -60,7 +60,6 @@ def todo(path):
     if rot==1:
         first_frame = np.rot90(first_frame, -1)
     #HRNetで骨格点を推測
-    pts = model.predict(first_frame)
     #グレースケール変換
     pil_img = Image.fromarray(first_frame)
     org_img = img_to_array(pil_img)
