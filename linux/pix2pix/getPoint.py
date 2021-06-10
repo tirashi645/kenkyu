@@ -50,8 +50,8 @@ def todo(path):
         qualityLevel=0.2,          # 最良値(最大個数値の割合),double
         minDistance=1,             # この距離内のコーナーを棄却,double
         blockSize=7,               # 使用する近傍領域のサイズ,int
-        useHarrisDetector=False,   # FalseならShi-Tomashi法
-        # k=0.04,　　　　　　　　　# Harris法の測度に使用
+        useHarrisDetector=True,   # FalseならShi-Tomashi法
+        k=0.04                      # Harris法の測度に使用
     )
 
     # 最初のフレームを読み込む
