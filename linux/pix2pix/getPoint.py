@@ -21,7 +21,7 @@ def todo(path):
     kernel = np.ones((3,3),np.uint8)
 
     # Creat the HRNet model
-    model = SimpleHRNet(nchannels, njoints, "/media/koshiba/Data/simple-HRNet/weights/pose_hrnet_w48_384x288.pth")
+    #model = SimpleHRNet(nchannels, njoints, "/media/koshiba/Data/simple-HRNet/weights/pose_hrnet_w48_384x288.pth")
 
     # 読み込む動画の設定
     videoName = path.split('/')[-1][:-4]
@@ -56,6 +56,7 @@ def todo(path):
 
     # 最初のフレームを読み込む
     ret, first_frame = cap.read()
+    print(ret)
     if rot==1:
         first_frame = np.rot90(first_frame, -1)
     #HRNetで骨格点を推測
@@ -72,16 +73,8 @@ def todo(path):
         **feature_params
     )
     flow_layer = np.zeros_like(first_frame)
-    flow_layer2 = np.zeros_like(first_frame)
-    skelton_frame = first_frame.copy()
-    point_frame = first_frame.copy()
     # 一度すべての点をノイズとする
     #noise = [0 for i in range(len(prev_points))]
-
-    feature_num = [6, 11, 12, 15, 16]
-    feature_value = [100000, 100000, 100000, 100000, 100000, 0]
-    feature_point = [-1,-1,-1,-1,-1,-1]     #右肩，左腰，右腰，左足，右足, 銃
-    shooter_pt = []
 
     # マスク画像内の特徴点を探す
     for num, i in enumerate(prev_points):
@@ -96,15 +89,14 @@ def todo(path):
                                         thickness=3     # 線の太さ
                                     )
 
-    frame = cv2.add(skelton_frame, flow_layer)
-    point_frame = cv2.add(point_frame, flow_layer)
+    frame = cv2.add(first_frame, flow_layer)
 
     if not os.path.exists(savePath + '/' + videoName):
         os.makedirs(savePath + '/' + videoName)
     #cv2.imwrite(savePath + '/' + videoName + '/gen_' + videoName + '.jpg', gen_img)
     #cv2.imwrite(savePath + '/' + videoName + '/mask_' + videoName + '.jpg', mask_img)
     #cv2.imwrite(savePath + '/' + videoName + '/filter_' + videoName + '.jpg', img_mask)
-    cv2.imwrite(savePath + '/' + videoName + '/point_' + videoName + '.jpg', point_frame)
+    #cv2.imwrite(savePath + '/' + videoName + '/point_' + videoName + '.jpg', point_frame)
     cv2.imwrite(savePath + '/' + videoName + '/main_' + videoName + '.jpg', frame)
     #cv2.imwrite(savePath + '/' + videoName + '/track_' + videoName + '.jpg', frame2)
     cv2.imwrite(savePath + '/' + videoName + '/org_' + videoName + '.jpg', org_img)
