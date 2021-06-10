@@ -76,7 +76,7 @@ def todo(path):
     skelton_frame = first_frame.copy()
     point_frame = first_frame.copy()
     # 一度すべての点をノイズとする
-    noise = [0 for i in range(len(prev_points))]
+    #noise = [0 for i in range(len(prev_points))]
 
     feature_num = [6, 11, 12, 15, 16]
     feature_value = [100000, 100000, 100000, 100000, 100000, 0]
@@ -95,7 +95,6 @@ def todo(path):
                                         color = c[1],   # 描く色 赤
                                         thickness=3     # 線の太さ
                                     )
-        noise[num] = 1
 
     frame = cv2.add(skelton_frame, flow_layer)
     point_frame = cv2.add(point_frame, flow_layer)
