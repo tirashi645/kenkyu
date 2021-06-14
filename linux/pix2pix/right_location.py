@@ -85,7 +85,6 @@ def todo(path):
     )
     flow_layer = np.zeros_like(first_frame)
     flow_layer2 = np.zeros_like(first_frame)
-    flow_layer3 = np.zeros_like(first_frame)
     skelton_frame = first_frame.copy()
     point_frame = first_frame.copy()
     # 一度すべての点をノイズとする
@@ -144,6 +143,8 @@ def todo(path):
                                             thickness=3     # 線の太さ
                                         )
 
+                                        
+
     frame = cv2.add(skelton_frame, flow_layer)
     point_frame = cv2.add(point_frame, flow_layer)
     for num, i in enumerate(feature_point):
@@ -167,49 +168,6 @@ def todo(path):
                                             thickness=5     # 線の太さ
                                         )
 
-    y = int(y)
-    x = int(x)
-    gun_pict = first_frame[y-15:y+15][x-15:x+15]
-    target_hist = cv2.calcHist([gun_pict], [0], None, [256], [0, 256])
-    cap2 = cv2.VideoCapture('/media/koshiba/Data/pix2pix/input/video2/' + videoName)# 動画の設定
-    width2 = int(cap2.get(cv2.CAP_PROP_FRAME_WIDTH))
-    height2 = int(cap2.get(cv2.CAP_PROP_FRAME_HEIGHT))
-    fps2 = cap2.get(cv2.CAP_PROP_FPS)
-
-    rot = 0
-    tmp = 0
-    tmp_core = []
-    # 動画が横向きならば縦向きに回転させる
-    if width2>height2:
-        rot = 1
-        tmp = width2
-        width2 = height2
-        height2 = tmp # 最初のフレームを読み込む
-    ret, first_frame2 = cap2.read()
-    if rot==1:
-        first_frame2 = np.rot90(first_frame2, -1)
-
-    for y in range(first_frame2[16:-16]):
-        for x in range(first_frame2[y][16:-16]):
-            pict1 = first_frame2[y-15:y+15][x-15:x+15]
-            comparing_hist = cv2.calcHist([pict1], [0], None, [256], [0, 256])
-            ret = cv2.compareHist(target_hist, comparing_hist, 0)
-            if ret > tmp:
-                tmp_core = [y, x]
-                tmp = ret
-    
-    flow_layer3 = cv2.circle(
-                                flow_layer3,     # 描く画像
-                                tmp_core,         # 線を引く始点
-                                2,              # 線を引く終点
-                                color = c[1],   # 描く色 赤
-                                thickness=5     # 線の太さ
-                            )
-
-    frame3 = cv2.add(first_frame2, flow_layer3)
-
-
-
     frame2 = cv2.add(first_frame, flow_layer2)
     print(feature_point, feature_value)
 
@@ -223,7 +181,7 @@ def todo(path):
     cv2.imwrite(savePath + '/' + videoName + '/track_' + videoName + '.jpg', frame2)
     cv2.imwrite(savePath + '/' + videoName + '/org_' + videoName + '.jpg', org_img)
     cv2.imwrite(savePath + '/' + videoName + '/gray_' + videoName + '.jpg', first_gray)
-    cv2.imwrite(savePath + '/' + videoName + '/right_' + videoName + '.jpg', frame3)
+    #cv2.imwrite(savePath + '/' + videoName + '/keypoint_' + videoName + '.jpg', keypoint_img)
     '''
     with open(savePath + '/' + videoName + '/data_' + videoName + '.pickle', 'wb') as f:
         pickle.dump(evalute_list, f)
