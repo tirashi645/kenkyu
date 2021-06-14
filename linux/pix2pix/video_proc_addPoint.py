@@ -189,6 +189,8 @@ def todo(path):
     if rot==1:
         first_frame2 = np.rot90(first_frame2, -1)
 
+
+    print(first_frame2.shape)
     for y in range(first_frame2[16:-16]):
         for x in range(first_frame2[y][16:-16]):
             pict1 = first_frame2[y-15:y+15][x-15:x+15]
