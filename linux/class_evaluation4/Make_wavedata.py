@@ -102,8 +102,8 @@ def todo(path, winsizeNum=25):
 
         # 正しく特徴点と対応点が検出できた点のみに絞る
         # todo: 数フレームおきに特徴点を検出しなおさないと，対応点がなくなるのでエラーになります
-        good_new = next_points[status == 1]
-        good_old = prev_points[status == 1]
+        good_new = next_points
+        good_old = prev_points
         
         # 対応点の是票を保存
         for rank, (prev_p, next_p) in enumerate(zip(good_old, good_new)):
