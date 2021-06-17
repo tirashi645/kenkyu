@@ -171,7 +171,7 @@ def todo(path):
     x = int(x)
     gun_pict = first_frame[y-15:y+15][x-15:x+15]
     target_hist = cv2.calcHist([gun_pict], [0], None, [256], [0, 256])
-    cap2 = cv2.VideoCapture('/media/koshiba/Data/pix2pix/input/video2/' + videoName)# 動画の設定
+    cap2 = cv2.VideoCapture('/media/koshiba/Data/pix2pix/input/video/' + videoName)# 動画の設定
     width2 = int(cap2.get(cv2.CAP_PROP_FRAME_WIDTH))
     height2 = int(cap2.get(cv2.CAP_PROP_FRAME_HEIGHT))
     fps2 = cap2.get(cv2.CAP_PROP_FPS)
