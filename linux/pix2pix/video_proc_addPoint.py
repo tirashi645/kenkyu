@@ -27,7 +27,7 @@ def todo(path):
 
     # 読み込む動画の設定
     videoName = path.split('/')[-1][:-4]
-    savePath = '/media/koshiba/Data/pix2pix/output/proc_feature'
+    savePath = '/media/koshiba/Data/pix2pix/output/proc_feature3'
     cap = cv2.VideoCapture(path)
     print(path[path.rfind('/')+1:])
 
@@ -190,7 +190,7 @@ def todo(path):
         first_frame2 = np.rot90(first_frame2, -1)
 
 
-    print(first_frame2.shape)
+    #print(first_frame2.shape)
     for y in range(first_frame2[16:-16]):
         for x in range(first_frame2[y][16:-16]):
             pict1 = first_frame2[y-15:y+15][x-15:x+15]

@@ -67,6 +67,9 @@ def todo(path):
     pts, keypoint_img = image_keypoint.get_keypoint(first_frame)
     print(pts)
 
+    # 差分モデル
+    subModel = cv2.bgsegm.createBackgroundSubtractorMOG()
+
     # 読み込んだフレームの特徴点を探す
     prev_points = cv2.goodFeaturesToTrack(
         image=first_gray,      # 入力画像
@@ -89,7 +92,7 @@ def todo(path):
                                             (x, y),         # 線を引く始点
                                             2,              # 線を引く終点
                                             color = c[1],   # 描く色 赤
-                                            thickness=3     # 線の太さ
+                                            thickness=5     # 線の太さ
                                         )
             noise[num] = 1
         else:
@@ -98,7 +101,7 @@ def todo(path):
                                             (x, y),         # 線を引く始点
                                             2,              # 線を引く終点
                                             color = c[0],   # 描く色 青
-                                            thickness=3     # 線の太さ
+                                            thickness=5     # 線の太さ
                                         )
     frame = cv2.add(first_frame, flow_layer)
 
@@ -145,7 +148,7 @@ def todo(path):
                                             (x, y),         # 線を引く始点
                                             2,              # 線を引く終点
                                             color = c[1],   # 描く色 赤
-                                            thickness=3     # 線の太さ
+                                            thickness=5     # 線の太さ
                                         )
             noise[num] = 1
         elif point_evalute[num]=='tn':
@@ -154,7 +157,7 @@ def todo(path):
                                             (x, y),         # 線を引く始点
                                             2,              # 線を引く終点
                                             color = c[0],   # 描く色 青
-                                            thickness=3     # 線の太さ
+                                            thickness=5     # 線の太さ
                                         )
         elif point_evalute[num]=='fp':
             flow_layer2 = cv2.circle(
@@ -162,7 +165,7 @@ def todo(path):
                                             (x, y),         # 線を引く始点
                                             2,              # 線を引く終点
                                             color = c[2],   # 描く色 青
-                                            thickness=3     # 線の太さ
+                                            thickness=5     # 線の太さ
                                         )
         elif point_evalute[num]=='fn':
             flow_layer2 = cv2.circle(
@@ -170,7 +173,7 @@ def todo(path):
                                             (x, y),         # 線を引く始点
                                             2,              # 線を引く終点
                                             color = c[3],   # 描く色 青
-                                            thickness=3     # 線の太さ
+                                            thickness=5     # 線の太さ
                                         )
     frame2 = cv2.add(first_frame, flow_layer2)
     frame3 = frame2
