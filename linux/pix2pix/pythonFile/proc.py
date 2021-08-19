@@ -233,8 +233,8 @@ def video_proc_gray(org_img):
 ############################################################
 def video_proc_num(org_img, epoch):
     # generatorモデルの読み込み
-    generator_model = load_model(model_dir + '/generator_'+str(epoch)+'.h5')
-    generator_model.load_weights(model_dir + '/generator_weights_'+str(epoch)+'.h5')
+    generator_model = load_model(model_dir + '/generator_default_'+str(epoch)+'.h5')
+    generator_model.load_weights(model_dir + '/generator_default_weights_'+str(epoch)+'.h5')
 
     img_list = np.array([])     # generatorの入力画像
     org_list = np.array([])     # オリジナルの画像
