@@ -18,7 +18,7 @@ def todo(path):
 
     # 読み込む動画の設定
     videoName = path.split('/')[-1][:-4]
-    savePath = '/media/koshiba/Data/pix2pix/output/proc_default_point3'
+    savePath = '/media/koshiba/Data/pix2pix/output/proc_point3'
     cap = cv2.VideoCapture(path)
     print(path[path.rfind('/')+1:])
 
