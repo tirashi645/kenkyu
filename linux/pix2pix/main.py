@@ -18,8 +18,8 @@ from keras.layers import Input, Concatenate
 from keras.layers.advanced_activations import LeakyReLU
 from keras.layers.normalization import BatchNormalization
 from keras.layers.pooling import MaxPooling2D
-import keras.backend as K
-from keras.callbacks import TensorBoard
+#import keras.backend as K
+#from keras.callbacks import TensorBoard
 
 model_dir = '/media/koshiba/Data/pix2pix/model'
 log_dir = './tflog'
@@ -303,8 +303,8 @@ def train(epoch = 1000):
     #tb_discriminator = TensorBoard(log_dir=log_dir + '/discriminator', histogram_freq=1)
     #tb_discriminator.set_model(discriminator_model)
     
-    tb_dcgan = TensorBoard(log_dir=log_dir + '/dcgan', histogram_freq=1)
-    tb_dcgan.set_model(DCGAN_model)
+    #tb_dcgan = TensorBoard(log_dir=log_dir + '/dcgan', histogram_freq=1)
+    #tb_dcgan.set_model(DCGAN_model)
 
     # start training
     print('start training')
