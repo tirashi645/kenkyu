@@ -120,7 +120,7 @@ print('mask imgs : ', gimgs.shape)
 print('test org  : ', vimgs.shape)
 print('test tset : ', vgimgs.shape)
 
-outh5 = h5py.File(outpath+'/datasetimages.hdf5', 'w')
+outh5 = h5py.File(outpath+'/datasetimages_default.hdf5', 'w')
 outh5.create_dataset('train_data_raw', data=imgs)
 outh5.create_dataset('train_data_gen', data=gimgs)
 outh5.create_dataset('val_data_raw', data=vimgs)
