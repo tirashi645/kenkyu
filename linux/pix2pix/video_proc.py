@@ -68,7 +68,7 @@ def todo(path):
     print(pts)
 
     # 差分モデル
-    subModel = cv2.bgsegm.createBackgroundSubtractorMOG()
+    #subModel = cv2.bgsegm.createBackgroundSubtractorMOG()
 
     # 読み込んだフレームの特徴点を探す
     prev_points = cv2.goodFeaturesToTrack(
