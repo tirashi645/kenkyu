@@ -62,6 +62,7 @@ def todo(path):
                                         thickness=3   # 線の太さ
                                     )
     frame = cv2.add(first_frame, flow_layer)
+    flow_layer2 = np.zeros_like(first_frame)
 
     #######################################
     # クリックした特徴点を正常な特徴点とする
@@ -78,7 +79,6 @@ def todo(path):
                     print(10)
                     break
 
-        flow_layer2 = np.zeros_like(first_frame)
         for index, prev in enumerate(prev_points):
             if noise[index]==0:
                 flow_layer2 = cv2.circle(
@@ -96,17 +96,17 @@ def todo(path):
                                                 color = (0, 0, 255),    # 描く色
                                                 thickness=3   # 線の太さ
                                             )
-        frame2 = cv2.add(first_frame, flow_layer2)
+        frame = cv2.add(first_frame, flow_layer2)
         if noise==hozon:
             break
         hozon = noise
 
     # 結果画像の表示
     cv2.namedWindow("frame", cv2.WINDOW_NORMAL)
-    cv2.imshow("frame", frame2)
+    cv2.imshow("frame", frame)
     cv2.waitKey(0)
     cv2.destroyAllWindows()
-    cv2.imwrite('D:/opticalflow/evaluation/result/' + str(videoName[:-4]) + '_Original.jpg', frame2)
+    cv2.imwrite('D:/opticalflow/evaluation/result/' + str(videoName[:-4]) + '_Original.jpg', frame)
 
     return noise
 
