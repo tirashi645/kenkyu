@@ -1,5 +1,5 @@
 from numpy.lib.npyio import save
-
+import time
 
 def doGet(path, videoName, savePath):
     import Make_wavedata, clusteringPoint, make_figure, make_fft
@@ -7,6 +7,8 @@ def doGet(path, videoName, savePath):
     import os
     import pickle
     import shutil
+    
+    start = time.time()
 
     print(path, videoName, savePath)
 
@@ -84,7 +86,7 @@ if __name__ == "__main__":
 
     # ファイルダイアログからファイルを選択
     typ = [('','*')] 
-    dir = '/media/koshiba/Data/video'
+    dir = 'E:/video'
     path = filedialog.askopenfilename(filetypes = typ, initialdir = dir)
 
     videoDir = path[:path.rfind('/')]
@@ -98,7 +100,7 @@ if __name__ == "__main__":
         for i in videolist:
             dirName = videoDir[videoDir.rfind('/')+1:]
             videoName = i[i.rfind('/')+1:]
-            savePath = '/media/koshiba/Data/opticalflow/point_data/' + dirName + '/' + videoName[:-4]
+            savePath = 'D:/opticalflow/point_data/' + dirName + '/' + videoName[:-4]
             print(savePath)
             videoPath = videoDir + '/' + videoName
             
@@ -106,7 +108,7 @@ if __name__ == "__main__":
     else:
         dirName = videoDir[videoDir.rfind('/')+1:]
         videoName = path[path.rfind('/')+1:-4]
-        savePath = '/media/koshiba/Data/opticalflow/point_data/' + dirName + '/' + videoName
+        savePath = 'D:/opticalflow/point_data/' + dirName + '/' + videoName
         print(savePath)
         videoPath = videoDir + '/' + videoName
 
