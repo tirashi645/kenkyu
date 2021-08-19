@@ -377,8 +377,8 @@ def train(epoch = 1000):
             DCGAN_model.trainable = False
             generator_model.trainable = False
 
-            generator_model.save(model_dir + '/generator_'+str((e+1))+'.h5')
-            generator_model.save_weights(model_dir + '/generator_weights_'+str((e+1))+'.h5')
+            generator_model.save(model_dir + '/generator_default_'+str((e+1))+'.h5')
+            generator_model.save_weights(model_dir + '/generator_default_weights_'+str((e+1))+'.h5')
 
             discriminator_model.trainable = True
             DCGAN_model.trainable = True
