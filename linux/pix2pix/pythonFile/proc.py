@@ -23,11 +23,13 @@ import keras.backend as K
 from keras.preprocessing.image import load_img, img_to_array
 from keras.callbacks import TensorBoard
 
-model_dir = '/media/koshiba/Data/pix2pix/model'
+model_dir = '/media/koshiba/Data/pix2pix/model/'
 log_dir = './tflog'
 datasetpath = '/media/koshiba/Data/pix2pix/output/datasetimages.hdf5'
 outputpath = '/media/koshiba/Data/pix2pix/output'
 inputpath = '/media/koshiba/Data/pix2pix/input'
+modelFile = ' generator_original_model.h5'
+modelWeightFile = 'generator_original_weights_100.h5'
 '''
 procinputpath = '/media/koshiba/Data/pix2pix/proc/input'
 procoutputpath = '/media/koshiba/Data/pix2pix/proc/output'
@@ -118,8 +120,8 @@ def pil2cv(image):
 
 def proc():
     b_id = 0
-    generator_model = load_model(model_dir + '/generator.h5')
-    generator_model.load_weights(model_dir + '/generator_weights.h5')
+    generator_model = load_model(model_dir + modelFile)
+    generator_model.load_weights(model_dir + modelWeightFile)
 
     proc_file = glob.glob(inputpath + '/proc_tmp/*.jpg')
     img_list = np.array([])     # generatorの入力画像
@@ -172,8 +174,8 @@ def proc():
 ############################################################
 def video_proc(org_img):
     # generatorモデルの読み込み
-    generator_model = load_model(model_dir + '/generator_1000.h5')
-    generator_model.load_weights(model_dir + '/generator_weights_1000.h5')
+    generator_model = load_model(model_dir + modelFile)
+    generator_model.load_weights(model_dir + modelWeightFile)
 
     img_list = np.array([])     # generatorの入力画像
     org_list = np.array([])     # オリジナルの画像
@@ -202,8 +204,8 @@ def video_proc(org_img):
 ############################################################
 def video_proc_gray(org_img):
     # generatorモデルの読み込み
-    generator_model = load_model(model_dir + '/generator_100.h5')
-    generator_model.load_weights(model_dir + '/generator_weights_100.h5')
+    generator_model = load_model(model_dir + modelFile)
+    generator_model.load_weights(model_dir + modelWeightFile)
 
     img_list = np.array([])     # generatorの入力画像
     org_list = np.array([])     # オリジナルの画像
@@ -233,8 +235,8 @@ def video_proc_gray(org_img):
 ############################################################
 def video_proc_num(org_img, epoch):
     # generatorモデルの読み込み
-    generator_model = load_model(model_dir + '/generator_default_'+str(epoch)+'.h5')
-    generator_model.load_weights(model_dir + '/generator_default_weights_'+str(epoch)+'.h5')
+    generator_model = load_model(model_dir + modelFile +'.h5')
+    generator_model.load_weights(model_dir + modelWeightFile +'_'+str(epoch)+'.h5')
 
     img_list = np.array([])     # generatorの入力画像
     org_list = np.array([])     # オリジナルの画像
