@@ -18,7 +18,7 @@ def todo(path):
 
     # 読み込む動画の設定
     videoName = path.split('/')[-1][:-4]
-    savePath = '/media/koshiba/Data/pix2pix/output/proc_point_original_100'
+    savePath = '/media/koshiba/Data/pix2pix/output/proc_point_original_1000'
     cap = cv2.VideoCapture(path)
     print(path[path.rfind('/')+1:])
 
@@ -134,51 +134,51 @@ def todo(path):
         f_value = (2 * recall * precision) / (recall + precision)
 
         print('acc:{:.3f}, pre:{:.3f}, rec:{:.3f}, spe:{:.3f}, f_value:{:.3f}'.format(accuracy, precision, recall, specificity, f_value))
-    value_list = [accuracy, precision, recall, specificity, f_value]
-    
-    evalute_list = [value_list, point_data]
+        value_list = [accuracy, precision, recall, specificity, f_value]
+        
+        evalute_list = [value_list, point_data]
 
-    for num, i in enumerate(prev_points):
-        x = int(i[0][0])
-        y = int(i[0][1])
-        #if max(gen_img[y][x]) > 255/2:
-        if point_evalute[num]=='tp':
-            flow_layer2 = cv2.circle(
-                                            flow_layer,     # 描く画像
-                                            (x, y),         # 線を引く始点
-                                            2,              # 線を引く終点
-                                            color = c[1],   # 描く色 赤
-                                            thickness=5     # 線の太さ
-                                        )
-            noise[num] = 1
-        elif point_evalute[num]=='tn':
-            flow_layer2 = cv2.circle(
-                                            flow_layer,     # 描く画像
-                                            (x, y),         # 線を引く始点
-                                            2,              # 線を引く終点
-                                            color = c[0],   # 描く色 青
-                                            thickness=5     # 線の太さ
-                                        )
-        elif point_evalute[num]=='fp':
-            flow_layer2 = cv2.circle(
-                                            flow_layer,     # 描く画像
-                                            (x, y),         # 線を引く始点
-                                            2,              # 線を引く終点
-                                            color = c[2],   # 描く色 青
-                                            thickness=5     # 線の太さ
-                                        )
-        elif point_evalute[num]=='fn':
-            flow_layer2 = cv2.circle(
-                                            flow_layer,     # 描く画像
-                                            (x, y),         # 線を引く始点
-                                            2,              # 線を引く終点
-                                            color = c[3],   # 描く色 青
-                                            thickness=5     # 線の太さ
-                                        )
-    frame2 = cv2.add(first_frame, flow_layer2)
-    frame3 = frame2
-    txt = 'acc:{:.3f}, spe:{:.3f}, f_value:{:.3f}'.format(accuracy, specificity, f_value)
-    cv2.putText(frame3, txt, (10, 30), cv2.FONT_HERSHEY_PLAIN, 1.5, (0, 0, 0), 1, cv2.LINE_AA)
+        for num, i in enumerate(prev_points):
+            x = int(i[0][0])
+            y = int(i[0][1])
+            #if max(gen_img[y][x]) > 255/2:
+            if point_evalute[num]=='tp':
+                flow_layer2 = cv2.circle(
+                                                flow_layer,     # 描く画像
+                                                (x, y),         # 線を引く始点
+                                                2,              # 線を引く終点
+                                                color = c[1],   # 描く色 赤
+                                                thickness=5     # 線の太さ
+                                            )
+                noise[num] = 1
+            elif point_evalute[num]=='tn':
+                flow_layer2 = cv2.circle(
+                                                flow_layer,     # 描く画像
+                                                (x, y),         # 線を引く始点
+                                                2,              # 線を引く終点
+                                                color = c[0],   # 描く色 青
+                                                thickness=5     # 線の太さ
+                                            )
+            elif point_evalute[num]=='fp':
+                flow_layer2 = cv2.circle(
+                                                flow_layer,     # 描く画像
+                                                (x, y),         # 線を引く始点
+                                                2,              # 線を引く終点
+                                                color = c[2],   # 描く色 青
+                                                thickness=5     # 線の太さ
+                                            )
+            elif point_evalute[num]=='fn':
+                flow_layer2 = cv2.circle(
+                                                flow_layer,     # 描く画像
+                                                (x, y),         # 線を引く始点
+                                                2,              # 線を引く終点
+                                                color = c[3],   # 描く色 青
+                                                thickness=5     # 線の太さ
+                                            )
+        frame2 = cv2.add(first_frame, flow_layer2)
+        frame3 = frame2
+        txt = 'acc:{:.3f}, spe:{:.3f}, f_value:{:.3f}'.format(accuracy, specificity, f_value)
+        cv2.putText(frame3, txt, (10, 30), cv2.FONT_HERSHEY_PLAIN, 1.5, (0, 0, 0), 1, cv2.LINE_AA)
 
     if not os.path.exists(savePath + '/' + videoName):
         os.makedirs(savePath + '/' + videoName)
