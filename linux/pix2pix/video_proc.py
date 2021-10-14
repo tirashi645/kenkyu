@@ -179,6 +179,8 @@ def todo(path):
         frame3 = frame2
         txt = 'acc:{:.3f}, spe:{:.3f}, f_value:{:.3f}'.format(accuracy, specificity, f_value)
         cv2.putText(frame3, txt, (10, 30), cv2.FONT_HERSHEY_PLAIN, 1.5, (0, 0, 0), 1, cv2.LINE_AA)
+    else:
+        evalute_list = [0, 0, 0, 0, 0]
 
     if not os.path.exists(savePath + '/' + videoName):
         os.makedirs(savePath + '/' + videoName)
