@@ -18,7 +18,7 @@ def todo(path):
 
     # 読み込む動画の設定
     videoName = path.split('/')[-1][:-4]
-    savePath = '/media/koshiba/Data/pix2pix/output/proc_point_original_500'
+    savePath = '/media/koshiba/Data/pix2pix/output/generator_100.h5'
     cap = cv2.VideoCapture(path)
     print(path[path.rfind('/')+1:])
 
@@ -179,8 +179,6 @@ def todo(path):
         frame3 = frame2
         txt = 'acc:{:.3f}, spe:{:.3f}, f_value:{:.3f}'.format(accuracy, specificity, f_value)
         cv2.putText(frame3, txt, (10, 30), cv2.FONT_HERSHEY_PLAIN, 1.5, (0, 0, 0), 1, cv2.LINE_AA)
-    else:
-        evalute_list = [0, 0, 0, 0, 0]
 
     if not os.path.exists(savePath + '/' + videoName):
         os.makedirs(savePath + '/' + videoName)
@@ -191,8 +189,8 @@ def todo(path):
     #cv2.imwrite(savePath + '/' + videoName + '/' + videoName + '_evalute.jpg', frame2)
     cv2.imwrite(savePath + '/' + videoName + '/org_' + videoName + '.jpg', org_img)
     cv2.imwrite(savePath + '/' + videoName + '/gray_' + videoName + '.jpg', first_gray)
-    #cv2.imwrite(savePath + '/' + videoName + '/keypoint_' + videoName + '.jpg', keypoint_img)
-    #cv2.imwrite('/media/koshiba/Data/pix2pix/output/proc_pict/' + videoName + '.jpg', frame3)
+    cv2.imwrite(savePath + '/' + videoName + '/keypoint_' + videoName + '.jpg', keypoint_img)
+    cv2.imwrite('/media/koshiba/Data/pix2pix/output/proc_pict/' + videoName + '.jpg', frame3)
     with open(savePath + '/' + videoName + '/data_' + videoName + '.pickle', 'wb') as f:
         pickle.dump(evalute_list, f)
     return evalute_list
