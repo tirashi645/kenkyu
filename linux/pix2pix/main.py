@@ -23,7 +23,9 @@ from keras.layers.pooling import MaxPooling2D
 
 model_dir = '/media/koshiba/Data/pix2pix/model'
 log_dir = './tflog'
-datasetpath = '/media/koshiba/Data/pix2pix/output/datasetimages_default.hdf5'
+data_level = 'original' # 背景変更なし
+#data_level = 'default'  # 背景変更あり
+datasetpath = '/media/koshiba/Data/pix2pix/output/datasetimages_'+data_level+'.hdf5'
 outputpath = '/media/koshiba/Data/pix2pix/output'
 procinputpath = '/media/koshiba/Data/pix2pix/proc/input'
 procoutputpath = '/media/koshiba/Data/pix2pix/proc/output'
@@ -377,8 +379,8 @@ def train(epoch = 1000):
             DCGAN_model.trainable = False
             generator_model.trainable = False
 
-            generator_model.save(model_dir + '/generator_default_'+str((e+1))+'.h5')
-            generator_model.save_weights(model_dir + '/generator_default_weights_'+str((e+1))+'.h5')
+            generator_model.save(model_dir + '/generator_'+data_level+'_model.h5')
+            generator_model.save_weights(model_dir + '/generator_'+data_level+'_weights_'+str((e+1))+'.h5')
 
             discriminator_model.trainable = True
             DCGAN_model.trainable = True
