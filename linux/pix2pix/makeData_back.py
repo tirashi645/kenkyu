@@ -96,7 +96,8 @@ for file_num, data in enumerate(files_org):
         org_augment = np.append(org_augment, data)
         if i == 4:
             break
-
+'''
+    # 背景を変更する
     for i in num_list:
         org_img = '/media/koshiba/Data/pix2pix/input/synthetic/' + img_name + '_' + str(i) + '.jpg'
         print(org_img)
@@ -110,7 +111,7 @@ for file_num, data in enumerate(files_org):
         img1 = masks[-1]
         img2 = orgs[-1]
         for i, data in enumerate(mask_datagen.flow(img1[np.newaxis, :, :, :], y=None, batch_size=1, shuffle=False, seed=seed)):
-            print(type[(data), data.shape)
+            #print(type[(data), data.shape)
             data = cv2.cvtColor(data[0], cv2.COLOR_BGR2GRAY)
             masks_augment = np.append(masks_augment, data)
             if i == 4:
@@ -120,7 +121,7 @@ for file_num, data in enumerate(files_org):
             org_augment = np.append(org_augment, data)
             if i == 4:
                 break
-
+'''
 
 '''
 for index in range(len(masks)):
@@ -158,7 +159,7 @@ print('mask imgs : ', gimgs.shape)
 print('test org  : ', vimgs.shape)
 print('test tset : ', vgimgs.shape)
 
-outh5 = h5py.File(outpath+'/datasetimages.hdf5', 'w')
+outh5 = h5py.File(outpath+'/datasetimages_original.hdf5', 'w')
 outh5.create_dataset('train_data_raw', data=imgs)
 outh5.create_dataset('train_data_gen', data=gimgs)
 outh5.create_dataset('val_data_raw', data=vimgs)
