@@ -90,7 +90,7 @@ if __name__ == "__main__":
     videoDir = path[:path.rfind('/')]
     videolist = glob.glob(videoDir + "/*")
     print(path, videoDir)
-
+                
     print('Process all the files? (yes, no) :', end=" ")
     flag = input() 
 
