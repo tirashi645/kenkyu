@@ -11,7 +11,7 @@ for type_data in li:
         dir_name = cls_dir.split('/')[-1]
         print(dir_name)
         files = glob.glob(cls_dir)
-        print('/media/koshiba/Data/sportConpetitive/vgg/'+type_data+'/'+dir_name)
+        print(files)
         for i, file in enumerate(files):
             print(file)
             if not os.path.exists('/media/koshiba/Data/sportConpetitive/vgg/'+type_data+'/'+dir_name):
