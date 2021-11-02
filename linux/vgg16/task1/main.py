@@ -17,11 +17,11 @@ OUTPUT_DIR = "/media/koshiba/Data/sportConpetitive/vgg/output/"
 ROWS = 150
 COLS = 150
 CHANNELS = 3
-print(os.listdir(TRAIN_DIR+'refree/'))
+#print(os.listdir(TRAIN_DIR+'refree/'))
 
-train_refree = [TRAIN_DIR + i for i in os.listdir(TRAIN_DIR) if 'refree' in i]
-train_player = [TRAIN_DIR + i for i in os.listdir(TRAIN_DIR) if 'player' in i]
-train_ow = [TRAIN_DIR + i for i in os.listdir(TRAIN_DIR) if 'ow' in i]
+train_refree = [TRAIN_DIR+'refree/' + i for i in os.listdir(TRAIN_DIR+'refree/')]
+train_player = [TRAIN_DIR+'player/' + i for i in os.listdir(TRAIN_DIR+'player/')]
+train_ow = [TRAIN_DIR+'ow/' + i for i in os.listdir(TRAIN_DIR+'ow/')]
 
 test_images = [TEST_DIR + i for i in os.listdir(TEST_DIR)]
 train_images = train_refree + train_player + train_ow
