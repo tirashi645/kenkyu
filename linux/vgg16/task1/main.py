@@ -40,6 +40,7 @@ def prep_data(images):
     data = np.ndarray((count, ROWS, COLS, CHANNELS), dtype=np.uint8)
     
     for i, image_file in enumerate(images):
+        print(image_file)
         image = read_image(image_file)
         
         data[i] = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
