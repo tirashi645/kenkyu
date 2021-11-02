@@ -17,7 +17,7 @@ OUTPUT_DIR = "/media/koshiba/Data/sportConpetitive/vgg/output/"
 ROWS = 150
 COLS = 150
 CHANNELS = 3
-print(os.listdir(TRAIN_DIR+'*'))
+print(os.listdir(TRAIN_DIR+'refree/'))
 
 train_refree = [TRAIN_DIR + i for i in os.listdir(TRAIN_DIR) if 'refree' in i]
 train_player = [TRAIN_DIR + i for i in os.listdir(TRAIN_DIR) if 'player' in i]
