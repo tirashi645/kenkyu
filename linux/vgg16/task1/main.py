@@ -23,8 +23,13 @@ train_refree = [TRAIN_DIR+'refree/' + i for i in os.listdir(TRAIN_DIR+'refree/')
 train_player = [TRAIN_DIR+'player/' + i for i in os.listdir(TRAIN_DIR+'player/')]
 train_ow = [TRAIN_DIR+'ow/' + i for i in os.listdir(TRAIN_DIR+'ow/')]
 
-test_images = [TEST_DIR + i for i in os.listdir(TEST_DIR)]
+test_refree = [TEST_DIR+'refree/' + i for i in os.listdir(TEST_DIR+'refree/')]
+test_player = [TEST_DIR+'player/' + i for i in os.listdir(TEST_DIR+'player/')]
+test_ow = [TEST_DIR+'ow/' + i for i in os.listdir(TEST_DIR+'ow/')]
+
+#test_images = [TEST_DIR + i for i in os.listdir(TEST_DIR)]
 train_images = train_refree + train_player + train_ow
+test_images = test_refree + test_player + test_ow
 
 random.shuffle(train_images)
 
