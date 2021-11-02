@@ -1,7 +1,7 @@
 import glob
 import os
 import shutil
-
+    
 li = ['train', 'test']
 
 for type_data in li:

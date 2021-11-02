@@ -10,9 +10,9 @@ from tensorflow.keras.layers import Input, Flatten, Conv2D, MaxPooling2D, Dense,
 from tensorflow.keras.callbacks import Callback, EarlyStopping
 from tensorflow.keras.utils import to_categorical
 
-TRAIN_DIR = ""
-TEST_DIR = ""
-OUTPUT_DIR = ""
+TRAIN_DIR = "/media/koshiba/Data/sportConpetitive/vgg/trian"
+TEST_DIR = "/media/koshiba/Data/sportConpetitive/vgg/test"
+OUTPUT_DIR = "/media/koshiba/Data/sportConpetitive/vgg/output"
 
 ROWS = 150
 COLS = 150
@@ -138,10 +138,12 @@ plt.ylabel('Loss')
 plt.title('Judo-Net trend')
 plt.plot(loss, 'blue', label='training Loss')
 plt.plot(val_loss, 'red', label='Validation Loss')
-plt.xticks(range(0,nb_epoch)[0::5])
+plt.xticks(range(0,epochs)[0::5])
 plt.legend()
 plt.savefig(OUTPUT_DIR + '/fig.jpg')
 
 score = model.evaluate(test_data, test_labels, verbose=1)
 print('Test loss:', score[0])
 print('Test acuuracy:', score[1])
+
+print(nb_epochs)
