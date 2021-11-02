@@ -45,6 +45,7 @@ def prep_data(images):
     
     return data
 
+print(train_images)
 train_data = prep_data(train_images)
 test_data = prep_data(test_images)
 
