@@ -30,7 +30,7 @@ test_ow = [TEST_DIR+'ow/' + i for i in os.listdir(TEST_DIR+'ow/')]
 
 #test_images = [TEST_DIR + i for i in os.listdir(TEST_DIR)]
 train_images = train_refree + train_player + train_ow
-test_images = test_refree# + test_player + test_ow
+test_images = test_refree ~ test_ow# + test_player + test_ow
 
 random.shuffle(train_images)
 
@@ -158,3 +158,6 @@ plt.savefig(OUTPUT_DIR + '/fig.jpg')
 score = model.evaluate(test_data, test_labels, verbose=1)
 print('Test loss:', score[0])
 print('Test acuuracy:', score[1])
+
+model.save(OUTPUT_DIR + 'judo_model.h5')
+model.save_weights(OUTPUT_DIR + 'judo_model_weight.h5')
