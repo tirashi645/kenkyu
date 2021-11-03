@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 from matplotlib import ticker
 from PIL import Image
 
-from tensorflow.keras.models import Sequential, VGG16, Model
+from tensorflow.keras.models import Sequential, VGG16, Model, ResNet
 from tensorflow.keras.layers import Input, Flatten, Conv2D, MaxPooling2D, Dense, Activation, Dropout
 from tensorflow.keras.callbacks import Callback, EarlyStopping
 from tensorflow.keras.utils import to_categorical
@@ -95,7 +95,7 @@ objective = 'categorical_crossentropy'
 # モデル構築
 def judo_model():
     input_tensor = Input(shape=(ROWS, COLS, CHANNELS))
-    vgg16 = VGG16(include_top=False, weights='imagenet', input_tensor=input_tensor)
+    vgg16 = ResNet(include_top=False, weights='imagenet', input_tensor=input_tensor)
     top_model = Sequential()
     top_model.add(Flatten(input_shape=vgg16.output_shape[1:]))
     top_model.add(Dense(256, activation='relu', kernel_initializer='he_normal'))
