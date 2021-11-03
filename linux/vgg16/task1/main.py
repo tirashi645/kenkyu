@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 from matplotlib import ticker
 from PIL import Image
 
-from tensorflow.keras.models import Sequential, VGG16, Model, ResNet
+from tensorflow.keras.models import Sequential, Model, ResNet
 from tensorflow.keras.layers import Input, Flatten, Conv2D, MaxPooling2D, Dense, Activation, Dropout
 from tensorflow.keras.callbacks import Callback, EarlyStopping
 from tensorflow.keras.utils import to_categorical
