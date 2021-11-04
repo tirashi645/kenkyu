@@ -159,5 +159,5 @@ score = model.evaluate(test_data, test_labels, verbose=1)
 print('Test loss:', score[0])
 print('Test acuuracy:', score[1])
 
-model.save(OUTPUT_DIR + 'judo_model.h5')
-model.save_weights(OUTPUT_DIR + 'judo_model_weight.h5')
+model.save(OUTPUT_DIR + 'judo_model2.h5')
+model.save_weights(OUTPUT_DIR + 'judo_model2_weight.h5')
