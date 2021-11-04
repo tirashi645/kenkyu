@@ -4,11 +4,11 @@ import shutil
 
 li1 = ['train', 'test']
 
-classPath = glob.glob('/media/koshiba/Data/sportConpetitive/data2/test/**/')
+classPath = glob.glob('/media/koshiba/Data/sportConpetitive/data2/test/**')
 print(classPath)
 for i, cls in enumerate(classPath):
     dataPath = glob.glob(cls + '/**/*.jpg', recursive=True)
-    cls_name = cls.split('/')[-2]
+    cls_name = cls.split('/')[-1]
     print(cls_name)
     
     for j, data in enumerate(dataPath):
