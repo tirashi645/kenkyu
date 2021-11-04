@@ -6,4 +6,4 @@ print(classPath)
 
 for cls in classPath:
     dataPath = glob.glob(cls + '/**/*.jpg', recursive=True)
-    print(dataPath[0])
+    print(dataPath[:10])
