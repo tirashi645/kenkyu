@@ -20,7 +20,7 @@ for i, cls in enumerate(classPath):
             if data.split('/')[-2]!=tmp:
                 cnt = 0
                 tmp = data.split('/')[-2]
-            if cnt%30==0:
+            if cnt%300==0:
                 if not data.split('/')[-2]=='fig':
                     shutil.copyfile(data, '/media/koshiba/Data/sportConpetitive/vgg16/train/'+cls_name+'/'+cls_name+'_'+str(j)+'.jpg')
                 else:
