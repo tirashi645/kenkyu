@@ -6,4 +6,4 @@ print(classPath)
 
 for cls in classPath:
     dataPath = glob.glob(cls + '/*', recursive=True)
-    print(dataPath)
+    print(dataPath[0])
