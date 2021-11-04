@@ -27,4 +27,6 @@ for i, cls in enumerate(classPath):
                     print(data)
             cnt += 1
         else:
-            shutil.copyfile(data, '/media/koshiba/Data/sportConpetitive/vgg16/train/'+cls_name+'/'+cls_name+'_'+str(j)+'.jpg')
+            if cnt%10==0:
+                shutil.copyfile(data, '/media/koshiba/Data/sportConpetitive/vgg16/train/'+cls_name+'/'+cls_name+'_'+str(j)+'.jpg')
+            cnt += 1
