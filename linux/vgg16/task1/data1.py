@@ -9,7 +9,7 @@ print(classPath)
 for i, cls in enumerate(classPath):
     dataPath = glob.glob(cls + '/**/*.jpg', recursive=True)
     cls_name = cls.split('/')[-1]
-    print(cls_name)
+    print(cls.split('/'))
     
     for j, data in enumerate(dataPath):
         if not os.path.exists('/media/koshiba/Data/sportConpetitive/vgg_data/test/' + cls_name):
