@@ -16,17 +16,19 @@ for i, cls in enumerate(classPath):
     for j, data in enumerate(dataPath):
         if not os.path.exists('/media/koshiba/Data/sportConpetitive/vgg16/test/' + cls_name):
             os.makedirs('/media/koshiba/Data/sportConpetitive/vgg16/test/' + cls_name)
-        if cls.split('/')[-1]=='ow':
-            if data.split('/')[-2]!=tmp:
-                cnt = 0
-                tmp = data.split('/')[-2]
-            if cnt%300==0:
-                if not data.split('/')[-2]=='fig':
-                    shutil.copyfile(data, '/media/koshiba/Data/sportConpetitive/vgg16/test/'+cls_name+'/'+cls_name+'_'+str(j)+'.jpg')
-                else:
-                    print(data)
-            cnt += 1
+        #if cls.split('/')[-1]=='ow':
+        if data.split('/')[-2]!=tmp:
+            cnt = 0
+            tmp = data.split('/')[-2]
+        if cnt%200==0:
+            if not data.split('/')[-2]=='fig':
+                shutil.copyfile(data, '/media/koshiba/Data/sportConpetitive/vgg16/test/'+cls_name+'/'+cls_name+'_'+str(j)+'.jpg')
+            else:
+                print(data)
+        cnt += 1
+        '''
         else:
             if cnt%10==0:
                 shutil.copyfile(data, '/media/koshiba/Data/sportConpetitive/vgg16/test/'+cls_name+'/'+cls_name+'_'+str(j)+'.jpg')
-            cnt += 1
+        cnt += 1
+        '''

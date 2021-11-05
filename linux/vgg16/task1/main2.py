@@ -54,7 +54,7 @@ def prep_data(images):
     return data
 
 #print(train_images)
-train_data = prep_data(train_images)
+#train_data = prep_data(train_images)
 test_data = prep_data(test_images)
 
 # 正規化
@@ -87,6 +87,19 @@ for i in test_images:
 # convert to one-hot-label
 train_labels = to_categorical(train_labels, 3)
 test_labels = to_categorical(test_labels, 3)
+
+def get_batch(batch_size):
+    global train_images, train_labels
+    size = len(train_labels)
+    
+    n_batchs = size // batch_size
+    i = 0
+    while(i < n_batchs):
+        print('doing',i,'/',n_batchs)
+        batch_label = train_labels[(i*n_batchs):(i*n_batchs+batch_size)]
+        batch_data = np.array(prep_data(train_images[(i*n_batchs):(i*n_batchs+batch_size)])).reshape(batch_size, ROWS, COLS, CHANNELS)
+        i += 1
+        yield batch_data, batch_label
 
 # 最適化アルゴリズム
 optimizer = 'SGD'
@@ -134,16 +147,22 @@ class LossHistory(Callback):
 # EarlyStopping
 early_stopping = EarlyStopping(monitor='val_loss', patience=10, verbose=1, mode='auto')
 
-def run_judo_discriminator():
-    history = LossHistory()
-    model.fit(train_data, train_labels, batch_size=batch_size, epochs=epochs, validation_split=0.3, verbose=1, shuffle=True, callbacks=[history, early_stopping])
+for epoch in range(epochs):
+    print('='*50)
+    print(epoch, '/', epochs)
+    acc = []
     
-    predictions = model.predict(test_data, verbose=1)
-    return predictions, history
+    for batch_data, batch_label in get_batch(batch_size):
+        model.train_on_batch(batch_data, batch_label)
+        score = model.evaluate(batch_data, batch_label)
+        print('batch accuracy:', score[1])
+        acc.append(score[1])
+    print('Train acuuracy', np.mean(acc))
+    score = model.evaluate(prep_data(test_images), test_labels)
+    print('Test loss:', score[0])
+    print('Test accuracy:', score[1])
 
-predictions, history = run_judo_discriminator()
-    
-
+'''
 loss = history.losses
 val_loss = history.val_losses
 
@@ -159,6 +178,7 @@ plt.savefig(OUTPUT_DIR + '/fig.jpg')
 score = model.evaluate(test_data, test_labels, verbose=1)
 print('Test loss:', score[0])
 print('Test acuuracy:', score[1])
+'''
 
 model.save(OUTPUT_DIR + 'judo_model2.h5')
 model.save_weights(OUTPUT_DIR + 'judo_model2_weight.h5')
