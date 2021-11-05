@@ -49,7 +49,7 @@ def prep_data(images):
         print(image_file)
         image = read_image(image_file)
         
-        data[i] = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+        data[i] = cv2.cvtColor(image, cv2.COLOR_BGR2RGB).astype('float32')/255.0
     
     return data
 
@@ -58,8 +58,8 @@ train_data = prep_data(train_images)
 test_data = prep_data(test_images)
 
 # 正規化
-train_data = train_data.astype('float32')
-train_data = train_data/255.0
+#train_data = train_data.astype('float32')
+#train_data = train_data/255.0
 
 # ラベルデータの作成
 train_labels = []
