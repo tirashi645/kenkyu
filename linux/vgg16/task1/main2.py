@@ -46,7 +46,6 @@ def prep_data(images):
     data = np.ndarray((count, ROWS, COLS, CHANNELS), dtype=np.uint8)
     
     for i, image_file in enumerate(images):
-        print(image_file)
         image = read_image(image_file)
         
         data[i] = cv2.cvtColor(image, cv2.COLOR_BGR2RGB).astype('float32')/255.0
@@ -55,7 +54,7 @@ def prep_data(images):
 
 #print(train_images)
 #train_data = prep_data(train_images)
-test_data = prep_data(test_images)
+#test_data = prep_data(test_images)
 
 # 正規化
 #train_data = train_data.astype('float32')
