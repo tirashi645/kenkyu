@@ -121,7 +121,7 @@ model = judo_model()
 # number of epochs
 epochs = 30
 # batch_size
-batch_size = 20
+batch_size = 200
 
 # monitor the trend of losses
 class LossHistory(Callback):
@@ -134,7 +134,7 @@ class LossHistory(Callback):
         self.val_losses.append(logs.get('val_loss'))
         
 # EarlyStopping
-early_stopping = EarlyStopping(monitor='val_loss', patience=10, verbose=1, mode='auto')
+early_stopping = EarlyStopping(monitor='val_loss', patience=10, verbose=1, mode='c')
 
 def run_judo_discriminator():
     history = LossHistory()
