@@ -101,7 +101,9 @@ def judo_model():
     model.add(MaxPooling2D(pool_size=(2,2)))
     model.add(Flatten())
     model.add(Dense(120, activation='relu', kernel_initializer='he_normal'))
+    model.dropout(0.5)
     model.add(Dense(60, activation='relu', kernel_initializer='he_normal'))
+    model.dropout(0.5)
     model.add(Dense(3, activation='relu', kernel_initializer='he_normal'))
     model.summary()
     
