@@ -47,6 +47,7 @@ def prep_data(images):
     
     for i, image_file in enumerate(images):
         image = read_image(image_file)
+        image = cv2.resize(image, (ROWS, COLS))
         
         data[i] = cv2.cvtColor(image, cv2.COLOR_BGR2RGB).astype('float32')/255.0
     
