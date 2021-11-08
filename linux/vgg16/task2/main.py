@@ -11,8 +11,8 @@ from tensorflow.keras.callbacks import Callback, EarlyStopping
 from tensorflow.keras.utils import to_categorical
 
 TRAIN_DIR = "/media/koshiba/Data/sportConpetitive/train/"
-TEST_DIR = "/media/koshiba/Data/sportConpetitive/test/"
-OUTPUT_DIR = "/media/koshiba/Data/sportConpetitive/output/"
+TEST_DIR = "/media/koshiba/Data/sportConpetitive/vgg16/test/"
+OUTPUT_DIR = "/media/koshiba/Data/sportConpetitive/vgg16/output/"
 
 ROWS = 50
 COLS = 50
