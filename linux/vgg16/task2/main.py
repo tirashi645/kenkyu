@@ -131,7 +131,7 @@ early_stopping = EarlyStopping(monitor='val_loss', patience=10, verbose=1, mode=
 
 def run_judo_discriminator():
     history = LossHistory()
-    model.fit(train_data, train_labels, batch_size=batch_size, epochs=epochs, validation_split=0.1, verbose=1, shuffle=True, callbacks=[history, early_stopping])
+    model.fit(train_data, train_labels, batch_size=batch_size, epochs=epochs, validation_split=0.1, verbose=1, shuffle=True, callbacks=[history])
     
     predictions = model.predict(test_data, verbose=1)
     return predictions, history
