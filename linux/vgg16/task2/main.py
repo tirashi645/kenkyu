@@ -6,7 +6,7 @@ from matplotlib import ticker
 from PIL import Image
 
 from tensorflow.keras.models import Sequential
-from tensorflow.keras.layers import Input, Flatten, Conv2D, MaxPooling2D, Dense, Activation
+from tensorflow.keras.layers import Input, Flatten, Conv2D, MaxPooling2D, Dense, Activation, Dropout
 from tensorflow.keras.callbacks import Callback, EarlyStopping
 from tensorflow.keras.utils import to_categorical
 
@@ -101,9 +101,9 @@ def judo_model():
     model.add(MaxPooling2D(pool_size=(2,2)))
     model.add(Flatten())
     model.add(Dense(120, activation='relu', kernel_initializer='he_normal'))
-    model.dropout(0.5)
+    model.add(Dropout(0.5))
     model.add(Dense(60, activation='relu', kernel_initializer='he_normal'))
-    model.dropout(0.5)
+    model.add(Dropout(0.5))
     model.add(Dense(3, activation='relu', kernel_initializer='he_normal'))
     model.summary()
     
