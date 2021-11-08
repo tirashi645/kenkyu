@@ -132,7 +132,7 @@ model = judo_model()
 epochs = 10
 # batch_size
 #batch_size = len(train_images) // 10
-batch_size = 30
+batch_size = 300
 
 # monitor the trend of losses
 class LossHistory(Callback):
