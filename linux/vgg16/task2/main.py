@@ -10,9 +10,9 @@ from tensorflow.keras.layers import Input, Flatten, Conv2D, MaxPooling2D, Dense,
 from tensorflow.keras.callbacks import Callback, EarlyStopping
 from tensorflow.keras.utils import to_categorical
 
-TRAIN_DIR = "/media/koshiba/Data/sportConpetitive/vgg/train/"
-TEST_DIR = "/media/koshiba/Data/sportConpetitive/vgg/test/"
-OUTPUT_DIR = "/media/koshiba/Data/sportConpetitive/vgg/output/"
+TRAIN_DIR = "/media/koshiba/Data/sportConpetitive/vgg16/train/"
+TEST_DIR = "/media/koshiba/Data/sportConpetitive/vgg16/test/"
+OUTPUT_DIR = "/media/koshiba/Data/sportConpetitive/vgg16/output/"
 
 ROWS = 150
 COLS = 150
@@ -29,7 +29,7 @@ test_ow = [TEST_DIR+'ow/' + i for i in os.listdir(TEST_DIR+'ow/')]
 
 #test_images = [TEST_DIR + i for i in os.listdir(TEST_DIR)]
 train_images = train_refree + train_player + train_ow
-test_images = test_refree + test_player + test_ow
+test_images = test_refree + test_player + test_ow[::10]
 
 random.shuffle(train_images)
 
