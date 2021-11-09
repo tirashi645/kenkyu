@@ -63,6 +63,7 @@ for file_num, dataPath in enumerate(train_images):
     img2 = orgs[-1]
     for i, data in enumerate(image_datagen.flow(img2[np.newaxis, :, :, :], y=None, batch_size=1, shuffle=False, seed=seed)):
         data = cv2.cvtColor(data[0], cv2.COLOR_BGR2GRAY)
+        print(dataPath)
         cv2.imwrite(dataPath[:-4] + str(i) + '.jpg')
         if i == 4:
             break
