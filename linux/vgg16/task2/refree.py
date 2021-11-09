@@ -5,7 +5,8 @@ import matplotlib.pyplot as plt
 from matplotlib import ticker
 from PIL import Image
 
-from tensorflow.keras.models import Sequential
+from tensorflow.keras.applications.resnet50 import ResNet50
+from tensorflow.keras.models import Sequential, Model
 from tensorflow.keras.layers import Input, Flatten, Conv2D, MaxPooling2D, Dense, Activation, Dropout
 from tensorflow.keras.callbacks import Callback, EarlyStopping
 from tensorflow.keras.utils import to_categorical
@@ -112,6 +113,27 @@ def judo_model():
     model.add(Dense(60, activation='relu', kernel_initializer='he_normal'))
     model.add(Dropout(0.5))
     model.add(Dense(3, activation='relu', kernel_initializer='he_normal'))
+    model.summary()
+    
+    model.compile(loss=objective, optimizer=optimizer, metrics=['accuracy'])
+    
+    return model
+
+
+def res_model():
+    input_tensor = Input(shape=(ROWS, COLS, CHANNELS))
+    vgg16 = ResNet50(include_top=False, weights='imagenet', input_tensor=input_tensor)
+    top_model = Sequential()
+    top_model.add(Flatten(input_shape=vgg16.output_shape[1:]))
+    top_model.add(Dense(256, activation='relu', kernel_initializer='he_normal'))
+    top_model.add(Dropout(0.5))
+    top_model.add(Dense(3, activation='relu', kernel_initializer='he_normal'))
+    
+    model = Model(inputs=vgg16.input, outputs=top_model(vgg16.output))
+    
+    for layer in model.layers[:15]:
+        layer.trainable = False
+    
     model.summary()
     
     model.compile(loss=objective, optimizer=optimizer, metrics=['accuracy'])
