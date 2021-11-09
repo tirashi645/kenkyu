@@ -19,13 +19,13 @@ COLS = 50
 CHANNELS = 3
 #print(os.listdir(TRAIN_DIR+'refree/'))
 
-train_refree = [TRAIN_DIR+'refree/' + i for i in os.listdir(TRAIN_DIR+'refree/')]
-train_player = [TRAIN_DIR+'player/' + i for i in os.listdir(TRAIN_DIR+'player/')]
-train_ow = [TRAIN_DIR+'ow/' + i for i in os.listdir(TRAIN_DIR+'ow/')]
+train_refree = [TRAIN_DIR+'ippon/' + i for i in os.listdir(TRAIN_DIR+'ippon/')]
+train_player = [TRAIN_DIR+'wazaari/' + i for i in os.listdir(TRAIN_DIR+'wazaari/')]
+train_ow = [TRAIN_DIR+'normal/' + i for i in os.listdir(TRAIN_DIR+'normal/')]
 
-test_refree = [TEST_DIR+'refree/' + i for i in os.listdir(TEST_DIR+'refree/')]
-test_player = [TEST_DIR+'player/' + i for i in os.listdir(TEST_DIR+'player/')]
-test_ow = [TEST_DIR+'ow/' + i for i in os.listdir(TEST_DIR+'ow/')]
+test_refree = [TEST_DIR+'ippon/' + i for i in os.listdir(TEST_DIR+'ippon/')]
+test_player = [TEST_DIR+'wazaari/' + i for i in os.listdir(TEST_DIR+'wazaari/')]
+test_ow = [TEST_DIR+'normal/' + i for i in os.listdir(TEST_DIR+'normal/')]
 
 #test_images = [TEST_DIR + i for i in os.listdir(TEST_DIR)]
 train_images = train_refree + train_player + train_ow
@@ -64,24 +64,24 @@ train_data = train_data/255.0
 # ラベルデータの作成
 train_labels = []
 for i in train_images:
-    if 'refree' in i:
+    if 'ippon' in i:
         train_labels.append(0)
 for i in train_images:
-    if 'player' in i:
+    if 'wazaari' in i:
         train_labels.append(1)
 for i in train_images:
-    if 'ow' in i:
+    if 'normal' in i:
         train_labels.append(2)
         
 test_labels = []
 for i in test_images:
-    if 'refree' in i:
+    if 'ippon' in i:
         test_labels.append(0)
 for i in test_images:
-    if 'player' in i:
+    if 'wazaari' in i:
         test_labels.append(1)
 for i in test_images:
-    if 'ow' in i:
+    if 'normal' in i:
         test_labels.append(2)
 
 # convert to one-hot-label
