@@ -6,6 +6,7 @@ from matplotlib import ticker
 from PIL import Image
 
 from tensorflow.keras.applications.resnet50 import ResNet50
+from tensorflow.keras.applications.vgg16 import VGG16
 from tensorflow.keras.models import Sequential, Model
 from tensorflow.keras.layers import Input, Flatten, Conv2D, MaxPooling2D, Dense, Activation, Dropout
 from tensorflow.keras.callbacks import Callback, EarlyStopping
@@ -57,7 +58,7 @@ def prep_data(images):
     return data
 
 
-    
+
 print(train_images)
 train_data = prep_data(train_images)
 test_data = prep_data(test_images)
@@ -92,8 +93,6 @@ for i in test_images:
 # convert to one-hot-label
 train_labels = to_categorical(train_labels, 3)
 test_labels = to_categorical(test_labels, 3)
-
-
 
 # 最適化アルゴリズム
 optimizer = 'SGD'
@@ -140,7 +139,7 @@ def res_model():
     
     return model
 
-model = judo_model()
+model = res_model()
 
 # number of epochs
 epochs = 300
