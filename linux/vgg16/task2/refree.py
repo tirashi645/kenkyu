@@ -188,6 +188,5 @@ print('Test acuuracy:', score[1])
 model.save(OUTPUT_DIR + 'judo_model2.h5')
 model.save_weights(OUTPUT_DIR + 'judo_model2_weight.h5')
 #print(nb_epochs)
-for path in test_images:
-    x = cv2.imread(path)
-    print(model.predict(x))
+x_test = prep_data(test_images)
+print(model.predict(x_test))
