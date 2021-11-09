@@ -36,8 +36,8 @@ test_ow = [TEST_DIR+'normal/' + i for i in os.listdir(TEST_DIR+'normal/')]
 train_images = train_refree + train_player + train_ow
 test_images = test_refree + test_player + test_ow
 
-params = dict(featurewise_center=True,
-            featurewise_std_normalization=True,
+params = dict(#featurewise_center=True,
+            #featurewise_std_normalization=True,
             width_shift_range=0.1,
             height_shift_range=0.1,
             zoom_range=0.1,
