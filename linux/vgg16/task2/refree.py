@@ -143,7 +143,7 @@ def res_model():
 model = judo_model()
 
 # number of epochs
-epochs = 30
+epochs = 300
 # batch_size
 batch_size = 20
 
