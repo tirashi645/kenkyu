@@ -141,7 +141,7 @@ def todo(path, time):
         prev_points = good_new.reshape(-1, 1, 2)
         result_img = frame
         framelist.append(1)
-
+    
     cap.release()
     print(np.array(zahyou).shape)
 
@@ -231,18 +231,26 @@ def todo(path, time):
                 y2.append(zahyou_data[1])
 
         # figure
-        fig = plt.figure(figsize=(14,10))
+        bairutu = 10
+        spines = 3*bairutu
+        fig = plt.figure(figsize=(14*bairutu,10*bairutu))
         ax = fig.add_subplot(1, 1, 1)
 
         # plot
-        ax.scatter(x0, y0, color='r')
-        ax.scatter(x1, y1, color='b')
-        ax.scatter(x2, y2, color='g')
+        ax.scatter(x0, y0, color='r', s=(360*bairutu))
+        ax.scatter(x1, y1, color='b', s=(360*bairutu))
+        ax.scatter(x2, y2, color='g', s=(360*bairutu))
+        
+        #軸の太さの調整。方向を辞書のキーとして渡し、set_linewidthで大きさを微調整できる
+        ax.spines["top"].set_linewidth(spines)
+        ax.spines["left"].set_linewidth(spines)
+        ax.spines["bottom"].set_linewidth(spines)
+        ax.spines["right"].set_linewidth(spines)
 
         #plt.title('Method-1', fontsize=36)
-        plt.xlabel('victor in x', fontsize=36)
-        plt.ylabel('victor in y', fontsize=36)
-        plt.tick_params(labelsize=36)
+        plt.xlabel('vector in x', fontsize=36*bairutu)
+        plt.ylabel('vector in y', fontsize=36*bairutu)
+        plt.tick_params(labelsize=36*bairutu)
         # プロットした画像を保存する
         plt.savefig('D:/opticalflow/evaluation/plt/class1/' + videoName[:-4] + '_figure.png')
 
@@ -345,18 +353,26 @@ def todo(path, time):
                 fft_2y.append(normal_fft[i][1])
 
         # figure
-        fig = plt.figure(figsize=(14,10))
+        bairitu = 10
+        spines = 3*bairitu
+        fig = plt.figure(figsize=(14*bairitu,10*bairitu))
         ax = fig.add_subplot(1, 1, 1)
 
         # plot
-        ax.scatter(fft_0x, fft_0y, color='b', s=36)
-        ax.scatter(fft_1x, fft_1y, color='r', s=36)
-        ax.scatter(fft_2x, fft_2y, color='g', s=36)
+        ax.scatter(fft_0x, fft_0y, color='b', s=(360*bairitu))
+        ax.scatter(fft_1x, fft_1y, color='r', s=(360*bairitu))
+        ax.scatter(fft_2x, fft_2y, color='g', s=(360*bairitu))
+        
+        #軸の太さの調整。方向を辞書のキーとして渡し、set_linewidthで大きさを微調整できる
+        ax.spines["top"].set_linewidth(spines)
+        ax.spines["left"].set_linewidth(spines)
+        ax.spines["bottom"].set_linewidth(spines)
+        ax.spines["right"].set_linewidth(spines)
 
         #plt.title('Method-2', fontsize=36)
-        plt.xlabel('vector in x', fontsize=36)
-        plt.ylabel('vector in y', fontsize=36)
-        plt.tick_params(labelsize=36)
+        plt.xlabel('vector in x', fontsize=36*bairitu)
+        plt.ylabel('vector in y', fontsize=36*bairitu)
+        plt.tick_params(labelsize=36*bairitu)
         plt.savefig('D:/opticalflow/evaluation/plt/class2/' + videoName[:-4] + '_figure.png')
 
         return label
@@ -477,7 +493,7 @@ def todo(path, time):
     vector2:初期フレームとの座標誤差(ユークリッド距離), フレーム数-1  :float
     np_err: vector1 - vector2, フレーム数-1  :ndarray
     '''
-
+        
     for point_data in zahyou:
         vector1 = []
         vector2 = []
@@ -523,6 +539,8 @@ def todo(path, time):
 
         # 手法３を実行
         hz_fft3, num_fft3 = class3(np_err_normal, hz_fft3, num_fft3)
+
+
 
     # 手法１～３を実行
     class1Data = class1_output(class1_err, zahyou)

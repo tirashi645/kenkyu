@@ -1,4 +1,4 @@
-def todo(path, classlist, original):
+def todo(path, classlist):
     import numpy as np
     import cv2
     from pythonFile import click_pct

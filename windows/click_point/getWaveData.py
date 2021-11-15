@@ -3,6 +3,7 @@ import sys
 import numpy as np
 from tkinter import filedialog
 import copy
+import matplotlib.pyplot as plt
 
 clickPoint = [0, 0]
 flag = 0
@@ -200,7 +201,7 @@ if __name__ == '__main__':
     cap.release()
     print(np.array(zahyou).shape)
     
-    for point_data in zahyou:
+    for i,point_data in enumerate(zahyou):
         vector1 = []    # 初期フレーム
         vector2 = []    # フレーム間
         vector_num = []
@@ -225,6 +226,36 @@ if __name__ == '__main__':
                 vector_num.append(index)
                 # 次のフレームの準備
                 a = b
+        
+        bairitu = 10
+        spines = 3*bairitu
+        fig = plt.figure(figsize=(14*bairitu,10*bairitu))
+        ax = fig.add_subplot(1, 1, 1)
+        y = [f+1 for f in range(len(vector1))]
+
+        # plot
+        ax.plot(y, vector1, color='b', linewidth=(4*bairitu))
+        
+        #軸の太さの調整。方向を辞書のキーとして渡し、set_linewidthで大きさを微調整できる
+        ax.spines["top"].set_linewidth(spines)
+        ax.spines["left"].set_linewidth(spines)
+        ax.spines["bottom"].set_linewidth(spines)
+        ax.spines["right"].set_linewidth(spines)
+
+        #plt.title('Method-2', fontsize=36)
+        plt.xlabel('frame number', fontsize=36*bairitu)
+        plt.ylabel('distance', fontsize=36*bairitu)
+        plt.tick_params(labelsize=36*bairitu)
+        plt.savefig('D:/opticalflow/evaluation/vector/' + str(i) + '_wave.jpg')
+        px = int(point_data[0][0])
+        py = int(point_data[0][1])
+        p1 = max(0, py-20)
+        p2 = min(height, py+20)
+        p3 = max(0, px-20)
+        p4 = min(width, px+20)
+        cv2.imwrite('D:/opticalflow/evaluation/vector/' + str(i) + '_pict.jpg', first_frame[p1:p2][p3:p4])
+        plt.close()
+        
                 
     for i in FirstZahyou:
         flow_layer = cv2.circle(

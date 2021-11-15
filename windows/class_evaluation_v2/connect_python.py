@@ -20,6 +20,7 @@ start = time.time()
 
 noise = clusteringPoint.todo(path)
 classList = Make_wavedata.todo(path, time_data)
+savePict.todo(path, classList)
 print(noise)
 
 predList = [[],[],[]]
