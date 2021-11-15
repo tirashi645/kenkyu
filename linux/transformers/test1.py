@@ -17,19 +17,19 @@ def plot_results(pil_img, prob, boxes):
     ax = plt.gca()
     colors = COLORS * 100
     for p, (xmin, ymin, xmax, ymax), c in zip(prob, boxes.tolist(), colors):
-    cl = p.argmax()
-    if model.config.id2label[cl.item()]=='person':
-        centerX = (xmin + xmax) / 2
-        centerY = (ymin + ymax) / 2
-        ax.add_patch(plt.Rectangle((xmin, ymin), xmax - xmin, ymax - ymin,
-                                    fill=False, color=c, linewidth=3))
-        ax.scatter(centerX, centerY, color=c)
-        
-        text = f'{model.config.id2label[cl.item()]}: {p[cl]:0.2f}'
-        ax.text(xmin, ymin, text, fontsize=15,
-                bbox=dict(facecolor='yellow', alpha=0.5))
-    plt.axis('off')
-    plt.show()
+        cl = p.argmax()
+        if model.config.id2label[cl.item()]=='person':
+            centerX = (xmin + xmax) / 2
+            centerY = (ymin + ymax) / 2
+            ax.add_patch(plt.Rectangle((xmin, ymin), xmax - xmin, ymax - ymin,
+                                        fill=False, color=c, linewidth=3))
+            ax.scatter(centerX, centerY, color=c)
+            
+            text = f'{model.config.id2label[cl.item()]}: {p[cl]:0.2f}'
+            ax.text(xmin, ymin, text, fontsize=15,
+                    bbox=dict(facecolor='yellow', alpha=0.5))
+        plt.axis('off')
+        plt.show()
 
 def plot_save(pil_img, prob, boxes, image_name):
     for i, p, (xmin, ymin, xmax, ymax)in enumerate(zip(prob, boxes.tolist())):
