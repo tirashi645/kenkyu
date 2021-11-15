@@ -12,4 +12,4 @@ print(image_list)
 for image_path in image_list:
     cap = cv2.VideoCapture(image_path)
     ret, frame = cap.read()
-    cv2.imwrite(save_path + image_path.split('/')[-1] + '.jpg')
+    cv2.imwrite(save_path + image_path.split('/')[-1] + '.jpg', frame)
