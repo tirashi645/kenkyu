@@ -11,7 +11,7 @@ from tensorflow.keras.layers import Input, Flatten, Conv2D, MaxPooling2D, Dense,
 from tensorflow.keras.callbacks import Callback, EarlyStopping
 from tensorflow.keras.utils import to_categorical
 
-TRAIN_DIR = "/media/koshiba/Data/sportConpetitive/vgg16/train/"
+TRAIN_DIR = "/media/koshiba/Data/sportConpetitive/train/"
 TEST_DIR = "/media/koshiba/Data/sportConpetitive/test/"
 OUTPUT_DIR = "/media/koshiba/Data/sportConpetitive/vgg16/output/"
 
