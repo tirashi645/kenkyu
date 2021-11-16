@@ -142,7 +142,7 @@ def res_model():
 model = res_model()
 
 # number of epochs
-epochs = 300
+epochs = 30
 # batch_size
 batch_size = 20
 
