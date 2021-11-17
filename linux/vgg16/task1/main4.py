@@ -19,13 +19,13 @@ import tensorflow.keras.backend as K
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 from tensorflow.keras.optimizers import Adam
 
-TRAIN_DIR = "/media/koshiba/Data/sportConpetitive/judo_data/train2/"
-TEST_DIR = "/media/koshiba/Data/sportConpetitive/judo_data/test2/"
-VALIDATION_DIR = "/media/koshiba/Data/sportConpetitive/judo_data/validation2/"
-OUTPUT_DIR = "/media/koshiba/Data/sportConpetitive/vgg16/output/"
 
-ROWS = 150
-COLS = 150
+TRAIN_DIR = "/media/koshiba/Data/sportConpetitive/refree/train/"
+TEST_DIR = "/media/koshiba/Data/sportConpetitive/refree/test/"
+OUTPUT_DIR = "/media/koshiba/Data/sportConpetitive/refree/output/"
+
+ROWS = 50
+COLS = 50
 CHANNELS = 3
 
 #print(os.listdir(TRAIN_DIR+'refree/'))
