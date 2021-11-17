@@ -41,7 +41,7 @@ test_ow = [TEST_DIR+'normal/' + i for i in os.listdir(TEST_DIR+'normal/')]
 
 #test_images = [TEST_DIR + i for i in os.listdir(TEST_DIR)]
 train_images = train_refree + train_player + train_ow
-test_images = test_refree + test_player + test_ow
+test_images = test_refree + test_player + test_ow[::5]
 
 random.shuffle(train_images)
 
