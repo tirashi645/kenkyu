@@ -41,7 +41,7 @@ def read_image(file_path):
     image = cv2.imread(file_path, cv2.IMREAD_COLOR)
     #image_gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
     
-    return cv2.resize(image, (ROWS, COLS), interpolation=cv2.INTER_CUBIC)
+    return cv2.resize(image, (ROWS, COLS, CHANNELS), interpolation=cv2.INTER_CUBIC)
 
 # 各データの準備
 def prep_data(images):
