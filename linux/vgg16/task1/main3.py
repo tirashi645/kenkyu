@@ -129,7 +129,7 @@ predict_prob = model.predict(x_test)
 predict_classes=np.argmax(predict_prob,axis=1)
 print(predict_classes)
 
-print('Accuracy:',accuracy_score(y_labels,predict_classes, average='micro'))
+#print('Accuracy:',accuracy_score(y_labels,predict_classes, average='micro'))
 print('Precision:', precision_score(y_labels,predict_classes, average='micro'))
 print('Recall:', recall_score(y_labels,predict_classes, average='micro'))
 print('F1 score:', f1_score(y_labels,predict_classes, average='micro'))
