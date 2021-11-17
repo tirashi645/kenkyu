@@ -19,7 +19,7 @@ OUTPUT_DIR = "/media/koshiba/Data/sportConpetitive/vgg16/output/"
 
 ROWS = 150
 COLS = 150
-CHANNELS = 3
+CHANNELS = 1
 #print(os.listdir(TRAIN_DIR+'refree/'))
 
 train_refree = [TRAIN_DIR+'refree/' + i for i in os.listdir(TRAIN_DIR+'refree/')]
@@ -39,8 +39,9 @@ random.shuffle(train_images)
 # 画像をリサイズして統一
 def read_image(file_path):
     image = cv2.imread(file_path, cv2.IMREAD_COLOR)
+    image_gray = cv2.cvtColor(image, cv2.COLOR_BGR2FRAY)
     
-    return cv2.resize(image, (ROWS, COLS), interpolation=cv2.INTER_CUBIC)
+    return cv2.resize(image_gray, (ROWS, COLS), interpolation=cv2.INTER_CUBIC)
 
 # 各データの準備
 def prep_data(images):
