@@ -5,6 +5,8 @@ import matplotlib.pyplot as plt
 from matplotlib import ticker
 from PIL import Image
 
+from sklearn.metrics import confusion_matrix, accuracy_score, precision_score, recall_score, f1_score
+
 from tensorflow.keras.applications.vgg16 import VGG16
 from tensorflow.keras.applications.resnet50 import ResNet50
 from tensorflow.keras.models import Sequential, Model
@@ -111,6 +113,8 @@ for i in test_images:
 for i in test_images:
     if 'ow' in i:
         test_labels.append(2)
+
+y_labels = test_labels
 
 # convert to one-hot-label
 train_labels = to_categorical(train_labels, 3)
@@ -240,3 +244,8 @@ predict_prob = model.predict(x_test)
 #print(model.predict_classes(x_test))
 predict_classes=np.argmax(predict_prob,axis=1)
 print(predict_classes)
+
+print('Accuracy:',accuracy_score(y_labels,predict_classes))
+print('Precision:', precision_score(y_labels,predict_classes))
+print('Recall:', recall_score(y_labels,predict_classes))
+print('F1 score:', f1_score(y_labels,predict_classes))
