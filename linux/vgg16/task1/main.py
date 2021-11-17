@@ -39,9 +39,9 @@ random.shuffle(train_images)
 # 画像をリサイズして統一
 def read_image(file_path):
     image = cv2.imread(file_path, cv2.IMREAD_COLOR)
-    image_gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+    #image_gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
     
-    return cv2.resize(image_gray, (ROWS, COLS), interpolation=cv2.INTER_CUBIC)
+    return cv2.resize(image, (ROWS, COLS), interpolation=cv2.INTER_CUBIC)
 
 # 各データの準備
 def prep_data(images):
@@ -52,7 +52,8 @@ def prep_data(images):
         print(image_file)
         image = read_image(image_file)
         
-        data[i] = cv2.cvtColor(image, cv2.COLOR_BGR2RGB).astype('float32')/255.0
+        #data[i] = cv2.cvtColor(image, cv2.COLOR_BGR2RGB).astype('float32')/255.0
+        data[i] = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY).astype('float32')/255.0
     
     return data
 
