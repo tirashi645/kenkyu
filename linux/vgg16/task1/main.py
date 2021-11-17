@@ -154,7 +154,7 @@ def judo_model():
     top_model.add(Dense(60, activation='relu', kernel_initializer='he_normal'))
     top_model.add(Dense(3, activation='sigmoid'))
     
-    #model = Model(inputs=vgg16.input, outputs=top_model(vgg16.output))
+    model = Model(inputs=vgg16.input, outputs=top_model(vgg16.output))
     
     for layer in top_model.layers[:15]:
         layer.trainable = False
@@ -174,9 +174,9 @@ def judo_model():
     top_model.add(Dense(3, activation='sigmoid', kernel_initializer='he_normal'))
     '''
     
-    top_model.summary()
-    top_model.compile(loss=objective, optimizer=optimizer, metrics=['accuracy'])
-    return top_model
+    model.summary()
+    model.compile(loss=objective, optimizer=optimizer, metrics=['accuracy'])
+    return model
 
 model = judo_model()
 
