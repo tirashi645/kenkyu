@@ -194,6 +194,7 @@ def run_judo_discriminator():
 
 predictions, history = run_judo_discriminator()
 
+'''
 loss = history.losses
 val_loss = history.val_losses
 
@@ -205,6 +206,7 @@ plt.plot(val_loss, 'red', label='Validation Loss')
 plt.xticks(range(0,epochs)[0::5])
 plt.legend()
 plt.savefig(OUTPUT_DIR + '/fig.jpg')
+'''
 
 score = model.evaluate(test_data, test_labels, verbose=1)
 print('Test loss:', score[0])
