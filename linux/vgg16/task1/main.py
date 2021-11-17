@@ -8,6 +8,7 @@ from PIL import Image
 from tensorflow.keras.applications.vgg16 import VGG16
 from tensorflow.keras.applications.resnet50 import ResNet50
 from tensorflow.keras.models import Sequential, Model
+from tensorflow.keras import models
 from tensorflow.keras.layers import Input, Flatten, Conv2D, MaxPooling2D, Dense, Activation, Dropout
 from tensorflow.keras.callbacks import Callback, EarlyStopping
 from tensorflow.keras.utils import to_categorical
@@ -145,7 +146,7 @@ def judo_model():
     input_tensor = Input(shape=(ROWS, COLS, CHANNELS))
     #vgg16 = ResNet50(include_top=False, weights='imagenet', input_tensor=input_tensor)
     vgg16 = VGG16(include_top=False, weights='imagenet', input_tensor=input_tensor)
-    top_model = Sequential()
+    top_model = models.Sequential()
     top_model.add(Flatten(input_shape=vgg16.output_shape[1:]))
     top_model.add(Dense(120, activation='relu', kernel_initializer='he_normal'))
     top_model.add(Dropout(0.5))
@@ -153,12 +154,13 @@ def judo_model():
     top_model.add(Dropout(0.5))
     top_model.add(Dense(3, activation='sigmoid'))
     
-    model = Model(inputs=vgg16.input, outputs=top_model(vgg16.output))
+    #model = Model(inputs=vgg16.input, outputs=top_model(vgg16.output))
     
-    for layer in model.layers[:15]:
-        layer.trainable = False
+    #for layer in model.layers[:15]:
+    #    layer.trainable = False
+    vgg16.trainable = False
     
-    model.summary()
+    top_model.summary()
     '''
     model = Sequential()
     model.add(Conv2D(6, kernel_size=(5,5), activation='relu', kernel_initializer='he_normal', input_shape=(ROWS, COLS, CHANNELS)))
@@ -174,7 +176,7 @@ def judo_model():
     model.summary()
     '''
     
-    model.compile(loss=objective, optimizer=optimizer, metrics=['accuracy'])
+    top_model.compile(loss=objective, optimizer=optimizer, metrics=['accuracy'])
     return model
 
 model = judo_model()
