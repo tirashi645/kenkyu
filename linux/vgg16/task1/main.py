@@ -21,8 +21,8 @@ TEST_DIR = "/media/koshiba/Data/sportConpetitive/judo_data/test2/"
 VALIDATION_DIR = "/media/koshiba/Data/sportConpetitive/judo_data/validation2/"
 OUTPUT_DIR = "/media/koshiba/Data/sportConpetitive/vgg16/output/"
 
-ROWS = 150
-COLS = 150
+ROWS = 224
+COLS = 224
 CHANNELS = 3
 #print(os.listdir(TRAIN_DIR+'refree/'))
 
