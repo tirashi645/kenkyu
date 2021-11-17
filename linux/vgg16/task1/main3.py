@@ -132,11 +132,11 @@ print(predict_classes)
 for i, data in enumerate(test_images):
     image = cv2.imread(data)
     if predict_classes[i]==0:
-        cv2.imwrite("/media/koshiba/Data/sportConpetitive/judo_data/output/refree/"+image.split('/')[-1], image)
+        cv2.imwrite("/media/koshiba/Data/sportConpetitive/judo_data/output/refree/"+data.split('/')[-1], image)
     elif predict_classes[i]==1:
-        cv2.imwrite("/media/koshiba/Data/sportConpetitive/judo_data/output/player/"+image.split('/')[-1], image)
+        cv2.imwrite("/media/koshiba/Data/sportConpetitive/judo_data/output/player/"+data.split('/')[-1], image)
     elif predict_classes[i]==2:
-        cv2.imwrite("/media/koshiba/Data/sportConpetitive/judo_data/output/ow/"+image.split('/')[-1], image)
+        cv2.imwrite("/media/koshiba/Data/sportConpetitive/judo_data/output/ow/"+data.split('/')[-1], image)
 
 #print('Accuracy:',accuracy_score(y_labels,predict_classes, average='weighted'))
 print('Precision:', precision_score(y_labels,predict_classes, average='weighted'))
