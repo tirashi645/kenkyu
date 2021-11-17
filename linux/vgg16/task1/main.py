@@ -21,8 +21,8 @@ TEST_DIR = "/media/koshiba/Data/sportConpetitive/judo_data/test2/"
 VALIDATION_DIR = "/media/koshiba/Data/sportConpetitive/judo_data/validation2/"
 OUTPUT_DIR = "/media/koshiba/Data/sportConpetitive/vgg16/output/"
 
-ROWS = 224
-COLS = 224
+ROWS = 150
+COLS = 150
 CHANNELS = 3
 #print(os.listdir(TRAIN_DIR+'refree/'))
 
@@ -154,7 +154,7 @@ def judo_model():
     #top_model.add(vgg16)
     #top_model.add(Flatten())
     top_model.add(Dense(512, activation='relu', kernel_initializer='he_normal'))
-    top_model.add(Dropout(0.5))
+    #top_model.add(Dropout(0.5))
     top_model.add(Dense(60, activation='relu', kernel_initializer='he_normal'))
     top_model.add(Dense(3, activation='sigmoid'))
     
@@ -187,7 +187,7 @@ model = judo_model()
 # number of epochs
 epochs = 120
 # batch_size
-batch_size = 30
+batch_size = 15
 
 # monitor the trend of losses
 class LossHistory(Callback):
