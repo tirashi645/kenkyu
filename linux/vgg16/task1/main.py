@@ -85,33 +85,27 @@ train_labels = []
 for i in train_images:
     if 'refree' in i:
         train_labels.append(0)
-for i in train_images:
-    if 'player' in i:
+    elif 'player' in i:
         train_labels.append(1)
-for i in train_images:
-    if 'ow' in i:
+    elif 'ow' in i:
         train_labels.append(2)
         
 validation_labels = []
 for i in validation_images:
     if 'refree' in i:
         validation_labels.append(0)
-for i in validation_images:
-    if 'player' in i:
+    elif 'player' in i:
         validation_labels.append(1)
-for i in validation_images:
-    if 'ow' in i:
+    elif 'ow' in i:
         validation_labels.append(2)
         
 test_labels = []
 for i in test_images:
     if 'refree' in i:
         test_labels.append(0)
-for i in test_images:
-    if 'player' in i:
+    elif 'player' in i:
         test_labels.append(1)
-for i in test_images:
-    if 'ow' in i:
+    elif 'ow' in i:
         test_labels.append(2)
 
 y_labels = test_labels
@@ -189,7 +183,7 @@ def judo_model():
 model = judo_model()
 
 # number of epochs
-epochs = 1000
+epochs = 100
 # batch_size
 batch_size = 32
 
