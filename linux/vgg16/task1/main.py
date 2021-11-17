@@ -113,7 +113,7 @@ augmentation_train_datagen = ImageDataGenerator(
     rescale = 1./255
     )
 #学習用のバッチの生成
-augmentation_train_generator = augmentation_train_datagen.flow(train_data, train_labels, batch_size=32, seed=0)
+augmentation_train_data = augmentation_train_datagen.flow(train_data, train_labels, batch_size=32, seed=0)
 
 # 最適化アルゴリズム
 optimizer = 'SGD'
@@ -166,7 +166,8 @@ early_stopping = EarlyStopping(monitor='val_loss', patience=10, verbose=1, mode=
 
 def run_judo_discriminator():
     history = LossHistory()
-    model.fit(train_data, train_labels, batch_size=batch_size, epochs=epochs, validation_split=0.3, verbose=1, shuffle=True, callbacks=[history, early_stopping])
+    #model.fit(train_data, train_labels, batch_size=batch_size, epochs=epochs, validation_split=0.3, verbose=1, shuffle=True, callbacks=[history, early_stopping])
+    model.fit(augmentation_train_data, batch_size=batch_size, epochs=epochs, validation_split=0.3, verbose=1, shuffle=True, callbacks=[history, early_stopping])
     
     predictions = model.predict(test_data, verbose=1)
     return predictions, history
