@@ -35,8 +35,8 @@ test_ow = [TEST_DIR+'normal/' + i for i in os.listdir(TEST_DIR+'normal/')]
 
 
 #test_images = [TEST_DIR + i for i in os.listdir(TEST_DIR)]
-train_images = train_refree + train_player# + train_ow
-test_images = test_refree + test_player# + test_ow
+train_images = train_refree + train_player + train_ow
+test_images = test_refree + test_player + test_ow
 
 random.shuffle(train_images)
 
@@ -81,7 +81,7 @@ for i in train_images:
         train_labels.append(1)
 for i in train_images:
     if 'normal' in i:
-        train_labels.append(1)
+        train_labels.append(2)
         
 test_labels = []
 for i in test_images:
@@ -92,11 +92,11 @@ for i in test_images:
         test_labels.append(1)
 for i in test_images:
     if 'normal' in i:
-        test_labels.append(1)
+        test_labels.append(2)
         
 # convert to one-hot-label
-train_labels = to_categorical(train_labels, 2)
-test_labels = to_categorical(test_labels, 2)
+train_labels = to_categorical(train_labels, 3)
+test_labels = to_categorical(test_labels, 3)
 
 #学習用のImageDataGeneratorクラスの作成
 augmentation_train_datagen = ImageDataGenerator(
@@ -135,7 +135,7 @@ def judo_model():
     top_model.add(Flatten())
     top_model.add(Dense(512, activation='relu', kernel_initializer='he_normal'))
     top_model.add(Dense(60, activation='relu', kernel_initializer='he_normal'))
-    top_model.add(Dense(2, activation='sigmoid'))
+    top_model.add(Dense(3, activation='sigmoid'))
     
     model = Model(inputs=vgg16.input, outputs=top_model(vgg16.output))
     
