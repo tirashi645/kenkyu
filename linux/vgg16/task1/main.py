@@ -130,7 +130,7 @@ augmentation_train_datagen = ImageDataGenerator(
     #ランダムにズーム
     zoom_range = 0.2,
     #チャンネルシフト
-    channel_shift_range = 0.2,
+    #channel_shift_range = 0.2,
     #スケーリング
     rescale = 1./255
     )
