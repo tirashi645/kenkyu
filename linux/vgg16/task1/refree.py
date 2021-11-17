@@ -76,22 +76,18 @@ train_labels = []
 for i in train_images:
     if 'ippon' in i:
         train_labels.append(0)
-for i in train_images:
-    if 'wazaari' in i:
+    elif 'wazaari' in i:
         train_labels.append(1)
-for i in train_images:
-    if 'normal' in i:
+    elif 'normal' in i:
         train_labels.append(2)
         
 test_labels = []
 for i in test_images:
     if 'ippon' in i:
         test_labels.append(0)
-for i in test_images:
-    if 'wazaari' in i:
+    elif 'wazaari' in i:
         test_labels.append(1)
-for i in test_images:
-    if 'normal' in i:
+    elif 'normal' in i:
         test_labels.append(2)
         
 # convert to one-hot-label

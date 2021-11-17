@@ -83,33 +83,27 @@ train_labels = []
 for i in train_images:
     if 'refree' in i:
         train_labels.append(0)
-for i in train_images:
-    if 'player' in i:
+    elif 'player' in i:
         train_labels.append(1)
-for i in train_images:
-    if 'ow' in i:
+    elif 'ow' in i:
         train_labels.append(2)
         
 validation_labels = []
 for i in validation_images:
     if 'refree' in i:
         validation_labels.append(0)
-for i in validation_images:
-    if 'player' in i:
+    elif 'player' in i:
         validation_labels.append(1)
-for i in validation_images:
-    if 'ow' in i:
+    elif 'ow' in i:
         validation_labels.append(2)
         
 test_labels = []
 for i in test_images:
     if 'refree' in i:
         test_labels.append(0)
-for i in test_images:
-    if 'player' in i:
+    elif 'player' in i:
         test_labels.append(1)
-for i in test_images:
-    if 'ow' in i:
+    elif 'ow' in i:
         test_labels.append(2)
 
 y_labels = test_labels
@@ -119,8 +113,8 @@ train_labels = to_categorical(train_labels, 3)
 validation_labels = to_categorical(validation_labels, 3)
 test_labels = to_categorical(test_labels, 3)
 
-model = load_model(OUTPUT_DIR + 'judo_model2.h5')
-model.load_weights(OUTPUT_DIR + 'judo_model2_weight.h5')
+model = load_model(OUTPUT_DIR + 'judo_model4.h5')
+model.load_weights(OUTPUT_DIR + 'judo_model4_weight.h5')
 
 x_test = prep_data(test_images)
 print(model.predict(x_test))
