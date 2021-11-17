@@ -139,8 +139,8 @@ augmentation_train_data = augmentation_train_datagen.flow(train_data, train_labe
 augmentation_validation_data = augmentation_train_datagen.flow(validation_data, validation_labels, batch_size=32, seed=1234)
 
 # 最適化アルゴリズム
-#optimizer = 'SGD'
-optimizer = Adam(lr=0.001)
+optimizer = 'SGD'
+#optimizer = Adam(lr=0.001)
 # 目的関数
 objective = 'categorical_crossentropy'
 
