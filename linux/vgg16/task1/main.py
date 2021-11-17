@@ -85,7 +85,7 @@ for i in train_images:
         train_labels.append(1)
 for i in train_images:
     if 'ow' in i:
-        train_labels.append(2)
+        train_labels.append(1)
         
 validation_labels = []
 for i in validation_images:
@@ -96,7 +96,7 @@ for i in validation_images:
         validation_labels.append(1)
 for i in validation_images:
     if 'ow' in i:
-        validation_labels.append(2)
+        validation_labels.append(1)
         
 test_labels = []
 for i in test_images:
@@ -107,7 +107,7 @@ for i in test_images:
         test_labels.append(1)
 for i in test_images:
     if 'ow' in i:
-        test_labels.append(2)
+        test_labels.append(1)
 
 # convert to one-hot-label
 train_labels = to_categorical(train_labels, 2)
