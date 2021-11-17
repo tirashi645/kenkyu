@@ -170,4 +170,9 @@ model.save_weights(OUTPUT_DIR + 'judo_model2_weight.h5')
 
 x_test = prep_data(test_images)
 print(type(model.predict(x_test)))
-print(model.predict_classes(x_test))
+x_predict = []
+for i in model.predict(x_test):
+    for cnt, j in enumerate(i):
+        if j==1:
+            x_predict.append(cnt)
+print(x_predict)
