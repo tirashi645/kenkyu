@@ -38,9 +38,9 @@ test_player = [TEST_DIR+'player/' + i for i in os.listdir(TEST_DIR+'player/')]
 test_ow = [TEST_DIR+'ow/' + i for i in os.listdir(TEST_DIR+'ow/')]
 
 #test_images = [TEST_DIR + i for i in os.listdir(TEST_DIR)]
-train_images = train_refree + train_player# + train_ow[::3]
-validation_images = validation_refree + validation_player# + validation_ow[::2]
-test_images = test_refree + test_player# + test_ow[::4]
+train_images = train_refree + train_player + train_ow[::3]
+validation_images = validation_refree + validation_player + validation_ow[::2]
+test_images = test_refree + test_player + test_ow[::4]
 
 random.shuffle(train_images)
 random.shuffle(validation_images)
@@ -87,7 +87,7 @@ for i in train_images:
         train_labels.append(1)
 for i in train_images:
     if 'ow' in i:
-        train_labels.append(1)
+        train_labels.append(2)
         
 validation_labels = []
 for i in validation_images:
@@ -98,7 +98,7 @@ for i in validation_images:
         validation_labels.append(1)
 for i in validation_images:
     if 'ow' in i:
-        validation_labels.append(1)
+        validation_labels.append(2)
         
 test_labels = []
 for i in test_images:
@@ -109,12 +109,12 @@ for i in test_images:
         test_labels.append(1)
 for i in test_images:
     if 'ow' in i:
-        test_labels.append(1)
+        test_labels.append(2)
 
 # convert to one-hot-label
-train_labels = to_categorical(train_labels, 2)
-validation_labels = to_categorical(validation_labels, 2)
-test_labels = to_categorical(test_labels, 2)
+train_labels = to_categorical(train_labels, 3)
+validation_labels = to_categorical(validation_labels, 3)
+test_labels = to_categorical(test_labels, 3)
 
 #学習用のImageDataGeneratorクラスの作成
 augmentation_train_datagen = ImageDataGenerator(
@@ -145,21 +145,22 @@ objective = 'categorical_crossentropy'
 # モデル構築
 def judo_model():
     input_tensor = Input(shape=(ROWS, COLS, CHANNELS))
-    #vgg16 = ResNet50(include_top=False, weights='imagenet', input_tensor=input_tensor)
+    vgg16 = ResNet50(include_top=False, weights='imagenet', input_tensor=input_tensor)
     #vgg16 = VGG16(include_top=False, weights='imagenet', input_tensor=input_tensor)
     top_model = models.Sequential()
-    #top_model.add(Flatten(input_shape=vgg16.output_shape[1:]))
-    #top_model.add(vgg16)
-    #top_model.add(Flatten())
+    top_model.add(Flatten(input_shape=vgg16.output_shape[1:]))
+    top_model.add(vgg16)
+    top_model.add(Flatten())
     top_model.add(Dense(512, activation='relu', kernel_initializer='he_normal'))
-    top_model.add(Dense(60, activation='relu', kernel_initializer='he_normal'))
+    top_model.add(Dropout(0.5))
+    #top_model.add(Dense(60, activation='relu', kernel_initializer='he_normal'))
     top_model.add(Dense(2, activation='sigmoid'))
     
-    #model = Model(inputs=vgg16.input, outputs=top_model(vgg16.output))
+    model = Model(inputs=vgg16.input, outputs=top_model(vgg16.output))
     
-    #for layer in top_model.layers[:15]:
-    #    layer.trainable = False
-    #vgg16.trainable = False
+    for layer in top_model.layers[:15]:
+        layer.trainable = False
+    vgg16.trainable = False
     
     '''
     top_model = Sequential()
@@ -201,8 +202,8 @@ early_stopping = EarlyStopping(monitor='val_loss', patience=10, verbose=1, mode=
 
 def run_judo_discriminator():
     history = LossHistory()
-    model.fit(train_data, train_labels, batch_size=batch_size, epochs=epochs, validation_split=0.3, verbose=1, shuffle=True, callbacks=[history])#, early_stopping])
-    #model.fit_generator(augmentation_train_data, steps_per_epoch=30 , epochs=100, validation_data=augmentation_validation_data, validation_steps=30, callbacks=[history, early_stopping])
+    #model.fit(train_data, train_labels, batch_size=batch_size, epochs=epochs, validation_split=0.3, verbose=1, shuffle=True, callbacks=[history])#, early_stopping])
+    model.fit_generator(augmentation_train_data, steps_per_epoch=30 , epochs=120, validation_data=augmentation_validation_data, validation_steps=30, callbacks=[history, early_stopping])
     
     predictions = model.predict(test_data, verbose=1)
     return predictions, history
