@@ -177,7 +177,7 @@ def judo_model():
     '''
     
     top_model.compile(loss=objective, optimizer=optimizer, metrics=['accuracy'])
-    return model
+    return top_model
 
 model = judo_model()
 
