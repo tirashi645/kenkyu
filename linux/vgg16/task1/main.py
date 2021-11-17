@@ -172,9 +172,9 @@ def judo_model():
     model.add(Dropout(0.5))
     model.add(Dense(3, activation='relu', kernel_initializer='he_normal'))
     model.summary()
+    '''
     
     model.compile(loss=objective, optimizer=optimizer, metrics=['accuracy'])
-    '''
     return model
 
 model = judo_model()
