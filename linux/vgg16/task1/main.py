@@ -87,7 +87,7 @@ for i in train_images:
         train_labels.append(1)
 for i in train_images:
     if 'ow' in i:
-        train_labels.append(2)
+        train_labels.append(1)
         
 validation_labels = []
 for i in validation_images:
@@ -98,7 +98,7 @@ for i in validation_images:
         validation_labels.append(1)
 for i in validation_images:
     if 'ow' in i:
-        validation_labels.append(2)
+        validation_labels.append(1)
         
 test_labels = []
 for i in test_images:
@@ -109,12 +109,12 @@ for i in test_images:
         test_labels.append(1)
 for i in test_images:
     if 'ow' in i:
-        test_labels.append(2)
+        test_labels.append(1)
 
 # convert to one-hot-label
-train_labels = to_categorical(train_labels, 3)
-validation_labels = to_categorical(validation_labels, 3)
-test_labels = to_categorical(test_labels, 3)
+train_labels = to_categorical(train_labels, 2)
+validation_labels = to_categorical(validation_labels, 2)
+test_labels = to_categorical(test_labels, 2)
 
 #学習用のImageDataGeneratorクラスの作成
 augmentation_train_datagen = ImageDataGenerator(
@@ -153,7 +153,7 @@ def judo_model():
     top_model.add(Flatten())
     top_model.add(Dense(512, activation='relu', kernel_initializer='he_normal'))
     top_model.add(Dense(60, activation='relu', kernel_initializer='he_normal'))
-    top_model.add(Dense(3, activation='sigmoid'))
+    top_model.add(Dense(1, activation='sigmoid'))
     
     model = Model(inputs=vgg16.input, outputs=top_model(vgg16.output))
     
