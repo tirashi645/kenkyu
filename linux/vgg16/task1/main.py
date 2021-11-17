@@ -149,7 +149,7 @@ def judo_model():
     #vgg16 = VGG16(include_top=False, weights='imagenet', input_tensor=input_tensor)
     top_model = models.Sequential()
     top_model.add(Flatten(input_shape=vgg16.output_shape[1:]))
-    top_model.add(vgg16)
+    #top_model.add(vgg16)
     #top_model.add(Flatten())
     top_model.add(Dense(512, activation='relu', kernel_initializer='he_normal'))
     top_model.add(Dropout(0.5))
