@@ -14,6 +14,7 @@ from tensorflow.keras.callbacks import Callback, EarlyStopping
 from tensorflow.keras.utils import to_categorical
 import tensorflow.keras.backend as K
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
+from tensorflow.keras.optimizers import Adam
 
 TRAIN_DIR = "/media/koshiba/Data/sportConpetitive/judo_data/train2/"
 TEST_DIR = "/media/koshiba/Data/sportConpetitive/judo_data/test2/"
@@ -138,7 +139,8 @@ augmentation_train_data = augmentation_train_datagen.flow(train_data, train_labe
 augmentation_validation_data = augmentation_train_datagen.flow(validation_data, validation_labels, batch_size=32, seed=1234)
 
 # 最適化アルゴリズム
-optimizer = 'SGD'
+#optimizer = 'SGD'
+optimizer = Adam(lr=0.0001)
 # 目的関数
 objective = 'categorical_crossentropy'
 
