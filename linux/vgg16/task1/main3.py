@@ -137,7 +137,10 @@ for i, data in enumerate(test_images):
         cv2.imwrite("/media/koshiba/Data/sportConpetitive/judo_data/output/player/"+data.split('/')[-1], image)
     elif predict_classes[i]==2:
         cv2.imwrite("/media/koshiba/Data/sportConpetitive/judo_data/output/ow/"+data.split('/')[-1], image)
-
+        
+score = model.evaluate(test_data, test_labels, verbose=1)
+print('Test loss:', score[0])
+print('Test acuuracy:', score[1])
 #print('Accuracy:',accuracy_score(y_labels,predict_classes, average='weighted'))
 print('Precision:', precision_score(y_labels,predict_classes, average='weighted'))
 print('Recall:', recall_score(y_labels,predict_classes, average='weighted'))
