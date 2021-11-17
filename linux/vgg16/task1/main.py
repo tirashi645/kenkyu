@@ -53,7 +53,7 @@ def prep_data(images):
         image = read_image(image_file)
         
         #data[i] = cv2.cvtColor(image, cv2.COLOR_BGR2RGB).astype('float32')/255.0
-        data[i] = image.astype('float32')/255.0
+        data[i] = image.reshape(ROWS, COLS, CHANNELS).astype('float32')/255.0
     
     return data
 
