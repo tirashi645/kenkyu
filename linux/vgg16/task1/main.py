@@ -30,7 +30,7 @@ test_player = [TEST_DIR+'player/' + i for i in os.listdir(TEST_DIR+'player/')]
 test_ow = [TEST_DIR+'ow/' + i for i in os.listdir(TEST_DIR+'ow/')]
 
 #test_images = [TEST_DIR + i for i in os.listdir(TEST_DIR)]
-train_images = train_refree + train_player + train_ow[::10]
+train_images = train_refree + train_player# + train_ow[::10]
 test_images = test_refree + test_ow# + test_player + test_ow
 
 random.shuffle(train_images)
@@ -75,7 +75,7 @@ for i in train_images:
         train_labels.append(1)
 for i in train_images:
     if 'ow' in i:
-        train_labels.append(2)
+        train_labels.append(1)
         
 test_labels = []
 for i in test_images:
@@ -86,11 +86,11 @@ for i in test_images:
         test_labels.append(1)
 for i in test_images:
     if 'ow' in i:
-        test_labels.append(2)
+        test_labels.append(1)
 
 # convert to one-hot-label
-train_labels = to_categorical(train_labels, 3)
-test_labels = to_categorical(test_labels, 3)
+train_labels = to_categorical(train_labels, 2)
+test_labels = to_categorical(test_labels, 2)
 
 # 最適化アルゴリズム
 optimizer = 'SGD'
