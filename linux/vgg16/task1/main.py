@@ -159,7 +159,7 @@ def judo_model():
     #top_model.add(Flatten())
     top_model.add(Dense(512, activation='relu', kernel_initializer='he_normal'))
     #top_model.add(Dropout(0.5))
-    #top_model.add(Dense(60, activation='relu', kernel_initializer='he_normal'))
+    top_model.add(Dense(60, activation='relu', kernel_initializer='he_normal'))
     top_model.add(Dense(3, activation='sigmoid'))
     
     model = Model(inputs=vgg16.input, outputs=top_model(vgg16.output))
@@ -189,7 +189,7 @@ def judo_model():
 model = judo_model()
 
 # number of epochs
-epochs = 100
+epochs = 1000
 # batch_size
 batch_size = 32
 
