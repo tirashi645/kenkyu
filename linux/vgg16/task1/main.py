@@ -75,7 +75,7 @@ for i in train_images:
         train_labels.append(1)
 for i in train_images:
     if 'ow' in i:
-        train_labels.append(1)
+        train_labels.append(2)
         
 test_labels = []
 for i in test_images:
@@ -86,11 +86,11 @@ for i in test_images:
         test_labels.append(1)
 for i in test_images:
     if 'ow' in i:
-        test_labels.append(1)
+        test_labels.append(2)
 
 # convert to one-hot-label
-train_labels = to_categorical(train_labels, 2)
-test_labels = to_categorical(test_labels, 2)
+train_labels = to_categorical(train_labels, 3)
+test_labels = to_categorical(test_labels, 3)
 
 # 最適化アルゴリズム
 optimizer = 'SGD'
@@ -107,7 +107,7 @@ def judo_model():
     top_model.add(Dropout(0.5))
     top_model.add(Dense(60, activation='relu', kernel_initializer='he_normal'))
     top_model.add(Dropout(0.5))
-    top_model.add(Dense(2, activation='relu', kernel_initializer='he_normal'))
+    top_model.add(Dense(3, activation='relu', kernel_initializer='he_normal'))
     
     model = Model(inputs=vgg16.input, outputs=top_model(vgg16.output))
     
