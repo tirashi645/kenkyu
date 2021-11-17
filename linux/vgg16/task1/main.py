@@ -39,7 +39,7 @@ test_ow = [TEST_DIR+'ow/' + i for i in os.listdir(TEST_DIR+'ow/')]
 
 #test_images = [TEST_DIR + i for i in os.listdir(TEST_DIR)]
 train_images = train_refree + train_player + train_ow#[::3]
-validation_images = validation_refree + validation_player + test_ow#[::10]
+validation_images = validation_refree + validation_player + validation_ow#[::10]
 test_images = test_refree + test_player + test_ow#[::10]
 
 random.shuffle(train_images)
@@ -57,7 +57,7 @@ def prep_data(images):
     data = np.ndarray((count, ROWS, COLS, CHANNELS), dtype=np.uint8)
     
     for i, image_file in enumerate(images):
-        print(image_file)
+        #print(image_file)
         image = read_image(image_file)
         
         data[i] = cv2.cvtColor(image, cv2.COLOR_BGR2RGB).astype('float32')/255.0
