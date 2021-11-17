@@ -167,10 +167,10 @@ model.save(OUTPUT_DIR + 'judo_model2.h5')
 model.save_weights(OUTPUT_DIR + 'judo_model2_weight.h5')
 
 x_test = prep_data(test_images)
+print(train_labels)
 print(model.predict(x_test))
 x_predict = []
 for i in model.predict(model.predict(x_test)):
     for cnt, j in enumerate(i):
         if j==1:
             x_predict.append(cnt)
-print(train_labels)
