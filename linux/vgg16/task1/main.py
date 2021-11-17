@@ -137,16 +137,16 @@ augmentation_train_data = augmentation_train_datagen.flow(train_data, train_labe
 augmentation_validation_data = augmentation_train_datagen.flow(validation_data, validation_labels, batch_size=32, seed=1234)
 
 # 最適化アルゴリズム
-optimizer = 'SGD'
-#optimizer = Adam(lr=0.001)
+#optimizer = 'SGD'
+optimizer = Adam(lr=0.001)
 # 目的関数
 objective = 'categorical_crossentropy'
 
 # モデル構築
 def judo_model():
     input_tensor = Input(shape=(ROWS, COLS, CHANNELS))
-    vgg16 = ResNet50(include_top=False, weights='imagenet', input_tensor=input_tensor)
-    #vgg16 = VGG16(include_top=False, weights='imagenet', input_tensor=input_tensor)
+    #vgg16 = ResNet50(include_top=False, weights='imagenet', input_tensor=input_tensor)
+    vgg16 = VGG16(include_top=False, weights='imagenet', input_tensor=input_tensor)
     top_model = models.Sequential()
     top_model.add(Flatten(input_shape=vgg16.output_shape[1:]))
     #top_model.add(vgg16)
