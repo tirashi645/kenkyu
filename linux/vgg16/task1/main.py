@@ -144,7 +144,6 @@ objective = 'categorical_crossentropy'
 
 # モデル構築
 def judo_model():
-    '''
     input_tensor = Input(shape=(ROWS, COLS, CHANNELS))
     #vgg16 = ResNet50(include_top=False, weights='imagenet', input_tensor=input_tensor)
     vgg16 = VGG16(include_top=False, weights='imagenet', input_tensor=input_tensor)
@@ -161,7 +160,7 @@ def judo_model():
     
     #for layer in top_model.layers[:15]:
     #    layer.trainable = False
-    vgg16.trainable = False
+    #vgg16.trainable = False
     
     '''
     model = Sequential()
@@ -175,6 +174,7 @@ def judo_model():
     model.add(Dense(60, activation='relu', kernel_initializer='he_normal'))
     model.add(Dropout(0.5))
     model.add(Dense(2, activation='sigmoid', kernel_initializer='he_normal'))
+    '''
     
     model.summary()
     model.compile(loss=objective, optimizer=optimizer, metrics=['accuracy'])
@@ -228,8 +228,8 @@ score = model.evaluate(test_data, test_labels, verbose=1)
 print('Test loss:', score[0])
 print('Test acuuracy:', score[1])
 
-model.save(OUTPUT_DIR + 'judo_model6.h5')
-model.save_weights(OUTPUT_DIR + 'judo_model6_weight.h5')
+model.save(OUTPUT_DIR + 'judo_model5.h5')
+model.save_weights(OUTPUT_DIR + 'judo_model5_weight.h5')
 
 x_test = prep_data(test_images)
 print(train_labels)
