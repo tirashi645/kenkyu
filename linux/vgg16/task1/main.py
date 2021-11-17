@@ -37,9 +37,9 @@ test_player = [TEST_DIR+'player/' + i for i in os.listdir(TEST_DIR+'player/')]
 test_ow = [TEST_DIR+'ow/' + i for i in os.listdir(TEST_DIR+'ow/')]
 
 #test_images = [TEST_DIR + i for i in os.listdir(TEST_DIR)]
-train_images = train_refree + train_player + train_ow#[::3]
-validation_images = validation_refree + validation_player + test_ow#[::10]
-test_images = test_refree + test_player + test_ow#[::10]
+train_images = train_refree + train_player# + train_ow#[::3]
+validation_images = validation_refree + validation_player# + test_ow#[::10]
+test_images = test_refree + test_player# + test_ow#[::10]
 
 random.shuffle(train_images)
 
@@ -110,9 +110,9 @@ for i in test_images:
         test_labels.append(2)
 
 # convert to one-hot-label
-train_labels = to_categorical(train_labels, 3)
-validation_labels = to_categorical(validation_labels, 3)
-test_labels = to_categorical(test_labels, 3)
+train_labels = to_categorical(train_labels, 2)
+validation_labels = to_categorical(validation_labels, 2)
+test_labels = to_categorical(test_labels, 2)
 
 #学習用のImageDataGeneratorクラスの作成
 augmentation_train_datagen = ImageDataGenerator(
@@ -143,7 +143,6 @@ objective = 'categorical_crossentropy'
 # モデル構築
 def judo_model():
     input_tensor = Input(shape=(ROWS, COLS, CHANNELS))
-    '''
     #vgg16 = ResNet50(include_top=False, weights='imagenet', input_tensor=input_tensor)
     vgg16 = VGG16(include_top=False, weights='imagenet', input_tensor=input_tensor)
     top_model = Sequential()
@@ -152,7 +151,7 @@ def judo_model():
     top_model.add(Dropout(0.5))
     top_model.add(Dense(60, activation='relu', kernel_initializer='he_normal'))
     top_model.add(Dropout(0.5))
-    top_model.add(Dense(3, activation='relu', kernel_initializer='he_normal'))
+    top_model.add(Dense(2, activation='relu', kernel_initializer='he_normal'))
     
     model = Model(inputs=vgg16.input, outputs=top_model(vgg16.output))
     
@@ -175,7 +174,7 @@ def judo_model():
     model.summary()
     
     model.compile(loss=objective, optimizer=optimizer, metrics=['accuracy'])
-    
+    '''
     return model
 
 model = judo_model()
