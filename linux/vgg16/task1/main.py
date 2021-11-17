@@ -151,22 +151,22 @@ objective = 'categorical_crossentropy'
 # モデル構築
 def judo_model():
     input_tensor = Input(shape=(ROWS, COLS, CHANNELS))
-    #vgg16 = ResNet50(include_top=False, weights='imagenet', input_tensor=input_tensor)
-    vgg16 = VGG16(include_top=False, weights='imagenet', input_tensor=input_tensor)
+    vgg16 = ResNet50(include_top=False, weights='imagenet', input_tensor=input_tensor)
+    #vgg16 = VGG16(include_top=False, weights='imagenet', input_tensor=input_tensor)
     top_model = models.Sequential()
     top_model.add(Flatten(input_shape=vgg16.output_shape[1:]))
     #top_model.add(vgg16)
     #top_model.add(Flatten())
-    top_model.add(Dense(512, activation='relu', kernel_initializer='he_normal'))
+    top_model.add(Dense(120, activation='relu', kernel_initializer='he_normal'))
     #top_model.add(Dropout(0.5))
     top_model.add(Dense(60, activation='relu', kernel_initializer='he_normal'))
     top_model.add(Dense(3, activation='sigmoid'))
     
     model = Model(inputs=vgg16.input, outputs=top_model(vgg16.output))
     
-    for layer in top_model.layers[:15]:
-        layer.trainable = False
-    #vgg16.trainable = False
+    #for layer in top_model.layers[:15]:
+    #    layer.trainable = False
+    vgg16.trainable = False
     
     '''
     top_model = Sequential()
