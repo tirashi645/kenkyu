@@ -89,7 +89,7 @@ for i in train_images:
     elif 'player' in i:
         train_labels.append(1)
     elif 'ow' in i:
-        train_labels.append(2)
+        train_labels.append(1)
         
 validation_labels = []
 for i in validation_images:
@@ -98,7 +98,7 @@ for i in validation_images:
     elif 'player' in i:
         validation_labels.append(1)
     elif 'ow' in i:
-        validation_labels.append(2)
+        validation_labels.append(1)
         
 test_labels = []
 for i in test_images:
@@ -107,17 +107,17 @@ for i in test_images:
     elif 'player' in i:
         test_labels.append(1)
     elif 'ow' in i:
-        test_labels.append(2)
+        test_labels.append(1)
 
 y_labels = test_labels
 
 # convert to one-hot-label
-train_labels = to_categorical(train_labels, 3)
-validation_labels = to_categorical(validation_labels, 3)
-test_labels = to_categorical(test_labels, 3)
+train_labels = to_categorical(train_labels, 2)
+validation_labels = to_categorical(validation_labels, 2)
+test_labels = to_categorical(test_labels, 2)
 
-model = load_model(OUTPUT_DIR + 'judo_model3.h5')
-model.load_weights(OUTPUT_DIR + 'judo_model3_weight.h5')
+model = load_model(OUTPUT_DIR + 'judo_model5.h5')
+model.load_weights(OUTPUT_DIR + 'judo_model5_weight.h5')
 
 x_test = prep_data(test_images)
 print(model.predict(x_test))
