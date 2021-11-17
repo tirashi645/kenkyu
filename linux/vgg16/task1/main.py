@@ -104,6 +104,7 @@ objective = 'categorical_crossentropy'
 # モデル構築
 def judo_model():
     input_tensor = Input(shape=(ROWS, COLS, CHANNELS))
+    input_tensor = Input(shape=(ROWS, COLS))
     #vgg16 = ResNet50(include_top=False, weights='imagenet', input_tensor=input_tensor)
     vgg16 = VGG16(include_top=False, weights='imagenet', input_tensor=input_tensor)
     top_model = Sequential()
