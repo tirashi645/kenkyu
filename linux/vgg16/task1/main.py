@@ -10,6 +10,7 @@ from tensorflow.keras.models import Sequential, Model
 from tensorflow.keras.layers import Input, Flatten, Conv2D, MaxPooling2D, Dense, Activation, Dropout
 from tensorflow.keras.callbacks import Callback, EarlyStopping
 from tensorflow.keras.utils import to_categorical
+import tensorflow.keras.backend as K
 
 TRAIN_DIR = "/media/koshiba/Data/sportConpetitive/train/"
 TEST_DIR = "/media/koshiba/Data/sportConpetitive/test/"
@@ -52,6 +53,9 @@ def prep_data(images):
         data[i] = cv2.cvtColor(image, cv2.COLOR_BGR2RGB).astype('float32')/255.0
     
     return data
+
+def tp(y_true, y_pred):
+    return K.sum(K.round(y_true * y_pred)) * batch_size
 
 #print(train_images)
 train_data = prep_data(train_images)
@@ -144,7 +148,6 @@ def run_judo_discriminator():
     return predictions, history
 
 predictions, history = run_judo_discriminator()
-    
 
 loss = history.losses
 val_loss = history.val_losses
@@ -164,3 +167,7 @@ print('Test acuuracy:', score[1])
 
 model.save(OUTPUT_DIR + 'judo_model2.h5')
 model.save_weights(OUTPUT_DIR + 'judo_model2_weight.h5')
+
+x_test = prep_data(test_images)
+print(type(model.predict(x_test)))
+print(model.predict_classes(x_test))
