@@ -16,8 +16,8 @@ TRAIN_DIR = "/media/koshiba/Data/sportConpetitive/judo_data/train/"
 TEST_DIR = "/media/koshiba/Data/sportConpetitive/judo_data/test/"
 OUTPUT_DIR = "/media/koshiba/Data/sportConpetitive/vgg16/output/"
 
-ROWS = 20
-COLS = 20
+ROWS = 150
+COLS = 150
 CHANNELS = 3
 #print(os.listdir(TRAIN_DIR+'refree/'))
 
