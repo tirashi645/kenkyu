@@ -12,8 +12,8 @@ from tensorflow.keras.callbacks import Callback, EarlyStopping
 from tensorflow.keras.utils import to_categorical
 import tensorflow.keras.backend as K
 
-TRAIN_DIR = "/media/koshiba/Data/sportConpetitive/train/"
-TEST_DIR = "/media/koshiba/Data/sportConpetitive/test/"
+TRAIN_DIR = "/media/koshiba/Data/sportConpetitive/judo_data/train/"
+TEST_DIR = "/media/koshiba/Data/sportConpetitive/judo_data/test/"
 OUTPUT_DIR = "/media/koshiba/Data/sportConpetitive/vgg16/output/"
 
 ROWS = 50
@@ -30,8 +30,8 @@ test_player = [TEST_DIR+'player/' + i for i in os.listdir(TEST_DIR+'player/')]
 test_ow = [TEST_DIR+'ow/' + i for i in os.listdir(TEST_DIR+'ow/')]
 
 #test_images = [TEST_DIR + i for i in os.listdir(TEST_DIR)]
-train_images = train_refree + train_player# + train_ow[::10]
-test_images = test_refree + test_ow# + test_player + test_ow
+train_images = train_refree + train_player + train_ow[::10]
+test_images = test_refree + test_player + test_ow[::10]
 
 random.shuffle(train_images)
 
