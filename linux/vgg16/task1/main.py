@@ -39,7 +39,7 @@ random.shuffle(train_images)
 # 画像をリサイズして統一
 def read_image(file_path):
     image = cv2.imread(file_path, cv2.IMREAD_COLOR)
-    image_gray = cv2.cvtColor(image, cv2.COLOR_BGR2FRAY)
+    image_gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
     
     return cv2.resize(image_gray, (ROWS, COLS), interpolation=cv2.INTER_CUBIC)
 
