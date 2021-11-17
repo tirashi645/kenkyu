@@ -153,7 +153,7 @@ def judo_model():
     top_model.add(Flatten())
     top_model.add(Dense(512, activation='relu', kernel_initializer='he_normal'))
     top_model.add(Dense(60, activation='relu', kernel_initializer='he_normal'))
-    top_model.add(Dense(3, activation='sigmoid'))
+    top_model.add(Dense(3, activation='softmax'))
     
     model = Model(inputs=vgg16.input, outputs=top_model(vgg16.output))
     
