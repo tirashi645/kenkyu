@@ -12,6 +12,7 @@ from tensorflow.keras.layers import Input, Flatten, Conv2D, MaxPooling2D, Dense,
 from tensorflow.keras.callbacks import Callback, EarlyStopping
 from tensorflow.keras.utils import to_categorical
 import tensorflow.keras.backend as K
+from tensorflow.keras.preprocessing.image import ImageDataGenerator
 
 TRAIN_DIR = "/media/koshiba/Data/sportConpetitive/judo_data/train2/"
 TEST_DIR = "/media/koshiba/Data/sportConpetitive/judo_data/test2/"
@@ -19,7 +20,7 @@ OUTPUT_DIR = "/media/koshiba/Data/sportConpetitive/vgg16/output/"
 
 ROWS = 150
 COLS = 150
-CHANNELS = 1
+CHANNELS = 3
 #print(os.listdir(TRAIN_DIR+'refree/'))
 
 train_refree = [TRAIN_DIR+'refree/' + i for i in os.listdir(TRAIN_DIR+'refree/')]
@@ -39,9 +40,9 @@ random.shuffle(train_images)
 # 画像をリサイズして統一
 def read_image(file_path):
     image = cv2.imread(file_path, cv2.IMREAD_COLOR)
-    image_gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+    #image_gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
     
-    return cv2.resize(image_gray, (ROWS, COLS), interpolation=cv2.INTER_CUBIC)
+    return cv2.resize(image, (ROWS, COLS), interpolation=cv2.INTER_CUBIC)
 
 # 各データの準備
 def prep_data(images):
@@ -52,8 +53,7 @@ def prep_data(images):
         print(image_file)
         image = read_image(image_file)
         
-        #data[i] = cv2.cvtColor(image, cv2.COLOR_BGR2RGB).astype('float32')/255.0
-        data[i] = image.reshape(ROWS, COLS, CHANNELS).astype('float32')/255.0
+        data[i] = cv2.cvtColor(image, cv2.COLOR_BGR2RGB).astype('float32')/255.0
     
     return data
 
@@ -94,6 +94,26 @@ for i in test_images:
 # convert to one-hot-label
 train_labels = to_categorical(train_labels, 3)
 test_labels = to_categorical(test_labels, 3)
+
+#学習用のImageDataGeneratorクラスの作成
+augmentation_train_datagen = ImageDataGenerator(
+    #回転
+    rotation_range = 10,
+    #左右反転
+    horizontal_flip = True,
+    #上下平行移動
+    height_shift_range = 0.2,
+    #左右平行移動
+    width_shift_range = 0.2,
+    #ランダムにズーム
+    zoom_range = 0.2,
+    #チャンネルシフト
+    channel_shift_range = 0.2,
+    #スケーリング
+    rescale = 1./255
+    )
+#学習用のバッチの生成
+augmentation_train_generator = augmentation_train_datagen.flow(train_data, train_labels, batch_size=32, seed=0)
 
 # 最適化アルゴリズム
 optimizer = 'SGD'
