@@ -46,8 +46,7 @@ def read_image(file_path):
 # 各データの準備
 def prep_data(images):
     count = len(images)
-    #data = np.ndarray((count, ROWS, COLS, CHANNELS), dtype=np.uint8)
-    data = np.ndarray((count, ROWS, COLS), dtype=np.uint8)
+    data = np.ndarray((count, ROWS, COLS, CHANNELS), dtype=np.uint8)
     
     for i, image_file in enumerate(images):
         print(image_file)
@@ -104,7 +103,6 @@ objective = 'categorical_crossentropy'
 # モデル構築
 def judo_model():
     input_tensor = Input(shape=(ROWS, COLS, CHANNELS))
-    input_tensor = Input(shape=(ROWS, COLS))
     #vgg16 = ResNet50(include_top=False, weights='imagenet', input_tensor=input_tensor)
     vgg16 = VGG16(include_top=False, weights='imagenet', input_tensor=input_tensor)
     top_model = Sequential()
