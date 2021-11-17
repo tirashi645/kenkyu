@@ -41,7 +41,7 @@ test_ow = [TEST_DIR+'normal/' + i for i in os.listdir(TEST_DIR+'normal/')]
 
 #test_images = [TEST_DIR + i for i in os.listdir(TEST_DIR)]
 train_images = train_refree + train_player + train_ow
-test_images = test_refree + test_player + test_ow[::5]
+test_images = test_refree + test_player + test_ow
 print(len(test_refree))
 print(len(test_player))
 print(len(test_ow[::5]))
@@ -83,25 +83,25 @@ for i in train_images:
     if 'ippon' in i:
         train_labels.append(0)
     elif 'wazaari' in i:
-        train_labels.append(1)
+        train_labels.append(0)
     elif 'normal' in i:
-        train_labels.append(2)
+        train_labels.append(1)
         
 test_labels = []
 for i in test_images:
     if 'ippon' in i:
         test_labels.append(0)
     elif 'wazaari' in i:
-        test_labels.append(1)
+        test_labels.append(0)
     elif 'normal' in i:
-        test_labels.append(2)
+        test_labels.append(1)
 
 y_labels = test_labels
 
 # convert to one-hot-label
-train_labels = to_categorical(train_labels, 3)
+train_labels = to_categorical(train_labels, 2)
 #validation_labels = to_categorical(validation_labels, 3)
-test_labels = to_categorical(test_labels, 3)
+test_labels = to_categorical(test_labels, 2)
 
 model = load_model(OUTPUT_DIR + 'judo_model4.h5')
 model.load_weights(OUTPUT_DIR + 'judo_model4_weight.h5')
