@@ -74,26 +74,26 @@ test_data = prep_data(test_images)
 # ラベルデータの作成
 train_labels = []
 for i in train_images:
-    if 'refree' in i:
+    if 'ippon' in i:
         train_labels.append(0)
 for i in train_images:
-    if 'player' in i:
+    if 'wazaari' in i:
         train_labels.append(1)
 for i in train_images:
-    if 'ow' in i:
+    if 'normal' in i:
         train_labels.append(2)
         
 test_labels = []
 for i in test_images:
-    if 'refree' in i:
+    if 'ippon' in i:
         test_labels.append(0)
 for i in test_images:
-    if 'player' in i:
+    if 'wazaari' in i:
         test_labels.append(1)
 for i in test_images:
-    if 'ow' in i:
+    if 'normal' in i:
         test_labels.append(2)
-
+        
 # convert to one-hot-label
 train_labels = to_categorical(train_labels, 3)
 test_labels = to_categorical(test_labels, 3)
