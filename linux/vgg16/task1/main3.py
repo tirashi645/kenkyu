@@ -116,8 +116,8 @@ train_labels = to_categorical(train_labels, 2)
 validation_labels = to_categorical(validation_labels, 2)
 test_labels = to_categorical(test_labels, 2)
 
-model = load_model(OUTPUT_DIR + 'judo_model6.h5')
-model.load_weights(OUTPUT_DIR + 'judo_model6_weight.h5')
+model = load_model(OUTPUT_DIR + 'judo_model5.h5')
+model.load_weights(OUTPUT_DIR + 'judo_model5_weight.h5')
 
 x_test = prep_data(test_images)
 print(model.predict(x_test))
