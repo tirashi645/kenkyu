@@ -16,6 +16,7 @@ from tensorflow.keras.preprocessing.image import ImageDataGenerator
 
 TRAIN_DIR = "/media/koshiba/Data/sportConpetitive/judo_data/train2/"
 TEST_DIR = "/media/koshiba/Data/sportConpetitive/judo_data/test2/"
+VALIDATION_DIR = "/media/koshiba/Data/sportConpetitive/judo_data/validation2/"
 OUTPUT_DIR = "/media/koshiba/Data/sportConpetitive/vgg16/output/"
 
 ROWS = 150
@@ -27,12 +28,17 @@ train_refree = [TRAIN_DIR+'refree/' + i for i in os.listdir(TRAIN_DIR+'refree/')
 train_player = [TRAIN_DIR+'player/' + i for i in os.listdir(TRAIN_DIR+'player/')]
 train_ow = [TRAIN_DIR+'ow/' + i for i in os.listdir(TRAIN_DIR+'ow/')]
 
+validation_refree = [VALIDATION_DIR+'refree/' + i for i in os.listdir(VALIDATION_DIR+'refree/')]
+validation_player = [VALIDATION_DIR+'player/' + i for i in os.listdir(VALIDATION_DIR+'player/')]
+validation_ow = [VALIDATION_DIR+'ow/' + i for i in os.listdir(VALIDATION_DIR+'ow/')]
+
 test_refree = [TEST_DIR+'refree/' + i for i in os.listdir(TEST_DIR+'refree/')]
 test_player = [TEST_DIR+'player/' + i for i in os.listdir(TEST_DIR+'player/')]
 test_ow = [TEST_DIR+'ow/' + i for i in os.listdir(TEST_DIR+'ow/')]
 
 #test_images = [TEST_DIR + i for i in os.listdir(TEST_DIR)]
-train_images = train_refree + train_player + train_ow[::3]
+train_images = train_refree + train_player + train_ow#[::3]
+validation_images = validation_refree + validation_player + test_ow#[::10]
 test_images = test_refree + test_player + test_ow#[::10]
 
 random.shuffle(train_images)
@@ -62,6 +68,7 @@ def tp(y_true, y_pred):
 
 #print(train_images)
 train_data = prep_data(train_images)
+validation_data = prep_data(validation_images)
 test_data = prep_data(test_images)
 
 # 正規化
@@ -80,6 +87,17 @@ for i in train_images:
     if 'ow' in i:
         train_labels.append(2)
         
+validation_labels = []
+for i in validation_images:
+    if 'refree' in i:
+        validation_labels.append(0)
+for i in validation_images:
+    if 'player' in i:
+        validation_labels.append(1)
+for i in validation_images:
+    if 'ow' in i:
+        validation_labels.append(2)
+        
 test_labels = []
 for i in test_images:
     if 'refree' in i:
@@ -93,6 +111,7 @@ for i in test_images:
 
 # convert to one-hot-label
 train_labels = to_categorical(train_labels, 3)
+validation_labels = to_categorical(validation_labels, 3)
 test_labels = to_categorical(test_labels, 3)
 
 #学習用のImageDataGeneratorクラスの作成
@@ -113,8 +132,8 @@ augmentation_train_datagen = ImageDataGenerator(
     rescale = 1./255
     )
 #学習用のバッチの生成
-augmentation_train_data = augmentation_train_datagen.flow(train_data, train_labels, batch_size=32, seed=0)\
-augmentation_validation_data = augmentation_train_datagen.flow(train_data, train_labels, batch_size=32, seed=0)
+augmentation_train_data = augmentation_train_datagen.flow(train_data, train_labels, batch_size=32, seed=0)
+augmentation_validation_data = augmentation_train_datagen.flow(validation_data, validation_labels, batch_size=32, seed=0)
 
 # 最適化アルゴリズム
 optimizer = 'SGD'
@@ -168,7 +187,7 @@ early_stopping = EarlyStopping(monitor='val_loss', patience=10, verbose=1, mode=
 def run_judo_discriminator():
     history = LossHistory()
     #model.fit(train_data, train_labels, batch_size=batch_size, epochs=epochs, validation_split=0.3, verbose=1, shuffle=True, callbacks=[history, early_stopping])
-    model.fit_generator(augmentation_train_data, steps_per_epoch=30 , epochs=20, validation_split=0.3, verbose=1, shuffle=True, callbacks=[history, early_stopping])
+    model.fit_generator(augmentation_train_data, steps_per_epoch=100 , epochs=20, validation_data=augmentation_validation_data, validation_steps=50, callbacks=[history, early_stopping])
     
     predictions = model.predict(test_data, verbose=1)
     return predictions, history
