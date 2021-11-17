@@ -132,8 +132,8 @@ augmentation_train_datagen = ImageDataGenerator(
     rescale = 1./255
     )
 #学習用のバッチの生成
-augmentation_train_data = augmentation_train_datagen.flow(train_data, train_labels, batch_size=32, seed=0)
-augmentation_validation_data = augmentation_train_datagen.flow(validation_data, validation_labels, batch_size=32, seed=0)
+augmentation_train_data = augmentation_train_datagen.flow(train_data, train_labels, batch_size=32, seed=1234)
+augmentation_validation_data = augmentation_train_datagen.flow(validation_data, validation_labels, batch_size=32, seed=1234)
 
 # 最適化アルゴリズム
 optimizer = 'SGD'
