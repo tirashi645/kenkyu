@@ -183,7 +183,7 @@ def judo_model():
 model = judo_model()
 
 # number of epochs
-epochs = 30
+epochs = 200
 # batch_size
 batch_size = 30
 
