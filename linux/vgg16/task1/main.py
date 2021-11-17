@@ -157,9 +157,9 @@ def judo_model():
     top_model.add(Flatten(input_shape=vgg16.output_shape[1:]))
     #top_model.add(vgg16)
     #top_model.add(Flatten())
-    top_model.add(Dense(120, activation='relu', kernel_initializer='he_normal'))
+    top_model.add(Dense(512, activation='relu', kernel_initializer='he_normal'))
     #top_model.add(Dropout(0.5))
-    top_model.add(Dense(60, activation='relu', kernel_initializer='he_normal'))
+    #top_model.add(Dense(60, activation='relu', kernel_initializer='he_normal'))
     top_model.add(Dense(3, activation='sigmoid'))
     
     model = Model(inputs=vgg16.input, outputs=top_model(vgg16.output))
@@ -208,8 +208,8 @@ early_stopping = EarlyStopping(monitor='val_loss', patience=10, verbose=1, mode=
 
 def run_judo_discriminator():
     history = LossHistory()
-    #model.fit(train_data, train_labels, batch_size=batch_size, epochs=epochs, validation_split=0.3, verbose=1, shuffle=True, callbacks=[history])#, early_stopping])
-    model.fit_generator(augmentation_train_data, steps_per_epoch=20 , epochs=120, validation_data=augmentation_validation_data, validation_steps=30, callbacks=[history, early_stopping])
+    model.fit(train_data, train_labels, batch_size=batch_size, epochs=epochs, validation_split=0.3, verbose=1, shuffle=True, callbacks=[history])#, early_stopping])
+    #model.fit_generator(augmentation_train_data, steps_per_epoch=20 , epochs=120, validation_data=augmentation_validation_data, validation_steps=30, callbacks=[history, early_stopping])
     
     predictions = model.predict(test_data, verbose=1)
     return predictions, history
@@ -234,8 +234,8 @@ score = model.evaluate(test_data, test_labels, verbose=1)
 print('Test loss:', score[0])
 print('Test acuuracy:', score[1])
 
-model.save(OUTPUT_DIR + 'judo_model2.h5')
-model.save_weights(OUTPUT_DIR + 'judo_model2_weight.h5')
+model.save(OUTPUT_DIR + 'judo_model3.h5')
+model.save_weights(OUTPUT_DIR + 'judo_model3_weight.h5')
 
 x_test = prep_data(test_images)
 print(train_labels)
