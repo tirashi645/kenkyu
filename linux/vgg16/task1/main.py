@@ -202,8 +202,8 @@ early_stopping = EarlyStopping(monitor='val_loss', patience=10, verbose=1, mode=
 
 def run_judo_discriminator():
     history = LossHistory()
-    model.fit(train_data, train_labels, batch_size=batch_size, epochs=epochs, validation_split=0.3, verbose=1, shuffle=True, callbacks=[history])#, early_stopping])
-    #model.fit_generator(augmentation_train_data, steps_per_epoch=20 , epochs=120, validation_data=augmentation_validation_data, validation_steps=30, callbacks=[history, early_stopping])
+    #model.fit(train_data, train_labels, batch_size=batch_size, epochs=epochs, validation_split=0.3, verbose=1, shuffle=True, callbacks=[history])#, early_stopping])
+    model.fit_generator(augmentation_train_data, steps_per_epoch=20 , epochs=120, validation_data=augmentation_validation_data, validation_steps=30, callbacks=[history, early_stopping])
     
     predictions = model.predict(test_data, verbose=1)
     return predictions, history
@@ -228,8 +228,8 @@ score = model.evaluate(test_data, test_labels, verbose=1)
 print('Test loss:', score[0])
 print('Test acuuracy:', score[1])
 
-model.save(OUTPUT_DIR + 'judo_model5.h5')
-model.save_weights(OUTPUT_DIR + 'judo_model5_weight.h5')
+model.save(OUTPUT_DIR + 'judo_model6.h5')
+model.save_weights(OUTPUT_DIR + 'judo_model6_weight.h5')
 
 x_test = prep_data(test_images)
 print(train_labels)
