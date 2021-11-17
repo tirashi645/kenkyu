@@ -144,11 +144,11 @@ objective = 'categorical_crossentropy'
 # モデル構築
 def judo_model():
     input_tensor = Input(shape=(ROWS, COLS, CHANNELS))
-    #vgg16 = ResNet50(include_top=False, weights='imagenet', input_tensor=input_tensor)
-    vgg16 = VGG16(include_top=False, weights='imagenet', input_shape=(ROWS, COLS, CHANNELS)) #input_tensor=input_tensor)
+    vgg16 = ResNet50(include_top=False, weights='imagenet', input_tensor=input_tensor)
+    #vgg16 = VGG16(include_top=False, weights='imagenet', input_shape=(ROWS, COLS, CHANNELS)) #input_tensor=input_tensor)
     top_model = models.Sequential()
-    #top_model.add(Flatten(input_shape=vgg16.output_shape[1:]))
-    top_model.add(vgg16)
+    top_model.add(Flatten(input_shape=vgg16.output_shape[1:]))
+    #top_model.add(vgg16)
     top_model.add(Flatten())
     top_model.add(Dense(8192, activation='relu', kernel_initializer='he_normal'))
     top_model.add(Dense(60, activation='relu', kernel_initializer='he_normal'))
@@ -201,7 +201,7 @@ early_stopping = EarlyStopping(monitor='val_loss', patience=10, verbose=1, mode=
 def run_judo_discriminator():
     history = LossHistory()
     #model.fit(train_data, train_labels, batch_size=batch_size, epochs=epochs, validation_split=0.3, verbose=1, shuffle=True, callbacks=[history])#, early_stopping])
-    model.fit_generator(augmentation_train_data, steps_per_epoch=30 , epochs=200, validation_data=augmentation_validation_data, validation_steps=30, callbacks=[history, early_stopping])
+    model.fit_generator(augmentation_train_data, steps_per_epoch=30 , epochs=30, validation_data=augmentation_validation_data, validation_steps=30, callbacks=[history, early_stopping])
     
     predictions = model.predict(test_data, verbose=1)
     return predictions, history
