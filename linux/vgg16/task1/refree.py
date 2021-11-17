@@ -15,35 +15,30 @@ from tensorflow.keras.utils import to_categorical
 import tensorflow.keras.backend as K
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 
-TRAIN_DIR = "/media/koshiba/Data/sportConpetitive/judo_data/train2/"
-TEST_DIR = "/media/koshiba/Data/sportConpetitive/judo_data/test2/"
-VALIDATION_DIR = "/media/koshiba/Data/sportConpetitive/judo_data/validation2/"
-OUTPUT_DIR = "/media/koshiba/Data/sportConpetitive/vgg16/output/"
+TRAIN_DIR = "/media/koshiba/Data/sportConpetitive/refree/train/"
+TEST_DIR = "/media/koshiba/Data/sportConpetitive/refree/test/"
+OUTPUT_DIR = "/media/koshiba/Data/sportConpetitive/refree/output/"
 
-ROWS = 150
-COLS = 150
+ROWS = 50
+COLS = 50
 CHANNELS = 3
+
 #print(os.listdir(TRAIN_DIR+'refree/'))
 
-train_refree = [TRAIN_DIR+'refree/' + i for i in os.listdir(TRAIN_DIR+'refree/')]
-train_player = [TRAIN_DIR+'player/' + i for i in os.listdir(TRAIN_DIR+'player/')]
-train_ow = [TRAIN_DIR+'ow/' + i for i in os.listdir(TRAIN_DIR+'ow/')]
+train_refree = [TRAIN_DIR+'ippon/' + i for i in os.listdir(TRAIN_DIR+'ippon/')]
+train_player = [TRAIN_DIR+'wazaari/' + i for i in os.listdir(TRAIN_DIR+'wazaari/')]
+train_ow = [TRAIN_DIR+'normal/' + i for i in os.listdir(TRAIN_DIR+'normal/')]
 
-validation_refree = [VALIDATION_DIR+'refree/' + i for i in os.listdir(VALIDATION_DIR+'refree/')]
-validation_player = [VALIDATION_DIR+'player/' + i for i in os.listdir(VALIDATION_DIR+'player/')]
-validation_ow = [VALIDATION_DIR+'ow/' + i for i in os.listdir(VALIDATION_DIR+'ow/')]
+test_refree = [TEST_DIR+'ippon/' + i for i in os.listdir(TEST_DIR+'ippon/')]
+test_player = [TEST_DIR+'wazaari/' + i for i in os.listdir(TEST_DIR+'wazaari/')]
+test_ow = [TEST_DIR+'normal/' + i for i in os.listdir(TEST_DIR+'normal/')]
 
-test_refree = [TEST_DIR+'refree/' + i for i in os.listdir(TEST_DIR+'refree/')]
-test_player = [TEST_DIR+'player/' + i for i in os.listdir(TEST_DIR+'player/')]
-test_ow = [TEST_DIR+'ow/' + i for i in os.listdir(TEST_DIR+'ow/')]
 
 #test_images = [TEST_DIR + i for i in os.listdir(TEST_DIR)]
-train_images = train_refree + train_player + train_ow[::3]
-validation_images = validation_refree + validation_player + validation_ow[::2]
-test_images = test_refree + test_player + test_ow[::4]
+train_images = train_refree + train_player + train_ow
+test_images = test_refree + test_player + test_ow
 
 random.shuffle(train_images)
-random.shuffle(validation_images)
 
 # 画像をリサイズして統一
 def read_image(file_path):
@@ -70,7 +65,6 @@ def tp(y_true, y_pred):
 
 #print(train_images)
 train_data = prep_data(train_images)
-validation_data = prep_data(validation_images)
 test_data = prep_data(test_images)
 
 # 正規化
@@ -87,18 +81,7 @@ for i in train_images:
         train_labels.append(1)
 for i in train_images:
     if 'ow' in i:
-        train_labels.append(1)
-        
-validation_labels = []
-for i in validation_images:
-    if 'refree' in i:
-        validation_labels.append(0)
-for i in validation_images:
-    if 'player' in i:
-        validation_labels.append(1)
-for i in validation_images:
-    if 'ow' in i:
-        validation_labels.append(1)
+        train_labels.append(2)
         
 test_labels = []
 for i in test_images:
@@ -109,12 +92,11 @@ for i in test_images:
         test_labels.append(1)
 for i in test_images:
     if 'ow' in i:
-        test_labels.append(1)
+        test_labels.append(2)
 
 # convert to one-hot-label
-train_labels = to_categorical(train_labels, 2)
-validation_labels = to_categorical(validation_labels, 2)
-test_labels = to_categorical(test_labels, 2)
+train_labels = to_categorical(train_labels, 3)
+test_labels = to_categorical(test_labels, 3)
 
 #学習用のImageDataGeneratorクラスの作成
 augmentation_train_datagen = ImageDataGenerator(
@@ -135,7 +117,7 @@ augmentation_train_datagen = ImageDataGenerator(
     )
 #学習用のバッチの生成
 augmentation_train_data = augmentation_train_datagen.flow(train_data, train_labels, batch_size=32, seed=1234)
-augmentation_validation_data = augmentation_train_datagen.flow(validation_data, validation_labels, batch_size=32, seed=1234)
+#augmentation_validation_data = augmentation_train_datagen.flow(validation_data, validation_labels, batch_size=32, seed=1234)
 
 # 最適化アルゴリズム
 optimizer = 'SGD'
@@ -153,7 +135,7 @@ def judo_model():
     top_model.add(Flatten())
     top_model.add(Dense(512, activation='relu', kernel_initializer='he_normal'))
     top_model.add(Dense(60, activation='relu', kernel_initializer='he_normal'))
-    top_model.add(Dense(2, activation='sigmoid'))
+    top_model.add(Dense(3, activation='sigmoid'))
     
     model = Model(inputs=vgg16.input, outputs=top_model(vgg16.output))
     
