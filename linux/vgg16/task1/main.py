@@ -105,8 +105,6 @@ def judo_model():
     top_model.add(Flatten(input_shape=vgg16.output_shape[1:]))
     top_model.add(Dense(120, activation='relu', kernel_initializer='he_normal'))
     top_model.add(Dropout(0.5))
-    top_model.add(Dense(60, activation='relu', kernel_initializer='he_normal'))
-    top_model.add(Dropout(0.5))
     top_model.add(Dense(3, activation='relu', kernel_initializer='he_normal'))
     
     model = Model(inputs=vgg16.input, outputs=top_model(vgg16.output))
@@ -175,4 +173,4 @@ for i in model.predict(model.predict(x_test)):
     for cnt, j in enumerate(i):
         if j==1:
             x_predict.append(cnt)
-print(x_predict)
+print(train_labels)
