@@ -122,6 +122,7 @@ objective = 'categorical_crossentropy'
 
 # モデル構築
 def judo_model():
+    '''
     input_tensor = Input(shape=(ROWS, COLS, CHANNELS))
     #vgg16 = ResNet50(include_top=False, weights='imagenet', input_tensor=input_tensor)
     vgg16 = VGG16(include_top=False, weights='imagenet', input_tensor=input_tensor)
@@ -140,18 +141,15 @@ def judo_model():
     #vgg16.trainable = False
     
     '''
-    top_model = Sequential()
-    top_model.add(Conv2D(6, kernel_size=(5,5), activation='relu', kernel_initializer='he_normal', input_shape=(ROWS, COLS, CHANNELS)))
-    top_model.add(MaxPooling2D(pool_size=(2,2)))
-    top_model.add(Conv2D(16, kernel_size=(5,5), activation='relu', kernel_initializer='he_normal'))
-    top_model.add(MaxPooling2D(pool_size=(2,2)))
-    top_model.add(Flatten())
-    top_model.add(Dense(120, activation='relu', kernel_initializer='he_normal'))
-    top_model.add(Dropout(0.5))
-    top_model.add(Dense(60, activation='relu', kernel_initializer='he_normal'))
-    top_model.add(Dropout(0.5))
-    top_model.add(Dense(3, activation='sigmoid', kernel_initializer='he_normal'))
-    '''
+    model = Sequential()
+    model.add(Conv2D(6, kernel_size=(5,5), activation='relu', kernel_initializer='he_normal', input_shape=(ROWS, COLS, CHANNELS)))
+    model.add(MaxPooling2D(pool_size=(2,2)))
+    model.add(Conv2D(16, kernel_size=(5,5), activation='relu', kernel_initializer='he_normal'))
+    model.add(MaxPooling2D(pool_size=(2,2)))
+    model.add(Flatten())
+    model.add(Dense(120, activation='relu', kernel_initializer='he_normal'))
+    model.add(Dense(60, activation='relu', kernel_initializer='he_normal'))
+    model.add(Dense(2, activation='sigmoid', kernel_initializer='he_normal'))
     
     model.summary()
     model.compile(loss=objective, optimizer=optimizer, metrics=['accuracy'])
