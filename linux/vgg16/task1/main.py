@@ -177,24 +177,24 @@ def judo_model():
     '''
     
     model = Sequential()
-    model.add(Conv2D(32, 3, 3, border_mode='same', Activation='liner', input_shape=(ROWS, COLS, CHANNELS)))
+    model.add(Conv2D(32, 3, 3, padding='same', Activation='liner', input_shape=(ROWS, COLS, CHANNELS)))
     model.add(LeakyReLU(alpha=0.3))
     model = Sequential()
-    model.add(Conv2D(32, 3, 3, border_mode='same', Activation='liner', input_shape=(ROWS, COLS, CHANNELS)))
+    model.add(Conv2D(32, 3, 3, padding='same', Activation='liner', input_shape=(ROWS, COLS, CHANNELS)))
     model.add(LeakyReLU(alpha=0.3))
     model.add(MaxPooling2D((2, 2), strides=(2, 2)))
     
-    model.add(Conv2D(64, 3, 3, border_mode='same', Activation='liner', input_shape=(ROWS, COLS, CHANNELS)))
+    model.add(Conv2D(64, 3, 3, padding='same', Activation='liner', input_shape=(ROWS, COLS, CHANNELS)))
     model.add(LeakyReLU(alpha=0.3))
     model = Sequential()
-    model.add(Conv2D(64, 3, 3, border_mode='same', Activation='liner', input_shape=(ROWS, COLS, CHANNELS)))
+    model.add(Conv2D(64, 3, 3, padding='same', Activation='liner', input_shape=(ROWS, COLS, CHANNELS)))
     model.add(LeakyReLU(alpha=0.3))
     model.add(MaxPooling2D((2, 2), strides=(2, 2)))
     
-    model.add(Conv2D(128, 3, 3, border_mode='same', Activation='liner', input_shape=(ROWS, COLS, CHANNELS)))
+    model.add(Conv2D(128, 3, 3, padding='same', Activation='liner', input_shape=(ROWS, COLS, CHANNELS)))
     model.add(LeakyReLU(alpha=0.3))
     model = Sequential()
-    model.add(Conv2D(128, 3, 3, border_mode='same', Activation='liner', input_shape=(ROWS, COLS, CHANNELS)))
+    model.add(Conv2D(128, 3, 3, padding='same', Activation='liner', input_shape=(ROWS, COLS, CHANNELS)))
     model.add(LeakyReLU(alpha=0.3))
     model.add(MaxPooling2D((2, 2), strides=(2, 2)))
     
