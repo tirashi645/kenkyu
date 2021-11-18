@@ -11,7 +11,7 @@ from tensorflow.keras.applications.vgg16 import VGG16
 from tensorflow.keras.applications.resnet50 import ResNet50
 from tensorflow.keras.models import Sequential, Model
 from tensorflow.keras import models
-from tensorflow.keras.layers import Input, Flatten, Conv2D, MaxPooling2D, Dense, Activation, Dropout
+from tensorflow.keras.layers import Input, Flatten, Conv2D, MaxPooling2D, Dense, Activation, Dropout, LeakyReLU
 from tensorflow.keras.callbacks import Callback, EarlyStopping
 from tensorflow.keras.utils import to_categorical
 import tensorflow.keras.backend as K
@@ -144,6 +144,7 @@ objective = 'categorical_crossentropy'
 
 # モデル構築
 def judo_model():
+    '''
     input_tensor = Input(shape=(ROWS, COLS, CHANNELS))
     #vgg16 = ResNet50(include_top=False, weights='imagenet', input_tensor=input_tensor)
     vgg16 = VGG16(include_top=False, weights='imagenet', input_tensor=input_tensor)
@@ -162,7 +163,6 @@ def judo_model():
     #    layer.trainable = False
     #vgg16.trainable = False
     
-    '''
     model = Sequential()
     model.add(Conv2D(6, kernel_size=(5,5), activation='relu', kernel_initializer='he_normal', input_shape=(ROWS, COLS, CHANNELS)))
     model.add(MaxPooling2D(pool_size=(2,2)))
@@ -175,6 +175,37 @@ def judo_model():
     model.add(Dropout(0.5))
     model.add(Dense(2, activation='sigmoid', kernel_initializer='he_normal'))
     '''
+    
+    model = Sequential()
+    model.add(Conv2D(32, 3, 3, border_mode='same', Activation='liner', input_shape=(ROWS, COLS, CHANNELS)))
+    model.add(LeakyReLU(alpha=0.3))
+    model = Sequential()
+    model.add(Conv2D(32, 3, 3, border_mode='same', Activation='liner', input_shape=(ROWS, COLS, CHANNELS)))
+    model.add(LeakyReLU(alpha=0.3))
+    model.add(MaxPooling2D((2, 2), strides=(2, 2)))
+    
+    model.add(Conv2D(64, 3, 3, border_mode='same', Activation='liner', input_shape=(ROWS, COLS, CHANNELS)))
+    model.add(LeakyReLU(alpha=0.3))
+    model = Sequential()
+    model.add(Conv2D(64, 3, 3, border_mode='same', Activation='liner', input_shape=(ROWS, COLS, CHANNELS)))
+    model.add(LeakyReLU(alpha=0.3))
+    model.add(MaxPooling2D((2, 2), strides=(2, 2)))
+    
+    model.add(Conv2D(128, 3, 3, border_mode='same', Activation='liner', input_shape=(ROWS, COLS, CHANNELS)))
+    model.add(LeakyReLU(alpha=0.3))
+    model = Sequential()
+    model.add(Conv2D(128, 3, 3, border_mode='same', Activation='liner', input_shape=(ROWS, COLS, CHANNELS)))
+    model.add(LeakyReLU(alpha=0.3))
+    model.add(MaxPooling2D((2, 2), strides=(2, 2)))
+    
+    model.add(Flatten())
+    model.add(Dense(1024, Activation='liner'))
+    model.add(LeakyReLU(alpha=0.3))
+    model.add(Dropout(0.5))
+    model.add(Dense(1024, Activation='liner'))
+    model.add(LeakyReLU(alpha=0.3))
+    model.add(Dropout(0.5))
+    model.add(Dense(2, Activation='sigmoid'))
     
     model.summary()
     model.compile(loss=objective, optimizer=optimizer, metrics=['accuracy'])
@@ -228,8 +259,8 @@ score = model.evaluate(test_data, test_labels, verbose=1)
 print('Test loss:', score[0])
 print('Test acuuracy:', score[1])
 
-model.save(OUTPUT_DIR + 'judo_model5.h5')
-model.save_weights(OUTPUT_DIR + 'judo_model5_weight.h5')
+model.save(OUTPUT_DIR + 'judo_model7.h5')
+model.save_weights(OUTPUT_DIR + 'judo_model7_weight.h5')
 
 x_test = prep_data(test_images)
 print(train_labels)
