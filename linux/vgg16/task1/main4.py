@@ -44,7 +44,7 @@ train_images = train_refree + train_player + train_ow
 test_images = test_refree + test_player + test_ow
 print(len(test_refree))
 print(len(test_player))
-print(len(test_ow[::5]))
+print(len(test_ow))
 
 random.shuffle(train_images)
 
