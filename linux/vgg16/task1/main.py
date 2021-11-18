@@ -201,8 +201,10 @@ def judo_model():
     model.add(Flatten())
     model.add(Dense(1024, activation='linear'))
     model.add(LeakyReLU(alpha=0.3))
-    model.add(Dense(512, activation='linear'))
+    model.add(Dropout(0.5))
+    model.add(Dense(1024, activation='linear'))
     model.add(LeakyReLU(alpha=0.3))
+    model.add(Dropout(0.5))
     model.add(Dense(2, activation='sigmoid'))
     
     model.summary()
