@@ -44,7 +44,7 @@ test_ow = [TEST_DIR+'ow/' + i for i in os.listdir(TEST_DIR+'ow/')]
 #test_images = [TEST_DIR + i for i in os.listdir(TEST_DIR)]
 train_images = train_refree + train_player + train_ow
 validation_images = validation_refree + validation_player + validation_ow
-test_images = test_refree + test_player + test_ow
+test_images = test_refree + test_player + test_ow[::4]
 print(len(test_refree))
 print(len(test_player))
 print(len(test_ow[::4]))
