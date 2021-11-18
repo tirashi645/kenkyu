@@ -15,12 +15,12 @@ from tensorflow.keras.utils import to_categorical
 import tensorflow.keras.backend as K
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 
-TRAIN_DIR = "/media/koshiba/Data/sportConpetitive/refree/train/"
-TEST_DIR = "/media/koshiba/Data/sportConpetitive/refree/test/"
+TRAIN_DIR = "/media/koshiba/Data/sportConpetitive/judo_data/refree/train/"
+TEST_DIR = "/media/koshiba/Data/sportConpetitive/judo_data/refree/test/"
 OUTPUT_DIR = "/media/koshiba/Data/sportConpetitive/refree/output/"
 
-ROWS = 50
-COLS = 50
+ROWS = 150
+COLS = 150
 CHANNELS = 3
 
 #print(os.listdir(TRAIN_DIR+'refree/'))
