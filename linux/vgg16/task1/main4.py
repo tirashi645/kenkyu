@@ -24,8 +24,8 @@ TRAIN_DIR = "/media/koshiba/Data/sportConpetitive/refree/train/"
 TEST_DIR = "/media/koshiba/Data/sportConpetitive/refree/test/"
 OUTPUT_DIR = "/media/koshiba/Data/sportConpetitive/refree/output/"
 
-ROWS = 50
-COLS = 50
+ROWS = 150
+COLS = 150
 CHANNELS = 3
 
 #print(os.listdir(TRAIN_DIR+'refree/'))
@@ -126,6 +126,6 @@ score = model.evaluate(test_data, test_labels, verbose=1)
 print('Test loss:', score[0])
 print('Test acuuracy:', score[1])
 #print('Accuracy:',accuracy_score(y_labels,predict_classes, average='weighted'))
-print('Precision:', precision_score(y_labels,predict_classes, average='weighted'))
-print('Recall:', recall_score(y_labels,predict_classes, average='weighted'))
-print('F1 score:', f1_score(y_labels,predict_classes, average='weighted'))
+print('Precision:', precision_score(y_labels,predict_classes))
+print('Recall:', recall_score(y_labels,predict_classes))
+print('F1 score:', f1_score(y_labels,predict_classes))
