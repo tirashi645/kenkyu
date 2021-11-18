@@ -135,9 +135,9 @@ def judo_model():
     
     model = Model(inputs=vgg16.input, outputs=top_model(vgg16.output))
     
-    #for layer in top_model.layers[:15]:
-    #    layer.trainable = False
-    vgg16.trainable = False
+    for layer in top_model.layers[:15]:
+        layer.trainable = False
+    #vgg16.trainable = False
     
     '''
     model = Sequential()
