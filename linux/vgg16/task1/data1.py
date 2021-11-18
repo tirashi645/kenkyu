@@ -9,7 +9,7 @@ for i, file in enumerate(filePath):
     img = cv2.imread(file)
     height,width = img.shape[:2]
 
-    target_size = (height,width) #src size < dst sizeの前提
+    target_size = (height+1,width+1) #src size < dst sizeの前提
 
     top = int((target_size[1] - height)/2)
     bottom = target_size[1] - height - top
