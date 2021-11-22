@@ -40,8 +40,8 @@ test_ow = [TEST_DIR+'normal/' + i for i in os.listdir(TEST_DIR+'normal/')]
 
 
 #test_images = [TEST_DIR + i for i in os.listdir(TEST_DIR)]
-train_images = train_refree + train_player + train_ow
-test_images = test_refree + test_player + test_ow
+train_images = train_refree + train_player# + train_ow
+test_images = test_refree + test_player# + test_ow
 print(len(test_refree))
 print(len(test_player))
 print(len(test_ow))
@@ -83,18 +83,18 @@ for i in train_images:
     if 'ippon' in i:
         train_labels.append(0)
     elif 'wazaari' in i:
-        train_labels.append(0)
-    elif 'normal' in i:
         train_labels.append(1)
+    elif 'normal' in i:
+        train_labels.append(2)
         
 test_labels = []
 for i in test_images:
     if 'ippon' in i:
         test_labels.append(0)
     elif 'wazaari' in i:
-        test_labels.append(0)
-    elif 'normal' in i:
         test_labels.append(1)
+    elif 'normal' in i:
+        test_labels.append(2)
 
 y_labels = test_labels
 
