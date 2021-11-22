@@ -35,8 +35,8 @@ test_ow = [TEST_DIR+'normal/' + i for i in os.listdir(TEST_DIR+'normal/')]
 
 
 #test_images = [TEST_DIR + i for i in os.listdir(TEST_DIR)]
-train_images = train_refree + train_player + train_ow
-test_images = test_refree + test_player + test_ow
+train_images = train_refree + train_player# + train_ow
+test_images = test_refree + test_player# + test_ow
 
 random.shuffle(train_images)
 
@@ -77,7 +77,7 @@ for i in train_images:
     if 'ippon' in i:
         train_labels.append(0)
     elif 'wazaari' in i:
-        train_labels.append(0)
+        train_labels.append(1)
     elif 'normal' in i:
         train_labels.append(1)
         
@@ -88,7 +88,7 @@ for i in test_images:
     elif 'wazaari' in i:
         test_labels.append(0)
     elif 'normal' in i:
-        test_labels.append(1)
+        test_labels.append(2)
         
 # convert to one-hot-label
 train_labels = to_categorical(train_labels, 2)

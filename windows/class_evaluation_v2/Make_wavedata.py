@@ -238,8 +238,8 @@ def todo(path, time):
 
         # plot
         ax.scatter(x0, y0, color='r', s=(360*bairutu))
-        ax.scatter(x1, y1, color='b', s=(360*bairutu))
-        ax.scatter(x2, y2, color='g', s=(360*bairutu))
+        ax.scatter(x1, y1, color='g', s=(360*bairutu))
+        ax.scatter(x2, y2, color='b', s=(360*bairutu))
         
         #軸の太さの調整。方向を辞書のキーとして渡し、set_linewidthで大きさを微調整できる
         ax.spines["top"].set_linewidth(spines)
@@ -248,8 +248,8 @@ def todo(path, time):
         ax.spines["right"].set_linewidth(spines)
 
         #plt.title('Method-1', fontsize=36)
-        plt.xlabel('ベクトル x', fontsize=36*bairutu)
-        plt.ylabel('ベクトル y', fontsize=36*bairutu)
+        plt.xlabel('ベクトル x', fontsize=36*bairutu, fontname ='MS Gothic')
+        plt.ylabel('ベクトル y', fontsize=36*bairutu, fontname ='MS Gothic')
         plt.tick_params(labelsize=36*bairutu)
         # プロットした画像を保存する
         plt.savefig('D:/opticalflow/evaluation/plt/class1/' + videoName[:-4] + '_figure.png')
@@ -359,9 +359,9 @@ def todo(path, time):
         ax = fig.add_subplot(1, 1, 1)
 
         # plot
-        ax.scatter(fft_0x, fft_0y, color='b', s=(360*bairitu))
+        ax.scatter(fft_0x, fft_0y, color='r', s=(360*bairitu))
         ax.scatter(fft_1x, fft_1y, color='g', s=(360*bairitu))
-        ax.scatter(fft_2x, fft_2y, color='r', s=(360*bairitu))
+        ax.scatter(fft_2x, fft_2y, color='b', s=(360*bairitu))
         
         #軸の太さの調整。方向を辞書のキーとして渡し、set_linewidthで大きさを微調整できる
         ax.spines["top"].set_linewidth(spines)
@@ -370,8 +370,8 @@ def todo(path, time):
         ax.spines["right"].set_linewidth(spines)
 
         #plt.title('Method-2', fontsize=36)
-        plt.xlabel('ベクトル x', fontsize=36*bairitu)
-        plt.ylabel('ベクトル y', fontsize=36*bairitu)
+        plt.xlabel('ベクトル x', fontsize=36*bairitu, fontname ='MS Gothic')
+        plt.ylabel('ベクトル y', fontsize=36*bairitu, fontname ='MS Gothic')
         plt.tick_params(labelsize=36*bairitu)
         plt.savefig('D:/opticalflow/evaluation/plt/class2/' + videoName[:-4] + '_figure.png')
 

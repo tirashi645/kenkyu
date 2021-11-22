@@ -243,10 +243,12 @@ if __name__ == '__main__':
         ax.spines["right"].set_linewidth(spines)
 
         #plt.title('Method-2', fontsize=36)
-        plt.xlabel('frame number', fontsize=36*bairitu)
-        plt.ylabel('distance', fontsize=36*bairitu)
+        plt.xlabel('フレーム数', fontsize=36*bairitu, fontname ='MS Gothic')
+        plt.ylabel('距離ベクトル', fontsize=36*bairitu, fontname ='MS Gothic')
         plt.tick_params(labelsize=36*bairitu)
         plt.savefig('D:/opticalflow/evaluation/vector/' + str(i) + '_wave.jpg')
+        plt.close()
+        '''
         px = int(point_data[0][0])
         py = int(point_data[0][1])
         p1 = max(0, py-20)
@@ -254,7 +256,7 @@ if __name__ == '__main__':
         p3 = max(0, px-20)
         p4 = min(width, px+20)
         cv2.imwrite('D:/opticalflow/evaluation/vector/' + str(i) + '_pict.jpg', first_frame[p1:p2][p3:p4])
-        plt.close()
+        '''
         
                 
     for i in FirstZahyou:
