@@ -35,8 +35,8 @@ test_ow = [TEST_DIR+'normal/' + i for i in os.listdir(TEST_DIR+'normal/')]
 
 
 #test_images = [TEST_DIR + i for i in os.listdir(TEST_DIR)]
-train_images = train_refree + train_player# + train_ow
-test_images = test_refree + test_player# + test_ow
+train_images = train_refree + train_player + train_ow
+test_images = test_refree + test_player + test_ow
 
 random.shuffle(train_images)
 
@@ -77,7 +77,7 @@ for i in train_images:
     if 'ippon' in i:
         train_labels.append(0)
     elif 'wazaari' in i:
-        train_labels.append(1)
+        train_labels.append(0)
     elif 'normal' in i:
         train_labels.append(1)
         
@@ -88,7 +88,7 @@ for i in test_images:
     elif 'wazaari' in i:
         test_labels.append(0)
     elif 'normal' in i:
-        test_labels.append(2)
+        test_labels.append(1)
         
 # convert to one-hot-label
 train_labels = to_categorical(train_labels, 2)
@@ -122,7 +122,6 @@ objective = 'categorical_crossentropy'
 
 # モデル構築
 def judo_model():
-    '''
     input_tensor = Input(shape=(ROWS, COLS, CHANNELS))
     #vgg16 = ResNet50(include_top=False, weights='imagenet', input_tensor=input_tensor)
     vgg16 = VGG16(include_top=False, weights='imagenet', input_tensor=input_tensor)
@@ -139,7 +138,6 @@ def judo_model():
     for layer in top_model.layers[:15]:
         layer.trainable = False
     #vgg16.trainable = False
-    
     '''
     model = Sequential()
     model.add(Conv2D(6, kernel_size=(5,5), activation='relu', kernel_initializer='he_normal', input_shape=(ROWS, COLS, CHANNELS)))
@@ -150,6 +148,8 @@ def judo_model():
     model.add(Dense(120, activation='relu', kernel_initializer='he_normal'))
     model.add(Dense(60, activation='relu', kernel_initializer='he_normal'))
     model.add(Dense(2, activation='sigmoid', kernel_initializer='he_normal'))
+    
+    '''
     
     model.summary()
     model.compile(loss=objective, optimizer=optimizer, metrics=['accuracy'])
