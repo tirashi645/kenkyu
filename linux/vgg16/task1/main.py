@@ -158,6 +158,7 @@ def judo_model():
     top_model.add(Dense(2, activation='sigmoid'))
     
     model = Model(inputs=vgg16.input, outputs=top_model(vgg16.output))
+    '''
     
     #for layer in top_model.layers[:15]:
     #    layer.trainable = False
@@ -170,10 +171,11 @@ def judo_model():
     model.add(MaxPooling2D(pool_size=(2,2)))
     model.add(Flatten())
     model.add(Dense(120, activation='relu', kernel_initializer='he_normal'))
-    model.add(Dropout(0.5))
+    #model.add(Dropout(0.5))
     model.add(Dense(60, activation='relu', kernel_initializer='he_normal'))
-    model.add(Dropout(0.5))
+    #model.add(Dropout(0.5))
     model.add(Dense(2, activation='sigmoid', kernel_initializer='he_normal'))
+    
     '''
     
     model = Sequential()
@@ -206,6 +208,7 @@ def judo_model():
     model.add(LeakyReLU(alpha=0.3))
     model.add(Dropout(0.5))
     model.add(Dense(2, activation='sigmoid'))
+    '''
     
     model.summary()
     model.compile(loss=objective, optimizer=optimizer, metrics=['accuracy'])
@@ -259,8 +262,8 @@ score = model.evaluate(test_data, test_labels, verbose=1)
 print('Test loss:', score[0])
 print('Test acuuracy:', score[1])
 
-model.save(OUTPUT_DIR + 'judo_model7.h5')
-model.save_weights(OUTPUT_DIR + 'judo_model7_weight.h5')
+model.save(OUTPUT_DIR + 'judo_model.h5')
+model.save_weights(OUTPUT_DIR + 'judo_model_weight.h5')
 
 x_test = prep_data(test_images)
 print(train_labels)
