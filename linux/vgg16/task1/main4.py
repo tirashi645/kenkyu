@@ -113,6 +113,11 @@ predict_prob = model.predict(x_test)
 predict_classes=np.argmax(predict_prob,axis=1)
 print(predict_classes)
 
+if not os.path.exists("/media/koshiba/Data/sportConpetitive/judo_data/output2"):
+    os.makedirs("/media/koshiba/Data/sportConpetitive/judo_data/output2/ippon")
+    os.makedirs("/media/koshiba/Data/sportConpetitive/judo_data/output2/waza")
+    os.makedirs("/media/koshiba/Data/sportConpetitive/judo_data/output2/ow")
+
 for i, data in enumerate(test_images):
     image = cv2.imread(data)
     if predict_classes[i]==0:
