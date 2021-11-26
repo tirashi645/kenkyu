@@ -174,41 +174,7 @@ def judo_model():
     #model.add(Dropout(0.5))
     #model.add(Dense(60, activation='relu', kernel_initializer='he_normal'))
     #model.add(Dropout(0.5))
-    model.add(Dense(2, activation='softmax')
-    
-    '''
-    
-    model = Sequential()
-    model.add(Conv2D(32, 3, 3, padding='same', activation='linear', input_shape=(ROWS, COLS, CHANNELS)))
-    model.add(LeakyReLU(alpha=0.3))
-    model = Sequential()
-    model.add(Conv2D(32, 3, 3, padding='same', activation='linear', input_shape=(ROWS, COLS, CHANNELS)))
-    model.add(LeakyReLU(alpha=0.3))
-    model.add(MaxPooling2D((2, 2), strides=(2, 2)))
-    
-    model.add(Conv2D(64, 3, 3, padding='same', activation='linear', input_shape=(ROWS, COLS, CHANNELS)))
-    model.add(LeakyReLU(alpha=0.3))
-    model = Sequential()
-    model.add(Conv2D(64, 3, 3, padding='same', activation='linear', input_shape=(ROWS, COLS, CHANNELS)))
-    model.add(LeakyReLU(alpha=0.3))
-    model.add(MaxPooling2D((2, 2), strides=(2, 2)))
-    
-    model.add(Conv2D(128, 3, 3, padding='same', activation='linear', input_shape=(ROWS, COLS, CHANNELS)))
-    model.add(LeakyReLU(alpha=0.3))
-    model = Sequential()
-    model.add(Conv2D(128, 3, 3, padding='same', activation='linear', input_shape=(ROWS, COLS, CHANNELS)))
-    model.add(LeakyReLU(alpha=0.3))
-    model.add(MaxPooling2D((2, 2), strides=(2, 2)))
-    
-    model.add(Flatten())
-    model.add(Dense(1024, activation='linear'))
-    model.add(LeakyReLU(alpha=0.3))
-    model.add(Dropout(0.5))
-    model.add(Dense(1024, activation='linear'))
-    model.add(LeakyReLU(alpha=0.3))
-    model.add(Dropout(0.5))
-    model.add(Dense(2, activation='sigmoid'))
-    '''
+    model.add(Dense(2, activation='softmax'))
     
     model.summary()
     model.compile(loss=objective, optimizer=optimizer, metrics=['accuracy'])
