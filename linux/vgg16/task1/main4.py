@@ -83,18 +83,18 @@ for i in train_images:
     if 'ippon' in i:
         train_labels.append(0)
     elif 'wazaari' in i:
-        train_labels.append(1)
+        train_labels.append(0)
     elif 'normal' in i:
-        train_labels.append(2)
+        train_labels.append(1)
         
 test_labels = []
 for i in test_images:
     if 'ippon' in i:
         test_labels.append(0)
     elif 'wazaari' in i:
-        test_labels.append(1)
+        test_labels.append(0)
     elif 'normal' in i:
-        test_labels.append(2)
+        test_labels.append(1)
 
 y_labels = test_labels
 
