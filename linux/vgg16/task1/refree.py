@@ -77,7 +77,7 @@ for i in train_images:
     if 'ippon' in i:
         train_labels.append(0)
     elif 'wazaari' in i:
-        train_labels.append(0)
+        train_labels.append(1)
     elif 'normal' in i:
         train_labels.append(1)
         
@@ -86,7 +86,7 @@ for i in test_images:
     if 'ippon' in i:
         test_labels.append(0)
     elif 'wazaari' in i:
-        test_labels.append(0)
+        test_labels.append(1)
     elif 'normal' in i:
         test_labels.append(1)
         
@@ -203,8 +203,8 @@ score = model.evaluate(test_data, test_labels, verbose=1)
 print('Test loss:', score[0])
 print('Test acuuracy:', score[1])
 
-model.save(OUTPUT_DIR + 'judo_model4.h5')
-model.save_weights(OUTPUT_DIR + 'judo_model4_weight.h5')
+model.save(OUTPUT_DIR + 'refree_model2.h5')
+model.save_weights(OUTPUT_DIR + 'refree_model2_weight.h5')
 
 x_test = prep_data(test_images)
 print(train_labels)
