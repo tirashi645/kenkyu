@@ -3,7 +3,7 @@ def todo(path):
     import cv2
     import os
     import pickle
-    from pythonFile import proc, removeNoise, labeling, get_keypoint, image_keypoint
+    from pythonFile import proc, removeNoise, labeling
     from PIL import Image
     from keras.preprocessing.image import img_to_array
 
@@ -18,7 +18,7 @@ def todo(path):
 
     # 読み込む動画の設定
     videoName = path.split('/')[-1][:-4]
-    savePath = '/media/koshiba/Data/pix2pix/output/generator_1000'
+    savePath = '/media/koshiba/Data/pix2pix/output/generator_100'
     cap = cv2.VideoCapture(path)
     print(path[path.rfind('/')+1:])
 
