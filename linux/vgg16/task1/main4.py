@@ -120,6 +120,8 @@ if not os.path.exists("/media/koshiba/Data/sportConpetitive/judo_data/output2"):
 
 for i, data in enumerate(test_images):
     image = cv2.imread(data)
+    h, w, c = image.shape
+    image = cv2.resize(image, (h * 10, w * 10))
     cv2.putText(image,text="{:.3f}".format(float(predict_prob[i][0])),org=(10, 10),
                                 fontFace=cv2.FONT_HERSHEY_TRIPLEX,
                                 fontScale=1.0,
