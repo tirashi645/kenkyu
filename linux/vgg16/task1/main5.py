@@ -103,8 +103,8 @@ train_labels = to_categorical(train_labels, 2)
 #validation_labels = to_categorical(validation_labels, 3)
 test_labels = to_categorical(test_labels, 2)
 
-model = load_model(OUTPUT_DIR + 'judo_model4.h5')
-model.load_weights(OUTPUT_DIR + 'judo_model4_weight.h5')
+model = load_model(OUTPUT_DIR + 'refree_model2.h5')
+model.load_weights(OUTPUT_DIR + 'refree_model2_weight.h5')
 
 x_test = prep_data(test_images)
 print(model.predict(x_test))
@@ -113,10 +113,10 @@ predict_prob = model.predict(x_test)
 predict_classes=np.argmax(predict_prob,axis=1)
 print(predict_classes)
 
-if not os.path.exists("/media/koshiba/Data/sportConpetitive/judo_data/output2"):
-    os.makedirs("/media/koshiba/Data/sportConpetitive/judo_data/output2/ippon")
-    os.makedirs("/media/koshiba/Data/sportConpetitive/judo_data/output2/waza")
-    os.makedirs("/media/koshiba/Data/sportConpetitive/judo_data/output2/ow")
+if not os.path.exists("/media/koshiba/Data/sportConpetitive/judo_data/output3"):
+    os.makedirs("/media/koshiba/Data/sportConpetitive/judo_data/output3/ippon")
+    os.makedirs("/media/koshiba/Data/sportConpetitive/judo_data/output3/waza")
+    os.makedirs("/media/koshiba/Data/sportConpetitive/judo_data/output3/ow")
 
 for i, data in enumerate(test_images):
     image = cv2.imread(data)
@@ -129,11 +129,11 @@ for i, data in enumerate(test_images):
                                 thickness=1,
                                 lineType=cv2.LINE_4)
     if predict_classes[i]==0:
-        cv2.imwrite("/media/koshiba/Data/sportConpetitive/judo_data/output2/ippon/"+data.split('/')[-1], image)
+        cv2.imwrite("/media/koshiba/Data/sportConpetitive/judo_data/output3/ippon/"+data.split('/')[-1], image)
     elif predict_classes[i]==1:
-        cv2.imwrite("/media/koshiba/Data/sportConpetitive/judo_data/output2/waza/"+data.split('/')[-1], image)
+        cv2.imwrite("/media/koshiba/Data/sportConpetitive/judo_data/output3/waza/"+data.split('/')[-1], image)
     elif predict_classes[i]==2:
-        cv2.imwrite("/media/koshiba/Data/sportConpetitive/judo_data/output2/ow/"+data.split('/')[-1], image)
+        cv2.imwrite("/media/koshiba/Data/sportConpetitive/judo_data/output3/ow/"+data.split('/')[-1], image)
         
 score = model.evaluate(test_data, test_labels, verbose=1)
 print('Test loss:', score[0])
