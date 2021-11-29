@@ -120,6 +120,12 @@ if not os.path.exists("/media/koshiba/Data/sportConpetitive/judo_data/output2"):
 
 for i, data in enumerate(test_images):
     image = cv2.imread(data)
+    cv2.putText(image,text=predict_classes[i][0],org=(10, 10),
+                                fontFace=cv2.FONT_HERSHEY_TRIPLEX,
+                                fontScale=1.0,
+                                color=(255,0,0),
+                                thickness=1,
+                                lineType=cv2.LINE_4)
     if predict_classes[i]==0:
         cv2.imwrite("/media/koshiba/Data/sportConpetitive/judo_data/output2/ippon/"+data.split('/')[-1], image)
     elif predict_classes[i]==1:
