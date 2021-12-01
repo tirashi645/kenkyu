@@ -116,8 +116,8 @@ train_labels = to_categorical(train_labels, 2)
 validation_labels = to_categorical(validation_labels, 2)
 test_labels = to_categorical(test_labels, 2)
 
-model = load_model(OUTPUT_DIR + 'judo_model5.h5')
-model.load_weights(OUTPUT_DIR + 'judo_model5_weight.h5')
+model = load_model(OUTPUT_DIR + 'judo_model2.h5')
+model.load_weights(OUTPUT_DIR + 'judo_model2_weight.h5')
 
 x_test = prep_data(test_images)
 print(model.predict(x_test))
@@ -125,6 +125,11 @@ predict_prob = model.predict(x_test)
 #print(model.predict_classes(x_test))
 predict_classes=np.argmax(predict_prob,axis=1)
 print(predict_classes)
+
+if os.path.isfile("/media/koshiba/Data/sportConpetitive/judo_data/output"):
+    os.makedirs("/media/koshiba/Data/sportConpetitive/judo_data/output/refree")
+    os.makedirs("/media/koshiba/Data/sportConpetitive/judo_data/output/player")
+    os.makedirs("/media/koshiba/Data/sportConpetitive/judo_data/output/ow")
 
 for i, data in enumerate(test_images):
     image = cv2.imread(data)
