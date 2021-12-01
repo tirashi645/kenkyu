@@ -126,7 +126,7 @@ predict_prob = model.predict(x_test)
 predict_classes=np.argmax(predict_prob,axis=1)
 print(predict_classes)
 
-if os.path.isfile("/media/koshiba/Data/sportConpetitive/judo_data/output"):
+if not os.path.isfile("/media/koshiba/Data/sportConpetitive/judo_data/output"):
     os.makedirs("/media/koshiba/Data/sportConpetitive/judo_data/output/refree")
     os.makedirs("/media/koshiba/Data/sportConpetitive/judo_data/output/player")
     os.makedirs("/media/koshiba/Data/sportConpetitive/judo_data/output/ow")
