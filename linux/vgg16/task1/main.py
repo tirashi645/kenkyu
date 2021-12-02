@@ -166,9 +166,9 @@ def judo_model():
     
     '''
     model = Sequential()
-    model.add(Conv2D(6, kernel_size=(5,5), activation='relu', kernel_initializer='he_normal', input_shape=(ROWS, COLS, CHANNELS)))
+    model.add(Conv2D(60, kernel_size=(5,5), activation='relu', kernel_initializer='he_normal', input_shape=(ROWS, COLS, CHANNELS)))
     model.add(MaxPooling2D(pool_size=(2,2)))
-    model.add(Conv2D(16, kernel_size=(5,5), activation='relu', kernel_initializer='he_normal'))
+    model.add(Conv2D(120, kernel_size=(5,5), activation='relu', kernel_initializer='he_normal'))
     model.add(MaxPooling2D(pool_size=(2,2)))
     model.add(Flatten())
     model.add(Dense(120, activation='relu', kernel_initializer='he_normal'))
