@@ -9,6 +9,7 @@ from sklearn.metrics import confusion_matrix, accuracy_score, precision_score, r
 
 from tensorflow.keras.applications.vgg16 import VGG16
 from tensorflow.keras.applications.resnet50 import ResNet50
+from efficientnet.keras import EfficientNetB0
 from tensorflow.keras.models import Sequential, Model
 from tensorflow.keras import models
 from tensorflow.keras.layers import Input, Flatten, Conv2D, MaxPooling2D, Dense, Activation, Dropout, LeakyReLU
@@ -144,9 +145,10 @@ objective = 'categorical_crossentropy'
 
 # モデル構築
 def judo_model():
-    '''
+    
     input_tensor = Input(shape=(ROWS, COLS, CHANNELS))
     #vgg16 = ResNet50(include_top=False, weights='imagenet', input_tensor=input_tensor)
+    vgg16 = EfficientNetB0(include_top=False, weights='imagenet', input_tensor=input_tensor)
     vgg16 = VGG16(include_top=False, weights='imagenet', input_tensor=input_tensor)
     top_model = models.Sequential()
     top_model.add(Flatten(input_shape=vgg16.output_shape[1:]))
@@ -160,22 +162,23 @@ def judo_model():
     
     model = Model(inputs=vgg16.input, outputs=top_model(vgg16.output))
     
-    for layer in top_model.layers[:15]:
-        layer.trainable = False
-    #vgg16.trainable = False
+    #for layer in top_model.layers[:15]:
+    #    layer.trainable = False
+    vgg16.trainable = False
     
     '''
     model = Sequential()
-    model.add(Conv2D(60, kernel_size=(5,5), activation='relu', kernel_initializer='he_normal', input_shape=(ROWS, COLS, CHANNELS)))
+    model.add(Conv2D(64, kernel_size=(5,5), activation='relu', kernel_initializer='he_normal', input_shape=(ROWS, COLS, CHANNELS)))
     model.add(MaxPooling2D(pool_size=(2,2)))
-    model.add(Conv2D(120, kernel_size=(5,5), activation='relu', kernel_initializer='he_normal'))
+    model.add(Conv2D(128, kernel_size=(5,5), activation='relu', kernel_initializer='he_normal'))
     model.add(MaxPooling2D(pool_size=(2,2)))
     model.add(Flatten())
-    model.add(Dense(120, activation='relu', kernel_initializer='he_normal'))
+    model.add(Dense(128, activation='relu', kernel_initializer='he_normal'))
     #model.add(Dropout(0.5))
     #model.add(Dense(60, activation='relu', kernel_initializer='he_normal'))
     #model.add(Dropout(0.5))
     model.add(Dense(2, activation='softmax'))
+    '''
     model.summary()
     model.compile(loss=objective, optimizer=optimizer, metrics=['accuracy'])
     return model
