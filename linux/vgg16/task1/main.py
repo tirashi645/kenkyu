@@ -7,7 +7,7 @@ from PIL import Image
 
 from sklearn.metrics import confusion_matrix, accuracy_score, precision_score, recall_score, f1_score
 
-import tensorflow.keras
+from tensorflow import keras
 from tensorflow.keras.applications.vgg16 import VGG16
 from tensorflow.keras.applications.resnet50 import ResNet50
 from efficientnet.keras import EfficientNetB0
