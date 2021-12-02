@@ -137,8 +137,8 @@ augmentation_validation_data = augmentation_train_datagen.flow(validation_data, 
 
 # 最適化アルゴリズム
 #optimizer = 'SGD'
-#optimizer = RAdam()
-#optimizer = Adam(lr=0.0001)
+optimizer = RAdam(lr=0.001)
+#optimizer = Adam(lr=0.001)
 # 目的関数
 objective = 'categorical_crossentropy'
 
@@ -177,7 +177,7 @@ def judo_model():
     #model.add(Dropout(0.5))
     model.add(Dense(2, activation='softmax'))
     model.summary()
-    model.compile(loss=objective, optimizer=RAdam(), metrics=['accuracy'])
+    model.compile(loss=objective, optimizer=optimizer, metrics=['accuracy'])
     return model
     
 
