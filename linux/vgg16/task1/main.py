@@ -17,7 +17,7 @@ from tensorflow.keras.utils import to_categorical
 import tensorflow.keras.backend as K
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 from tensorflow.keras.optimizers import Adam
-from keras_radam import Radam
+from keras_radam import RAdam
 
 TRAIN_DIR = "/media/koshiba/Data/sportConpetitive/judo_data/train4/"
 TEST_DIR = "/media/koshiba/Data/sportConpetitive/judo_data/test2/"
@@ -137,7 +137,7 @@ augmentation_validation_data = augmentation_train_datagen.flow(validation_data, 
 
 # 最適化アルゴリズム
 #optimizer = 'SGD'
-optimizer = Radam()
+optimizer = RAdam()
 #optimizer = Adam(lr=0.0001)
 # 目的関数
 objective = 'categorical_crossentropy'
