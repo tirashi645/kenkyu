@@ -127,8 +127,6 @@ augmentation_train_datagen = ImageDataGenerator(
     width_shift_range = 0.2,
     #ランダムにズーム
     zoom_range = 0.2,
-    #チャンネルシフト
-    channel_shift_range = 0.2,
     #スケーリング
     rescale = 1./255
     )
@@ -144,6 +142,7 @@ objective = 'categorical_crossentropy'
 
 # モデル構築
 def judo_model():
+    '''
     input_tensor = Input(shape=(ROWS, COLS, CHANNELS))
     #vgg16 = ResNet50(include_top=False, weights='imagenet', input_tensor=input_tensor)
     vgg16 = VGG16(include_top=False, weights='imagenet', input_tensor=input_tensor)
@@ -174,7 +173,6 @@ def judo_model():
     #model.add(Dense(60, activation='relu', kernel_initializer='he_normal'))
     #model.add(Dropout(0.5))
     model.add(Dense(2, activation='softmax'))
-    '''
     model.summary()
     model.compile(loss=objective, optimizer=optimizer, metrics=['accuracy'])
     return model
