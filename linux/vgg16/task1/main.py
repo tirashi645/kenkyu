@@ -17,6 +17,7 @@ from tensorflow.keras.utils import to_categorical
 import tensorflow.keras.backend as K
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 from tensorflow.keras.optimizers import Adam
+from keras_radam import Radam
 
 TRAIN_DIR = "/media/koshiba/Data/sportConpetitive/judo_data/train4/"
 TEST_DIR = "/media/koshiba/Data/sportConpetitive/judo_data/test2/"
@@ -136,12 +137,14 @@ augmentation_validation_data = augmentation_train_datagen.flow(validation_data, 
 
 # 最適化アルゴリズム
 #optimizer = 'SGD'
-optimizer = Adam(lr=0.0001)
+optimizer = Radam()
+#optimizer = Adam(lr=0.0001)
 # 目的関数
 objective = 'categorical_crossentropy'
 
 # モデル構築
 def judo_model():
+    '''
     input_tensor = Input(shape=(ROWS, COLS, CHANNELS))
     #vgg16 = ResNet50(include_top=False, weights='imagenet', input_tensor=input_tensor)
     vgg16 = VGG16(include_top=False, weights='imagenet', input_tensor=input_tensor)
@@ -173,7 +176,6 @@ def judo_model():
     #model.add(Dense(60, activation='relu', kernel_initializer='he_normal'))
     #model.add(Dropout(0.5))
     model.add(Dense(2, activation='softmax'))
-    '''
     model.summary()
     model.compile(loss=objective, optimizer=optimizer, metrics=['accuracy'])
     return model
