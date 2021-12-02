@@ -14,6 +14,7 @@ from tensorflow.keras.callbacks import Callback, EarlyStopping
 from tensorflow.keras.utils import to_categorical
 import tensorflow.keras.backend as K
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
+from sklearn.model_selection import train_test_split
 
 TRAIN_DIR = "/media/koshiba/Data/sportConpetitive/judo_data/refree/train/"
 TEST_DIR = "/media/koshiba/Data/sportConpetitive/judo_data/refree/test/"
@@ -90,9 +91,13 @@ for i in test_images:
     elif 'normal' in i:
         test_labels.append(1)
         
+        
+train_data, validation_data, train_labels, validation_labels = train_test_split(train_data, train_labels, test_size=0.2, random_state=1)
+
 # convert to one-hot-label
 train_labels = to_categorical(train_labels, 2)
 test_labels = to_categorical(test_labels, 2)
+validation_labels = to_categorical(validation_labels, 2)
 
 #学習用のImageDataGeneratorクラスの作成
 augmentation_train_datagen = ImageDataGenerator(
@@ -109,7 +114,7 @@ augmentation_train_datagen = ImageDataGenerator(
     )
 #学習用のバッチの生成
 augmentation_train_data = augmentation_train_datagen.flow(train_data, train_labels, batch_size=32, seed=1234)
-#augmentation_validation_data = augmentation_train_datagen.flow(validation_data, validation_labels, batch_size=32, seed=1234)
+augmentation_validation_data = augmentation_train_datagen.flow(validation_data, validation_labels, batch_size=32, seed=1234)
 
 # 最適化アルゴリズム
 optimizer = 'SGD'
