@@ -23,7 +23,7 @@ from keras.layers.pooling import MaxPooling2D
 
 model_dir = '/media/koshiba/Data/pix2pix/model'
 log_dir = './tflog'
-data_level = 'original' # 背景変更なし
+data_level = 'original_full' # 背景変更なし
 #data_level = 'default'  # 背景変更あり
 datasetpath = '/media/koshiba/Data/pix2pix/output/datasetimages_'+data_level+'.hdf5'
 outputpath = '/media/koshiba/Data/pix2pix/output'
