@@ -73,7 +73,7 @@ def give_coorList(f):
     window_name = "input window"
     
     #画像の表示
-    cv2.namedWindow("input window", cv2.WINDOW_AUTOSIZE)
+    cv2.namedWindow("input window", cv2.WINDOW_NORMAL)
     cv2.imshow(window_name, f)
     
     #コールバックの設定

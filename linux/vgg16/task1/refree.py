@@ -16,8 +16,8 @@ import tensorflow.keras.backend as K
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 from sklearn.model_selection import train_test_split
 
-TRAIN_DIR = "/media/koshiba/Data/sportConpetitive/judo_data/refree/train/"
-TEST_DIR = "/media/koshiba/Data/sportConpetitive/judo_data/refree/test/"
+TRAIN_DIR = "/media/koshiba/Data/sportConpetitive/judo_data/refree2/train/"
+TEST_DIR = "/media/koshiba/Data/sportConpetitive/judo_data/refree2/test/"
 OUTPUT_DIR = "/media/koshiba/Data/sportConpetitive/refree/output/"
 
 ROWS = 150
@@ -30,14 +30,14 @@ train_refree = [TRAIN_DIR+'ippon/' + i for i in os.listdir(TRAIN_DIR+'ippon/')]
 train_player = [TRAIN_DIR+'wazaari/' + i for i in os.listdir(TRAIN_DIR+'wazaari/')]
 train_ow = [TRAIN_DIR+'normal/' + i for i in os.listdir(TRAIN_DIR+'normal/')]
 
-test_refree = [TEST_DIR+'ippon/' + i for i in os.listdir(TEST_DIR+'ippon/')]
-test_player = [TEST_DIR+'wazaari/' + i for i in os.listdir(TEST_DIR+'wazaari/')]
-test_ow = [TEST_DIR+'normal/' + i for i in os.listdir(TEST_DIR+'normal/')]
+#test_refree = [TEST_DIR+'ippon/' + i for i in os.listdir(TEST_DIR+'ippon/')]
+#test_player = [TEST_DIR+'wazaari/' + i for i in os.listdir(TEST_DIR+'wazaari/')]
+#test_ow = [TEST_DIR+'normal/' + i for i in os.listdir(TEST_DIR+'normal/')]
 
 
 #test_images = [TEST_DIR + i for i in os.listdir(TEST_DIR)]
 train_images = train_refree + train_player + train_ow
-test_images = test_refree + test_player + test_ow
+#test_images = test_refree + test_player + test_ow
 
 random.shuffle(train_images)
 
@@ -66,7 +66,7 @@ def tp(y_true, y_pred):
 
 #print(train_images)
 train_data = prep_data(train_images)
-test_data = prep_data(test_images)
+#test_data = prep_data(test_images)
 
 # 正規化
 #train_data = train_data.astype('float32')
@@ -81,7 +81,8 @@ for i in train_images:
         train_labels.append(1)
     elif 'normal' in i:
         train_labels.append(1)
-        
+
+'''  
 test_labels = []
 for i in test_images:
     if 'ippon' in i:
@@ -90,8 +91,9 @@ for i in test_images:
         test_labels.append(1)
     elif 'normal' in i:
         test_labels.append(1)
-        
-        
+'''
+  
+train_data, test_data, train_labels, test_labels = train_test_split(train_data, train_labels, test_size=0.2, random_state=1)      
 train_data, validation_data, train_labels, validation_labels = train_test_split(train_data, train_labels, test_size=0.2, random_state=1)
 
 # convert to one-hot-label
@@ -101,8 +103,6 @@ validation_labels = to_categorical(validation_labels, 2)
 
 #学習用のImageDataGeneratorクラスの作成
 augmentation_train_datagen = ImageDataGenerator(
-    #回転
-    rotation_range = 10,
     #左右反転
     horizontal_flip = True,
     #左右平行移動
@@ -204,13 +204,13 @@ score = model.evaluate(test_data, test_labels, verbose=1)
 print('Test loss:', score[0])
 print('Test acuuracy:', score[1])
 
-model.save(OUTPUT_DIR + 'refree_model2.h5')
-model.save_weights(OUTPUT_DIR + 'refree_model2_weight.h5')
+model.save(OUTPUT_DIR + 'refree_model3.h5')
+model.save_weights(OUTPUT_DIR + 'refree_model3_weight.h5')
 
-x_test = prep_data(test_images)
+#x_test = prep_data(test_images)
 print(train_labels)
-print(model.predict(x_test))
-predict_prob = model.predict(x_test)
+print(model.predict(test_data))
+predict_prob = model.predict(test_data)
 #print(model.predict_classes(x_test))
 predict_classes=np.argmax(predict_prob,axis=1)
 print(predict_classes)

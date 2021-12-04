@@ -110,7 +110,7 @@ def todo(path, zahyou):
             save_layer_list[index] = cv2.circle(
                                                 save_layer,                               # 描く画像
                                                 (int(prev[0][0]), int(prev[0][1])),         # 線を引く始点
-                                                5,         # 線を引く終点
+                                                3,         # 線を引く終点
                                                 color = c[noise[index]],    # 描く色
                                                 thickness=3   # 線の太さ
                                             )
@@ -120,7 +120,7 @@ def todo(path, zahyou):
                 cat1_layer = cv2.circle(
                                                 cat1_layer,                               # 描く画像
                                                 (int(prev[0][0]), int(prev[0][1])),         # 線を引く始点
-                                                5,         # 線を引く終点
+                                                3,         # 線を引く終点
                                                 color = c[noise[index]],    # 描く色
                                                 thickness=3   # 線の太さ
                                             )
@@ -129,7 +129,7 @@ def todo(path, zahyou):
                 cat2_layer = cv2.circle(
                                                 cat2_layer,                               # 描く画像
                                                 (int(prev[0][0]), int(prev[0][1])),         # 線を引く始点
-                                                5,         # 線を引く終点
+                                                3,         # 線を引く終点
                                                 color = c[noise[index]],    # 描く色
                                                 thickness=3   # 線の太さ
                                             )
@@ -138,7 +138,7 @@ def todo(path, zahyou):
                 cat3_layer = cv2.circle(
                                                 cat3_layer,                               # 描く画像
                                                 (int(prev[0][0]), int(prev[0][1])),         # 線を引く始点
-                                                5,         # 線を引く終点
+                                                3,         # 線を引く終点
                                                 color = c[noise[index]],    # 描く色
                                                 thickness=3   # 線の太さ
                                             )
@@ -147,7 +147,7 @@ def todo(path, zahyou):
                 cat4_layer = cv2.circle(
                                                 cat4_layer,                               # 描く画像
                                                 (int(prev[0][0]), int(prev[0][1])),         # 線を引く始点
-                                                5,         # 線を引く終点
+                                                3,         # 線を引く終点
                                                 color = c[noise[index]],    # 描く色
                                                 thickness=3   # 線の太さ
                                             )

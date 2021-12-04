@@ -6,7 +6,7 @@ def todo(path):
     import os
 
     padding = 5    # 特徴点検出領域の半径
-    save_path = 'E:/data/click_point/output/point'
+    save_path = 'E:/data/click_point/nda/output'
 
     # 読み込む動画の設定
     path = path.replace(os.sep, '/')
@@ -66,9 +66,10 @@ def todo(path):
                                         thickness=3   # 線の太さ
                                     )
     frame = cv2.add(first_frame, flow_layer)
+    frame = cv2.resize(frame, (720, 1280))
 
     #######################################
-    # クリックした特徴点を正常な特徴点とする
+    # クリックした特徴点を正常な特徴点とする      
     #######################################
 
     while True:
@@ -129,7 +130,7 @@ if __name__=='__main__':
     import glob
     import os
     # ファイルダイアログからファイル選択
-    video_file = glob.glob('E:/data/click_point/input/*')
+    video_file = glob.glob('E:/data/click_point/nda/input/*')
 
     for path in video_file:
         noizu = todo(path)
