@@ -64,7 +64,7 @@ print('original img')
 files_org = glob.glob(inpath+'/org/*.jpg')
 files_mask = glob.glob(inpath+'/mask/*.jpg')
 for file_num, data in enumerate(files_org):
-    num_list = rand_ints(0, 17, 4)
+    num_list = rand_ints(0, 17, 18)
     img_name = files_org[file_num].split('/')[-1][:-4]
 
     print(files_org[file_num])
@@ -96,7 +96,7 @@ for file_num, data in enumerate(files_org):
         org_augment = np.append(org_augment, data)
         if i == 4:
             break
-'''
+        
     # 背景を変更する
     for i in num_list:
         org_img = '/media/koshiba/Data/pix2pix/input/synthetic/' + img_name + '_' + str(i) + '.jpg'
@@ -121,7 +121,6 @@ for file_num, data in enumerate(files_org):
             org_augment = np.append(org_augment, data)
             if i == 4:
                 break
-'''
 
 '''
 for index in range(len(masks)):
@@ -159,7 +158,7 @@ print('mask imgs : ', gimgs.shape)
 print('test org  : ', vimgs.shape)
 print('test tset : ', vgimgs.shape)
 
-outh5 = h5py.File(outpath+'/datasetimages_original.hdf5', 'w')
+outh5 = h5py.File(outpath+'/datasetimages_original_full.hdf5', 'w')
 outh5.create_dataset('train_data_raw', data=imgs)
 outh5.create_dataset('train_data_gen', data=gimgs)
 outh5.create_dataset('val_data_raw', data=vimgs)
