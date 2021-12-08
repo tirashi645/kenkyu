@@ -74,7 +74,7 @@ def prep_data(images):
 
 #print(train_images)
 train_data = prep_data(train_images)
-test_data = prep_data(test_images)
+#test_data = prep_data(test_images)
 
 # 正規化
 #train_data = train_data.astype('float32')
@@ -90,6 +90,7 @@ for i in train_images:
     elif 'normal' in i:
         train_labels.append(1)
         
+'''
 test_labels = []
 for i in test_images:
     if 'ippon' in i:
@@ -98,8 +99,9 @@ for i in test_images:
         test_labels.append(1)
     elif 'normal' in i:
         test_labels.append(1)
+'''
 
-train_images, test_data, train_labels, test_labels = train_test_split(train_images, train_labels, test_size=0.2, random_state=1)
+train_images, test_images, train_labels, test_labels = train_test_split(train_images, train_labels, test_size=0.2, random_state=1)
 
 y_labels = test_labels
 
@@ -141,7 +143,7 @@ for i, data in enumerate(test_images):
     elif predict_classes[i]==2:
         cv2.imwrite("/media/koshiba/Data/sportConpetitive/judo_data/output3/ow/"+data.split('/')[-1], image)
         
-score = model.evaluate(test_data, test_labels, verbose=1)
+score = model.evaluate(x_test, test_labels, verbose=1)
 print('Test loss:', score[0])
 print('Test acuuracy:', score[1])
 #print('Accuracy:',accuracy_score(y_labels,predict_classes, average='weighted'))
