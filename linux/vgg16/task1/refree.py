@@ -148,7 +148,7 @@ def judo_model():
     #model.add(MaxPooling2D(pool_size=(2,2)))
     #model.add(Conv2D(16, kernel_size=(5,5), activation='relu', kernel_initializer='he_normal'))
     #model.add(MaxPooling2D(pool_size=(2,2)))
-    model.add(Flatten())
+    #model.add(Flatten())
     model.add(Dense(120, activation='relu', kernel_initializer='he_normal'))
     model.add(Dense(60, activation='relu', kernel_initializer='he_normal'))
     model.add(Dense(2, activation='sigmoid', kernel_initializer='he_normal'))
