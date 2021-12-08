@@ -16,9 +16,11 @@ import tensorflow.keras.backend as K
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 from sklearn.model_selection import train_test_split
 
-TRAIN_DIR = "/media/koshiba/Data/sportConpetitive/judo_data/refree2/train/"
+#TRAIN_DIR = "/media/koshiba/Data/sportConpetitive/judo_data/refree2/train/"
 TEST_DIR = "/media/koshiba/Data/sportConpetitive/judo_data/refree2/test/"
 OUTPUT_DIR = "/media/koshiba/Data/sportConpetitive/refree/output/"
+
+TRAIN_DIR = "/media/koshiba/Data/sportConpetitive/judo_data/refree_skeleton/"
 
 ROWS = 150
 COLS = 150
