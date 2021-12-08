@@ -101,7 +101,7 @@ train_data, validation_data, train_labels, validation_labels = train_test_split(
 # convert to one-hot-label
 train_labels = to_categorical(train_labels, 2)
 test_labels = to_categorical(test_labels, 2)
-validation_labels = to_categorical(validation_labels, 2)
+#validation_labels = to_categorical(validation_labels, 2)
 
 #学習用のImageDataGeneratorクラスの作成
 augmentation_train_datagen = ImageDataGenerator(
