@@ -18,11 +18,14 @@ from tensorflow.keras.utils import to_categorical
 import tensorflow.keras.backend as K
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 from tensorflow.keras.optimizers import Adam
+from sklearn.model_selection import train_test_split
 
 
-TRAIN_DIR = "/media/koshiba/Data/sportConpetitive/refree/train/"
+#TRAIN_DIR = "/media/koshiba/Data/sportConpetitive/refree/train/"
 TEST_DIR = "/media/koshiba/Data/sportConpetitive/refree/test/"
 OUTPUT_DIR = "/media/koshiba/Data/sportConpetitive/refree/output/"
+
+TRAIN_DIR = "/media/koshiba/Data/sportConpetitive/judo_data/refree_skeleton/"
 
 ROWS = 150
 COLS = 150
@@ -96,7 +99,10 @@ for i in test_images:
     elif 'normal' in i:
         test_labels.append(1)
 
+train_images, test_images, train_labels, test_labels = train_test_split(train_images, train_labels, test_size=0.2, random_state=1)
+
 y_labels = test_labels
+
 
 # convert to one-hot-label
 train_labels = to_categorical(train_labels, 2)
