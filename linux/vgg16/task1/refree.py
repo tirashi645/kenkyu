@@ -16,11 +16,11 @@ import tensorflow.keras.backend as K
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 from sklearn.model_selection import train_test_split
 
-#TRAIN_DIR = "/media/koshiba/Data/sportConpetitive/judo_data/refree2/train/"
+TRAIN_DIR = "/media/koshiba/Data/sportConpetitive/judo_data/refree2/train/"
 TEST_DIR = "/media/koshiba/Data/sportConpetitive/judo_data/refree2/test/"
 OUTPUT_DIR = "/media/koshiba/Data/sportConpetitive/refree/output/"
 
-TRAIN_DIR = "/media/koshiba/Data/sportConpetitive/judo_data/refree_skeleton/"
+#TRAIN_DIR = "/media/koshiba/Data/sportConpetitive/judo_data/refree_skeleton/"
 
 ROWS = 150
 COLS = 150
@@ -144,11 +144,11 @@ def judo_model():
     #vgg16.trainable = False
     '''
     model = Sequential()
-    #model.add(Conv2D(6, kernel_size=(5,5), activation='relu', kernel_initializer='he_normal', input_shape=(ROWS, COLS, CHANNELS)))
-    #model.add(MaxPooling2D(pool_size=(2,2)))
-    #model.add(Conv2D(16, kernel_size=(5,5), activation='relu', kernel_initializer='he_normal'))
-    #model.add(MaxPooling2D(pool_size=(2,2)))
-    #model.add(Flatten())
+    model.add(Conv2D(6, kernel_size=(5,5), activation='relu', kernel_initializer='he_normal', input_shape=(ROWS, COLS, CHANNELS)))
+    model.add(MaxPooling2D(pool_size=(2,2)))
+    model.add(Conv2D(16, kernel_size=(5,5), activation='relu', kernel_initializer='he_normal'))
+    model.add(MaxPooling2D(pool_size=(2,2)))
+    model.add(Flatten())
     model.add(Dense(120, activation='relu', kernel_initializer='he_normal'))
     model.add(Dense(60, activation='relu', kernel_initializer='he_normal'))
     model.add(Dense(2, activation='sigmoid', kernel_initializer='he_normal'))
