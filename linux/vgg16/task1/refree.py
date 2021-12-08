@@ -16,11 +16,11 @@ import tensorflow.keras.backend as K
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 from sklearn.model_selection import train_test_split
 
-TRAIN_DIR = "/media/koshiba/Data/sportConpetitive/judo_data/refree2/"
+#TRAIN_DIR = "/media/koshiba/Data/sportConpetitive/judo_data/refree2/"
 TEST_DIR = "/media/koshiba/Data/sportConpetitive/judo_data/refree2/test/"
 OUTPUT_DIR = "/media/koshiba/Data/sportConpetitive/refree/output/"
 
-#TRAIN_DIR = "/media/koshiba/Data/sportConpetitive/judo_data/refree_skeleton/"
+TRAIN_DIR = "/media/koshiba/Data/sportConpetitive/judo_data/refree_skeleton/"
 
 ROWS = 150
 COLS = 150
@@ -180,8 +180,8 @@ early_stopping = EarlyStopping(monitor='val_loss', patience=10, verbose=1, mode=
 
 def run_judo_discriminator():
     history = LossHistory()
-    #model.fit(train_data, train_labels, batch_size=batch_size, epochs=epochs, validation_split=0.3, verbose=1, shuffle=True, callbacks=[history])#, early_stopping])
-    model.fit_generator(augmentation_train_data, steps_per_epoch=int(len(train_data)/batch_size) , epochs=100, validation_data=augmentation_validation_data, validation_steps=int(len(validation_data)/batch_size), callbacks=[history, early_stopping])
+    model.fit(train_data, train_labels, batch_size=batch_size, epochs=epochs, validation_split=0.3, verbose=1, shuffle=True, callbacks=[history])#, early_stopping])
+    #model.fit_generator(augmentation_train_data, steps_per_epoch=int(len(train_data)/batch_size) , epochs=100, validation_data=augmentation_validation_data, validation_steps=int(len(validation_data)/batch_size), callbacks=[history, early_stopping])
     
     predictions = model.predict(test_data, verbose=1)
     return predictions, history
