@@ -99,7 +99,7 @@ for i in test_images:
     elif 'normal' in i:
         test_labels.append(1)
 
-train_images, test_images, train_labels, test_labels = train_test_split(train_images, train_labels, test_size=0.2, random_state=1)
+train_images, test_data, train_labels, test_labels = train_test_split(train_images, train_labels, test_size=0.2, random_state=1)
 
 y_labels = test_labels
 
