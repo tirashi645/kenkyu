@@ -209,8 +209,8 @@ score = model.evaluate(test_data, test_labels, verbose=1)
 print('Test loss:', score[0])
 print('Test acuuracy:', score[1])
 
-model.save(OUTPUT_DIR + 'refree_model5.h5')
-model.save_weights(OUTPUT_DIR + 'refree_model5_weight.h5')
+model.save(OUTPUT_DIR + 'refree_model.h5')
+model.save_weights(OUTPUT_DIR + 'refree_model_weight.h5')
 
 #x_test = prep_data(test_images)
 print(train_labels)
