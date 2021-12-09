@@ -36,6 +36,7 @@ CHANNELS = 3
 train_refree = [TRAIN_DIR+'ippon/' + i for i in os.listdir(TRAIN_DIR+'ippon/')]
 train_player = [TRAIN_DIR+'wazaari/' + i for i in os.listdir(TRAIN_DIR+'wazaari/')]
 train_ow = [TRAIN_DIR+'normal/' + i for i in os.listdir(TRAIN_DIR+'normal/')]
+train_tmp = [TRAIN_DIR+'tmp/' + i for i in os.listdir(TRAIN_DIR+'tmp/')]
 
 test_refree = [TEST_DIR+'ippon/' + i for i in os.listdir(TEST_DIR+'ippon/')]
 test_player = [TEST_DIR+'wazaari/' + i for i in os.listdir(TEST_DIR+'wazaari/')]
@@ -43,7 +44,7 @@ test_ow = [TEST_DIR+'normal/' + i for i in os.listdir(TEST_DIR+'normal/')]
 
 
 #test_images = [TEST_DIR + i for i in os.listdir(TEST_DIR)]
-train_images = train_refree + train_player + train_ow
+train_images = train_refree + train_player + train_ow + train_tmp
 test_images = test_refree + test_player + test_ow
 print(len(test_refree))
 print(len(test_player))
@@ -88,6 +89,8 @@ for i in train_images:
     elif 'wazaari' in i:
         train_labels.append(1)
     elif 'normal' in i:
+        train_labels.append(1)
+    elif 'tmp' in i:
         train_labels.append(1)
         
 '''
