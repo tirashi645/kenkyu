@@ -85,7 +85,7 @@ def todo(path):
                                                 flow_layer2,                               # 描く画像
                                                 (int(prev[0][0]), int(prev[0][1])),         # 線を引く始点
                                                 5,         # 線を引く終点
-                                                color = (255, 0, 0),    # 描く色
+                                                color = (0, 0, 255),    # 描く色
                                                 thickness=3   # 線の太さ
                                             )
             elif noise[index]==1:

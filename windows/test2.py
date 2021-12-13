@@ -36,16 +36,17 @@ if __name__ == '__main__':
     img_akaze = img_origin.copy()
     img_shift = img_origin.copy()
     img_orb = img_origin.copy()
+    
 
     img = cv2.bitwise_not(img_origin)
 
-    img_gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    # img_gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 
-    ret, img_binary = cv2.threshold(img_gray, 220, 255,cv2.THRESH_BINARY)
+    # ret, img_binary = cv2.threshold(img_gray, 220, 255,cv2.THRESH_BINARY)
+    # print(img_binary)
+    # contours, hierarchy = cv2.findContours(img_binary, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
 
-    contours, hierarchy = cv2.findContours(img_binary, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
-
-    img_contour = cv2.drawContours(img_origin, contours, -1, (0, 255, 0), 5)
+    # img_contour = cv2.drawContours(img_origin, contours, -1, (0, 255, 0), 5)
 
     # グレースケール変換
     from_img = cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)
@@ -64,11 +65,11 @@ if __name__ == '__main__':
     orb_img = cv2.drawKeypoints(img_orb, akaze_key_points, None, flags=4)
     #extraceted_img = cv2.drawKeypoints(img_akaze, akaze_key_points, None)
 
-    matching_img = match(img_moto, img_hikaku)
+    #matching_img = match(img_moto, img_hikaku)
 
 
-    cv2.imwrite("E:/data/tmp/img_contour.jpg",img_contour)
-    cv2.imwrite("E:/data/tmp/akaze2.jpg",akaze_img)
-    cv2.imwrite("E:/data/tmp/shift2.jpg",shift_img)
-    cv2.imwrite("E:/data/tmp/orb2.jpg",orb_img)
-    cv2.imwrite("E:/data/tmp/akaze_MATCHING.jpg",matching_img)
+    #cv2.imwrite("E:/data/tmp/nda_img_contour.jpg",img_contour)
+    cv2.imwrite("E:/data/tmp/nda2_akaze2.jpg",akaze_img)
+    cv2.imwrite("E:/data/tmp/nda2_shift2.jpg",shift_img)
+    cv2.imwrite("E:/data/tmp/nda2_orb2.jpg",orb_img)
+    #cv2.imwrite("E:/data/tmp/nda_akaze_MATCHING.jpg",matching_img)
