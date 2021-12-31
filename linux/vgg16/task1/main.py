@@ -20,6 +20,7 @@ import tensorflow.keras.backend as K
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 from tensorflow.keras.optimizers import Adam
 from keras_radam import RAdam
+from sklearn.model_selection import train_test_split
 
 TRAIN_DIR = "/media/koshiba/Data/sportConpetitive/judo_data/train4/"
 TEST_DIR = "/media/koshiba/Data/sportConpetitive/judo_data/test2/"
@@ -76,8 +77,8 @@ def tp(y_true, y_pred):
 
 #print(train_images)
 train_data = prep_data(train_images)
-validation_data = prep_data(validation_images)
-test_data = prep_data(test_images)
+#validation_data = prep_data(validation_images)
+#test_data = prep_data(test_images)
 
 # 正規化
 #train_data = train_data.astype('float32')
@@ -87,9 +88,9 @@ test_data = prep_data(test_images)
 train_labels = []
 for i in train_images:
     if 'refree' in i:
-        train_labels.append(0)
-    elif 'player' in i:
         train_labels.append(1)
+    elif 'player' in i:
+        train_labels.append(0)
     elif 'ow' in i:
         train_labels.append(1)
         
@@ -110,6 +111,10 @@ for i in test_images:
         test_labels.append(1)
     elif 'ow' in i:
         test_labels.append(1)
+
+
+train_data, test_data, train_labels, test_labels = train_test_split(train_data, train_labels, test_size=0.2, random_state=1)      
+train_data, validation_data, train_labels, validation_labels = train_test_split(train_data, train_labels, test_size=0.2, random_state=1)
 
 y_labels = test_labels
 
@@ -233,8 +238,8 @@ score = model.evaluate(test_data, test_labels, verbose=1)
 print('Test loss:', score[0])
 print('Test acuuracy:', score[1])
 
-model.save(OUTPUT_DIR + 'judo_model2.h5')
-model.save_weights(OUTPUT_DIR + 'judo_model2_weight.h5')
+model.save(OUTPUT_DIR + 'player_model.h5')
+model.save_weights(OUTPUT_DIR + 'player_model_weight.h5')
 
 x_test = prep_data(test_images)
 print(train_labels)
