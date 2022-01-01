@@ -126,19 +126,19 @@ predict_prob = model.predict(x_test)
 predict_classes=np.argmax(predict_prob,axis=1)
 print(predict_classes)
 
-if not os.path.isfile("/media/koshiba/Data/sportConpetitive/judo_data/output"):
-    os.makedirs("/media/koshiba/Data/sportConpetitive/judo_data/output/refree")
-    os.makedirs("/media/koshiba/Data/sportConpetitive/judo_data/output/player")
-    os.makedirs("/media/koshiba/Data/sportConpetitive/judo_data/output/ow")
+if not os.path.isfile("/media/koshiba/Data/sportConpetitive/judo_data/outputPlayer"):
+    os.makedirs("/media/koshiba/Data/sportConpetitive/judo_data/outputPlayer/refree")
+    os.makedirs("/media/koshiba/Data/sportConpetitive/judo_data/outputPlayer/player")
+    os.makedirs("/media/koshiba/Data/sportConpetitive/judo_data/outputPlayer/ow")
 
 for i, data in enumerate(test_images):
     image = cv2.imread(data)
     if predict_classes[i]==0:
-        cv2.imwrite("/media/koshiba/Data/sportConpetitive/judo_data/output/refree/"+data.split('/')[-1], image)
+        cv2.imwrite("/media/koshiba/Data/sportConpetitive/judo_data/outputPlayer/refree/"+data.split('/')[-1], image)
     elif predict_classes[i]==1:
-        cv2.imwrite("/media/koshiba/Data/sportConpetitive/judo_data/output/player/"+data.split('/')[-1], image)
+        cv2.imwrite("/media/koshiba/Data/sportConpetitive/judo_data/outputPlayer/player/"+data.split('/')[-1], image)
     elif predict_classes[i]==2:
-        cv2.imwrite("/media/koshiba/Data/sportConpetitive/judo_data/output/ow/"+data.split('/')[-1], image)
+        cv2.imwrite("/media/koshiba/Data/sportConpetitive/judo_data/outputPlayer/ow/"+data.split('/')[-1], image)
         
 score = model.evaluate(test_data, test_labels, verbose=1)
 print('Test loss:', score[0])
