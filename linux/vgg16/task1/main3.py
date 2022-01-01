@@ -103,9 +103,9 @@ for i in validation_images:
 test_labels = []
 for i in test_images:
     if 'refree' in i:
-        test_labels.append(0)
-    elif 'player' in i:
         test_labels.append(1)
+    elif 'player' in i:
+        test_labels.append(0)
     elif 'ow' in i:
         test_labels.append(1)
 
