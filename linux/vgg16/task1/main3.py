@@ -20,7 +20,7 @@ from tensorflow.keras.preprocessing.image import ImageDataGenerator
 from tensorflow.keras.optimizers import Adam
 from sklearn.model_selection import train_test_split
 
-TRAIN_DIR = "/media/koshiba/Data/sportConpetitive/judo_data/train2/"
+TRAIN_DIR = "/media/koshiba/Data/sportConpetitive/judo_data/train4/"
 TEST_DIR = "/media/koshiba/Data/sportConpetitive/judo_data/test2/"
 VALIDATION_DIR = "/media/koshiba/Data/sportConpetitive/judo_data/validation2/"
 OUTPUT_DIR = "/media/koshiba/Data/sportConpetitive/vgg16/output/"
