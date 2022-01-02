@@ -13,7 +13,7 @@ from tensorflow.keras.applications.resnet50 import ResNet50
 from efficientnet.keras import EfficientNetB0
 from tensorflow.keras.models import Sequential, Model
 from tensorflow.keras import models
-from tensorflow.keras.layers import Input, Flatten, Conv2D, MaxPooling2D, Dense, Activation, Dropout, LeakyReLU
+from tensorflow.keras.layers import Input, Flatten, Conv2D, MaxPooling2D, Dense, Activation, Dropout, LeakyReLU, BatchNormalization
 from tensorflow.keras.callbacks import Callback, EarlyStopping
 from tensorflow.keras.utils import to_categorical
 import tensorflow.keras.backend as K
@@ -176,8 +176,10 @@ def judo_model():
     model = Sequential()
     model.add(Conv2D(64, kernel_size=(5,5), activation='relu', kernel_initializer='he_normal', input_shape=(ROWS, COLS, CHANNELS)))
     model.add(MaxPooling2D(pool_size=(2,2)))
+    model.add(BatchNormalization())
     model.add(Conv2D(128, kernel_size=(5,5), activation='relu', kernel_initializer='he_normal'))
     model.add(MaxPooling2D(pool_size=(2,2)))
+    model.add(BatchNormalization())
     model.add(Flatten())
     model.add(Dense(128, activation='relu', kernel_initializer='he_normal'))
     #model.add(Dropout(0.5))
