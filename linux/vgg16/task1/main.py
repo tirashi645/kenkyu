@@ -241,7 +241,7 @@ print('Test acuuracy:', score[1])
 model.save(OUTPUT_DIR + 'player_model.h5')
 model.save_weights(OUTPUT_DIR + 'player_model_weight.h5')
 
-x_test = prep_data(test_images)
+x_test = test_data
 print(train_labels)
 print(model.predict(x_test))
 predict_prob = model.predict(x_test)
