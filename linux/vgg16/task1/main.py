@@ -114,7 +114,7 @@ for i in test_images:
 
 
 train_data, test_data, train_labels, test_labels = train_test_split(train_data, train_labels, test_size=0.2, random_state=1)      
-train_data, validation_data, train_labels, validation_labels = train_test_split(train_data, train_labels, test_size=0.2, random_state=1)
+#train_data, validation_data, train_labels, validation_labels = train_test_split(train_data, train_labels, test_size=0.2, random_state=1)
 
 y_labels = test_labels
 
@@ -216,7 +216,7 @@ early_stopping = EarlyStopping(monitor='val_loss', patience=10, verbose=1, mode=
 
 def run_judo_discriminator():
     history = LossHistory()
-    model.fit(train_data, train_labels, batch_size=batch_size, epochs=epochs, validation_data=validation_data, verbose=1, shuffle=True, callbacks=[history, early_stopping])
+    model.fit(train_data, train_labels, batch_size=batch_size, epochs=epochs, validation_split=0.3, verbose=1, shuffle=True, callbacks=[history, early_stopping])
     #model.fit_generator(augmentation_train_data, steps_per_epoch=int(len(train_data)/batch_size) , epochs=120, validation_data=augmentation_validation_data, validation_steps=int(len(validation_data)/batch_size), callbacks=[history, early_stopping])
     
     predictions = model.predict(test_data, verbose=1)
