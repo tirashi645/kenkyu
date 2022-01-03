@@ -152,6 +152,7 @@ objective = 'categorical_crossentropy'
 # モデル構築
 def judo_model():
     input_tensor = Input(shape=(ROWS, COLS, CHANNELS))
+    '''
     #vgg16 = ResNet50(include_top=False, weights='imagenet', input_tensor=input_tensor)
     vgg16 = EfficientNetB0(include_top=False, weights='imagenet', input_tensor=input_tensor)
     vgg16 = VGG16(include_top=False, weights='imagenet', input_tensor=input_tensor)
@@ -174,8 +175,10 @@ def judo_model():
     '''
     model = Sequential()
     model.add(Conv2D(64, kernel_size=(5,5), activation='relu', kernel_initializer='he_normal', input_shape=(ROWS, COLS, CHANNELS)))
+    model.add(Conv2D(64, kernel_size=(5,5), activation='relu', kernel_initializer='he_normal'))
     model.add(MaxPooling2D(pool_size=(2,2)))
     model.add(BatchNormalization())
+    model.add(Conv2D(128, kernel_size=(5,5), activation='relu', kernel_initializer='he_normal'))
     model.add(Conv2D(128, kernel_size=(5,5), activation='relu', kernel_initializer='he_normal'))
     model.add(MaxPooling2D(pool_size=(2,2)))
     model.add(BatchNormalization())
@@ -185,7 +188,6 @@ def judo_model():
     #model.add(Dense(60, activation='relu', kernel_initializer='he_normal'))
     #model.add(Dropout(0.5))
     model.add(Dense(2, activation='softmax'))
-    '''
     
     model.summary()
     model.compile(loss=objective, optimizer=optimizer, metrics=['accuracy'])
