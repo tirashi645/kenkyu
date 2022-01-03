@@ -27,8 +27,8 @@ TEST_DIR = "/media/koshiba/Data/sportConpetitive/judo_data/test2/"
 VALIDATION_DIR = "/media/koshiba/Data/sportConpetitive/judo_data/validation2/"
 OUTPUT_DIR = "/media/koshiba/Data/sportConpetitive/vgg16/output/"
 
-ROWS = 150
-COLS = 150
+ROWS = 224
+COLS = 224
 CHANNELS = 3
 #print(os.listdir(TRAIN_DIR+'refree/'))
 
@@ -159,8 +159,8 @@ def judo_model():
     top_model.add(Flatten(input_shape=vgg16.output_shape[1:]))
     #top_model.add(vgg16)
     #top_model.add(Flatten())
-    top_model.add(Dense(120, activation='relu', kernel_initializer='he_normal'))
-    #top_model.add(Dropout(0.5))
+    top_model.add(Dense(256, activation='relu', kernel_initializer='he_normal'))
+    top_model.add(Dropout(0.5))
     top_model.add(Dense(60, activation='relu', kernel_initializer='he_normal'))
     #top_model.add(Dropout(0.5))
     top_model.add(Dense(2, activation='softmax'))
