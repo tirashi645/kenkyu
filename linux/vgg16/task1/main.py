@@ -143,9 +143,9 @@ augmentation_train_data = augmentation_train_datagen.flow(train_data, train_labe
 augmentation_validation_data = augmentation_train_datagen.flow(validation_data, validation_labels, batch_size=32, seed=1234)
 
 # 最適化アルゴリズム
-#optimizer = 'SGD'
+optimizer = 'SGD'
 #optimizer = RAdam(lr=0.001)
-optimizer = Adam(lr=0.001)
+#optimizer = Adam(lr=0.001)
 # 目的関数
 objective = 'categorical_crossentropy'
 
@@ -216,7 +216,7 @@ early_stopping = EarlyStopping(monitor='val_loss', patience=10, verbose=1, mode=
 
 def run_judo_discriminator():
     history = LossHistory()
-    model.fit(train_data, train_labels, batch_size=batch_size, epochs=epochs, validation_split=0.3, verbose=1, shuffle=True, callbacks=[history])#, early_stopping])
+    model.fit(train_data, train_labels, batch_size=batch_size, epochs=epochs, validation_split=0.3, verbose=1, shuffle=True, callbacks=[history, early_stopping])
     #model.fit_generator(augmentation_train_data, steps_per_epoch=int(len(train_data)/batch_size) , epochs=120, validation_data=augmentation_validation_data, validation_steps=int(len(validation_data)/batch_size), callbacks=[history, early_stopping])
     
     predictions = model.predict(test_data, verbose=1)
