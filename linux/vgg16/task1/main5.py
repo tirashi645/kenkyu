@@ -85,13 +85,13 @@ train_data = prep_data(train_images)
 train_labels = []
 for i in train_images:
     if 'ippon' in i:
-        train_labels.append(0)
+        train_labels.append(1)
     elif 'wazaari' in i:
-        train_labels.append(1)
+        train_labels.append(0)
     elif 'normal' in i:
-        train_labels.append(1)
+        train_labels.append(0)
     elif 'tmp' in i:
-        train_labels.append(1)
+        train_labels.append(0)
         
 '''
 test_labels = []
