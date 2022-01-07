@@ -79,13 +79,13 @@ train_data = prep_data(train_images)
 train_labels = []
 for i in train_images:
     if 'ippon' in i:
-        train_labels.append(0)
+        train_labels.append(1)
     elif 'wazaari' in i:
-        train_labels.append(1)
+        train_labels.append(0)
     elif 'normal' in i:
-        train_labels.append(1)
+        train_labels.append(0)
     elif 'tmp' in i:
-        train_labels.append(1)
+        train_labels.append(0)
 
 '''  
 test_labels = []
@@ -209,8 +209,8 @@ score = model.evaluate(test_data, test_labels, verbose=1)
 print('Test loss:', score[0])
 print('Test acuuracy:', score[1])
 
-model.save(OUTPUT_DIR + 'refree_model.h5')
-model.save_weights(OUTPUT_DIR + 'refree_model_weight.h5')
+model.save(OUTPUT_DIR + 'refree_model1.h5')
+model.save_weights(OUTPUT_DIR + 'refree_model1_weight.h5')
 
 #x_test = prep_data(test_images)
 print(train_labels)
